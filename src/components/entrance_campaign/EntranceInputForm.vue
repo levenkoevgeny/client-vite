@@ -54,84 +54,91 @@
                 <div class="col-xl-3">
                   <div class="form-floating mb-3">
                     <input
+                      id="id_last_name_rus"
                       type="text"
                       class="form-control form-control-sm"
                       placeholder="Фамилия"
                       v-model="currentCadetData.last_name_rus"
                     />
-                    <label>Фамилия (рус)</label>
+                    <label for="id_last_name_rus">Фамилия (рус)</label>
                   </div>
                   <div class="form-floating mb-3">
                     <input
+                      id="id_first_name_rus"
                       type="text"
                       class="form-control"
                       placeholder="Имя"
                       v-model="currentCadetData.first_name_rus"
                     />
-                    <label>Имя (рус)</label>
+                    <label for="id_first_name_rus">Имя (рус)</label>
                   </div>
                   <div class="form-floating mb-3">
                     <input
+                      id="id_patronymic_rus"
                       type="text"
                       class="form-control"
                       placeholder="Отчество"
                       v-model="currentCadetData.patronymic_rus"
                     />
-                    <label>Отчество (рус)</label>
+                    <label for="id_patronymic_rus">Отчество (рус)</label>
                   </div>
                 </div>
                 <div class="col-xl-3">
                   <div class="form-floating mb-3">
                     <input
+                      id="id_last_name_bel"
                       type="text"
                       class="form-control form-control-sm"
-                      placeholder="Фамилия"
+                      placeholder="Фамилия (бел)"
                       v-model="currentCadetData.last_name_bel"
                     />
-                    <label>Фамилия (бел)</label>
+                    <label for="id_last_name_bel">Фамилия (бел)</label>
                   </div>
                   <div class="form-floating mb-3">
                     <input
+                      id="id_first_name_bel"
                       type="text"
                       class="form-control"
-                      placeholder="Имя"
+                      placeholder="Имя (бел)"
                       v-model="currentCadetData.first_name_bel"
                       required
                     />
-                    <label>Имя (бел)</label>
+                    <label for="id_first_name_bel">Имя (бел)</label>
                   </div>
                   <div class="form-floating mb-3">
                     <input
+                      id="id_patronymic_bel"
                       type="text"
                       class="form-control"
-                      placeholder="Отчество"
+                      placeholder="Отчество (бел)"
                       v-model="currentCadetData.patronymic_bel"
                     />
-                    <label>Отчество (бел)</label>
+                    <label for="id_patronymic_bel">Отчество (бел)</label>
                   </div>
                 </div>
                 <div class="col-xl-3">
                   <div class="form-floating mb-3">
                     <input
+                      id="id_date_of_birth"
                       type="date"
                       class="form-control"
-                      placeholder="Отчество"
+                      placeholder="Дата рождения"
                       v-model="currentCadetData.date_of_birth"
                     />
-                    <label>Дата рождения</label>
+                    <label for="id_date_of_birth">Дата рождения</label>
                   </div>
 
                   <div class="form-floating mb-3">
                     <select
+                      id="id_gender"
                       class="form-select"
-                      aria-label="Floating label select example"
                       v-model="currentCadetData.gender"
                     >
                       <option value="">---------</option>
                       <option value="1">Мужской</option>
                       <option value="0">Женский</option>
                     </select>
-                    <label for="floatingSelect">Пол</label>
+                    <label for="id_gender">Пол</label>
                   </div>
                 </div>
               </div>
@@ -145,6 +152,7 @@
                 <div class="col-xl-3">
                   <div class="form-floating mb-3">
                     <select
+                      id="id_subdivision"
                       class="form-select"
                       v-model="currentCadetData.subdivision"
                     >
@@ -156,12 +164,13 @@
                         {{ subdivision.subdivision_short_name }}
                       </option>
                     </select>
-                    <label for="floatingSelect">Факультет</label>
+                    <label for="id_subdivision">Факультет</label>
                   </div>
                 </div>
                 <div class="col-xl-3">
                   <div class="form-floating mb-3">
                     <select
+                      id="id_educational_institution"
                       class="form-select"
                       v-model="currentCadetData.educational_institution"
                     >
@@ -173,12 +182,15 @@
                         {{ educationalInstitution.educational_institution }}
                       </option>
                     </select>
-                    <label for="floatingSelect">Учреждение образования</label>
+                    <label for="id_educational_institution"
+                      >Учреждение образования</label
+                    >
                   </div>
                 </div>
                 <div class="col-xl-3">
                   <div class="form-floating mb-3">
                     <select
+                      id="id_document_type"
                       class="form-select"
                       v-model="currentCadetData.document_type"
                     >
@@ -190,12 +202,13 @@
                         {{ document_type.document_type }}
                       </option>
                     </select>
-                    <label for="floatingSelect">Документ</label>
+                    <label for="id_document_type">Документ</label>
                   </div>
                 </div>
                 <div class="col-xl-3">
                   <div class="form-floating mb-3">
                     <select
+                      id="id_privilege"
                       class="form-select"
                       v-model="currentCadetData.privilege"
                     >
@@ -207,7 +220,7 @@
                         {{ privilege.privilege }}
                       </option>
                     </select>
-                    <label for="floatingSelect">Льгота</label>
+                    <label for="id_privilege">Льгота</label>
                   </div>
                 </div>
 
@@ -215,6 +228,7 @@
                   <div class="col-xl-3">
                     <div class="form-floating mb-3">
                       <select
+                        id="id_foreign_language_was"
                         class="form-select"
                         v-model="currentCadetData.foreign_language_was"
                       >
@@ -226,12 +240,15 @@
                           {{ foreign_language.foreign_language }}
                         </option>
                       </select>
-                      <label for="floatingSelect">Иностранный язык (был)</label>
+                      <label for="id_foreign_language_was"
+                        >Иностранный язык (был)</label
+                      >
                     </div>
                   </div>
                   <div class="col-xl-3">
                     <div class="form-floating mb-3">
                       <select
+                        id="id_foreign_language_will_be"
                         class="form-select"
                         v-model="currentCadetData.foreign_language_will_be"
                       >
@@ -243,7 +260,9 @@
                           {{ foreign_language.foreign_language }}
                         </option>
                       </select>
-                      <label>Иностранный язык (будет)</label>
+                      <label for="id_foreign_language_will_be"
+                        >Иностранный язык (будет)</label
+                      >
                     </div>
                   </div>
                 </div>
@@ -328,6 +347,18 @@
                 </button>
                 <button
                   class="nav-link"
+                  id="nav-services-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#nav-services"
+                  type="button"
+                  role="tab"
+                  aria-controls="nav-services"
+                  aria-selected="false"
+                >
+                  Прохождение службы
+                </button>
+                <button
+                  class="nav-link"
                   id="nav-attached_documents-tab"
                   data-bs-toggle="tab"
                   data-bs-target="#nav-attached_documents"
@@ -354,6 +385,7 @@
                       <div class="col-lg-3">
                         <div class="form-floating mb-3">
                           <select
+                            id="id_component_organ"
                             class="form-select"
                             v-model="currentCadetData.component_organ"
                           >
@@ -365,7 +397,7 @@
                               {{ componentOrg.component_name }}
                             </option>
                           </select>
-                          <label for="floatingSelect"
+                          <label for="id_component_organ"
                             >Комплектующий орган</label
                           >
                         </div>
@@ -373,6 +405,7 @@
                       <div class="col-lg-3">
                         <div class="form-floating mb-3">
                           <select
+                            id="id_entrance_category"
                             class="form-select"
                             v-model="currentCadetData.entrance_category"
                           >
@@ -384,12 +417,13 @@
                               {{ entranceCategory.entrance_category_name }}
                             </option>
                           </select>
-                          <label for="floatingSelect">Категория</label>
+                          <label for="id_entrance_category">Категория</label>
                         </div>
                       </div>
                       <div class="col-lg-3">
                         <div class="form-floating mb-3">
                           <select
+                            id="id_social_status"
                             class="form-select"
                             v-model="currentCadetData.social_status"
                           >
@@ -401,12 +435,15 @@
                               {{ socialStatus.social_status }}
                             </option>
                           </select>
-                          <label for="floatingSelect">Социальный статус</label>
+                          <label for="id_social_status"
+                            >Социальный статус</label
+                          >
                         </div>
                       </div>
                       <div class="col-lg-3">
                         <div class="form-floating mb-3">
                           <select
+                            id="id_region_for_medical_examination"
                             class="form-select"
                             v-model="
                               currentCadetData.region_for_medical_examination
@@ -420,7 +457,9 @@
                               {{ countryRegion.country_region }}
                             </option>
                           </select>
-                          <label for="floatingSelect">Обл. для мед. ком.</label>
+                          <label for="id_region_for_medical_examination"
+                            >Обл. для мед. ком.</label
+                          >
                         </div>
                       </div>
                     </div>
@@ -429,6 +468,7 @@
                       <div class="col-lg-3">
                         <div class="form-floating mb-3">
                           <select
+                            id="id_arrived_from_go_rovd"
                             class="form-select"
                             v-model="currentCadetData.arrived_from_go_rovd"
                           >
@@ -440,12 +480,15 @@
                               {{ go_rovd.go_rovd_name }}
                             </option>
                           </select>
-                          <label for="floatingSelect">Прибыл из ГО-РОВД</label>
+                          <label for="id_arrived_from_go_rovd"
+                            >Прибыл из ГО-РОВД</label
+                          >
                         </div>
                       </div>
                       <div class="col-lg-3">
                         <div class="form-floating mb-3">
                           <select
+                            id="id_military_office"
                             class="form-select"
                             v-model="currentCadetData.military_office"
                           >
@@ -457,7 +500,7 @@
                               {{ militaryOffice.military_office }}
                             </option>
                           </select>
-                          <label for="floatingSelect">Военкомат</label>
+                          <label for="id_military_office">Военкомат</label>
                         </div>
                       </div>
 
@@ -465,13 +508,16 @@
                         <div class="form-floating mb-3">
                           <input
                             type="text"
+                            id="id_military_office_extra_data"
                             class="form-control form-control-sm"
-                            placeholder="Фамилия"
+                            placeholder="Военкомат (доп. информация)"
                             v-model="
                               currentCadetData.military_office_extra_data
                             "
                           />
-                          <label>Военкомат (доп. информация)</label>
+                          <label for="id_military_office_extra_data"
+                            >Военкомат (доп. информация)</label
+                          >
                         </div>
                       </div>
                     </div>
@@ -480,12 +526,15 @@
                       <div class="col-12">
                         <div class="form-floating mb-3">
                           <textarea
+                            id="id_extra_data"
                             class="form-control"
-                            placeholder="Leave a comment here"
+                            placeholder="Примечание для отдела кадров"
                             rows="2"
                             v-model="currentCadetData.extra_data"
                           ></textarea>
-                          <label>Примечание для отдела кадров</label>
+                          <label for="id_extra_data"
+                            >Примечание для отдела кадров</label
+                          >
                         </div>
                       </div>
                     </div>
@@ -504,6 +553,7 @@
                     <div class="col-xl-3">
                       <div class="form-floating mb-3">
                         <select
+                          id="id_education_kind"
                           class="form-select"
                           v-model="currentCadetData.education_kind"
                         >
@@ -515,12 +565,13 @@
                             {{ educationKind.education }}
                           </option>
                         </select>
-                        <label for="floatingSelect">Образование</label>
+                        <label for="id_education_kind">Образование</label>
                       </div>
                     </div>
                     <div class="col-xl-3">
                       <div class="form-floating mb-3">
                         <select
+                          id="id_education_kind"
                           class="form-select"
                           v-model="currentCadetData.education_kind"
                         >
@@ -532,7 +583,9 @@
                             {{ educationLevel.education_level }}
                           </option>
                         </select>
-                        <label for="floatingSelect">Уровень образования</label>
+                        <label for="id_education_kind"
+                          >Уровень образования</label
+                        >
                       </div>
                     </div>
                     <div class="col-xl-3">
@@ -540,6 +593,7 @@
                         {{ currentCadetData.education_graduating_start_year }}
                         <input
                           type="number"
+                          id="id_education_graduating_start_year"
                           name="education_graduating_start_year"
                           class="form-control form-control-sm"
                           placeholder="Год поступления"
@@ -548,13 +602,16 @@
                           "
                           @input="makeInputDefaultNullValueIfEmpty"
                         />
-                        <label>Год поступления</label>
+                        <label for="id_education_graduating_start_year"
+                          >Год поступления</label
+                        >
                       </div>
                     </div>
                     <div class="col-xl-3">
                       <div class="form-floating mb-3">
                         <input
                           type="number"
+                          id="id_education_graduating_end_year"
                           name="education_graduating_end_year"
                           class="form-control form-control-sm"
                           placeholder="Год окончания"
@@ -563,7 +620,9 @@
                           "
                           @input="makeInputDefaultNullValueIfEmpty"
                         />
-                        <label>Год окончания</label>
+                        <label for="id_education_graduating_end_year"
+                          >Год окончания</label
+                        >
                       </div>
                     </div>
                   </div>
@@ -572,17 +631,21 @@
                     <div class="col-xl-3">
                       <div class="form-floating mb-3">
                         <textarea
+                          id="id_education_graduated"
                           rows="2"
                           class="form-control form-control-sm"
                           v-model="currentCadetData.education_graduated"
                           placeholder="Наименование УО"
                         ></textarea>
-                        <label>Наименование УО</label>
+                        <label for="id_education_graduated"
+                          >Наименование УО</label
+                        >
                       </div>
                     </div>
                     <div class="col-xl-3">
                       <div class="form-floating mb-3">
                         <select
+                          id="id_education_location_kind"
                           class="form-select"
                           v-model="currentCadetData.education_location_kind"
                         >
@@ -594,25 +657,31 @@
                             {{ educationLocalityKind.education_location_kind }}
                           </option>
                         </select>
-                        <label for="floatingSelect">Город/село</label>
+                        <label for="id_education_location_kind"
+                          >Город/село</label
+                        >
                       </div>
                     </div>
                     <div class="col-xl-3">
                       <div class="form-floating mb-3">
                         <input
                           type="number"
+                          id="id_education_average_score"
                           name="education_average_score"
                           class="form-control form-control-sm"
                           placeholder="Средний бал"
                           v-model="currentCadetData.education_average_score"
                           @input="makeInputDefaultNullValueIfEmpty"
                         />
-                        <label>Средний бал</label>
+                        <label for="id_education_average_score"
+                          >Средний бал</label
+                        >
                       </div>
                     </div>
                     <div class="col-xl-3">
                       <div class="form-floating mb-3">
                         <select
+                          id="id_medal"
                           class="form-select"
                           v-model="currentCadetData.medal"
                         >
@@ -624,7 +693,7 @@
                             {{ medal.medal_kind }}
                           </option>
                         </select>
-                        <label for="floatingSelect">Медаль</label>
+                        <label for="id_medal">Медаль</label>
                       </div>
                     </div>
                   </div>
@@ -633,11 +702,15 @@
                     <div class="col-12">
                       <div class="form-check mb-3">
                         <input
+                          id="id_is_located_in_Minsk"
                           class="form-check-input"
                           type="checkbox"
                           v-model="currentCadetData.is_located_in_Minsk"
                         />
-                        <label class="form-check-label">
+                        <label
+                          class="form-check-label"
+                          for="id_is_located_in_Minsk"
+                        >
                           УО расположено в г. Минск
                         </label>
                       </div>
@@ -659,22 +732,24 @@
                         <div class="form-floating mb-3">
                           <input
                             type="text"
+                            id="id_place_of_birth"
                             class="form-control form-control-sm"
-                            placeholder="Фамилия"
+                            placeholder="Место рождения"
                             v-model="currentCadetData.place_of_birth"
                           />
-                          <label>Место рождения</label>
+                          <label for="id_place_of_birth">Место рождения</label>
                         </div>
                       </div>
                       <div class="col-6">
                         <div class="form-floating mb-3">
                           <input
                             type="text"
+                            id="id_phone_number"
                             class="form-control form-control-sm"
                             placeholder="Номер телефона"
                             v-model="currentCadetData.phone_number"
                           />
-                          <label>Номер телефона</label>
+                          <label for="id_phone_number">Номер телефона</label>
                         </div>
                       </div>
                     </div>
@@ -683,23 +758,29 @@
                         <div class="form-floating mb-3">
                           <input
                             type="text"
+                            id="id_address_registration"
                             class="form-control form-control-sm"
-                            placeholder="Фамилия"
+                            placeholder="Место жительства (регистрация)"
                             v-model="currentCadetData.address_registration"
                             required
                           />
-                          <label>Место жительства (регистрация)</label>
+                          <label for="id_address_registration"
+                            >Место жительства (регистрация)</label
+                          >
                         </div>
                       </div>
                       <div class="col-6">
                         <div class="form-floating mb-3">
                           <input
+                            id="id_address_residence"
                             type="text"
                             class="form-control form-control-sm"
-                            placeholder="Фамилия"
+                            placeholder="Место жительства (проживание)"
                             v-model="currentCadetData.address_residence"
                           />
-                          <label>Место жительства (проживание)</label>
+                          <label for="id_address_residence"
+                            >Место жительства (проживание)</label
+                          >
                         </div>
                       </div>
                     </div>
@@ -708,30 +789,7 @@
                         <div class="form-floating mb-3">
                           <input
                             type="text"
-                            class="form-control form-control-sm"
-                            placeholder="Фамилия"
-                            v-model="currentCadetData.address_registration"
-                          />
-                          <label>Место жительства (регистрация)</label>
-                        </div>
-                      </div>
-                      <div class="col-6">
-                        <div class="form-floating mb-3">
-                          <input
-                            type="text"
-                            class="form-control form-control-sm"
-                            placeholder="Фамилия"
-                            v-model="currentCadetData.address_residence"
-                          />
-                          <label>Место жительства (проживание)</label>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-6">
-                        <div class="form-floating mb-3">
-                          <input
-                            type="text"
+                            id="id_"
                             class="form-control form-control-sm"
                             placeholder="Документ удостоверяющий личность "
                           />
@@ -744,11 +802,12 @@
                         <div class="form-floating mb-3">
                           <input
                             type="text"
+                            id="id_passport_number"
                             class="form-control form-control-sm"
                             placeholder="Номер паспорта"
                             v-model="currentCadetData.passport_number"
                           />
-                          <label>Номер паспорта</label>
+                          <label for="id_passport_number">Номер паспорта</label>
                         </div>
                       </div>
                     </div>
@@ -757,6 +816,7 @@
                         <div class="form-floating mb-3">
                           <select
                             class="form-select"
+                            id="id_passport_issue_authority"
                             v-model="currentCadetData.passport_issue_authority"
                           >
                             <option value="">---------</option>
@@ -767,29 +827,37 @@
                               {{ passportAuthority.passport_issue_authority }}
                             </option>
                           </select>
-                          <label for="floatingSelect">Орган выдачи</label>
+                          <label for="id_passport_issue_authority"
+                            >Орган выдачи</label
+                          >
                         </div>
                       </div>
                       <div class="col-xl-3">
                         <div class="form-floating mb-3">
                           <input
                             type="date"
+                            id="id_passport_issue_date"
                             class="form-control form-control-sm"
-                            placeholder="Номер паспорта"
+                            placeholder="Дата выдачи"
                             v-model="currentCadetData.passport_issue_date"
                           />
-                          <label>Дата выдачи</label>
+                          <label for="id_passport_issue_date"
+                            >Дата выдачи</label
+                          >
                         </div>
                       </div>
                       <div class="col-xl-3">
                         <div class="form-floating mb-3">
                           <input
                             type="date"
+                            id="id_passport_validity_period"
                             class="form-control form-control-sm"
-                            placeholder="Номер паспорта"
+                            placeholder="Срок действия"
                             v-model="currentCadetData.passport_validity_period"
                           />
-                          <label>Срок действия</label>
+                          <label for="id_passport_validity_period"
+                            >Срок действия</label
+                          >
                         </div>
                       </div>
                     </div>
@@ -985,6 +1053,7 @@
                       <div class="col-xl-6">
                         <div class="form-floating mb-3">
                           <select
+                            id="id_vpk"
                             class="form-select"
                             v-model="currentCadetData.vpk"
                           >
@@ -996,9 +1065,7 @@
                               {{ vpk.category }}
                             </option>
                           </select>
-                          <label for="floatingSelect"
-                            >Военно-патриотический клуб</label
-                          >
+                          <label for="id_vpk">Военно-патриотический клуб</label>
                         </div>
                       </div>
                       <div class="col-xl-6">
@@ -1111,6 +1178,7 @@
                       <div class="col-xl-4">
                         <div class="form-floating mb-3">
                           <select
+                            id="id_health_group"
                             class="form-select"
                             aria-label="Floating label select example"
                             v-model="currentCadetData.health_group"
@@ -1122,12 +1190,13 @@
                             <option value="4">4</option>
                             <option value="5">5</option>
                           </select>
-                          <label for="floatingSelect">Группа здоровья</label>
+                          <label for="id_health_group">Группа здоровья</label>
                         </div>
                       </div>
                       <div class="col-xl-4">
                         <div class="form-floating mb-3">
                           <select
+                            id="id_ppfl_test"
                             class="form-select"
                             v-model="currentCadetData.ppfl_test"
                           >
@@ -1139,12 +1208,13 @@
                               {{ ppfl.category }}
                             </option>
                           </select>
-                          <label for="floatingSelect">Тест ПФЛ</label>
+                          <label for="id_ppfl_test">Тест ПФЛ</label>
                         </div>
                       </div>
                       <div class="col-xl-4">
                         <div class="form-floating mb-3">
                           <select
+                            id="id_medical_age_group"
                             class="form-select"
                             aria-label="Floating label select example"
                             v-model="currentCadetData.medical_age_group"
@@ -1156,7 +1226,7 @@
                             <option value="4">4</option>
                             <option value="5">5</option>
                           </select>
-                          <label for="floatingSelect"
+                          <label for="id_medical_age_group"
                             >Медико-возрастная группа</label
                           >
                         </div>
@@ -1181,13 +1251,14 @@
                         <div class="form-floating mb-3">
                           <input
                             class="form-control"
+                            placeholder="Дата прохождения"
                             type="date"
                             v-model="
                               currentCadetData.passed_medical_examination_date
                             "
                           />
                           <label class="form-check-label" for="checkDefault"
-                            >Дата прохожденияи
+                            >Дата прохождения
                           </label>
                         </div>
                       </div>
@@ -1209,6 +1280,116 @@
                   </div>
                 </div>
               </div>
+
+              <div
+                class="tab-pane fade"
+                id="nav-services"
+                role="tabpanel"
+                aria-labelledby="nav-med-tab"
+                tabindex="0"
+              >
+                <div>
+                  <div class="my-3">
+                    <h5>Служба в ВС РБ</h5>
+                    <div class="row">
+                      <div class="col-xl-2">
+                        <div class="form-floating mb-3">
+                          <input
+                            type="date"
+                            class="form-control form-control-sm"
+                            placeholder="Начало"
+                            v-model="currentCadetData.military_service_start"
+                          />
+                          <label>Начало</label>
+                        </div>
+                      </div>
+                      <div class="col-xl-2">
+                        <div class="form-floating mb-3">
+                          <input
+                            type="date"
+                            class="form-control form-control-sm"
+                            placeholder="Окончание"
+                            v-model="currentCadetData.military_service_end"
+                          />
+                          <label>Окончание</label>
+                        </div>
+                      </div>
+
+                      <div class="col-xl-4">
+                        <div class="form-floating mb-3">
+                          <textarea
+                            class="form-control"
+                            placeholder="Место прохождения службы"
+                            rows="2"
+                            v-model="currentCadetData.military_organization"
+                          ></textarea>
+                          <label>Место прохождения службы</label>
+                        </div>
+                      </div>
+                      <div class="col-xl-4">
+                        <div class="form-floating mb-3">
+                          <textarea
+                            class="form-control"
+                            placeholder="Должность"
+                            rows="2"
+                            v-model="currentCadetData.military_position"
+                          ></textarea>
+                          <label>Должность</label>
+                        </div>
+                      </div>
+                    </div>
+                    <h5>Служба в МВД</h5>
+                    <div class="row">
+                      <div class="col-xl-2">
+                        <div class="form-floating mb-3">
+                          <input
+                            type="date"
+                            class="form-control form-control-sm"
+                            placeholder="Начало"
+                            v-model="currentCadetData.mvd_service_start"
+                          />
+                          <label>Начало</label>
+                        </div>
+                      </div>
+                      <div class="col-xl-2">
+                        <div class="form-floating mb-3">
+                          <input
+                            type="date"
+                            class="form-control form-control-sm"
+                            placeholder="Окончание"
+                            v-model="currentCadetData.mvd_service_end"
+                          />
+                          <label>Окончание</label>
+                        </div>
+                      </div>
+
+                      <div class="col-xl-4">
+                        <div class="form-floating mb-3">
+                          <textarea
+                            class="form-control"
+                            placeholder="Место прохождения службы"
+                            rows="2"
+                            v-model="currentCadetData.mvd_organization"
+                          ></textarea>
+                          <label>Место прохождения службы</label>
+                        </div>
+                      </div>
+                      <div class="col-xl-4">
+                        <div class="form-floating mb-3">
+                          <textarea
+                            class="form-control"
+                            placeholder="Должность"
+                            rows="2"
+                            v-model="currentCadetData.mvd_position"
+                          ></textarea>
+                          <label>Должность</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <div
                 class="tab-pane fade"
                 id="nav-attached_documents"
@@ -1273,6 +1454,8 @@
                 </div>
               </div>
             </div>
+
+            <div class="border-bottom border-4 my-3"></div>
 
             <div class="card shadow mb-2 rounded border-0">
               <div class="card-body">
@@ -1369,7 +1552,7 @@
                     </div>
                   </div>
                   <div class="col-xl-4">
-                    <p1>Сертификаты</p1>
+                    <p>Сертификаты</p>
                     <div class="form-check mb-3">
                       <input
                         class="form-check-input"
@@ -1452,6 +1635,72 @@
                       <label class="form-check-label">ФП</label>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+
+            <h5>Заявление</h5>
+            <div class="row">
+              <div class="col-xl-6">
+                <div class="form-floating mb-3">
+                  <select id="id_s1" class="form-select">
+                    <option value="">---------</option>
+                    <option
+                      :value="speciality.id"
+                      v-for="speciality in orderedSpecialities"
+                    >
+                      {{ speciality.speciality_name }}
+                    </option>
+                  </select>
+                  <label for="id_subdivision">Специальность 1</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <select id="id_s1" class="form-select">
+                    <option value="">---------</option>
+                    <option
+                      :value="speciality.id"
+                      v-for="speciality in orderedSpecialities"
+                    >
+                      {{ speciality.speciality_name }}
+                    </option>
+                  </select>
+                  <label for="id_subdivision">Специальность 2</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <select id="id_s1" class="form-select">
+                    <option value="">---------</option>
+                    <option
+                      :value="speciality.id"
+                      v-for="speciality in orderedSpecialities"
+                    >
+                      {{ speciality.speciality_name }}
+                    </option>
+                  </select>
+                  <label for="id_subdivision">Специальность 3</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <select id="id_s1" class="form-select">
+                    <option value="">---------</option>
+                    <option
+                      :value="speciality.id"
+                      v-for="speciality in orderedSpecialities"
+                    >
+                      {{ speciality.speciality_name }}
+                    </option>
+                  </select>
+                  <label for="id_subdivision">Специальность 4</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <select id="id_s1" class="form-select">
+                    <option value="">---------</option>
+                    <option
+                      :value="speciality.id"
+                      v-for="speciality in orderedSpecialities"
+                    >
+                      {{ speciality.speciality_name }}
+                    </option>
+                  </select>
+                  <label for="id_subdivision">Специальность 5</label>
                 </div>
               </div>
             </div>
@@ -1612,13 +1861,6 @@ export default {
       try {
         const response = await this.cadetAPIInstance.getItemData(applicantId)
         this.currentCadetData = await response.data
-
-        // for (const key in this.currentCadetData) {
-        //   if (this.currentCadetData[key] === null) {
-        //     this.currentCadetData[key] = ""
-        //   }
-        // }
-
         this.currentCadetDataFromServer = Object.assign(
           {},
           this.currentCadetData,
@@ -1676,13 +1918,14 @@ export default {
         this.currentCadetData[event.target.name] = null
       }
     },
+    removeFileFieldsFromObj(obj) {
+      const { photo, attached_documents, ...rest } = obj
+      return rest
+    },
   },
   computed: {
     orderedCadetCategories() {
       return this.categories.results
-    },
-    orderedCadets() {
-      return this.cadetList.results
     },
     orderedSubdivisions() {
       return this.subdivisions.results.filter(
@@ -1758,10 +2001,10 @@ export default {
     },
 
     isDataFromServerEqualChangedData() {
-      const { photo1, attached_documents1, ...obj1 } = this.currentCadetData
-      const { photo2, attached_documents2, ...obj2 } =
-        this.currentCadetDataFromServer
-      return isEqual(obj1, obj2)
+      return isEqual(
+        this.removeFileFieldsFromObj(this.currentCadetData),
+        this.removeFileFieldsFromObj(this.currentCadetDataFromServer),
+      )
     },
 
     ...mapGetters({

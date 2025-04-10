@@ -210,6 +210,8 @@
           </div>
         </div>
       </div>
+    </template>
+    <template v-slot:search-form-clear-button>
       <button type="button" class="btn btn-primary" @click="clearFilter">
         Сбросить фильтр
       </button>

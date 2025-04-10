@@ -65,11 +65,11 @@
                 class="btn btn-secondary-phoenix text-center border-0"
                 @click="logOut"
               >
-                <nobr
+                <span class="text-nowrap"
                   ><font-awesome-icon
                     :icon="['fas', 'arrow-right-from-bracket']"
                   />
-                  Выход из системы</nobr
+                  Выход из системы</span
                 >
               </button>
             </div>
