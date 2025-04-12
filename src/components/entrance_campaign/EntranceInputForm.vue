@@ -20,6 +20,10 @@
             }"
           >
             Личное дело абитуриента
+            <!--            <p v-for="error of v$.currentCadetData.$errors">-->
+            <!--              {{ error.$property }} - {{ error.$message }}-->
+            <!--            </p>-->
+
             <span class="fw-normal text-decoration-underline"
               >{{ currentCadetData.last_name_rus }}
               {{ currentCadetData.first_name_rus }}</span
@@ -29,6 +33,9 @@
             <p>
               <font-awesome-icon :icon="['fas', 'print']" /> Заявление
               отпечатано
+              <span v-if="currentCadetData.application_has_been_printed_date">
+                - {{ currentCadetData.application_has_been_printed_date }}</span
+              >
             </p>
           </div>
         </div>
@@ -1910,7 +1917,9 @@
                 <p class="fw-bold">
                   Сертификаты централизованного тестирования
                 </p>
-                <table class="table table-bordered">
+                {{ currentCadetDataFromServer.rus_score_ct }}
+                {{ currentCadetData.rus_score_ct }}
+                <table class="table">
                   <thead>
                     <tr>
                       <th class="text-center table-primary">Русский</th>
@@ -1948,30 +1957,38 @@
                     <tr>
                       <td class="text-center table-primary">
                         <input
+                          name="rus_score_ct"
                           type="number"
                           class="form-control text-center"
-                          value="45"
+                          v-model="currentCadetData.rus_score_ct"
+                          @input="makeInputDefaultNullValueIfEmpty"
                         />
                       </td>
                       <td class="text-center table-primary">
                         <input
+                          name="bel_score_ct"
                           type="number"
                           class="form-control text-center"
-                          value="50"
+                          v-model="currentCadetData.bel_score_ct"
+                          @input="makeInputDefaultNullValueIfEmpty"
                         />
                       </td>
                       <td class="text-center table-warning">
                         <input
+                          name="social_science_ct"
                           type="number"
                           class="form-control text-center"
-                          value="55"
+                          v-model="currentCadetData.social_science_ct"
+                          @input="makeInputDefaultNullValueIfEmpty"
                         />
                       </td>
                       <td class="text-center table-success">
                         <input
+                          name="foreign_lang_ct"
                           type="number"
                           class="form-control text-center"
-                          value="70"
+                          v-model="currentCadetData.foreign_lang_ct"
+                          @input="makeInputDefaultNullValueIfEmpty"
                         />
                       </td>
                     </tr>
@@ -2037,9 +2054,9 @@
                     </tr>
                   </tbody>
                 </table>
-
+                <div class="border-bottom border-4 my-3"></div>
                 <p class="fw-bold">Аттестат, 10 / 10 /100</p>
-                <table class="table table-bordered">
+                <table class="table">
                   <thead>
                     <tr>
                       <th class="text-center table-primary">Русский</th>
@@ -2054,38 +2071,46 @@
                     <tr>
                       <td class="text-center table-primary">
                         <input
+                          name="rus_score_cert"
                           type="number"
                           class="form-control text-center"
-                          value="7"
+                          v-model="currentCadetData.rus_score_cert"
+                          @input="makeInputDefaultNullValueIfEmpty"
                         />
                       </td>
                       <td class="text-center table-primary">
                         <input
+                          name="bel_score_cert"
                           type="number"
                           class="form-control text-center"
-                          value="7"
+                          v-model="currentCadetData.bel_score_cert"
+                          @input="makeInputDefaultNullValueIfEmpty"
                         />
                       </td>
                       <td class="text-center table-warning">
                         <input
+                          name="social_science_cert"
                           type="number"
                           class="form-control text-center"
-                          value="7"
+                          v-model="currentCadetData.social_science_cert"
+                          @input="makeInputDefaultNullValueIfEmpty"
                         />
                       </td>
                       <td class="text-center table-success">
                         <input
+                          name="foreign_lang_cert"
                           type="number"
                           class="form-control text-center"
-                          value="8"
+                          v-model="currentCadetData.foreign_lang_cert"
+                          @input="makeInputDefaultNullValueIfEmpty"
                         />
                       </td>
                     </tr>
                     <tr>
-                      <td colspan="2" class="text-center table-primary">
+                      <td colspan="2" class="text-center table-primary fw-bold">
                         Средний балл (аттестата)
                       </td>
-                      <td colspan="2" class="text-center table-primary">
+                      <td colspan="2" class="text-center table-primary fw-bold">
                         Сумма (рус. + бел.)
                       </td>
                     </tr>
@@ -2094,7 +2119,7 @@
                         <input
                           type="number"
                           class="form-control text-center"
-                          value="7"
+                          :value="getAverageCertificateScore"
                           disabled
                         />
                       </td>
@@ -2102,7 +2127,7 @@
                         <input
                           type="number"
                           class="form-control text-center"
-                          value="7"
+                          :value="getARussianAndBelorussianSumScore"
                           disabled
                         />
                       </td>
@@ -2152,9 +2177,10 @@
 <script>
 import NavigationLayout from "@/components/layouts/NavigationLayout.vue"
 import { globalCadetAPIForEntranceInstance } from "@/api/cadet/cadetAPI"
-import { debounce } from "lodash/function"
 import { isEqual } from "lodash"
 import { mapGetters } from "vuex"
+import useVuelidate from "@vuelidate/core"
+import { required, helpers, minValue, maxValue } from "@vuelidate/validators"
 
 export default {
   name: "EntranceInputForm",
@@ -2284,12 +2310,50 @@ export default {
         is_vv: "",
         is_fp: "",
         application_has_been_printed: "",
+        application_has_been_printed_date: "",
+        rus_score_ct: "",
+        bel_score_ct: "",
+        social_science_ct: "",
+        foreign_lang_ct: "",
+        rus_score_cert: "",
+        bel_score_cert: "",
+        social_science_cert: "",
+        foreign_lang_cert: "",
       },
       currentCadetDataFromServer: {},
       cadetAPIInstance: globalCadetAPIForEntranceInstance,
       BACKEND_PROTOCOL: import.meta.env.VITE_APP_BACKEND_PROTOCOL,
       BACKEND_HOST: import.meta.env.VITE_APP_BACKEND_HOST,
       BACKEND_PORT: import.meta.env.VITE_APP_BACKEND_PORT,
+    }
+  },
+  setup() {
+    return { v$: useVuelidate() }
+  },
+  validations() {
+    const minValueValue = minValue(2000)
+    const maxValueValue = maxValue(2025)
+    return {
+      currentCadetData: {
+        last_name_rus: {
+          required: helpers.withMessage(
+            "Поле фамилия (рус) не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        education_graduating_end_year: {
+          maxValueValue: helpers.withMessage(
+            "Значение поля 'Год окончания школы' не может быть больше 2025",
+            maxValueValue,
+          ),
+          minValueValue: helpers.withMessage(
+            "Значение поля 'Год окончания школы' не может быть меньше 2000",
+            minValueValue,
+          ),
+          $autoDirty: true,
+        },
+      },
     }
   },
   async created() {
@@ -2338,18 +2402,22 @@ export default {
       }
     },
     async saveEntranceForm() {
-      this.isDataSaving = true
-      try {
-        const { photo, attached_documents, ...rest } = this.currentCadetData
-        const updatedData = await this.cadetAPIInstance.updateItem(rest)
-        this.currentCadetData = updatedData.data
-        this.currentCadetDataFromServer = Object.assign(
-          {},
-          this.currentCadetData,
-        )
-      } catch (e) {
-      } finally {
-        this.isDataSaving = false
+      if (this.v$.$invalid) {
+        alert("Form is invalid!!!")
+      } else {
+        this.isDataSaving = true
+        try {
+          const { photo, attached_documents, ...rest } = this.currentCadetData
+          const updatedData = await this.cadetAPIInstance.updateItem(rest)
+          this.currentCadetData = updatedData.data
+          this.currentCadetDataFromServer = Object.assign(
+            {},
+            this.currentCadetData,
+          )
+        } catch (e) {
+        } finally {
+          this.isDataSaving = false
+        }
       }
     },
     makeInputDefaultNullValueIfEmpty(event) {
@@ -2484,6 +2552,43 @@ export default {
         this.removeFileFieldsFromObj(this.currentCadetData),
         this.removeFileFieldsFromObj(this.currentCadetDataFromServer),
       )
+    },
+
+    getAverageCertificateScore() {
+      let averageCertificateScore = ""
+      if (
+        isFinite(this.currentCadetData.rus_score_cert) &&
+        this.currentCadetData.rus_score_cert !== null &&
+        isFinite(this.currentCadetData.bel_score_cert) &&
+        this.currentCadetData.bel_score_cert !== null &&
+        isFinite(this.currentCadetData.social_science_cert) &&
+        this.currentCadetData.social_science_cert !== null &&
+        isFinite(this.currentCadetData.foreign_lang_cert) &&
+        this.currentCadetData.foreign_lang_cert !== null
+      ) {
+        averageCertificateScore =
+          (this.currentCadetData.rus_score_cert +
+            this.currentCadetData.bel_score_cert +
+            this.currentCadetData.social_science_cert +
+            this.currentCadetData.foreign_lang_cert) /
+          4
+        return averageCertificateScore.toFixed(1)
+      }
+      return averageCertificateScore
+    },
+    getARussianAndBelorussianSumScore() {
+      let scoreSum = ""
+      if (
+        isFinite(this.currentCadetData.rus_score_cert) &&
+        this.currentCadetData.rus_score_cert !== null &&
+        isFinite(this.currentCadetData.bel_score_cert)
+      ) {
+        scoreSum =
+          this.currentCadetData.rus_score_cert +
+          this.currentCadetData.bel_score_cert
+        return scoreSum
+      }
+      return scoreSum
     },
 
     ...mapGetters({
