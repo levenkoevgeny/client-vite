@@ -21,3 +21,8 @@ export { default as ForeignLanguagesListView } from "./foreignLanguages/ForeignL
 export { default as GraduationReasonsListView } from "./graduationReasons/GraduationReasonsListView.vue"
 export { default as EducationFormsListView } from "./educationForms/EducationFormsListView.vue"
 export { default as ForeignLanguageLevelsListView } from "./foreignLanguageLevels/ForeignLanguageLevelsListView.vue"
+export { default as EntranceCategoryListView } from "./entranceCategory/EntranceCategoryListView.vue"
+export { default as SocialStatusListView } from "./socialStatus/SocialStatusListView.vue"
+export { default as EducationKindListView } from "./educationKind/EducationKindListView.vue"
+export { default as EducationLevelListView } from "./educationLevel/EducationLevelListView.vue"
+export { default as EducationLocationKindList } from "./educationLocationKind/EducationLocationKindList.vue"

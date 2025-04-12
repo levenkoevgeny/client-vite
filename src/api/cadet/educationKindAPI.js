@@ -8,6 +8,8 @@ export default function getEducationKindAPIInstance() {
     {
       education__icontains: "",
     },
-    {},
+    {
+      education: "",
+    },
   )
 }

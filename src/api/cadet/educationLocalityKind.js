@@ -6,8 +6,10 @@ export default function getEducationLocalityKindAPIInstance() {
   return new educationLocalityKindAPI(
     "education-locality-kind",
     {
-      education_locality_kind__icontains: "",
+      education_location_kind__icontains: "",
     },
-    {},
+    {
+      education_location_kind: "",
+    },
   )
 }

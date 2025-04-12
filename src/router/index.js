@@ -54,6 +54,11 @@ import {
   GraduationReasonsListView,
   EducationFormsListView,
   ForeignLanguageLevelsListView,
+  EntranceCategoryListView,
+  SocialStatusListView,
+  EducationKindListView,
+  EducationLevelListView,
+  EducationLocationKindList,
 } from "@/components/dictionaries"
 
 import LoginView from "@/components/auth/LoginView.vue"
@@ -333,6 +338,31 @@ const routes = [
             path: "passport-foreign-language-levels",
             component: ForeignLanguageLevelsListView,
             name: "dictionaries-foreign-language-levels",
+          },
+          {
+            path: "entrance-categories",
+            component: EntranceCategoryListView,
+            name: "dictionaries-entrance-categories",
+          },
+          {
+            path: "social-statuses",
+            component: SocialStatusListView,
+            name: "dictionaries-social-statuses",
+          },
+          {
+            path: "education-kinds",
+            component: EducationKindListView,
+            name: "dictionaries-education-kinds",
+          },
+          {
+            path: "education-levels",
+            component: EducationLevelListView,
+            name: "dictionaries-education-levels",
+          },
+          {
+            path: "education-location-kinds",
+            component: EducationLocationKindList,
+            name: "dictionaries-education-location-kinds",
           },
         ],
       },
