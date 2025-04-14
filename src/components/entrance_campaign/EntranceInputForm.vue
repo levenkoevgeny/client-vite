@@ -1,5 +1,91 @@
 <template>
   <div class="container-fluid">
+    <!--    Validation modal-->
+    <div
+      class="modal fade"
+      id="id_validationErrorsModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      ref="validationErrorsModal"
+    >
+      <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Для сохранения данных исправте следующие ошибки:
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <div style="max-height: 400px; overflow-y: auto">
+              <p v-for="error of v$.currentCadetData.$errors">
+                {{ error.$message }}
+              </p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              ref="cadetAddModalCloseButton"
+            >
+              Закрыть
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Has to save data before printing-->
+    <div
+      class="modal fade"
+      id="id_hasToSaveDataModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      ref="hasToSaveDataModal"
+    >
+      <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Несохраненные данные!
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <h1 class="fs-5">
+              Прежде чем распечатать заявление сохраните все изменения!
+            </h1>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              ref="cadetAddModalCloseButton"
+            >
+              Закрыть
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div
       v-if="isLoading || isCommonLoading"
       style="height: calc(100vh - 170px)"
@@ -20,10 +106,6 @@
             }"
           >
             Личное дело абитуриента
-            <!--            <p v-for="error of v$.currentCadetData.$errors">-->
-            <!--              {{ error.$property }} - {{ error.$message }}-->
-            <!--            </p>-->
-
             <span class="fw-normal text-decoration-underline"
               >{{ currentCadetData.last_name_rus }}
               {{ currentCadetData.first_name_rus }}</span
@@ -153,7 +235,7 @@
                       class="form-select"
                       v-model="currentCadetData.gender"
                     >
-                      <option value="">---------</option>
+                      <option :value="null">---------</option>
                       <option value="1">Мужской</option>
                       <option value="0">Женский</option>
                     </select>
@@ -175,7 +257,7 @@
                       class="form-select"
                       v-model="currentCadetData.subdivision"
                     >
-                      <option value="">---------</option>
+                      <option :value="null">---------</option>
                       <option
                         :value="subdivision.id"
                         v-for="subdivision in orderedSubdivisions"
@@ -193,7 +275,7 @@
                       class="form-select"
                       v-model="currentCadetData.educational_institution"
                     >
-                      <option value="">---------</option>
+                      <option :value="null">---------</option>
                       <option
                         :value="educationalInstitution.id"
                         v-for="educationalInstitution in orderedEducationalInstitutions"
@@ -213,7 +295,7 @@
                       class="form-select"
                       v-model="currentCadetData.document_type"
                     >
-                      <option value="">---------</option>
+                      <option :value="null">---------</option>
                       <option
                         :value="document_type.id"
                         v-for="document_type in orderedDocumentTypes"
@@ -231,7 +313,7 @@
                       class="form-select"
                       v-model="currentCadetData.privilege"
                     >
-                      <option value="">---------</option>
+                      <option :value="null">---------</option>
                       <option
                         :value="privilege.id"
                         v-for="privilege in orderedPrivileges"
@@ -251,7 +333,7 @@
                         class="form-select"
                         v-model="currentCadetData.foreign_language_was"
                       >
-                        <option value="">---------</option>
+                        <option :value="null">---------</option>
                         <option
                           :value="foreign_language.id"
                           v-for="foreign_language in orderedForeignLanguages"
@@ -271,7 +353,7 @@
                         class="form-select"
                         v-model="currentCadetData.foreign_language_will_be"
                       >
-                        <option value="">---------</option>
+                        <option :value="null">---------</option>
                         <option
                           :value="foreign_language.id"
                           v-for="foreign_language in orderedForeignLanguages"
@@ -409,7 +491,7 @@
                               class="form-select"
                               v-model="currentCadetData.component_organ"
                             >
-                              <option value="">---------</option>
+                              <option :value="null">---------</option>
                               <option
                                 :value="componentOrg.id"
                                 v-for="componentOrg in orderedComponentOrgans"
@@ -429,7 +511,7 @@
                               class="form-select"
                               v-model="currentCadetData.entrance_category"
                             >
-                              <option value="">---------</option>
+                              <option :value="null">---------</option>
                               <option
                                 :value="entranceCategory.id"
                                 v-for="entranceCategory in orderedEntranceCategories"
@@ -447,7 +529,7 @@
                               class="form-select"
                               v-model="currentCadetData.social_status"
                             >
-                              <option value="">---------</option>
+                              <option :value="null">---------</option>
                               <option
                                 :value="socialStatus.id"
                                 v-for="socialStatus in orderedSocialStatuses"
@@ -469,7 +551,7 @@
                                 currentCadetData.region_for_medical_examination
                               "
                             >
-                              <option value="">---------</option>
+                              <option :value="null">---------</option>
                               <option
                                 :value="countryRegion.id"
                                 v-for="countryRegion in orderedCountryRegions"
@@ -492,7 +574,7 @@
                               class="form-select"
                               v-model="currentCadetData.arrived_from_go_rovd"
                             >
-                              <option value="">---------</option>
+                              <option :value="null">---------</option>
                               <option
                                 :value="go_rovd.id"
                                 v-for="go_rovd in orderedGorovds"
@@ -512,7 +594,7 @@
                               class="form-select"
                               v-model="currentCadetData.military_office"
                             >
-                              <option value="">---------</option>
+                              <option :value="null">---------</option>
                               <option
                                 :value="militaryOffice.id"
                                 v-for="militaryOffice in orderedMilitaryOffices"
@@ -577,7 +659,7 @@
                             class="form-select"
                             v-model="currentCadetData.education_kind"
                           >
-                            <option value="">---------</option>
+                            <option :value="null">---------</option>
                             <option
                               :value="educationKind.id"
                               v-for="educationKind in orderedEducationKinds"
@@ -595,7 +677,7 @@
                             class="form-select"
                             v-model="currentCadetData.education_kind"
                           >
-                            <option value="">---------</option>
+                            <option :value="null">---------</option>
                             <option
                               :value="educationLevel.id"
                               v-for="educationLevel in orderedEducationLevels"
@@ -669,7 +751,7 @@
                             class="form-select"
                             v-model="currentCadetData.education_location_kind"
                           >
-                            <option value="">---------</option>
+                            <option :value="null">---------</option>
                             <option
                               :value="educationLocalityKind.id"
                               v-for="educationLocalityKind in orderedEducationLocalityKinds"
@@ -707,7 +789,7 @@
                             class="form-select"
                             v-model="currentCadetData.medal"
                           >
-                            <option value="">---------</option>
+                            <option :value="null">---------</option>
                             <option
                               :value="medal.id"
                               v-for="medal in orderedMedals"
@@ -847,7 +929,7 @@
                                 currentCadetData.passport_issue_authority
                               "
                             >
-                              <option value="">---------</option>
+                              <option :value="null">---------</option>
                               <option
                                 :value="passportAuthority.id"
                                 v-for="passportAuthority in orderedPassportAuthorities"
@@ -1121,7 +1203,7 @@
                               class="form-select"
                               v-model="currentCadetData.vpk"
                             >
-                              <option value="">---------</option>
+                              <option :value="null">---------</option>
                               <option
                                 :value="vpk.id"
                                 v-for="vpk in orderedVpkCategories"
@@ -1275,7 +1357,7 @@
                               aria-label="Floating label select example"
                               v-model="currentCadetData.health_group"
                             >
-                              <option value="">---------</option>
+                              <option :value="null">---------</option>
                               <option value="1">1</option>
                               <option value="2">2</option>
                               <option value="3">3</option>
@@ -1292,7 +1374,7 @@
                               class="form-select"
                               v-model="currentCadetData.ppfl_test"
                             >
-                              <option value="">---------</option>
+                              <option :value="null">---------</option>
                               <option
                                 :value="ppfl.id"
                                 v-for="ppfl in orderedPpflCategories"
@@ -1311,7 +1393,7 @@
                               aria-label="Floating label select example"
                               v-model="currentCadetData.medical_age_group"
                             >
-                              <option value="">---------</option>
+                              <option :value="null">---------</option>
                               <option value="1">1</option>
                               <option value="2">2</option>
                               <option value="3">3</option>
@@ -1827,8 +1909,12 @@
           <div class="row">
             <div class="col-xl-6">
               <div class="form-floating mb-3">
-                <select id="id_s1" class="form-select">
-                  <option value="">---------</option>
+                <select
+                  id="id_s1"
+                  class="form-select"
+                  v-model="currentCadetData.speciality_1"
+                >
+                  <option :value="null">---------</option>
                   <option
                     :value="speciality.id"
                     v-for="speciality in orderedSpecialities"
@@ -1839,8 +1925,12 @@
                 <label for="id_s1">Специальность 1</label>
               </div>
               <div class="form-floating mb-3">
-                <select id="id_s2" class="form-select">
-                  <option value="">---------</option>
+                <select
+                  id="id_s2"
+                  class="form-select"
+                  v-model="currentCadetData.speciality_2"
+                >
+                  <option :value="null">---------</option>
                   <option
                     :value="speciality.id"
                     v-for="speciality in orderedSpecialities"
@@ -1851,8 +1941,12 @@
                 <label for="id_s2">Специальность 2</label>
               </div>
               <div class="form-floating mb-3">
-                <select id="id_s3" class="form-select">
-                  <option value="">---------</option>
+                <select
+                  id="id_s3"
+                  class="form-select"
+                  v-model="currentCadetData.speciality_3"
+                >
+                  <option :value="null">---------</option>
                   <option
                     :value="speciality.id"
                     v-for="speciality in orderedSpecialities"
@@ -1863,8 +1957,12 @@
                 <label for="id_s3">Специальность 3</label>
               </div>
               <div class="form-floating mb-3">
-                <select id="id_s4" class="form-select">
-                  <option value="">---------</option>
+                <select
+                  id="id_s4"
+                  class="form-select"
+                  v-model="currentCadetData.speciality_4"
+                >
+                  <option :value="null">---------</option>
                   <option
                     :value="speciality.id"
                     v-for="speciality in orderedSpecialities"
@@ -1875,8 +1973,12 @@
                 <label for="id_s4">Специальность 4</label>
               </div>
               <div class="form-floating mb-3">
-                <select id="id_s5" class="form-select">
-                  <option value="">---------</option>
+                <select
+                  id="id_s5"
+                  class="form-select"
+                  v-model="currentCadetData.speciality_5"
+                >
+                  <option :value="null">---------</option>
                   <option
                     :value="speciality.id"
                     v-for="speciality in orderedSpecialities"
@@ -1887,8 +1989,12 @@
                 <label for="id_s5">Специальность 5</label>
               </div>
               <div class="form-floating mb-3">
-                <select id="id_s6" class="form-select">
-                  <option value="">---------</option>
+                <select
+                  id="id_s6"
+                  class="form-select"
+                  v-model="currentCadetData.speciality_6"
+                >
+                  <option :value="null">---------</option>
                   <option
                     :value="speciality.id"
                     v-for="speciality in orderedSpecialities"
@@ -1899,8 +2005,12 @@
                 <label for="id_s6">Специальность 6</label>
               </div>
               <div class="form-floating mb-3">
-                <select id="id_s7" class="form-select">
-                  <option value="">---------</option>
+                <select
+                  id="id_s7"
+                  class="form-select"
+                  v-model="currentCadetData.speciality_7"
+                >
+                  <option :value="null">---------</option>
                   <option
                     :value="speciality.id"
                     v-for="speciality in orderedSpecialities"
@@ -2149,7 +2259,11 @@
               <font-awesome-icon :icon="['fas', 'print']" />&nbsp;&nbsp;
               Заявление отпечатано
             </button>
-            <button v-else class="btn btn-primary">
+            <button
+              v-else
+              class="btn btn-primary"
+              @click="printApplication(this.currentCadetData.id)"
+            >
               <font-awesome-icon :icon="['fas', 'print']" />&nbsp;&nbsp;
               Отпечатать заявление
             </button>
@@ -2319,6 +2433,13 @@ export default {
         bel_score_cert: "",
         social_science_cert: "",
         foreign_lang_cert: "",
+        speciality_1: "",
+        speciality_2: "",
+        speciality_3: "",
+        speciality_4: "",
+        speciality_5: "",
+        speciality_6: "",
+        speciality_7: "",
       },
       currentCadetDataFromServer: {},
       cadetAPIInstance: globalCadetAPIForEntranceInstance,
@@ -2331,25 +2452,25 @@ export default {
     return { v$: useVuelidate() }
   },
   validations() {
-    const minValueValue = minValue(2000)
-    const maxValueValue = maxValue(2025)
+    const education_graduating_end_year_minValueValue = minValue(2000)
+    const education_graduating_end_year_maxValueValue = maxValue(2025)
     return {
       currentCadetData: {
         last_name_rus: {
           required: helpers.withMessage(
-            "Поле фамилия (рус) не может быть пустым",
+            "Поле 'Фамилия (рус)' не может быть пустым",
             required,
           ),
           $autoDirty: true,
         },
         education_graduating_end_year: {
-          maxValueValue: helpers.withMessage(
-            "Значение поля 'Год окончания школы' не может быть больше 2025",
-            maxValueValue,
+          education_graduating_end_year_maxValueValue: helpers.withMessage(
+            "Некорректное значение поля 'Год окончания школы'",
+            education_graduating_end_year_maxValueValue,
           ),
-          minValueValue: helpers.withMessage(
-            "Значение поля 'Год окончания школы' не может быть меньше 2000",
-            minValueValue,
+          education_graduating_end_year_minValueValue: helpers.withMessage(
+            "Некорректное значение поля 'Год окончания школы'",
+            education_graduating_end_year_minValueValue,
           ),
           $autoDirty: true,
         },
@@ -2363,7 +2484,7 @@ export default {
     async loadData(applicantId) {
       try {
         const response = await this.cadetAPIInstance.getItemData(applicantId)
-        this.currentCadetData = await response.data
+        this.currentCadetData = response.data
         this.currentCadetDataFromServer = Object.assign(
           {},
           this.currentCadetData,
@@ -2403,7 +2524,11 @@ export default {
     },
     async saveEntranceForm() {
       if (this.v$.$invalid) {
-        alert("Form is invalid!!!")
+        let validationErrorsModal = this.$refs.validationErrorsModal
+        let myModal = new bootstrap.Modal(validationErrorsModal, {
+          keyboard: false,
+        })
+        myModal.show()
       } else {
         this.isDataSaving = true
         try {
@@ -2428,6 +2553,33 @@ export default {
     removeFileFieldsFromObj(obj) {
       const { photo, attached_documents, ...rest } = obj
       return rest
+    },
+    printApplication(entranceId) {
+      if (!this.isDataFromServerEqualChangedData) {
+        let hasToSaveDataModal = this.$refs.hasToSaveDataModal
+        let myModal = new bootstrap.Modal(hasToSaveDataModal, {
+          keyboard: false,
+        })
+        myModal.show()
+      } else {
+        let queryString = `?application_id=${entranceId}`
+        this.$axios
+          .get(
+            `${this.BACKEND_PROTOCOL}://${this.BACKEND_HOST}:${this.BACKEND_PORT}/api/application-print/${queryString}`,
+            { responseType: "blob" },
+          )
+          .then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]))
+            const link = document.createElement("a")
+            link.href = url
+            link.setAttribute(
+              "download",
+              `${this.currentCadetData.last_name_rus}.docx`,
+            )
+            document.body.appendChild(link)
+            link.click()
+          })
+      }
     },
   },
   computed: {

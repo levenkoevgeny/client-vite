@@ -2,7 +2,7 @@
   <base-list-layout
     :is-loading="isLoading"
     :main-list-length="mainItemList.count"
-    title="Социальные статусы"
+    title="Льготы"
   >
     <template v-slot:modals>
       <!-- add modal-->
@@ -30,14 +30,14 @@
             <form @submit.prevent="addNewItem">
               <div class="modal-body">
                 <div class="mb-3">
-                  <label for="id_social_status_create" class="form-label"
-                    >Социальный статус</label
+                  <label for="id_privilege_create" class="form-label"
+                    >Льгота</label
                   >
                   <input
-                    id="id_social_status_create"
+                    id="id_privilege_create"
                     type="text"
                     class="form-control"
-                    v-model="itemForm.social_status"
+                    v-model="itemForm.privilege"
                     required
                   />
                 </div>
@@ -83,19 +83,18 @@
             <form @submit.prevent="updateMainItemInList">
               <div class="modal-body">
                 <div class="mb-3">
-                  <label for="id_social_status_update" class="form-label"
-                    >Социальный статус</label
+                  <label for="id_privilege_update" class="form-label"
+                    >Льгота</label
                   >
                   <input
-                    id="id_social_status_update"
+                    id="id_privilege_update"
                     type="text"
                     class="form-control"
-                    v-model="selectedItem.social_status"
+                    v-model="selectedItem.privilege"
                     required
                   />
                 </div>
               </div>
-
               <div class="modal-footer">
                 <button
                   type="button"
@@ -207,6 +206,7 @@
         </div>
       </div>
     </template>
+
     <template v-slot:add-button>
       <button
         class="btn btn-warning"
@@ -216,6 +216,7 @@
         Добавить запись
       </button>
     </template>
+
     <template v-slot:delete-selected-button>
       <button
         @click="deleteMultipleClick"
@@ -225,6 +226,7 @@
         Удалить ({{ checkedForDeleteCount }})
       </button>
     </template>
+
     <template v-slot:thead>
       <tr>
         <th>
@@ -238,7 +240,7 @@
             />
           </div>
         </th>
-        <th>Социальный статус</th>
+        <th>Льгота</th>
         <th>Дата добавления записи</th>
         <th>Дата последнего редактирования записи</th>
         <th></th>
@@ -246,9 +248,9 @@
     </template>
     <template v-slot:tbody>
       <tr
-        v-for="socialStatus in orderedMainList"
-        :key="socialStatus.id"
-        @dblclick.stop="showUpdateMainItemModalInList(socialStatus.id)"
+        v-for="privilege in orderedMainList"
+        :key="privilege.id"
+        @dblclick.stop="showUpdateMainItemModalInList(privilege.id)"
       >
         <td>
           <div
@@ -257,14 +259,14 @@
             <input
               type="checkbox"
               class="form-check-input my-0"
-              v-model="socialStatus.isSelected"
+              v-model="privilege.isSelected"
             />
           </div>
         </td>
-        <td>{{ socialStatus.social_status }}</td>
+        <td>{{ privilege.privilege }}</td>
         <td>
           {{
-            new Date(socialStatus.date_time_created).toLocaleString("ru-RU", {
+            new Date(privilege.date_time_created).toLocaleString("ru-RU", {
               day: "numeric",
               month: "long",
               year: "numeric",
@@ -276,7 +278,7 @@
         </td>
         <td>
           {{
-            new Date(socialStatus.date_time_updated).toLocaleString("ru-RU", {
+            new Date(privilege.date_time_updated).toLocaleString("ru-RU", {
               day: "numeric",
               month: "long",
               year: "numeric",
@@ -291,7 +293,7 @@
             <button
               type="button"
               class="btn btn-outline-danger"
-              @click="trashButtonClick(socialStatus.id)"
+              @click="trashButtonClick(privilege.id)"
               style="padding: 0.25rem 0.5rem"
             >
               <font-awesome-icon :icon="['fas', 'trash']" />
@@ -300,18 +302,19 @@
         </td>
       </tr>
     </template>
+
     <template v-slot:search-form>
       <div class="row">
         <div class="col-12">
           <div class="mb-3">
-            <label for="social_status__icontains" class="form-label"
-              >Социальный статус</label
+            <label for="encouragement_date__gte" class="form-label"
+              >Категория</label
             >
             <input
               type="text"
               class="form-control"
-              id="social_status__icontains"
-              v-model="searchForm.social_status__icontains"
+              id="encouragement_date__gte"
+              v-model="searchForm.category__icontains"
             />
           </div>
         </div>
@@ -324,7 +327,7 @@
 </template>
 
 <script>
-import getSocialStatusAPIInstance from "@/api/cadet/socialStatuses.js"
+import getPrivilegeAPIInstance from "@/api/cadet/privilegeAPI.js"
 import { mapGetters } from "vuex"
 import BaseListLayout from "@/components/layouts/BaseListLayout.vue"
 import {
@@ -338,7 +341,7 @@ import {
 import { debounce } from "lodash/function"
 
 export default {
-  name: "SocialStatusListView",
+  name: "PrivilegeListView",
   components: {
     BaseListLayout,
   },
@@ -346,10 +349,10 @@ export default {
     return {
       isLoading: false,
       isError: false,
-      mainItemAPIInstance: getSocialStatusAPIInstance(),
-      itemForm: Object.assign({}, getSocialStatusAPIInstance().formData),
-      searchForm: Object.assign({}, getSocialStatusAPIInstance().searchObj),
-      selectedItem: Object.assign({}, getSocialStatusAPIInstance().formData),
+      mainItemAPIInstance: getPrivilegeAPIInstance(),
+      itemForm: Object.assign({}, getPrivilegeAPIInstance().formData),
+      searchForm: Object.assign({}, getPrivilegeAPIInstance().searchObj),
+      selectedItem: Object.assign({}, getPrivilegeAPIInstance().formData),
       deleteItemId: "",
     }
   },
@@ -368,10 +371,7 @@ export default {
     showDeleteApproveMultipleModal,
     debouncedSearch: debounce(async function () {
       try {
-        await this.$store.dispatch(
-          "socialStatus/actionGetList",
-          this.searchForm,
-        )
+        await this.$store.dispatch("privileges/actionGetList", this.searchForm)
       } catch (e) {
         this.isError = true
       } finally {
@@ -380,7 +380,7 @@ export default {
     }, 500),
     async addNewItem() {
       try {
-        await this.$store.dispatch("socialStatus/actionAddNewItem", {
+        await this.$store.dispatch("privileges/actionAddNewItem", {
           ...this.itemForm,
         })
       } catch (error) {
@@ -404,7 +404,7 @@ export default {
     },
     async updateMainItemInList() {
       try {
-        await this.$store.dispatch("socialStatus/actionUpdateItem", {
+        await this.$store.dispatch("privileges/actionUpdateItem", {
           ...this.selectedItem,
         })
       } catch (error) {
@@ -415,7 +415,7 @@ export default {
     async deleteItemHandler() {
       try {
         await this.$store.dispatch(
-          "socialStatus/actionDeleteItem",
+          "privileges/actionDeleteItem",
           this.deleteItemId,
         )
       } catch (error) {
@@ -426,7 +426,7 @@ export default {
     async deleteCheckedItemsHandler() {
       this.mainItemList.results.map(async (item) => {
         if (item.isSelected) {
-          await this.$store.dispatch("socialStatus/actionDeleteItem", item.id)
+          await this.$store.dispatch("privileges/actionDeleteItem", item.id)
         }
       })
       this.$refs.deleteApproveModalMultipleCloseButton.click()
@@ -438,13 +438,14 @@ export default {
       )
     },
   },
+  async created() {},
   computed: {
     checkedForDeleteCount,
     orderedMainList() {
       return this.mainItemList.results
     },
     ...mapGetters({
-      mainItemList: "socialStatus/getList",
+      mainItemList: "privileges/getList",
     }),
   },
   watch: {

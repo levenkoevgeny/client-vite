@@ -59,6 +59,9 @@ import {
   EducationKindListView,
   EducationLevelListView,
   EducationLocationKindList,
+  VPKCategoryListView,
+  PFLCategoryListView,
+  PrivilegeListView,
 } from "@/components/dictionaries"
 
 import LoginView from "@/components/auth/LoginView.vue"
@@ -363,6 +366,21 @@ const routes = [
             path: "education-location-kinds",
             component: EducationLocationKindList,
             name: "dictionaries-education-location-kinds",
+          },
+          {
+            path: "vpk-categories",
+            component: VPKCategoryListView,
+            name: "dictionaries-vpk-categories",
+          },
+          {
+            path: "pfl-categories",
+            component: PFLCategoryListView,
+            name: "dictionaries-pfl-categories",
+          },
+          {
+            path: "privileges",
+            component: PrivilegeListView,
+            name: "dictionaries-privileges",
           },
         ],
       },

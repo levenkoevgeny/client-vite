@@ -2,7 +2,7 @@
   <base-list-layout
     :is-loading="isLoading"
     :main-list-length="mainItemList.count"
-    title="Социальные статусы"
+    title="ПФЛ категории"
   >
     <template v-slot:modals>
       <!-- add modal-->
@@ -30,14 +30,14 @@
             <form @submit.prevent="addNewItem">
               <div class="modal-body">
                 <div class="mb-3">
-                  <label for="id_social_status_create" class="form-label"
-                    >Социальный статус</label
+                  <label for="id_pfl_category_create" class="form-label"
+                    >ПФЛ категория</label
                   >
                   <input
-                    id="id_social_status_create"
+                    id="id_pfl_category_create"
                     type="text"
                     class="form-control"
-                    v-model="itemForm.social_status"
+                    v-model="itemForm.category"
                     required
                   />
                 </div>
@@ -83,14 +83,14 @@
             <form @submit.prevent="updateMainItemInList">
               <div class="modal-body">
                 <div class="mb-3">
-                  <label for="id_social_status_update" class="form-label"
-                    >Социальный статус</label
+                  <label for="id_pfl_category_update" class="form-label"
+                    >ПФЛ категория</label
                   >
                   <input
-                    id="id_social_status_update"
+                    id="id_pfl_category_update"
                     type="text"
                     class="form-control"
-                    v-model="selectedItem.social_status"
+                    v-model="selectedItem.category"
                     required
                   />
                 </div>
@@ -238,7 +238,7 @@
             />
           </div>
         </th>
-        <th>Социальный статус</th>
+        <th>ПФЛ категория</th>
         <th>Дата добавления записи</th>
         <th>Дата последнего редактирования записи</th>
         <th></th>
@@ -246,9 +246,9 @@
     </template>
     <template v-slot:tbody>
       <tr
-        v-for="socialStatus in orderedMainList"
-        :key="socialStatus.id"
-        @dblclick.stop="showUpdateMainItemModalInList(socialStatus.id)"
+        v-for="ppflCategory in orderedMainList"
+        :key="ppflCategory.id"
+        @dblclick.stop="showUpdateMainItemModalInList(ppflCategory.id)"
       >
         <td>
           <div
@@ -257,14 +257,14 @@
             <input
               type="checkbox"
               class="form-check-input my-0"
-              v-model="socialStatus.isSelected"
+              v-model="ppflCategory.isSelected"
             />
           </div>
         </td>
-        <td>{{ socialStatus.social_status }}</td>
+        <td>{{ ppflCategory.category }}</td>
         <td>
           {{
-            new Date(socialStatus.date_time_created).toLocaleString("ru-RU", {
+            new Date(ppflCategory.date_time_created).toLocaleString("ru-RU", {
               day: "numeric",
               month: "long",
               year: "numeric",
@@ -276,7 +276,7 @@
         </td>
         <td>
           {{
-            new Date(socialStatus.date_time_updated).toLocaleString("ru-RU", {
+            new Date(ppflCategory.date_time_updated).toLocaleString("ru-RU", {
               day: "numeric",
               month: "long",
               year: "numeric",
@@ -291,7 +291,7 @@
             <button
               type="button"
               class="btn btn-outline-danger"
-              @click="trashButtonClick(socialStatus.id)"
+              @click="trashButtonClick(ppflCategory.id)"
               style="padding: 0.25rem 0.5rem"
             >
               <font-awesome-icon :icon="['fas', 'trash']" />
@@ -324,7 +324,7 @@
 </template>
 
 <script>
-import getSocialStatusAPIInstance from "@/api/cadet/socialStatuses.js"
+import getPPFLCategoriesAPIInstance from "@/api/cadet/ppflCategoriesAPI.js"
 import { mapGetters } from "vuex"
 import BaseListLayout from "@/components/layouts/BaseListLayout.vue"
 import {
@@ -338,7 +338,7 @@ import {
 import { debounce } from "lodash/function"
 
 export default {
-  name: "SocialStatusListView",
+  name: "PFLCategoryListView",
   components: {
     BaseListLayout,
   },
@@ -346,10 +346,10 @@ export default {
     return {
       isLoading: false,
       isError: false,
-      mainItemAPIInstance: getSocialStatusAPIInstance(),
-      itemForm: Object.assign({}, getSocialStatusAPIInstance().formData),
-      searchForm: Object.assign({}, getSocialStatusAPIInstance().searchObj),
-      selectedItem: Object.assign({}, getSocialStatusAPIInstance().formData),
+      mainItemAPIInstance: getPPFLCategoriesAPIInstance(),
+      itemForm: Object.assign({}, getPPFLCategoriesAPIInstance().formData),
+      searchForm: Object.assign({}, getPPFLCategoriesAPIInstance().searchObj),
+      selectedItem: Object.assign({}, getPPFLCategoriesAPIInstance().formData),
       deleteItemId: "",
     }
   },
@@ -369,7 +369,7 @@ export default {
     debouncedSearch: debounce(async function () {
       try {
         await this.$store.dispatch(
-          "socialStatus/actionGetList",
+          "ppflCategories/actionGetList",
           this.searchForm,
         )
       } catch (e) {
@@ -380,7 +380,7 @@ export default {
     }, 500),
     async addNewItem() {
       try {
-        await this.$store.dispatch("socialStatus/actionAddNewItem", {
+        await this.$store.dispatch("ppflCategories/actionAddNewItem", {
           ...this.itemForm,
         })
       } catch (error) {
@@ -404,7 +404,7 @@ export default {
     },
     async updateMainItemInList() {
       try {
-        await this.$store.dispatch("socialStatus/actionUpdateItem", {
+        await this.$store.dispatch("ppflCategories/actionUpdateItem", {
           ...this.selectedItem,
         })
       } catch (error) {
@@ -415,7 +415,7 @@ export default {
     async deleteItemHandler() {
       try {
         await this.$store.dispatch(
-          "socialStatus/actionDeleteItem",
+          "ppflCategories/actionDeleteItem",
           this.deleteItemId,
         )
       } catch (error) {
@@ -426,7 +426,7 @@ export default {
     async deleteCheckedItemsHandler() {
       this.mainItemList.results.map(async (item) => {
         if (item.isSelected) {
-          await this.$store.dispatch("socialStatus/actionDeleteItem", item.id)
+          await this.$store.dispatch("ppflCategories/actionDeleteItem", item.id)
         }
       })
       this.$refs.deleteApproveModalMultipleCloseButton.click()
@@ -444,7 +444,7 @@ export default {
       return this.mainItemList.results
     },
     ...mapGetters({
-      mainItemList: "socialStatus/getList",
+      mainItemList: "ppflCategories/getList",
     }),
   },
   watch: {

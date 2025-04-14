@@ -46,18 +46,18 @@
 
       <div class="row">
         <div class="col-2">
-          <div style="max-height: calc(100vh - 180px); overflow-y: auto">
-            <div class="mb-3 mx-2">
-              <label for="searchInput" class="form-label"
-                >Поиск по названию</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="searchInput"
-                v-model="dictionaryItemsSearchInput"
-              />
-            </div>
+          <div class="mb-3 mx-2">
+            <label for="searchInput" class="form-label"
+              >Поиск по названию</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="searchInput"
+              v-model="dictionaryItemsSearchInput"
+            />
+          </div>
+          <div style="max-height: calc(100vh - 220px); overflow-y: auto">
             <div class="list-group">
               <router-link
                 v-for="dictItem in filteredDictionaries"
@@ -164,11 +164,11 @@ export default {
           itemUrl: "dictionaries-passport-authorities",
         },
         {
-          itemTitle: "Уровни владения и.я.",
-          itemUrl: "dictionaries-foreign-language-levels",
+          itemTitle: "Иностранные языки",
+          itemUrl: "dictionaries-foreign-languages",
         },
         {
-          itemTitle: "Уровни владения и.я.",
+          itemTitle: "Уровни владения иностранными языками",
           itemUrl: "dictionaries-foreign-language-levels",
         },
         {
@@ -198,6 +198,18 @@ export default {
         {
           itemTitle: "Виды населенных пунктов",
           itemUrl: "dictionaries-education-location-kinds",
+        },
+        {
+          itemTitle: "ВПК категории",
+          itemUrl: "dictionaries-vpk-categories",
+        },
+        {
+          itemTitle: "ПФЛ категории",
+          itemUrl: "dictionaries-pfl-categories",
+        },
+        {
+          itemTitle: "Льготы",
+          itemUrl: "dictionaries-privileges",
         },
       ],
     }

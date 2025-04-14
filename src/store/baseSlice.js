@@ -1,7 +1,7 @@
 export const queryLimit = 1000
 
 export const baseState = () => ({
-  mainList: { count: "", results: [], previous: null, next: null },
+  mainList: { count: "", results: [] },
 })
 
 export const baseGetters = {
@@ -16,6 +16,7 @@ export const baseMutations = {
   },
   addItemToList(state, payload) {
     state.mainList.results.push(payload)
+    state.mainList.count = state.mainList.results.length
   },
   updateItemInList(state, payload) {
     let index = state.mainList.results.findIndex(
@@ -32,6 +33,7 @@ export const baseMutations = {
     if (index > -1) {
       state.mainList.results.splice(index, 1)
     }
+    state.mainList.count = state.mainList.results.length
   },
 }
 
@@ -40,7 +42,7 @@ export function getActionGetListFunction(mainAPIInstance) {
     mainAPIInstance.searchObj = { ...payload, limit: queryLimit }
     try {
       const response = await mainAPIInstance.getItemsList()
-      commit("setList", await response.data)
+      commit("setList", response.data)
     } catch (error) {}
   }
 }
@@ -49,7 +51,7 @@ export function getActionAddNewItem(mainAPIInstance) {
   return async ({ commit }, payload) => {
     try {
       const response = await mainAPIInstance.addItem(payload)
-      commit("addItemToList", await response.data)
+      commit("addItemToList", response.data)
     } catch (error) {}
   }
 }
@@ -58,7 +60,7 @@ export function getActionUpdateItem(mainAPIInstance) {
   return async ({ commit }, payload) => {
     try {
       const response = await mainAPIInstance.updateItem(payload)
-      commit("updateItemInList", await response.data)
+      commit("updateItemInList", response.data)
     } catch (error) {}
   }
 }
@@ -67,7 +69,7 @@ export function getActionDeleteItem(mainAPIInstance) {
   return async ({ commit }, payload) => {
     try {
       const response = await mainAPIInstance.deleteItem(payload)
-      commit("deleteItemInList", await response.data)
+      commit("deleteItemInList", response.data)
     } catch (error) {}
   }
 }

@@ -26,3 +26,6 @@ export { default as SocialStatusListView } from "./socialStatus/SocialStatusList
 export { default as EducationKindListView } from "./educationKind/EducationKindListView.vue"
 export { default as EducationLevelListView } from "./educationLevel/EducationLevelListView.vue"
 export { default as EducationLocationKindList } from "./educationLocationKind/EducationLocationKindList.vue"
+export { default as VPKCategoryListView } from "./VPKCategory/VPKCategoryListView.vue"
+export { default as PFLCategoryListView } from "./PFLCategory/PFLCategoryListView.vue"
+export { default as PrivilegeListView } from "./privilege/PrivilegeListView.vue"
