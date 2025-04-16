@@ -827,6 +827,12 @@ export default {
           ...this.selectedItem,
           avatar: response.data.avatar,
         }
+
+        this.mainItemList.results.map((item) => {
+          if (item.id === response.data.id) {
+            item.avatar = response.data.avatar
+          }
+        })
       } catch (error) {
       } finally {
       }
@@ -842,6 +848,12 @@ export default {
           ...this.selectedItem,
           avatar: response.data.avatar,
         }
+
+        this.mainItemList.results.map((item) => {
+          if (item.id === response.data.id) {
+            item.avatar = response.data.avatar
+          }
+        })
       } catch (error) {
       } finally {
       }
