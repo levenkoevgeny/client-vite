@@ -194,11 +194,7 @@
       </div>
       <div class="mb-3">
         <label for="category" class="form-label">Пол</label>
-        <select
-          class="form-select"
-          aria-label="Default select example"
-          v-model="searchForm.gender"
-        >
+        <select class="form-select" v-model="searchForm.gender">
           <option selected value="">--------</option>
           <option value="1">Мужской</option>
           <option value="0">Женский</option>
@@ -370,7 +366,7 @@ export default {
   },
   data() {
     return {
-      cadetList: { count: "", results: [], previous: null, next: null },
+      cadetList: { count: 0, results: [], previous: null, next: null },
       isLoading: true,
       isError: false,
       BACKEND_PROTOCOL: import.meta.env.VITE_APP_BACKEND_PROTOCOL,
@@ -394,24 +390,11 @@ export default {
       const response = await this.cadetAPIInstance.getItemsList()
       this.cadetList = await response.data
       this.isLoading = false
-
-      // const listFunction = getLoadListFunction.bind(this)
-      // this.isLoading = true
-      // this.isError = false
-      // try {
-      //   const [cadets] = await Promise.all([
-      //     listFunction("cadet")(null, null, this.token),
-      //   ]).catch(() => (this.isError = true))
-      //   this.cadetList = cadets
-      // } catch (e) {
-      // } finally {
-      //   this.isLoading = false
-      // }
     },
     async updatePaginator(url) {
       this.isLoading = true
       try {
-        const response = await this.cadetAPIInstance.updateList(url, this.token)
+        const response = await this.cadetAPIInstance.updateList(url)
         this.cadetList = await response.data
       } catch (error) {
         this.isError = true
@@ -423,9 +406,7 @@ export default {
       this.isLoading = true
       this.cadetAPIInstance.searchObj = this.searchForm
       try {
-        const cadetAResponse = await this.cadetAPIInstance.getItemsList(
-          this.token,
-        )
+        const cadetAResponse = await this.cadetAPIInstance.getItemsList()
         this.cadetList = await cadetAResponse.data
       } catch (e) {
         this.isError = true
@@ -474,7 +455,6 @@ export default {
           try {
             const response = await this.cadetAPIInstance.updateList(
               this.cadetList.next,
-              this.token,
             )
 
             const newData = await response.data

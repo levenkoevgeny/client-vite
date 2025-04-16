@@ -101,7 +101,7 @@
           <div class="card-body">
             <h5 class="card-title">Пользователи</h5>
             <p class="card-text">Администрирование пользователей</p>
-            <router-link class="btn btn-primary" :to="{ name: 'navigation' }">
+            <router-link class="btn btn-primary" :to="{ name: 'users-list' }">
               Перейти
             </router-link>
           </div>

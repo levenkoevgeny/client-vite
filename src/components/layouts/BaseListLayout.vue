@@ -38,7 +38,6 @@
               <slot name="delete-selected-button"></slot>
             </div>
             <slot name="table-mode-button"></slot>
-            {{ value }}
             <div
               class="table-responsive"
               style="max-height: calc(100vh - 400px); overflow-y: auto"

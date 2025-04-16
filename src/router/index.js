@@ -67,6 +67,8 @@ import {
 import LoginView from "@/components/auth/LoginView.vue"
 import NavigationPage from "@/components/NavigationPage.vue"
 import BaseViewForStore from "@/components/BaseViewForStore.vue"
+import UserListView from "@/components/auth/UserListView.vue"
+import UserMainView from "@/components/auth/UserMainView.vue"
 
 import {
   NotFoundView,
@@ -399,6 +401,19 @@ const routes = [
             path: ":id/update",
             component: EntranceInputForm,
             name: "entrance-input-form",
+          },
+        ],
+      },
+      {
+        path: "/users",
+        component: UserMainView,
+        meta: { requiresAuth: true },
+        name: "users-main",
+        children: [
+          {
+            path: "",
+            component: UserListView,
+            name: "users-list",
           },
         ],
       },

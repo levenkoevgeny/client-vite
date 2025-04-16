@@ -1,8 +1,6 @@
 <template>
   <navigation-layout></navigation-layout>
-  <div v-if="isLogInError" class="alert alert-danger m-0 p-3" role="alert">
-    Ошибка авторизации!
-  </div>
+  <main-error-component />
 
   <div
     class="d-flex justify-content-center align-items-center container-fluid"
@@ -58,9 +56,10 @@
 <script>
 import NavigationLayout from "@/components/layouts/NavigationLayout.vue"
 import { mapGetters } from "vuex"
+import MainErrorComponent from "@/components/errors/MainErrorComponent.vue"
 export default {
   name: "LoginView",
-  components: { NavigationLayout },
+  components: { MainErrorComponent, NavigationLayout },
   data() {
     return {
       isLoading: false,
@@ -71,9 +70,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
-      isLogInError: "auth/getIsLogInError",
-    }),
+    ...mapGetters({}),
   },
   methods: {
     submitHandler(e) {

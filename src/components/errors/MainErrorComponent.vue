@@ -12,7 +12,7 @@
     "
     v-if="errorList.length"
   >
-    <h1>Ошибка приложения!</h1>
+    <h1>Ошибка!</h1>
     <div class="m-2" style="max-height: 50vh; overflow-y: auto">
       <p v-for="error in errorList" class="">{{ error }}</p>
     </div>

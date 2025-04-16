@@ -205,7 +205,7 @@ export default {
   },
   data() {
     return {
-      employeeList: { count: "", results: [], previous: null, next: null },
+      employeeList: { count: 0, results: [], previous: null, next: null },
       birthDays: [],
       isLoading: true,
       isError: false,
@@ -231,7 +231,7 @@ export default {
       this.isError = false
       try {
         const [employees] = await Promise.all([
-          listFunction("employee")(null, null, this.token),
+          listFunction("employee")(null, null),
         ]).catch(() => (this.isError = true))
         this.employeeList = employees
       } catch (e) {
@@ -244,9 +244,7 @@ export default {
       this.isLoading = true
       this.employeeAPIInstance.searchObj = this.searchForm
       try {
-        const employeeResponse = await this.employeeAPIInstance.getItemsList(
-          this.token,
-        )
+        const employeeResponse = await this.employeeAPIInstance.getItemsList()
         this.employeeList = await employeeResponse.data
       } catch (e) {
         this.isError = true

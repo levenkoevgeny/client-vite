@@ -237,7 +237,7 @@ export default {
       BACKEND_PROTOCOL: import.meta.env.VITE_APP_BACKEND_PROTOCOL,
       BACKEND_HOST: import.meta.env.VITE_APP_BACKEND_HOST,
       BACKEND_PORT: import.meta.env.VITE__APP_BACKEND_PORT,
-      cadetList: { count: "", results: [], previous: null, next: null },
+      cadetList: { count: 0, results: [], previous: null, next: null },
       cadetAPIInstance: globalCadetAPIForEntranceInstance,
       searchForm: Object.assign(
         {},
@@ -285,9 +285,7 @@ export default {
     debouncedSearch: debounce(async function () {
       this.isLoading = true
       this.cadetAPIInstance.searchObj = this.searchForm
-      const cadetAResponse = await this.cadetAPIInstance.getItemsList(
-        this.token,
-      )
+      const cadetAResponse = await this.cadetAPIInstance.getItemsList()
       this.cadetList = await cadetAResponse.data
       this.isLoading = false
     }, 500),

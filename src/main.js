@@ -38,6 +38,7 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons"
 import { faFilter } from "@fortawesome/free-solid-svg-icons"
 import { faPrint } from "@fortawesome/free-solid-svg-icons"
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons"
+import { faKey } from "@fortawesome/free-solid-svg-icons"
 import axios from "axios"
 
 export const axiosInstance = axios.create()
@@ -74,6 +75,7 @@ library.add(faLockOpen)
 library.add(faFilter)
 library.add(faArrowRightFromBracket)
 library.add(faPrint)
+library.add(faKey)
 
 axiosInstance.interceptors.request.use(
   (config) => {
@@ -99,10 +101,19 @@ axiosInstance.interceptors.response.use(
     }
     switch (error.response.status) {
       case 401:
+        store.commit("errors/setErrorList", {
+          errorStatus: error.status,
+          errorMessage: "Ошибка авторизации",
+        })
         await store.dispatch("auth/actionRemoveLogIn")
         await router.replace({ name: "login" })
+        console.log(error)
         break
       case 403:
+        store.commit("errors/setErrorList", {
+          errorStatus: error.status,
+          errorMessage: "У Вас нет прав для просмотра этого ресурса",
+        })
         await store.dispatch("auth/actionRemoveLogIn")
         await router.replace({ name: "login" })
         break

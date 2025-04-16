@@ -27,6 +27,9 @@ const getters = {
 // actions
 const actions = {
   async actionLogIn({ commit }, payload) {
+    commit("errors/clearErrorsList", null, {
+      root: true,
+    })
     try {
       let { username, password } = payload
       const response = await authApi.logInGetToken(username, password)
@@ -37,15 +40,12 @@ const actions = {
         commit("setToken", token)
         commit("setLoggedIn", true)
         commit("setIsLogInError", false)
+
         const response = await authApi.getUserData()
         const userData = await response.data
         commit("setUserData", userData)
       }
-    } catch (error) {
-      if (error.code !== "ERR_NETWORK") {
-        commit("setIsLogInError", true)
-      }
-    }
+    } catch (error) {}
   },
 
   async actionCheckLoggedIn({ state, commit, dispatch }) {
