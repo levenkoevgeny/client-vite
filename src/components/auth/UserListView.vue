@@ -146,73 +146,47 @@
                 aria-label="Close"
               ></button>
             </div>
-            <form @submit.prevent="updateMainItemInList">
-              <div
-                class="modal-body"
-                style="max-height: calc(100vh - 270px); overflow-y: auto"
-              >
-                <div class="container-fluid">
-                  <div class="row">
-                    <div class="col-xl-4">
-                      <div
-                        class="my-3 d-flex justify-content-center align-items-center flex-column"
-                      >
-                        <img
-                          v-if="selectedItem.avatar"
-                          :src="selectedItem.avatar"
-                          class="rounded-circle"
-                          alt="..."
-                          style="
-                            width: 90%;
-                            height: 90%;
-                            max-height: 300px;
-                            max-width: 300px;
-                          "
-                        />
-                        <img
-                          v-else
-                          src="../../assets/without_photo.jpg"
-                          class="rounded-circle"
-                          alt="..."
-                          style="
-                            width: 90%;
-                            height: 90%;
-                            max-height: 300px;
-                            max-width: 300px;
-                          "
-                        />
 
-                        <div class="m-3">
-                          <div v-if="selectedItem.avatar">
-                            <div class="d-flex flex-column my-2">
-                              <div class="mx-3">
-                                <input
-                                  class="form-control"
-                                  ref="uploadedAvatar"
-                                  type="file"
-                                  accept="image/png, image/jpeg"
-                                  v-on:change="uploadAvatar"
-                                />
-                              </div>
-                              <div class="d-flex align-items-end">
-                                <button
-                                  type="button"
-                                  class="btn btn-link"
-                                  @click="deleteAvatar"
-                                >
-                                  Удалить фото профиля
-                                </button>
-                              </div>
-                            </div>
-                          </div>
+            <div
+              class="modal-body"
+              style="max-height: calc(100vh - 270px); overflow-y: auto"
+            >
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-xl-4">
+                    <div
+                      class="my-3 d-flex justify-content-center align-items-center flex-column"
+                    >
+                      <img
+                        v-if="selectedItem.avatar"
+                        :src="selectedItem.avatar"
+                        class="rounded-circle"
+                        alt="..."
+                        style="
+                          width: 90%;
+                          height: 90%;
+                          max-height: 300px;
+                          max-width: 300px;
+                        "
+                      />
+                      <img
+                        v-else
+                        src="../../assets/without_photo.jpg"
+                        class="rounded-circle"
+                        alt="..."
+                        style="
+                          width: 90%;
+                          height: 90%;
+                          max-height: 300px;
+                          max-width: 300px;
+                        "
+                      />
 
-                          <div v-else>
-                            <div class="mb-3">
-                              <label for="formFile" class="form-label"
-                                >Выберите изображение для загрузки</label
-                              >
+                      <div class="m-3">
+                        <div v-if="selectedItem.avatar">
+                          <div class="d-flex flex-column my-2">
+                            <div class="mx-3">
                               <input
-                                id="formFile"
                                 class="form-control"
                                 ref="uploadedAvatar"
                                 type="file"
@@ -220,107 +194,139 @@
                                 v-on:change="uploadAvatar"
                               />
                             </div>
+                            <div class="d-flex align-items-end">
+                              <button
+                                type="button"
+                                class="btn btn-link"
+                                @click="deleteAvatar"
+                              >
+                                Удалить фото профиля
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div v-else>
+                          <div class="mb-3">
+                            <label for="formFile" class="form-label"
+                              >Выберите изображение для загрузки</label
+                            >
+                            <input
+                              id="formFile"
+                              class="form-control"
+                              ref="uploadedAvatar"
+                              type="file"
+                              accept="image/png, image/jpeg"
+                              v-on:change="uploadAvatar"
+                            />
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div class="col-xl-8">
-                      <div class="form-check mb-3">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          id="id_is_active"
-                          v-model="selectedItem.is_active"
-                        />
-                        <label class="form-check-label" for="id_is_active">
-                          Запись активна
-                        </label>
+                  </div>
+                  <div class="col-xl-8">
+                    <div class="form-check mb-3">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="id_is_active"
+                        v-model="selectedItem.is_active"
+                      />
+                      <label class="form-check-label" for="id_is_active">
+                        Запись активна
+                      </label>
+                    </div>
+                    <div class="mb-3">
+                      <label for="id_username" class="form-label"
+                        >Имя пользователя</label
+                      >
+                      <input
+                        id="id_username"
+                        type="text"
+                        class="form-control"
+                        v-model="selectedItem.username"
+                        required
+                      />
+                      <div class="my-2">
+                        <p
+                          v-for="error of v$.selectedItem.username.$errors"
+                          class="bg-danger-subtle p-2 rounded-2"
+                          :key="error.$uid"
+                        >
+                          {{ error.$message }}
+                        </p>
                       </div>
-                      <div class="mb-3">
-                        <label for="id_username" class="form-label"
-                          >Имя пользователя</label
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-6">
+                        <label for="id_last_name" class="form-label"
+                          >Фамилия</label
                         >
                         <input
-                          id="id_username"
+                          id="id_last_name"
                           type="text"
                           class="form-control"
-                          v-model="selectedItem.username"
-                          required
+                          v-model="selectedItem.last_name"
                         />
-                        <div class="my-2">
-                          <p
-                            v-for="error of v$.selectedItem.username.$errors"
-                            class="bg-danger-subtle p-2 rounded-2"
-                            :key="error.$uid"
-                          >
-                            {{ error.$message }}
-                          </p>
-                        </div>
                       </div>
-                      <div class="row mb-3">
-                        <div class="col-6">
-                          <label for="id_last_name" class="form-label"
-                            >Фамилия</label
-                          >
-                          <input
-                            id="id_last_name"
-                            type="text"
-                            class="form-control"
-                            v-model="selectedItem.last_name"
-                          />
-                        </div>
-                        <div class="col-6">
-                          <label for="id_first_name" class="form-label"
-                            >Имя</label
-                          >
-                          <input
-                            id="id_first_name"
-                            type="text"
-                            class="form-control"
-                            v-model="selectedItem.first_name"
-                          />
-                        </div>
+                      <div class="col-6">
+                        <label for="id_first_name" class="form-label"
+                          >Имя</label
+                        >
+                        <input
+                          id="id_first_name"
+                          type="text"
+                          class="form-control"
+                          v-model="selectedItem.first_name"
+                        />
                       </div>
+                    </div>
 
-                      <div class="form-check mb-3">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          id="id_is_staff"
-                          v-model="selectedItem.is_staff"
-                        />
-                        <label class="form-check-label" for="id_is_staff">
-                          Статус персонала
-                        </label>
-                      </div>
-                      <div class="form-check mb-3">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          id="id_is_superuser"
-                          v-model="selectedItem.is_superuser"
-                        />
-                        <label class="form-check-label" for="id_is_superuser">
-                          Статус суперпользователя
-                        </label>
-                      </div>
+                    <div class="form-check mb-3">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="id_is_staff"
+                        v-model="selectedItem.is_staff"
+                      />
+                      <label class="form-check-label" for="id_is_staff">
+                        Статус персонала
+                      </label>
+                    </div>
+                    <div class="form-check mb-3">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="id_is_superuser"
+                        v-model="selectedItem.is_superuser"
+                      />
+                      <label class="form-check-label" for="id_is_superuser">
+                        Статус суперпользователя
+                      </label>
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
 
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                  ref="mainItemUpdateModalCloseButton"
-                >
-                  Закрыть
-                </button>
-                <button type="submit" class="btn btn-primary">Сохранить</button>
-              </div>
-            </form>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+                ref="mainItemUpdateModalCloseButton"
+              >
+                Закрыть
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                @click="updateMainItemInList"
+                :disabled="this.v$.selectedItem.$invalid"
+              >
+                Сохранить
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -427,7 +433,12 @@
       <button
         class="btn btn-warning"
         :disabled="isLoading"
-        @click="showAddNewMainItemModal"
+        @click="
+          () => {
+            showAddNewMainItemModal()
+            this.v$.$reset()
+          }
+        "
       >
         Добавить запись
       </button>
@@ -599,14 +610,7 @@
 import getUsersAPIInstance from "@/api/auth/usersAPI.js"
 import { mapGetters } from "vuex"
 import BaseListLayout from "@/components/layouts/BaseListLayout.vue"
-import {
-  showAddNewMainItemModal,
-  showDeleteApproveModal,
-  showDeleteApproveMultipleModal,
-  checkAllHandler,
-  checkedForDeleteCount,
-  clearFormData,
-} from "../../../utils.js"
+import { showAddNewMainItemModal, clearFormData } from "../../../utils.js"
 import { debounce } from "lodash/function"
 import useVuelidate from "@vuelidate/core"
 import { required, helpers, sameAs } from "@vuelidate/validators"
@@ -652,17 +656,28 @@ export default {
     )
     const same = sameAs(this.itemForm.password)
     const sameUpdatePassword = sameAs(this.passwordChangeForm.newPassword)
+    // проверка на уникальность имени пользователя при создании записи
     const isUserNameTaken = helpers.withAsync(async (value) => {
       if (value === "") return true
       const response = await this.mainItemAPIInstance.getUserNames(value)
       return response.data.results.length <= 0
+    })
+    // проверка на уникальность имени пользователя при редактировании записи
+    const isUserNameTakenWhileUpdate = helpers.withAsync(async (value) => {
+      if (value === "") return true
+      const response = await this.mainItemAPIInstance.getUserNames(value)
+      // убираем редактируемую запись из проверки
+      const filteredList = response.data.results.filter(
+        (item) => item.id !== this.selectedItem.id,
+      )
+      return filteredList.length <= 0
     })
     return {
       itemForm: {
         username: {
           required: helpers.withMessage("Поле не может быть пустым", required),
           loginRegex: helpers.withMessage(
-            "Допускаются только латинские буквы",
+            "Допускаются только латинские буквы или цифры",
             loginRegex,
           ),
           isUnique: helpers.withMessage(
@@ -692,12 +707,12 @@ export default {
         username: {
           required: helpers.withMessage("Поле не может быть пустым", required),
           loginRegex: helpers.withMessage(
-            "Допускаются только латинские буквы",
+            "Допускаются только латинские буквы или цифры",
             loginRegex,
           ),
           isUnique: helpers.withMessage(
             "Пользователь с таким именем уже присутствует в системе",
-            isUserNameTaken,
+            isUserNameTakenWhileUpdate,
           ),
           $autoDirty: true,
         },
@@ -739,19 +754,15 @@ export default {
         this.isLoading = false
       }
     },
-    trashButtonClick(id) {
-      this.deleteItemId = id
-      this.showDeleteApproveModal()
-    },
-    deleteMultipleClick() {
-      this.showDeleteApproveMultipleModal()
-    },
-    checkAllHandler,
     showAddNewMainItemModal,
     clearFormData,
-    showDeleteApproveModal,
-    showDeleteApproveMultipleModal,
     showPasswordChangeModal(userId) {
+      this.passwordChangeForm = {
+        id: undefined,
+        newPassword: "",
+        repeatedPassword: "",
+      }
+      this.v$.$reset()
       this.passwordChangeForm.id = userId
       let addModal = this.$refs.mainItemUpdatePasswordModal
       let myModal = new bootstrap.Modal(addModal, {
@@ -779,7 +790,6 @@ export default {
         } catch (error) {
         } finally {
           this.$refs.mainItemAddModalCloseButton.click()
-          this.itemForm = Object.assign({}, getUsersAPIInstance().formData)
         }
       }
     },
@@ -899,14 +909,10 @@ export default {
       } catch (error) {
       } finally {
         this.$refs.mainItemUpdatePasswordModalCloseButton.click()
-        setTimeout(() => {
-          this.passwordChangeForm = { newPassword: "", repeatedPassword: "" }
-        }, 500)
       }
     },
   },
   computed: {
-    checkedForDeleteCount,
     orderedMainList() {
       return this.mainItemList.results
     },

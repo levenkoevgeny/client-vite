@@ -30,24 +30,37 @@
             <form @submit.prevent="addNewItem">
               <div class="modal-body">
                 <div class="mb-3">
-                  <label for="id_encouragement_kind" class="form-label"
+                  <label for="id_speciality_name" class="form-label"
                     >Название</label
                   >
                   <input
+                    id="id_speciality_name"
                     type="text"
                     class="form-control"
-                    v-model="itemForm.component_name"
+                    v-model="itemForm.speciality_name"
                     required
                   />
                 </div>
                 <div class="mb-3">
-                  <label for="id_encouragement_kind" class="form-label"
+                  <label for="speciality_short_name" class="form-label"
                     >Название (короткое)</label
                   >
                   <input
+                    id="speciality_short_name"
                     type="text"
                     class="form-control"
-                    v-model="itemForm.component_short_name"
+                    v-model="itemForm.speciality_short_name"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="id_speciality_code" class="form-label"
+                    >Код специальности</label
+                  >
+                  <input
+                    id="id_speciality_code"
+                    type="text"
+                    class="form-control"
+                    v-model="itemForm.speciality_code"
                   />
                 </div>
               </div>
@@ -92,24 +105,40 @@
             <form @submit.prevent="updateMainItemInList">
               <div class="modal-body">
                 <div class="mb-3">
-                  <label for="id_encouragement_kind" class="form-label"
+                  <label for="id_speciality_name_update" class="form-label"
                     >Название</label
                   >
                   <input
+                    id="id_speciality_name_update"
                     type="text"
                     class="form-control"
-                    v-model="selectedItem.component_name"
+                    v-model="selectedItem.speciality_name"
                     required
                   />
                 </div>
                 <div class="mb-3">
-                  <label for="id_encouragement_kind" class="form-label"
+                  <label
+                    for="id_speciality_short_name_update"
+                    class="form-label"
                     >Название (короткое)</label
                   >
                   <input
+                    id="id_speciality_short_name_update"
                     type="text"
                     class="form-control"
-                    v-model="selectedItem.component_short_name"
+                    v-model="selectedItem.speciality_short_name"
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label for="id_speciality_code_update" class="form-label"
+                    >Код специальности</label
+                  >
+                  <input
+                    id="id_speciality_code_update"
+                    type="text"
+                    class="form-control"
+                    v-model="selectedItem.speciality_code"
                   />
                 </div>
               </div>
@@ -434,9 +463,7 @@ export default {
           keyboard: false,
         })
         myModal.show()
-      } catch (error) {
-        console.log(error)
-      }
+      } catch (error) {}
     },
     async updateMainItemInList() {
       try {

@@ -1917,7 +1917,7 @@
                   <option :value="null">---------</option>
                   <option
                     :value="speciality.id"
-                    v-for="speciality in orderedSpecialities"
+                    v-for="speciality in orderedSpecialities_select_1"
                   >
                     {{ speciality.speciality_name }}
                   </option>
@@ -1933,7 +1933,7 @@
                   <option :value="null">---------</option>
                   <option
                     :value="speciality.id"
-                    v-for="speciality in orderedSpecialities"
+                    v-for="speciality in orderedSpecialities_select_2"
                   >
                     {{ speciality.speciality_name }}
                   </option>
@@ -1949,7 +1949,7 @@
                   <option :value="null">---------</option>
                   <option
                     :value="speciality.id"
-                    v-for="speciality in orderedSpecialities"
+                    v-for="speciality in orderedSpecialities_select_3"
                   >
                     {{ speciality.speciality_name }}
                   </option>
@@ -1965,7 +1965,7 @@
                   <option :value="null">---------</option>
                   <option
                     :value="speciality.id"
-                    v-for="speciality in orderedSpecialities"
+                    v-for="speciality in orderedSpecialities_select_4"
                   >
                     {{ speciality.speciality_name }}
                   </option>
@@ -1981,7 +1981,7 @@
                   <option :value="null">---------</option>
                   <option
                     :value="speciality.id"
-                    v-for="speciality in orderedSpecialities"
+                    v-for="speciality in orderedSpecialities_select_5"
                   >
                     {{ speciality.speciality_name }}
                   </option>
@@ -1997,7 +1997,7 @@
                   <option :value="null">---------</option>
                   <option
                     :value="speciality.id"
-                    v-for="speciality in orderedSpecialities"
+                    v-for="speciality in orderedSpecialities_select_6"
                   >
                     {{ speciality.speciality_name }}
                   </option>
@@ -2013,7 +2013,7 @@
                   <option :value="null">---------</option>
                   <option
                     :value="speciality.id"
-                    v-for="speciality in orderedSpecialities"
+                    v-for="speciality in orderedSpecialities_select_7"
                   >
                     {{ speciality.speciality_name }}
                   </option>
@@ -2591,18 +2591,86 @@ export default {
         (subdivision) => subdivision.subdivision_category == "1",
       )
     },
-    orderedGroups() {
-      return this.groups.results
+    orderedSpecialities_select_1() {
+      return this.specialities.results.filter(
+        (item) =>
+          item.id !== this.currentCadetData.speciality_2 &&
+          item.id !== this.currentCadetData.speciality_3 &&
+          item.id !== this.currentCadetData.speciality_4 &&
+          item.id !== this.currentCadetData.speciality_5 &&
+          item.id !== this.currentCadetData.speciality_6 &&
+          item.id !== this.currentCadetData.speciality_7,
+      )
     },
-    orderedRanks() {
-      return this.ranks.results
+    orderedSpecialities_select_2() {
+      return this.specialities.results.filter(
+        (item) =>
+          item.id !== this.currentCadetData.speciality_1 &&
+          item.id !== this.currentCadetData.speciality_3 &&
+          item.id !== this.currentCadetData.speciality_4 &&
+          item.id !== this.currentCadetData.speciality_5 &&
+          item.id !== this.currentCadetData.speciality_6 &&
+          item.id !== this.currentCadetData.speciality_7,
+      )
     },
-    orderedSpecialities() {
-      return this.specialities.results
+
+    orderedSpecialities_select_3() {
+      return this.specialities.results.filter(
+        (item) =>
+          item.id !== this.currentCadetData.speciality_1 &&
+          item.id !== this.currentCadetData.speciality_2 &&
+          item.id !== this.currentCadetData.speciality_4 &&
+          item.id !== this.currentCadetData.speciality_5 &&
+          item.id !== this.currentCadetData.speciality_6 &&
+          item.id !== this.currentCadetData.speciality_7,
+      )
     },
-    orderedPositions() {
-      return this.positions.results.filter(
-        (position) => position.position_category == "1",
+
+    orderedSpecialities_select_4() {
+      return this.specialities.results.filter(
+        (item) =>
+          item.id !== this.currentCadetData.speciality_1 &&
+          item.id !== this.currentCadetData.speciality_2 &&
+          item.id !== this.currentCadetData.speciality_3 &&
+          item.id !== this.currentCadetData.speciality_5 &&
+          item.id !== this.currentCadetData.speciality_6 &&
+          item.id !== this.currentCadetData.speciality_7,
+      )
+    },
+
+    orderedSpecialities_select_5() {
+      return this.specialities.results.filter(
+        (item) =>
+          item.id !== this.currentCadetData.speciality_1 &&
+          item.id !== this.currentCadetData.speciality_2 &&
+          item.id !== this.currentCadetData.speciality_3 &&
+          item.id !== this.currentCadetData.speciality_4 &&
+          item.id !== this.currentCadetData.speciality_6 &&
+          item.id !== this.currentCadetData.speciality_7,
+      )
+    },
+
+    orderedSpecialities_select_6() {
+      return this.specialities.results.filter(
+        (item) =>
+          item.id !== this.currentCadetData.speciality_1 &&
+          item.id !== this.currentCadetData.speciality_2 &&
+          item.id !== this.currentCadetData.speciality_3 &&
+          item.id !== this.currentCadetData.speciality_4 &&
+          item.id !== this.currentCadetData.speciality_5 &&
+          item.id !== this.currentCadetData.speciality_7,
+      )
+    },
+
+    orderedSpecialities_select_7() {
+      return this.specialities.results.filter(
+        (item) =>
+          item.id !== this.currentCadetData.speciality_1 &&
+          item.id !== this.currentCadetData.speciality_2 &&
+          item.id !== this.currentCadetData.speciality_3 &&
+          item.id !== this.currentCadetData.speciality_4 &&
+          item.id !== this.currentCadetData.speciality_5 &&
+          item.id !== this.currentCadetData.speciality_6,
       )
     },
     orderedComponentOrgans() {
@@ -2681,11 +2749,9 @@ export default {
     orderedPpflCategories() {
       return this.ppflCategories.results
     },
-
     orderedVpkCategories() {
       return this.vpkCategories.results
     },
-
     orderedEducationKinds() {
       return this.educationKinds.results
     },
@@ -2698,14 +2764,12 @@ export default {
     orderedMedals() {
       return this.medals.results
     },
-
     isDataFromServerEqualChangedData() {
       return isEqual(
         this.removeFileFieldsFromObj(this.currentCadetData),
         this.removeFileFieldsFromObj(this.currentCadetDataFromServer),
       )
     },
-
     getAverageCertificateScore() {
       let averageCertificateScore = ""
       if (

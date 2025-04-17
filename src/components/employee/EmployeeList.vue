@@ -109,8 +109,9 @@
 
     <template v-slot:search-form>
       <div class="mb-3">
-        <label for="last_name_rus" class="form-label">Активная запись</label>
+        <label for="is_active_search" class="form-label">Активная запись</label>
         <select
+          id="is_active_search"
           class="form-select"
           aria-label="Default select example"
           v-model="searchForm.is_active"
@@ -121,16 +122,16 @@
         </select>
       </div>
       <div class="mb-3">
-        <label for="last_name_rus" class="form-label">Фамилия</label>
+        <label for="last_name_rus_search" class="form-label">Фамилия</label>
         <input
           type="text"
-          id="last_name_rus"
+          id="last_name_rus_search"
           class="form-control"
           v-model="searchForm.last_name_rus__icontains"
         />
       </div>
       <div class="mb-3">
-        <label for="subdivision" class="form-label">Подразделение</label>
+        <label for="subdivision_search" class="form-label">Подразделение</label>
         <v-select
           v-model="searchForm.subdivision__in"
           :options="orderedEmployeeSubdivisions"

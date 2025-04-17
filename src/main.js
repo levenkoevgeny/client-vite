@@ -95,19 +95,28 @@ axiosInstance.interceptors.response.use(
     return response
   },
   async function (error) {
+    console.log("axios interceptor", error)
     if (error.code === "ERR_NETWORK") {
       window.location.href = "/network-error"
       return Promise.reject(error)
     }
     switch (error.response.status) {
       case 401:
-        store.commit("errors/setErrorList", {
-          errorStatus: error.status,
-          errorMessage: "Ошибка авторизации",
-        })
+        if (error.response.data.code) {
+          store.commit("errors/setErrorList", {
+            errorCode: "token_not_valid",
+            errorStatus: error.status,
+            errorMessage: "Ошибка авторизации",
+          })
+        } else {
+          store.commit("errors/setErrorList", {
+            errorStatus: error.status,
+            errorMessage: "Ошибка авторизации",
+          })
+        }
+
         await store.dispatch("auth/actionRemoveLogIn")
         await router.replace({ name: "login" })
-        console.log(error)
         break
       case 403:
         store.commit("errors/setErrorList", {

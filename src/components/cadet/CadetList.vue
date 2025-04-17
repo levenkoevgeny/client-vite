@@ -167,17 +167,18 @@
         </select>
       </div>
       <div class="mb-3">
-        <label for="last_name_rus" class="form-label">Фамилия</label>
+        <label for="last_name_rus_search" class="form-label">Фамилия</label>
         <input
           type="text"
-          id="last_name_rus"
+          id="last_name_rus_search"
           class="form-control"
           v-model="searchForm.last_name_rus__icontains"
         />
       </div>
       <div class="mb-3">
-        <label for="category" class="form-label">Категория</label>
+        <label for="category_search" class="form-label">Категория</label>
         <select
+          id="category_search"
           class="form-select"
           aria-label="Default select example"
           v-model="searchForm.category"
@@ -193,15 +194,19 @@
         </select>
       </div>
       <div class="mb-3">
-        <label for="category" class="form-label">Пол</label>
-        <select class="form-select" v-model="searchForm.gender">
+        <label for="gender_search" class="form-label">Пол</label>
+        <select
+          class="form-select"
+          v-model="searchForm.gender"
+          id="gender_search"
+        >
           <option selected value="">--------</option>
           <option value="1">Мужской</option>
           <option value="0">Женский</option>
         </select>
       </div>
       <div class="mb-3">
-        <label for="subdivision" class="form-label">Факультет</label>
+        <label for="subdivision_search" class="form-label">Факультет</label>
         <v-select
           v-model="searchForm.subdivision__in"
           :options="orderedSubdivisions"
@@ -211,7 +216,7 @@
         />
       </div>
       <div class="mb-3">
-        <label for="subdivision" class="form-label">Группа</label>
+        <label for="group_search" class="form-label">Группа</label>
         <v-select
           v-model="searchForm.group__in"
           :options="orderedGroups"
@@ -221,7 +226,7 @@
         />
       </div>
       <div class="mb-3">
-        <label for="subdivision" class="form-label">Звание</label>
+        <label for="rank_search" class="form-label">Звание</label>
         <v-select
           v-model="searchForm.current_rank__in"
           :options="orderedRanks"
@@ -231,7 +236,7 @@
         />
       </div>
       <div class="mb-3">
-        <label for="subdivision" class="form-label">Специальность</label>
+        <label for="speciality_search" class="form-label">Специальность</label>
         <v-select
           v-model="searchForm.current_speciality__in"
           :options="orderedSpecialities"
@@ -241,7 +246,7 @@
         />
       </div>
       <div class="mb-3">
-        <label for="subdivision" class="form-label">Должность</label>
+        <label for="position_search" class="form-label">Должность</label>
         <v-select
           v-model="searchForm.current_position__in"
           :options="orderedPositions"
@@ -282,26 +287,22 @@
       <div class="row">
         <div class="col-6">
           <div class="mb-3">
-            <label for="date_of_birth__gte" class="form-label"
-              >Возраст (с)</label
-            >
+            <label for="age_gte_search" class="form-label">Возраст (с)</label>
             <input
+              id="age_gte_search"
               type="number"
               class="form-control"
-              id="date_of_birth__gte"
               v-model="searchForm.age_gte"
             />
           </div>
         </div>
         <div class="col-6">
           <div class="mb-3">
-            <label for="date_of_birth__lte" class="form-label"
-              >Возраст (по)</label
-            >
+            <label for="age_lte_search" class="form-label">Возраст (по)</label>
             <input
               type="number"
               class="form-control"
-              id="date_of_birth__lte"
+              id="age_lte_search"
               v-model="searchForm.age_lte"
             />
           </div>
@@ -439,7 +440,6 @@ export default {
           date_of_birth: null,
         }
       } catch (e) {
-        console.log(e)
         this.isError = true
       } finally {
         this.isLoading = false

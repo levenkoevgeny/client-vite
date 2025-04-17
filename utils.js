@@ -15,6 +15,7 @@ export function getLoadListFunction(modelName) {
 
 export function showAddNewMainItemModal() {
   this.clearFormData()
+
   this.selectedCadet = []
   let addModal = this.$refs.mainItemAddModal
   let myModal = new bootstrap.Modal(addModal, {

@@ -1404,8 +1404,6 @@ export default {
       }
     },
     showExportDataModal() {
-      let thead = this.$refs.thead
-      console.log(thead.getBoundingClientRect())
       let addModal = this.$refs.exportDataModal
       let myModal = new bootstrap.Modal(addModal, {
         keyboard: false,

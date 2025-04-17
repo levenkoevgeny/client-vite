@@ -394,9 +394,7 @@ export default {
           keyboard: false,
         })
         myModal.show()
-      } catch (error) {
-        console.log(error)
-      }
+      } catch (error) {}
     },
     async updateMainItemInList() {
       try {

@@ -1186,8 +1186,6 @@ export default {
         const { photo, ...rest } = this.currentStudentData
         await this.studentAPIInstance.updateItem(rest)
       } catch (e) {
-        this.isError = true
-        console.log(e)
       } finally {
         this.isLoading = false
       }

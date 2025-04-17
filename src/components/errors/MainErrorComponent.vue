@@ -12,9 +12,15 @@
     "
     v-if="errorList.length"
   >
-    <h1>Ошибка!</h1>
     <div class="m-2" style="max-height: 50vh; overflow-y: auto">
-      <p v-for="error in errorList" class="">{{ error }}</p>
+      <p v-for="error in errorList">
+        <template v-if="error.errorCode">
+          <template v-if="error.errorCode === 'token_not_valid'"
+            >Сессия истекла</template
+          >
+        </template>
+        <template v-else>{{ error.errorMessage }}</template>
+      </p>
     </div>
   </div>
 </template>
