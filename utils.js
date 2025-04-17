@@ -1,3 +1,5 @@
+import store from "@/store/index.js"
+
 export function getLoadListFunction(modelName) {
   return async (cadetId, limit) => {
     if (cadetId) {
@@ -14,6 +16,7 @@ export function getLoadListFunction(modelName) {
 // methods for lists
 
 export function showAddNewMainItemModal() {
+  store.commit("errors/clearErrorsList")
   this.clearFormData()
 
   this.selectedCadet = []
@@ -180,7 +183,6 @@ export async function deleteCheckedItemsHandler() {
     if (item.isSelected) {
       requestIds.push(item.id)
     }
-    return
   })
   let requests = requestIds.map((id) => this.mainItemAPIInstance.deleteItem(id))
   Promise.all(requests)

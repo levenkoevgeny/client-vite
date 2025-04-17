@@ -13,6 +13,9 @@
     v-if="errorList.length"
   >
     <div class="m-2" style="max-height: 50vh; overflow-y: auto">
+      <!--      <p v-for="error in errorList">-->
+      <!--        <template>{{ error }}</template>-->
+      <!--      </p>-->
       <p v-for="error in errorList">
         <template v-if="error.errorCode">
           <template v-if="error.errorCode === 'token_not_valid'"
@@ -27,7 +30,6 @@
 
 <script>
 import { mapGetters } from "vuex"
-import errors from "@/store/modules/errors"
 
 export default {
   name: "MainErrorComponent",
