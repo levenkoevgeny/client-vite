@@ -238,8 +238,7 @@
               ></button>
             </div>
             <div class="modal-body">
-              Вы действительно хотите удалить данные записи -
-              {{ checkedForDeleteCount }} ?
+              Вы действительно хотите удалить данные записи?
             </div>
             <div class="modal-footer border-0">
               <button
