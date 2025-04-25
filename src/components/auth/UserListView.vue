@@ -282,6 +282,21 @@
                       </div>
                     </div>
 
+
+                    <div class="row mb-3">
+                      <div class="col-12">
+                        <label for="id_last_name" class="form-label"
+                        >Номер рабочего места при приеме документов</label
+                        >
+                        <input
+                          id="id_last_name"
+                          type="text"
+                          class="form-control"
+                          v-model="selectedItem.workplace"
+                        />
+                      </div>
+                    </div>
+
                     <div class="form-check mb-3">
                       <input
                         class="form-check-input"
@@ -635,6 +650,7 @@ export default {
         username: "",
         last_name: "",
         first_name: "",
+        workplace: "",
         is_staff: false,
         is_superuser: false,
       },

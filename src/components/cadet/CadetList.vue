@@ -353,7 +353,6 @@ import { globalCadetAPIInstance } from "@/api/cadet/cadetAPI"
 import BaseListLayout from "@/components/layouts/BaseListLayout.vue"
 import { PaginatorView } from "@/components/common"
 import { debounce } from "lodash/function"
-import { getLoadListFunction } from "../../../utils"
 import BaseListLayoutForCadetUpdate from "@/components/layouts/BaseListLayoutForCadetUpdate.vue"
 
 import { mapGetters } from "vuex"

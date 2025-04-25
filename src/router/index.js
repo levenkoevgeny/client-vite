@@ -30,6 +30,8 @@ import {
   StudentDocsMakeView,
 } from "@/components/student"
 
+import { ElectronicQueueMain, ElectronicQueueList, ElectronicQueueListAdmin, QueueProcessingView } from "@/components/electronic_queue"
+
 import {
   DictionaryMainView,
   GroupListView,
@@ -417,6 +419,31 @@ const routes = [
           },
         ],
       },
+      {
+        path: "/electronic-queue",
+        component: ElectronicQueueMain,
+        meta: { requiresAuth: true },
+        name: "electronic-queue-main",
+        children: [
+          {
+            path: "",
+            component: ElectronicQueueList,
+            name: "queue-list",
+          },
+          {
+            path: ":id/processing",
+            component: QueueProcessingView,
+            name: "queue-list-processing",
+          },
+          {
+            path: "admin",
+            component: ElectronicQueueListAdmin,
+            name: "queue-list-admin",
+          },
+        ],
+      },
+
+
     ],
   },
   {

@@ -2,7 +2,7 @@
   <base-list-layout
     :is-loading="isLoading"
     :main-list-length="mainItemList.count"
-    title="Комплектующие органы"
+    title="Список очередей (админ)"
   >
     <template v-slot:modals>
       <!-- add modal-->
@@ -30,24 +30,27 @@
             <form @submit.prevent="addNewItem">
               <div class="modal-body">
                 <div class="mb-3">
-                  <label for="id_encouragement_kind" class="form-label"
-                    >Название</label
+                  <label for="id_queue_name" class="form-label"
+                  >Название очереди</label
                   >
                   <input
+                    id="id_queue_name"
                     type="text"
                     class="form-control"
-                    v-model="itemForm.component_name"
+                    v-model="itemForm.queue_name"
                     required
                   />
                 </div>
                 <div class="mb-3">
-                  <label for="id_encouragement_kind" class="form-label"
-                    >Название (короткое)</label
+                  <label for="id_queue_liter" class="form-label"
+                  >Литера</label
                   >
                   <input
+                    id="id_queue_liter"
                     type="text"
                     class="form-control"
-                    v-model="itemForm.component_short_name"
+                    v-model="itemForm.queue_liter"
+                    required
                   />
                 </div>
               </div>
@@ -92,27 +95,30 @@
             <form @submit.prevent="updateMainItemInList">
               <div class="modal-body">
                 <div class="mb-3">
-                  <label for="id_encouragement_kind" class="form-label"
-                    >Название</label
+                  <label for="id_queue_name_update" class="form-label"
+                  >Название очереди</label
                   >
                   <input
+                    id="id_queue_name_update"
                     type="text"
                     class="form-control"
-                    v-model="selectedItem.component_name"
+                    v-model="selectedItem.queue_name"
                     required
                   />
                 </div>
                 <div class="mb-3">
-                  <label for="id_encouragement_kind" class="form-label"
-                    >Название (короткое)</label
+                  <label for="id_queue_liter_update" class="form-label"
+                  >Литера</label
                   >
                   <input
+                    id="id_queue_liter_update"
                     type="text"
                     class="form-control"
-                    v-model="selectedItem.component_short_name"
+                    v-model="selectedItem.queue_liter"
                   />
                 </div>
               </div>
+
               <div class="modal-footer">
                 <button
                   type="button"
@@ -222,6 +228,56 @@
           </div>
         </div>
       </div>
+
+
+      <!-- clear queue approve modal-->
+
+      <div
+        class="modal fade"
+        id="clearApproveModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+        ref="clearApproveModal"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header border-0">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">
+                Подтверждение обнуления очереди
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              Вы действительно хотите обнулить очередь?
+            </div>
+            <div class="modal-footer border-0">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+                ref="clearApproveModalCloseButton"
+              >
+                Отмена
+              </button>
+              <button
+                type="button"
+                class="btn btn-danger"
+                @click="clearQueue"
+              >
+                обнулить
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
     </template>
     <template v-slot:add-button>
       <button
@@ -254,18 +310,22 @@
             />
           </div>
         </th>
-        <th>Комплектующий орган</th>
-        <th>Комплектующий орган (сокращ.)</th>
-        <th>Дата добавления записи</th>
-        <th>Дата последнего редактирования записи</th>
+        <th class="text-center">Название очереди</th>
+        <th class="text-center">Литера</th>
+        <th class="text-center">Количество выданных талонов (всего)</th>
+        <th class="text-center">Количество талонов в очереди</th>
+        <th class="text-center">Количество обслуженных талонов</th>
+        <th class="text-center">Дата создания очереди</th>
+        <th class="text-center">Дата последнего редактирования очереди</th>
+        <th></th>
         <th></th>
       </tr>
     </template>
     <template v-slot:tbody>
       <tr
-        v-for="componentOrgan in orderedMainList"
-        :key="componentOrgan.id"
-        @dblclick.stop="showUpdateMainItemModalInList(componentOrgan.id)"
+        v-for="queue in orderedMainList"
+        :key="queue.id"
+        @dblclick.stop="showUpdateMainItemModalInList(queue.id)"
       >
         <td>
           <div
@@ -274,15 +334,19 @@
             <input
               type="checkbox"
               class="form-check-input my-0"
-              v-model="componentOrgan.isSelected"
+              v-model="queue.isSelected"
             />
           </div>
         </td>
-        <td>{{ componentOrgan.component_name }}</td>
-        <td>{{ componentOrgan.component_short_name }}</td>
-        <td>
+        <td class="text-center">{{ queue.queue_name }}</td>
+        <td class="text-center">{{ queue.queue_liter }}</td>
+        <td class="text-center">{{ queue.get_ticket_pending }}</td>
+        <td class="text-center">{{ queue.get_ticket_processed }}</td>
+        <td class="text-center">{{ queue.get_ticket_fulfilled }}</td>
+
+        <td class="text-center">
           {{
-            new Date(componentOrgan.date_time_created).toLocaleString("ru-RU", {
+            new Date(queue.date_time_created).toLocaleString("ru-RU", {
               day: "numeric",
               month: "long",
               year: "numeric",
@@ -292,9 +356,9 @@
             })
           }}
         </td>
-        <td>
+        <td class="text-center">
           {{
-            new Date(componentOrgan.date_time_updated).toLocaleString("ru-RU", {
+            new Date(queue.date_time_updated).toLocaleString("ru-RU", {
               day: "numeric",
               month: "long",
               year: "numeric",
@@ -309,12 +373,25 @@
             <button
               type="button"
               class="btn btn-outline-danger"
-              @click="trashButtonClick(componentOrgan.id)"
+              @click="trashButtonClick(queue.id)"
               style="padding: 0.25rem 0.5rem"
             >
               <font-awesome-icon :icon="['fas', 'trash']" />
             </button>
           </div>
+        </td>
+
+        <td>
+          <div class="d-flex align-items-end justify-content-end">
+          <button
+            type="button"
+            class="btn btn-outline-danger"
+            @click="showClearQueueModal(queue.id)"
+            style="padding: 0.25rem 0.5rem"
+          >
+            Обнулить очередь
+          </button>
+        </div>
         </td>
       </tr>
     </template>
@@ -322,14 +399,14 @@
       <div class="row">
         <div class="col-12">
           <div class="mb-3">
-            <label for="rank__icontains" class="form-label"
-              >Комплектующий орган</label
+            <label for="queue_name__icontains" class="form-label"
+            >Название очереди</label
             >
             <input
               type="text"
               class="form-control"
-              id="rank__icontains"
-              v-model="searchForm.component_name__icontains"
+              id="queue_name__icontains"
+              v-model="searchForm.queue_name__icontains"
             />
           </div>
         </div>
@@ -342,9 +419,9 @@
 </template>
 
 <script>
-import getComponentOrganAPIInstance from "@/api/cadet/componentOrganAPI"
-import { mapGetters } from "vuex"
 import BaseListLayout from "@/components/layouts/BaseListLayout.vue"
+import getQueueAPIInstance from "@/api/electronic_queue/queueAPI.js"
+
 import {
   showAddNewMainItemModal,
   showDeleteApproveModal,
@@ -353,54 +430,46 @@ import {
   checkedForDeleteCount,
   clearFormData,
 } from "../../../../utils"
-import { debounce } from "lodash/function"
+import { mapGetters } from "vuex"
+import { debounce } from "lodash/function.js"
 
 export default {
-  name: "RankListView",
-  components: {
-    BaseListLayout,
-  },
+  name: "ElectronicQueueListAdmin",
+  components: { BaseListLayout },
   data() {
     return {
+      mainItemList: {results: [], count: null, next: null, previous: null},
       isLoading: false,
       isError: false,
-      mainItemAPIInstance: getComponentOrganAPIInstance(),
-      itemForm: Object.assign({}, getComponentOrganAPIInstance().formData),
-      searchForm: Object.assign({}, getComponentOrganAPIInstance().searchObj),
-      selectedItem: Object.assign({}, getComponentOrganAPIInstance().formData),
+      mainItemAPIInstance: getQueueAPIInstance(),
+      itemForm: Object.assign({}, getQueueAPIInstance().formData),
+      searchForm: Object.assign({}, getQueueAPIInstance().searchObj),
+      selectedItem: Object.assign({}, getQueueAPIInstance().formData),
       deleteItemId: "",
+      deleteQueueId: "",
     }
   },
+  async created() {
+    await this.loadData()
+  },
   methods: {
-    trashButtonClick(id) {
-      this.deleteItemId = id
-      this.showDeleteApproveModal()
-    },
-    deleteMultipleClick() {
-      this.showDeleteApproveMultipleModal()
+    async loadData() {
+      this.isLoading = true
+      const response = await this.mainItemAPIInstance.getItemsList()
+      this.mainItemList = await response.data
+      this.isLoading = false
     },
     checkAllHandler,
     showAddNewMainItemModal,
     clearFormData,
     showDeleteApproveModal,
     showDeleteApproveMultipleModal,
-    debouncedSearch: debounce(async function () {
-      try {
-        await this.$store.dispatch(
-          "componentOrgans/actionGetList",
-          this.searchForm,
-        )
-      } catch (e) {
-        this.isError = true
-      } finally {
-        this.isLoading = false
-      }
-    }, 500),
     async addNewItem() {
       try {
-        await this.$store.dispatch("componentOrgans/actionAddNewItem", {
-          ...this.itemForm,
-        })
+        await this.mainItemAPIInstance.addItem(this.itemForm)
+        const response = await this.mainItemAPIInstance.getItemsList()
+        this.mainItemList = await response.data
+
       } catch (error) {
       } finally {
         this.clearFormData()
@@ -420,20 +489,39 @@ export default {
     },
     async updateMainItemInList() {
       try {
-        await this.$store.dispatch("componentOrgans/actionUpdateItem", {
-          ...this.selectedItem,
-        })
+        await this.mainItemAPIInstance.updateItem(this.selectedItem)
+        const response = await this.mainItemAPIInstance.getItemsList()
+        this.mainItemList = await response.data
       } catch (error) {
       } finally {
         this.$refs.mainItemUpdateModalCloseButton.click()
       }
     },
+    debouncedSearch: debounce(async function () {
+      this.isLoading = true
+      this.mainItemAPIInstance.searchObj = this.searchForm
+      try {
+        const response = await this.mainItemAPIInstance.getItemsList()
+        this.mainItemList = response.data
+      } catch (e) {
+        this.isError = true
+      } finally {
+        this.isLoading = false
+      }
+    }, 500),
+    trashButtonClick(id) {
+      this.deleteItemId = id
+      this.showDeleteApproveModal()
+    },
+    deleteMultipleClick() {
+      this.showDeleteApproveMultipleModal()
+    },
+
     async deleteItemHandler() {
       try {
-        await this.$store.dispatch(
-          "componentOrgans/actionDeleteItem",
-          this.deleteItemId,
-        )
+        await this.mainItemAPIInstance.deleteItem(this.deleteItemId)
+        const response = await this.mainItemAPIInstance.getItemsList()
+        this.mainItemList = response.data
       } catch (error) {
       } finally {
         this.$refs.deleteApproveModalCloseButton.click()
@@ -442,14 +530,30 @@ export default {
     async deleteCheckedItemsHandler() {
       this.mainItemList.results.map(async (item) => {
         if (item.isSelected) {
-
-          await this.$store.dispatch(
-            "componentOrgans/actionDeleteItem",
-            item.id,
-          )
+          const resp = await this.mainItemAPIInstance.deleteItem(item.id)
+          this.mainItemList.results = this.mainItemList.results.filter(item => item.id !== resp.data.id)
         }
       })
       this.$refs.deleteApproveModalMultipleCloseButton.click()
+
+    },
+    showClearQueueModal(queueId) {
+      this.deleteQueueId = queueId
+      let deleteQueueModal = this.$refs.clearApproveModal
+      let myModal = new bootstrap.Modal(deleteQueueModal, {
+        keyboard: false,
+      })
+      myModal.show()
+    },
+    async clearQueue(){
+      try {
+        await this.mainItemAPIInstance.clearQueue(this.deleteQueueId)
+        const response = await this.mainItemAPIInstance.getItemsList()
+        this.mainItemList = response.data
+      } catch (error) {
+      } finally {
+        this.$refs.clearApproveModalCloseButton.click()
+      }
     },
     clearFilter() {
       this.searchForm = Object.assign(
@@ -464,7 +568,7 @@ export default {
       return this.mainItemList.results
     },
     ...mapGetters({
-      mainItemList: "componentOrgans/getList",
+      mainItemList: "directionsORD/getList",
     }),
   },
   watch: {
