@@ -1,5 +1,5 @@
 <template>
-  <div style="max-height: calc(100vh - 450px); overflow-y: auto">
+  <div style="max-height: calc(100vh - 700px); overflow-y: auto">
     <table class="table">
       <thead>
         <tr>
@@ -25,7 +25,14 @@
             }}
           </td>
           <td>{{ states[ticket.ticket_state] }}</td>
-          <td><button class="btn btn-danger">Завершить</button></td>
+          <td>
+            <button
+              class="btn btn-danger"
+              @click="$emit('finishTicketProcess', ticket)"
+            >
+              Завершить
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>

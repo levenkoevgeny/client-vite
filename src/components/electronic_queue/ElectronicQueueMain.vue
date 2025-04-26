@@ -53,42 +53,21 @@
         }}
       </div>
     </div>
-
-
-
-    <div class="row">
-      <div class="col-2">
-        <div style="max-height: calc(100vh - 220px); overflow-y: auto">
-          <div class="list-group">
-            <router-link
-              v-for="queue in orderedMainList"
-              :key="queue.id"
-              class="list-group-item list-group-item-action rounded-1"
-              :to="{ name: 'queue-list-processing', params: {id: queue.id} }"
-            >
-              {{ queue.queue_name }}
-            </router-link>
-            <br />
-          </div>
-        </div>
-      </div>
-      <div class="col-10">
-        <router-view></router-view>
-      </div>
-    </div>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import NavigationLayout from "@/components/layouts/NavigationLayout.vue"
 import getQueueAPIInstance from "@/api/electronic_queue/queueAPI.js"
+import { mapGetters } from "vuex"
 
 export default {
   name: "ElectronicQueueMain",
   components: { NavigationLayout },
   data() {
     return {
-      mainItemList: {results: [], count: null, next: null, previous: null},
+      mainItemList: { results: [], count: null, next: null, previous: null },
       mainItemAPIInstance: getQueueAPIInstance(),
       currentTime: new Date(),
     }
@@ -111,8 +90,10 @@ export default {
     orderedMainList() {
       return this.mainItemList.results
     },
+    ...mapGetters({
+      user: "auth/getUser",
+    }),
   },
-
 }
 </script>
 

@@ -1,20 +1,36 @@
 <template>
   <div class="container-fluid">
-    <h1 class="my-2">
-      {{ currentQueueData.queue_name }}
-    </h1>
+    <div class="d-flex flex-row">
+      <div></div>
+      <div></div>
+      <h3>
+        {{ currentQueueData.queue_name }}
 
-    <QueueInfo :queue-data="currentQueueData" />
+        <QueueInfo :queue-data="currentQueueData" />
+      </h3>
+    </div>
 
     <div class="row">
+      <div class="col-6"></div>
       <div class="col-6">
-        <TicketsInProcess :ticket-list="processingList" />
+        <button
+          class="btn btn-primary"
+          :class="{ disabled: currentQueueData.get_ticket_pending === 0 }"
+          @click="getNextFreeTicketToProcess"
+        >
+          Вызвать следующего
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <h3 class="my-3">Обслуживаются на Вашем рабочем месте</h3>
+        <TicketsInProcess
+          :ticket-list="processingList"
+          @finishTicketProcess="finishTicketProcess"
+        />
       </div>
       <div class="col-6">
-        <div>
-          <button class="btn btn-primary">Вызвать следующего</button>
-        </div>
-
         <h3 class="my-3">Список выданных талонов</h3>
         <TicketTable :ticket-list="orderedMainList" />
       </div>
@@ -55,7 +71,7 @@ export default {
     }, 1000)
 
     setInterval(async () => {
-      await this.loadData()
+      await this.loadData(this.$route.params.id)
     }, 3000)
 
     this.$watch(
@@ -67,24 +83,47 @@ export default {
     await this.loadData(this.$route.params.id)
   },
   methods: {
-    async loadData() {
+    async loadData(queueId) {
+      if (queueId) {
+        try {
+          const resQueue = await this.queueAPIInstance.getItemData(queueId)
+          this.currentQueueData = resQueue.data
+          this.mainItemAPIInstance.searchObj.queue = queueId
+          const res = await this.mainItemAPIInstance.getItemsList()
+          this.mainItemList = await res.data
+        } catch (error) {
+        } finally {
+          this.isLoading = false
+        }
+      }
+    },
+    async getNextFreeTicketToProcess() {
       try {
-        const resQueue = await this.queueAPIInstance.getItemData(
-          this.$route.params.id,
+        await this.queueAPIInstance.getNextTicketToProcess(
+          this.currentQueueData.id,
         )
-        this.currentQueueData = resQueue.data
-        this.mainItemAPIInstance.searchObj.queue = this.$route.params.id
-        const res = await this.mainItemAPIInstance.getItemsList()
-        this.mainItemList = await res.data
+        await this.loadData(this.$route.params.id)
       } catch (error) {
       } finally {
-        this.isLoading = false
+      }
+    },
+    async finishTicketProcess(ticketData) {
+      try {
+        await this.mainItemAPIInstance.updateItem({
+          ...ticketData,
+          ticket_state: 2,
+        })
+        await this.loadData(this.$route.params.id)
+      } catch (error) {
+      } finally {
       }
     },
   },
   computed: {
     orderedMainList() {
-      return this.mainItemList.results
+      return this.mainItemList.results.sort(
+        (a, b) => a.ticket_state - b.ticket_state,
+      )
     },
     ...mapGetters({
       user: "auth/getUser",

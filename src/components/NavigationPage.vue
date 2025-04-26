@@ -110,7 +110,7 @@
           <div class="card-body">
             <h5 class="card-title">Электронная очередь</h5>
             <p class="card-text">Администрирование электронной очереди</p>
-            <router-link class="btn btn-primary" :to="{ name: 'electronic-queue-main' }">
+            <router-link class="btn btn-primary" :to="{ name: 'queue-list' }">
               Перейти
             </router-link>
           </div>
