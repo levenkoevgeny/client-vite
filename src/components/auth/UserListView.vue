@@ -282,14 +282,13 @@
                       </div>
                     </div>
 
-
                     <div class="row mb-3">
                       <div class="col-12">
-                        <label for="id_last_name" class="form-label"
-                        >Номер рабочего места при приеме документов</label
+                        <label for="id_workplace" class="form-label"
+                          >Номер рабочего места при приеме документов</label
                         >
                         <input
-                          id="id_last_name"
+                          id="id_workplace"
                           type="text"
                           class="form-control"
                           v-model="selectedItem.workplace"
@@ -827,6 +826,13 @@ export default {
         const response = await this.mainItemAPIInstance.updateItemPartly(rest)
         const updatedUser = response.data
 
+        if (updatedUser.id === this.currentAuthUser.id) {
+          this.$store.commit("auth/setUserData", {
+            ...this.currentAuthUser,
+            ...updatedUser,
+          })
+        }
+
         let index = this.mainItemList.results.findIndex(
           (item) => item.id === updatedUser.id,
         )
@@ -932,7 +938,9 @@ export default {
     orderedMainList() {
       return this.mainItemList.results
     },
-    ...mapGetters({}),
+    ...mapGetters({
+      currentAuthUser: "auth/getUser",
+    }),
   },
   watch: {
     searchForm: {

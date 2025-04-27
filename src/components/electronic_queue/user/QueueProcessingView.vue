@@ -15,7 +15,12 @@
       <div class="col-6">
         <button
           class="btn btn-primary"
-          :class="{ disabled: currentQueueData.get_ticket_pending === 0 }"
+          :class="{
+            disabled:
+              currentQueueData.get_ticket_pending === 0 ||
+              !user.workplace ||
+              nextTicketToProcessButtonDisabled,
+          }"
           @click="getNextFreeTicketToProcess"
         >
           Вызвать следующего
@@ -63,6 +68,7 @@ export default {
       searchForm: Object.assign({}, getTicketAPIInstance().searchObj),
       currentTime: new Date(),
       states: { 0: "В ожидании", 1: "В обработке", 2: "Обработан" },
+      nextTicketToProcessButtonDisabled: false,
     }
   },
   async created() {
@@ -98,6 +104,7 @@ export default {
       }
     },
     async getNextFreeTicketToProcess() {
+      this.nextTicketToProcessButtonDisabled = true
       try {
         await this.queueAPIInstance.getNextTicketToProcess(
           this.currentQueueData.id,
@@ -105,6 +112,7 @@ export default {
         await this.loadData(this.$route.params.id)
       } catch (error) {
       } finally {
+        this.nextTicketToProcessButtonDisabled = false
       }
     },
     async finishTicketProcess(ticketData) {
