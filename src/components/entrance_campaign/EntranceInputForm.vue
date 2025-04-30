@@ -1,5 +1,78 @@
 <template>
   <div class="container-fluid">
+    <div
+      class="modal fade"
+      id="id_cadetHistoryModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      ref="cadetHistoryModal"
+    >
+      <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              История изменений:
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <div style="max-height: 400px; overflow-y: auto">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Пользователь</th>
+                    <th>Действие</th>
+                    <th>Дата и время</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="record in cadetHistoryList.results"
+                    :key="record.id"
+                  >
+                    <td>{{ record.get_user }}</td>
+                    <td>{{ record.action }}</td>
+                    <td>
+                      {{
+                        new Date(record.date_time_created).toLocaleString(
+                          "ru-RU",
+                          {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric",
+                            hour: "numeric",
+                            minute: "numeric",
+                            second: "numeric",
+                          },
+                        )
+                      }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              ref="cadetAddModalCloseButton"
+            >
+              Закрыть
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!--    Validation modal-->
     <div
       class="modal fade"
@@ -111,6 +184,11 @@
               {{ currentCadetData.first_name_rus }}</span
             >
           </h1>
+          <button class="mx-2 btn btn-warning" @click="showHistory">
+            История изменений&nbsp;&nbsp;<font-awesome-icon
+              :icon="['fas', 'database']"
+            />
+          </button>
           <div v-if="currentCadetData.application_has_been_printed">
             <p>
               <font-awesome-icon :icon="['fas', 'print']" /> Заявление
@@ -163,6 +241,8 @@
                     />
                     <label for="id_last_name_rus">Фамилия (рус)</label>
                   </div>
+                </div>
+                <div class="col-xl-3">
                   <div class="form-floating mb-3">
                     <input
                       id="id_first_name_rus"
@@ -173,6 +253,8 @@
                     />
                     <label for="id_first_name_rus">Имя (рус)</label>
                   </div>
+                </div>
+                <div class="col-xl-3">
                   <div class="form-floating mb-3">
                     <input
                       id="id_patronymic_rus"
@@ -187,39 +269,6 @@
                 <div class="col-xl-3">
                   <div class="form-floating mb-3">
                     <input
-                      id="id_last_name_bel"
-                      type="text"
-                      class="form-control form-control-sm"
-                      placeholder="Фамилия (бел)"
-                      v-model="currentCadetData.last_name_bel"
-                    />
-                    <label for="id_last_name_bel">Фамилия (бел)</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <input
-                      id="id_first_name_bel"
-                      type="text"
-                      class="form-control"
-                      placeholder="Имя (бел)"
-                      v-model="currentCadetData.first_name_bel"
-                      required
-                    />
-                    <label for="id_first_name_bel">Имя (бел)</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <input
-                      id="id_patronymic_bel"
-                      type="text"
-                      class="form-control"
-                      placeholder="Отчество (бел)"
-                      v-model="currentCadetData.patronymic_bel"
-                    />
-                    <label for="id_patronymic_bel">Отчество (бел)</label>
-                  </div>
-                </div>
-                <div class="col-xl-3">
-                  <div class="form-floating mb-3">
-                    <input
                       id="id_date_of_birth"
                       type="date"
                       class="form-control"
@@ -228,7 +277,44 @@
                     />
                     <label for="id_date_of_birth">Дата рождения</label>
                   </div>
+                </div>
+                <!--                <div class="col-xl-3">-->
+                <!--                  <div class="form-floating mb-3">-->
+                <!--                    <input-->
+                <!--                      id="id_last_name_bel"-->
+                <!--                      type="text"-->
+                <!--                      class="form-control form-control-sm"-->
+                <!--                      placeholder="Фамилия (бел)"-->
+                <!--                      v-model="currentCadetData.last_name_bel"-->
+                <!--                    />-->
+                <!--                    <label for="id_last_name_bel">Фамилия (бел)</label>-->
+                <!--                  </div>-->
+                <!--                  <div class="form-floating mb-3">-->
+                <!--                    <input-->
+                <!--                      id="id_first_name_bel"-->
+                <!--                      type="text"-->
+                <!--                      class="form-control"-->
+                <!--                      placeholder="Имя (бел)"-->
+                <!--                      v-model="currentCadetData.first_name_bel"-->
+                <!--                      required-->
+                <!--                    />-->
+                <!--                    <label for="id_first_name_bel">Имя (бел)</label>-->
+                <!--                  </div>-->
+                <!--                  <div class="form-floating mb-3">-->
+                <!--                    <input-->
+                <!--                      id="id_patronymic_bel"-->
+                <!--                      type="text"-->
+                <!--                      class="form-control"-->
+                <!--                      placeholder="Отчество (бел)"-->
+                <!--                      v-model="currentCadetData.patronymic_bel"-->
+                <!--                    />-->
+                <!--                    <label for="id_patronymic_bel">Отчество (бел)</label>-->
+                <!--                  </div>-->
+                <!--                </div>-->
+              </div>
 
+              <div class="row">
+                <div class="col-xl-3">
                   <div class="form-floating mb-3">
                     <select
                       id="id_gender"
@@ -240,6 +326,21 @@
                       <option value="0">Женский</option>
                     </select>
                     <label for="id_gender">Пол</label>
+                  </div>
+                </div>
+                <div class="col-xl-3">
+                  <div class="form-floating mb-3">
+                    <select
+                      id="id_rank"
+                      class="form-select"
+                      v-model="currentCadetData.current_rank"
+                    >
+                      <option :value="null">---------</option>
+                      <option :value="rank.id" v-for="rank in orderedRanks">
+                        {{ rank.rank }}
+                      </option>
+                    </select>
+                    <label for="id_rank">Звание</label>
                   </div>
                 </div>
               </div>
@@ -484,7 +585,7 @@
                   <div>
                     <div class="my-3">
                       <div class="row">
-                        <div class="col-lg-3">
+                        <div class="col-xl-3">
                           <div class="form-floating mb-3">
                             <select
                               id="id_component_organ"
@@ -692,7 +793,6 @@
                       </div>
                       <div class="col-xl-3">
                         <div class="form-floating mb-3">
-                          {{ currentCadetData.education_graduating_start_year }}
                           <input
                             type="number"
                             id="id_education_graduating_start_year"
@@ -767,20 +867,20 @@
                         </div>
                       </div>
                       <div class="col-xl-3">
-                        <div class="form-floating mb-3">
-                          <input
-                            type="number"
-                            id="id_education_average_score"
-                            name="education_average_score"
-                            class="form-control form-control-sm"
-                            placeholder="Средний бал"
-                            v-model="currentCadetData.education_average_score"
-                            @input="makeInputDefaultNullValueIfEmpty"
-                          />
-                          <label for="id_education_average_score"
-                            >Средний бал</label
-                          >
-                        </div>
+                        <!--                        <div class="form-floating mb-3">-->
+                        <!--                          <input-->
+                        <!--                            type="number"-->
+                        <!--                            id="id_education_average_score"-->
+                        <!--                            name="education_average_score"-->
+                        <!--                            class="form-control form-control-sm"-->
+                        <!--                            placeholder="Средний бал"-->
+                        <!--                            v-model="currentCadetData.education_average_score"-->
+                        <!--                            @input="makeInputDefaultNullValueIfEmpty"-->
+                        <!--                          />-->
+                        <!--                          <label for="id_education_average_score"-->
+                        <!--                            >Средний бал</label-->
+                        <!--                          >-->
+                        <!--                        </div>-->
                       </div>
                       <div class="col-xl-3">
                         <div class="form-floating mb-3">
@@ -893,18 +993,21 @@
                       <div class="row">
                         <div class="col-6">
                           <div class="form-floating mb-3">
-                            <input
-                              type="text"
-                              id="id_"
-                              class="form-control form-control-sm"
-                              placeholder="Документ удостоверяющий личность "
-                            />
-                            <label for="id_"
-                              >Документ удостоверяющий личность ???????</label
+                            <select
+                              class="form-select"
+                              id="id_passport_document_type"
+                              v-model="currentCadetData.passport_document_type"
+                            >
+                              <option :value="null">---------</option>
+                              <option value="1">Паспорт</option>
+                              <option value="2">Идентификационная карта</option>
+                            </select>
+                            <label for="id_passport_document_type"
+                              >Документ удостоверяющий личность</label
                             >
                           </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-3">
                           <div class="form-floating mb-3">
                             <input
                               type="text"
@@ -914,7 +1017,21 @@
                               v-model="currentCadetData.passport_number"
                             />
                             <label for="id_passport_number"
-                              >Номер паспорта</label
+                              >Номер паспорта (идентификационной карты)</label
+                            >
+                          </div>
+                        </div>
+                        <div class="col-3">
+                          <div class="form-floating mb-3">
+                            <input
+                              type="text"
+                              id="id_identification_number"
+                              class="form-control form-control-sm"
+                              placeholder="Номер паспорта"
+                              v-model="currentCadetData.identification_number"
+                            />
+                            <label for="id_identification_number"
+                              >Идентификационный номер</label
                             >
                           </div>
                         </div>
@@ -922,22 +1039,15 @@
                       <div class="row">
                         <div class="col-6">
                           <div class="form-floating mb-3">
-                            <select
-                              class="form-select"
-                              id="id_passport_issue_authority"
+                            <textarea
+                              class="form-control"
+                              rows="1"
+                              id="id_passport_issue_authority_text"
                               v-model="
-                                currentCadetData.passport_issue_authority
+                                currentCadetData.passport_issue_authority_text
                               "
-                            >
-                              <option :value="null">---------</option>
-                              <option
-                                :value="passportAuthority.id"
-                                v-for="passportAuthority in orderedPassportAuthorities"
-                              >
-                                {{ passportAuthority.passport_issue_authority }}
-                              </option>
-                            </select>
-                            <label for="id_passport_issue_authority"
+                            />
+                            <label for="id_passport_issue_authority_text"
                               >Орган выдачи</label
                             >
                           </div>
@@ -983,6 +1093,21 @@
                   aria-labelledby="nav-representatives-tab"
                   tabindex="0"
                 >
+                  <div class="my-3">
+                    <div class="form-check mb-3">
+                      <input
+                        id="id_parents_is_in_divorce"
+                        class="form-check-input"
+                        type="checkbox"
+                        v-model="currentCadetData.parents_is_in_divorce"
+                      />
+                      <label
+                        class="form-check-label"
+                        for="id_parents_is_in_divorce"
+                        >Родители в разводе
+                      </label>
+                    </div>
+                  </div>
                   <div>
                     <div class="my-3">
                       <p class="fs-6 fw-bold my-2">Мать</p>
@@ -1364,7 +1489,9 @@
                               <option value="4">4</option>
                               <option value="5">5</option>
                             </select>
-                            <label for="id_health_group">Группа здоровья</label>
+                            <label for="id_health_group"
+                              >Группа предназначения</label
+                            >
                           </div>
                         </div>
                         <div class="col-xl-4">
@@ -1382,7 +1509,9 @@
                                 {{ ppfl.category }}
                               </option>
                             </select>
-                            <label for="id_ppfl_test">Тест ПФЛ</label>
+                            <label for="id_ppfl_test"
+                              >Категория профессионального соответствия</label
+                            >
                           </div>
                         </div>
                         <div class="col-xl-4">
@@ -1421,7 +1550,7 @@
                               class="form-check-label"
                               for="id_passed_medical_examination"
                             >
-                              Мед. комиссию прошел
+                              Окончательное мед. освидетельствование
                             </label>
                           </div>
                         </div>
@@ -2291,6 +2420,7 @@
 <script>
 import NavigationLayout from "@/components/layouts/NavigationLayout.vue"
 import { globalCadetAPIForEntranceInstance } from "@/api/cadet/cadetAPI"
+import getCadetHistoryAPIInstance from "@/api/cadet/cadetHistoryAPI.js"
 import { isEqual } from "lodash"
 import { mapGetters } from "vuex"
 import useVuelidate from "@vuelidate/core"
@@ -2327,10 +2457,12 @@ export default {
         phone_number: "",
         personal_number_mvd: "",
         marital_status: "",
+        passport_document_type: "",
         passport_number: "",
         passport_issue_date: "",
         passport_validity_period: "",
         passport_issue_authority: "",
+        passport_issue_authority_text: "",
         identification_number: "",
         subdivision: "",
         current_rank: "",
@@ -2350,6 +2482,7 @@ export default {
         mother_place_of_work: "",
         mother_phone_number: "",
         mother_address_residence: "",
+        parents_is_in_divorce: "",
         removed_from_military_registration: "",
         foreign_language_was: "",
         foreign_language_will_be: "",
@@ -2443,9 +2576,11 @@ export default {
       },
       currentCadetDataFromServer: {},
       cadetAPIInstance: globalCadetAPIForEntranceInstance,
+      cadetHistoryAPIInstance: getCadetHistoryAPIInstance(),
       BACKEND_PROTOCOL: import.meta.env.VITE_APP_BACKEND_PROTOCOL,
       BACKEND_HOST: import.meta.env.VITE_APP_BACKEND_HOST,
       BACKEND_PORT: import.meta.env.VITE_APP_BACKEND_PORT,
+      cadetHistoryList: { count: 0, results: [], previous: null, next: null },
     }
   },
   setup() {
@@ -2545,6 +2680,20 @@ export default {
         }
       }
     },
+    async showHistory() {
+      try {
+        this.cadetHistoryAPIInstance.searchObj.cadet = this.currentCadetData.id
+        const response = await this.cadetHistoryAPIInstance.getItemsList()
+        this.cadetHistoryList = response.data
+        let historyModal = this.$refs.cadetHistoryModal
+        let myModal = new bootstrap.Modal(historyModal, {
+          keyboard: false,
+        })
+        myModal.show()
+      } catch (error) {
+      } finally {
+      }
+    },
     makeInputDefaultNullValueIfEmpty(event) {
       if (event.target.value.trim().length === 0) {
         this.currentCadetData[event.target.name] = null
@@ -2585,6 +2734,9 @@ export default {
   computed: {
     orderedCadetCategories() {
       return this.categories.results
+    },
+    orderedRanks() {
+      return this.ranks.results
     },
     orderedSubdivisions() {
       return this.subdivisions.results.filter(
@@ -2739,9 +2891,6 @@ export default {
     },
     orderedPrivileges() {
       return this.privileges.results
-    },
-    orderedPassportAuthorities() {
-      return this.passportAuthorities.results
     },
     orderedForeignLanguages() {
       return this.foreignLanguages.results

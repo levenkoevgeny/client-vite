@@ -31,7 +31,7 @@
               <div class="modal-body">
                 <div class="mb-3">
                   <label for="id_queue_name" class="form-label"
-                  >Название очереди</label
+                    >Название очереди</label
                   >
                   <input
                     id="id_queue_name"
@@ -42,9 +42,7 @@
                   />
                 </div>
                 <div class="mb-3">
-                  <label for="id_queue_liter" class="form-label"
-                  >Литера</label
-                  >
+                  <label for="id_queue_liter" class="form-label">Литера</label>
                   <input
                     id="id_queue_liter"
                     type="text"
@@ -96,7 +94,7 @@
               <div class="modal-body">
                 <div class="mb-3">
                   <label for="id_queue_name_update" class="form-label"
-                  >Название очереди</label
+                    >Название очереди</label
                   >
                   <input
                     id="id_queue_name_update"
@@ -108,7 +106,7 @@
                 </div>
                 <div class="mb-3">
                   <label for="id_queue_liter_update" class="form-label"
-                  >Литера</label
+                    >Литера</label
                   >
                   <input
                     id="id_queue_liter_update"
@@ -229,7 +227,6 @@
         </div>
       </div>
 
-
       <!-- clear queue approve modal-->
 
       <div
@@ -265,19 +262,13 @@
               >
                 Отмена
               </button>
-              <button
-                type="button"
-                class="btn btn-danger"
-                @click="clearQueue"
-              >
-                обнулить
+              <button type="button" class="btn btn-danger" @click="clearQueue">
+                Обнулить
               </button>
             </div>
           </div>
         </div>
       </div>
-
-
     </template>
     <template v-slot:add-button>
       <button
@@ -383,15 +374,15 @@
 
         <td>
           <div class="d-flex align-items-end justify-content-end">
-          <button
-            type="button"
-            class="btn btn-outline-danger"
-            @click="showClearQueueModal(queue.id)"
-            style="padding: 0.25rem 0.5rem"
-          >
-            Обнулить очередь
-          </button>
-        </div>
+            <button
+              type="button"
+              class="btn btn-outline-danger"
+              @click="showClearQueueModal(queue.id)"
+              style="padding: 0.25rem 0.5rem"
+            >
+              Обнулить очередь
+            </button>
+          </div>
         </td>
       </tr>
     </template>
@@ -400,7 +391,7 @@
         <div class="col-12">
           <div class="mb-3">
             <label for="queue_name__icontains" class="form-label"
-            >Название очереди</label
+              >Название очереди</label
             >
             <input
               type="text"
@@ -438,7 +429,7 @@ export default {
   components: { BaseListLayout },
   data() {
     return {
-      mainItemList: {results: [], count: null, next: null, previous: null},
+      mainItemList: { results: [], count: null, next: null, previous: null },
       isLoading: false,
       isError: false,
       mainItemAPIInstance: getQueueAPIInstance(),
@@ -469,7 +460,6 @@ export default {
         await this.mainItemAPIInstance.addItem(this.itemForm)
         const response = await this.mainItemAPIInstance.getItemsList()
         this.mainItemList = await response.data
-
       } catch (error) {
       } finally {
         this.clearFormData()
@@ -531,11 +521,12 @@ export default {
       this.mainItemList.results.map(async (item) => {
         if (item.isSelected) {
           const resp = await this.mainItemAPIInstance.deleteItem(item.id)
-          this.mainItemList.results = this.mainItemList.results.filter(item => item.id !== resp.data.id)
+          this.mainItemList.results = this.mainItemList.results.filter(
+            (item) => item.id !== resp.data.id,
+          )
         }
       })
       this.$refs.deleteApproveModalMultipleCloseButton.click()
-
     },
     showClearQueueModal(queueId) {
       this.deleteQueueId = queueId
@@ -545,7 +536,7 @@ export default {
       })
       myModal.show()
     },
-    async clearQueue(){
+    async clearQueue() {
       try {
         await this.mainItemAPIInstance.clearQueue(this.deleteQueueId)
         const response = await this.mainItemAPIInstance.getItemsList()

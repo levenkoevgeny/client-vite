@@ -204,7 +204,7 @@ export default {
           itemUrl: "dictionaries-vpk-categories",
         },
         {
-          itemTitle: "ПФЛ категории",
+          itemTitle: "Категории профессионального соответствия",
           itemUrl: "dictionaries-pfl-categories",
         },
         {

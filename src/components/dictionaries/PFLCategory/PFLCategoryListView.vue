@@ -2,7 +2,7 @@
   <base-list-layout
     :is-loading="isLoading"
     :main-list-length="mainItemList.count"
-    title="ПФЛ категории"
+    title="Категории профессионального соответствия"
   >
     <template v-slot:modals>
       <!-- add modal-->
@@ -31,7 +31,7 @@
               <div class="modal-body">
                 <div class="mb-3">
                   <label for="id_pfl_category_create" class="form-label"
-                    >ПФЛ категория</label
+                    >Категория</label
                   >
                   <input
                     id="id_pfl_category_create"
@@ -84,7 +84,7 @@
               <div class="modal-body">
                 <div class="mb-3">
                   <label for="id_pfl_category_update" class="form-label"
-                    >ПФЛ категория</label
+                    >Категория</label
                   >
                   <input
                     id="id_pfl_category_update"
@@ -237,7 +237,7 @@
             />
           </div>
         </th>
-        <th>ПФЛ категория</th>
+        <th>Категория</th>
         <th>Дата добавления записи</th>
         <th>Дата последнего редактирования записи</th>
         <th></th>
@@ -304,13 +304,13 @@
         <div class="col-12">
           <div class="mb-3">
             <label for="social_status__icontains" class="form-label"
-              >Социальный статус</label
+              >Категория</label
             >
             <input
               type="text"
               class="form-control"
               id="social_status__icontains"
-              v-model="searchForm.social_status__icontains"
+              v-model="searchForm.category__icontains"
             />
           </div>
         </div>

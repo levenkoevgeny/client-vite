@@ -39,6 +39,7 @@ import { faFilter } from "@fortawesome/free-solid-svg-icons"
 import { faPrint } from "@fortawesome/free-solid-svg-icons"
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons"
 import { faKey } from "@fortawesome/free-solid-svg-icons"
+import { faDatabase } from "@fortawesome/free-solid-svg-icons"
 import axios from "axios"
 
 export const axiosInstance = axios.create()
@@ -76,6 +77,7 @@ library.add(faFilter)
 library.add(faArrowRightFromBracket)
 library.add(faPrint)
 library.add(faKey)
+library.add(faDatabase)
 
 axiosInstance.interceptors.request.use(
   (config) => {

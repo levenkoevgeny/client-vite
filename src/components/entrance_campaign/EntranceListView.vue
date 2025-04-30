@@ -37,33 +37,35 @@
             <form @submit.prevent="addNewCadetForEntrance">
               <div class="modal-body">
                 <div class="mb-3">
-                  <label for="last_name_rus" class="form-label">Фамилия</label>
+                  <label for="id_last_name_rus" class="form-label"
+                    >Фамилия</label
+                  >
                   <input
                     type="text"
                     class="form-control"
-                    id="last_name_rus"
+                    id="id_last_name_rus"
                     v-model="cadetNewForm.last_name_rus"
                     required
                   />
                 </div>
                 <div class="mb-3">
-                  <label for="first_name_rus" class="form-label">Имя</label>
+                  <label for="id_first_name_rus" class="form-label">Имя</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="first_name_rus"
+                    id="id_first_name_rus"
                     v-model="cadetNewForm.first_name_rus"
                     required
                   />
                 </div>
                 <div class="mb-3">
-                  <label for="date_of_birth" class="form-label"
+                  <label for="id_date_of_birth" class="form-label"
                     >Дата рождения</label
                   >
                   <input
                     type="date"
                     class="form-control"
-                    id="date_of_birth"
+                    id="id_date_of_birth"
                     v-model="cadetNewForm.date_of_birth"
                     required
                   />
@@ -271,8 +273,9 @@ export default {
     async addNewCadetForEntrance() {
       this.isLoading = true
       const response = await this.cadetAPIInstance.addItem(this.cadetNewForm)
-      const newItem = await response.data
+      const newItem = response.data
       this.cadetList.results.unshift(newItem)
+      this.cadetList.count = this.cadetList.count + 1
       this.$refs.cadetAddModalCloseButton.click()
       this.cadetNewForm = {
         category: 3,
