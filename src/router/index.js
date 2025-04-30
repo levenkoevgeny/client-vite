@@ -76,6 +76,7 @@ import NavigationPage from "@/components/NavigationPage.vue"
 import BaseViewForStore from "@/components/BaseViewForStore.vue"
 import UserListView from "@/components/auth/UserListView.vue"
 import UserMainView from "@/components/auth/UserMainView.vue"
+import UserActionsView from "@/components/auth/UserActionsView.vue"
 
 import {
   NotFoundView,
@@ -421,6 +422,11 @@ const routes = [
             path: "",
             component: UserListView,
             name: "users-list",
+          },
+          {
+            path: "actions",
+            component: UserActionsView,
+            name: "users-actions",
           },
         ],
       },

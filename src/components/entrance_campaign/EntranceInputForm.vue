@@ -23,7 +23,10 @@
           </div>
 
           <div class="modal-body">
-            <div style="max-height: 400px; overflow-y: auto">
+            <div
+              style="max-height: 400px; overflow-y: auto"
+              v-if="cadetHistoryList.results.length > 0"
+            >
               <table class="table">
                 <thead>
                   <tr>
@@ -57,6 +60,9 @@
                   </tr>
                 </tbody>
               </table>
+            </div>
+            <div v-else>
+              <p>Записей нет</p>
             </div>
           </div>
           <div class="modal-footer">
@@ -2420,7 +2426,7 @@
 <script>
 import NavigationLayout from "@/components/layouts/NavigationLayout.vue"
 import { globalCadetAPIForEntranceInstance } from "@/api/cadet/cadetAPI"
-import getCadetHistoryAPIInstance from "@/api/cadet/cadetHistoryAPI.js"
+import getCadetHistoryAPIInstance from "@/api/cadet/actionHistoryAPI.js"
 import { isEqual } from "lodash"
 import { mapGetters } from "vuex"
 import useVuelidate from "@vuelidate/core"
@@ -2682,7 +2688,10 @@ export default {
     },
     async showHistory() {
       try {
-        this.cadetHistoryAPIInstance.searchObj.cadet = this.currentCadetData.id
+        this.cadetHistoryAPIInstance.searchObj.app_label = "kis_inheritance"
+        this.cadetHistoryAPIInstance.searchObj.model_name = "CadetInheritance"
+        this.cadetHistoryAPIInstance.searchObj.record_id =
+          this.currentCadetData.id
         const response = await this.cadetHistoryAPIInstance.getItemsList()
         this.cadetHistoryList = response.data
         let historyModal = this.$refs.cadetHistoryModal

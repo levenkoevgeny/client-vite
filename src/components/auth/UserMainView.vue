@@ -21,8 +21,13 @@
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" :to="{ name: 'cadet' }">
+              <router-link class="nav-link" :to="{ name: 'users-list' }">
                 Главная
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" :to="{ name: 'users-actions' }">
+                Активность пользователей
               </router-link>
             </li>
           </ul>
