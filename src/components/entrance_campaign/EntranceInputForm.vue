@@ -2426,7 +2426,7 @@
 <script>
 import NavigationLayout from "@/components/layouts/NavigationLayout.vue"
 import { globalCadetAPIForEntranceInstance } from "@/api/cadet/cadetAPI"
-import getCadetHistoryAPIInstance from "@/api/cadet/actionHistoryAPI.js"
+import getActionHistoryAPIInstance from "@/api/cadet/actionHistoryAPI.js"
 import { isEqual } from "lodash"
 import { mapGetters } from "vuex"
 import useVuelidate from "@vuelidate/core"
@@ -2582,7 +2582,7 @@ export default {
       },
       currentCadetDataFromServer: {},
       cadetAPIInstance: globalCadetAPIForEntranceInstance,
-      cadetHistoryAPIInstance: getCadetHistoryAPIInstance(),
+      actionHistoryAPIInstance: getActionHistoryAPIInstance(),
       BACKEND_PROTOCOL: import.meta.env.VITE_APP_BACKEND_PROTOCOL,
       BACKEND_HOST: import.meta.env.VITE_APP_BACKEND_HOST,
       BACKEND_PORT: import.meta.env.VITE_APP_BACKEND_PORT,
@@ -2688,11 +2688,11 @@ export default {
     },
     async showHistory() {
       try {
-        this.cadetHistoryAPIInstance.searchObj.app_label = "kis_inheritance"
-        this.cadetHistoryAPIInstance.searchObj.model_name = "CadetInheritance"
-        this.cadetHistoryAPIInstance.searchObj.record_id =
+        this.actionHistoryAPIInstance.searchObj.app_label = "kis_inheritance"
+        this.actionHistoryAPIInstance.searchObj.model_name = "CadetInheritance"
+        this.actionHistoryAPIInstance.searchObj.record_id =
           this.currentCadetData.id
-        const response = await this.cadetHistoryAPIInstance.getItemsList()
+        const response = await this.actionHistoryAPIInstance.getItemsList()
         this.cadetHistoryList = response.data
         let historyModal = this.$refs.cadetHistoryModal
         let myModal = new bootstrap.Modal(historyModal, {
