@@ -1450,6 +1450,25 @@
                             </label>
                           </div>
                         </div>
+
+                        <div class="col-xl-3">
+                          <div class="form-check mb-3">
+                            <input
+                              id="id_has_achievements_in_sports"
+                              class="form-check-input"
+                              type="checkbox"
+                              v-model="
+                                currentCadetData.has_achievements_in_sports
+                              "
+                            />
+                            <label
+                              class="form-check-label"
+                              for="id_has_achievements_in_sports"
+                            >
+                              Достижения в спорте
+                            </label>
+                          </div>
+                        </div>
                       </div>
 
                       <div class="row">
@@ -1500,25 +1519,21 @@
                               Профильный класс иной направленности
                             </label>
                           </div>
-                        </div>
-                        <div class="col-xl-3">
-                          <div class="form-check mb-3">
+                          <div class="form-floating mb-3">
                             <input
-                              id="id_has_achievements_in_sports"
-                              class="form-check-input"
-                              type="checkbox"
-                              v-model="
-                                currentCadetData.has_achievements_in_sports
-                              "
+                              id="id_class_other_extra_data"
+                              type="text"
+                              class="form-control form-control-sm"
+                              placeholder="Доп. данные к классу иной
+                              направленности"
+                              v-model="currentCadetData.class_other_extra_data"
                             />
-                            <label
-                              class="form-check-label"
-                              for="id_has_achievements_in_sports"
+                            <label for="id_class_other_extra_data"
+                              >Доп. данные к классу иной направленности</label
                             >
-                              Достижения в спорте
-                            </label>
                           </div>
                         </div>
+                        <div class="col-xl-3"></div>
                       </div>
                     </div>
                   </div>
@@ -2604,6 +2619,7 @@ export default {
         is_class_vpn: "",
         is_class_pn: "",
         is_class_other: "",
+        class_other_extra_data: "",
         has_achievements_in_sports: "",
         is_olympiad_winner: "",
         health_group: "",
