@@ -37,6 +37,7 @@ import ppflCategories from "@/store/modules/ppflCategories"
 import vpkCategories from "@/store/modules/vpkCategories"
 import errors from "@/store/modules/errors"
 import medals from "@/store/modules/medals"
+import inWhoseInterests from "@/store/modules/inWhoseInterests.js"
 
 const store = createStore({
   modules: {
@@ -78,6 +79,7 @@ const store = createStore({
     vpkCategories,
     errors,
     medals,
+    inWhoseInterests,
   },
 })
 

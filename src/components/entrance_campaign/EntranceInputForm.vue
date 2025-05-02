@@ -186,8 +186,9 @@
           >
             Личное дело абитуриента
             <span class="fw-normal text-decoration-underline"
-              >{{ currentCadetData.last_name_rus }}
-              {{ currentCadetData.first_name_rus }}</span
+              >{{ currentCadetData.last_name_rus }}&nbsp;{{
+                currentCadetData.first_name_rus
+              }}&nbsp;{{ currentCadetData.patronymic_rus }}</span
             >
           </h1>
           <button class="mx-2 btn btn-warning" @click="showHistory">
@@ -347,6 +348,18 @@
                       </option>
                     </select>
                     <label for="id_rank">Звание</label>
+                  </div>
+                </div>
+                <div class="col-xl-3">
+                  <div class="form-floating mb-3">
+                    <input
+                      id="id_personal_number_mvd"
+                      type="text"
+                      class="form-control"
+                      placeholder="Личный номер"
+                      v-model="currentCadetData.personal_number_mvd"
+                    />
+                    <label for="id_personal_number_mvd">Личный номер</label>
                   </div>
                 </div>
               </div>
@@ -596,6 +609,29 @@
                             <select
                               id="id_component_organ"
                               class="form-select"
+                              v-model="currentCadetData.in_whose_interests"
+                            >
+                              <option :value="null">---------</option>
+                              <option
+                                :value="in_whose_interests.id"
+                                v-for="in_whose_interests in orderedInWhoseInterests"
+                              >
+                                {{ in_whose_interests.in_whose_interests }}
+                              </option>
+                            </select>
+                            <label for="id_component_organ"
+                              >В чьих интересах</label
+                            >
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-xl-3">
+                          <div class="form-floating mb-3">
+                            <select
+                              id="id_component_organ"
+                              class="form-select"
                               v-model="currentCadetData.component_organ"
                             >
                               <option :value="null">---------</option>
@@ -730,23 +766,6 @@
                           </div>
                         </div>
                       </div>
-
-                      <div class="row">
-                        <div class="col-12">
-                          <div class="form-floating mb-3">
-                            <textarea
-                              id="id_extra_data"
-                              class="form-control"
-                              placeholder="Примечание для отдела кадров"
-                              rows="2"
-                              v-model="currentCadetData.extra_data"
-                            ></textarea>
-                            <label for="id_extra_data"
-                              >Примечание для отдела кадров</label
-                            >
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -801,24 +820,6 @@
                         <div class="form-floating mb-3">
                           <input
                             type="number"
-                            id="id_education_graduating_start_year"
-                            name="education_graduating_start_year"
-                            class="form-control form-control-sm"
-                            placeholder="Год поступления"
-                            v-model="
-                              currentCadetData.education_graduating_start_year
-                            "
-                            @input="makeInputDefaultNullValueIfEmpty"
-                          />
-                          <label for="id_education_graduating_start_year"
-                            >Год поступления</label
-                          >
-                        </div>
-                      </div>
-                      <div class="col-xl-3">
-                        <div class="form-floating mb-3">
-                          <input
-                            type="number"
                             id="id_education_graduating_end_year"
                             name="education_graduating_end_year"
                             class="form-control form-control-sm"
@@ -831,6 +832,41 @@
                           <label for="id_education_graduating_end_year"
                             >Год окончания</label
                           >
+                        </div>
+
+                        <!--                        <div class="form-floating mb-3">-->
+                        <!--                          <input-->
+                        <!--                            type="number"-->
+                        <!--                            id="id_education_graduating_start_year"-->
+                        <!--                            name="education_graduating_start_year"-->
+                        <!--                            class="form-control form-control-sm"-->
+                        <!--                            placeholder="Год поступления"-->
+                        <!--                            v-model="-->
+                        <!--                              currentCadetData.education_graduating_start_year-->
+                        <!--                            "-->
+                        <!--                            @input="makeInputDefaultNullValueIfEmpty"-->
+                        <!--                          />-->
+                        <!--                          <label for="id_education_graduating_start_year"-->
+                        <!--                            >Год поступления</label-->
+                        <!--                          >-->
+                        <!--                        </div>-->
+                      </div>
+                      <div class="col-xl-3">
+                        <div class="form-floating mb-3">
+                          <select
+                            id="id_medal"
+                            class="form-select"
+                            v-model="currentCadetData.medal"
+                          >
+                            <option :value="null">---------</option>
+                            <option
+                              :value="medal.id"
+                              v-for="medal in orderedMedals"
+                            >
+                              {{ medal.medal_kind }}
+                            </option>
+                          </select>
+                          <label for="id_medal">Медаль</label>
                         </div>
                       </div>
                     </div>
@@ -888,24 +924,7 @@
                         <!--                          >-->
                         <!--                        </div>-->
                       </div>
-                      <div class="col-xl-3">
-                        <div class="form-floating mb-3">
-                          <select
-                            id="id_medal"
-                            class="form-select"
-                            v-model="currentCadetData.medal"
-                          >
-                            <option :value="null">---------</option>
-                            <option
-                              :value="medal.id"
-                              v-for="medal in orderedMedals"
-                            >
-                              {{ medal.medal_kind }}
-                            </option>
-                          </select>
-                          <label for="id_medal">Медаль</label>
-                        </div>
-                      </div>
+                      <div class="col-xl-3"></div>
                     </div>
 
                     <div class="row">
@@ -1019,11 +1038,13 @@
                               type="text"
                               id="id_passport_number"
                               class="form-control form-control-sm"
-                              placeholder="Номер паспорта"
+                              placeholder="Серия и номер паспорта (номер идентификационной
+                              карты)"
                               v-model="currentCadetData.passport_number"
                             />
                             <label for="id_passport_number"
-                              >Номер паспорта (идентификационной карты)</label
+                              >Серия и номер паспорта (номер идентификационной
+                              карты)</label
                             >
                           </div>
                         </div>
@@ -1170,7 +1191,7 @@
                         </div>
                       </div>
                       <div class="row">
-                        <div class="col-4">
+                        <div class="col-3">
                           <div class="form-floating mb-3">
                             <input
                               id="id_mother_address_residence"
@@ -1186,7 +1207,23 @@
                             >
                           </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-3">
+                          <div class="form-floating mb-3">
+                            <input
+                              id="id_mother_address_registration"
+                              type="text"
+                              class="form-control form-control-sm"
+                              placeholder="Зарегистрирована"
+                              v-model="
+                                currentCadetData.mother_address_registration
+                              "
+                            />
+                            <label for="id_mother_address_registration"
+                              >Зарегистрирована</label
+                            >
+                          </div>
+                        </div>
+                        <div class="col-3">
                           <div class="form-floating mb-3">
                             <input
                               id="id_mother_place_of_work"
@@ -1200,7 +1237,7 @@
                             >
                           </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-3">
                           <div class="form-floating mb-3">
                             <input
                               id="id_mother_phone_number"
@@ -1269,7 +1306,7 @@
                         </div>
                       </div>
                       <div class="row">
-                        <div class="col-4">
+                        <div class="col-3">
                           <div class="form-floating mb-3">
                             <input
                               id="id_father_address_residence"
@@ -1285,7 +1322,23 @@
                             >
                           </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-3">
+                          <div class="form-floating mb-3">
+                            <input
+                              id="id_father_address_registration"
+                              type="text"
+                              class="form-control form-control-sm"
+                              placeholder="Зарегистрирован"
+                              v-model="
+                                currentCadetData.father_address_registration
+                              "
+                            />
+                            <label for="id_father_address_registration"
+                              >Зарегистрирован</label
+                            >
+                          </div>
+                        </div>
+                        <div class="col-3">
                           <div class="form-floating mb-3">
                             <input
                               id="id_father_place_of_work"
@@ -1299,7 +1352,7 @@
                             >
                           </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-3">
                           <div class="form-floating mb-3">
                             <input
                               id="id_father_phone_number"
@@ -1797,6 +1850,18 @@
 
             <div class="card shadow mb-2 rounded border-0">
               <div class="card-body">
+                <div class="mb-3">
+                  <label class="form-label" for="id_extra_data"
+                    >Примечание для отдела кадров</label
+                  >
+                  <textarea
+                    id="id_extra_data"
+                    class="form-control"
+                    rows="2"
+                    v-model="currentCadetData.extra_data"
+                  ></textarea>
+                </div>
+                <!--                <div class="border-bottom border-4 my-3"></div>-->
                 <div class="mb-3">
                   <label class="form-label" for="id_comments_on_personal_file"
                     >Замечания по личному делу</label
@@ -2481,6 +2546,7 @@ export default {
         father_place_of_work: "",
         father_phone_number: "",
         father_address_residence: "",
+        father_address_registration: "",
         mother_last_name: "",
         mother_first_name: "",
         mother_patronymic: "",
@@ -2488,6 +2554,7 @@ export default {
         mother_place_of_work: "",
         mother_phone_number: "",
         mother_address_residence: "",
+        mother_address_registration: "",
         parents_is_in_divorce: "",
         removed_from_military_registration: "",
         foreign_language_was: "",
@@ -2502,6 +2569,7 @@ export default {
         direction_ord: "",
         current_speciality: "",
         component_organ: "",
+        in_whose_interests: "",
         entrance_category: "",
         arrived_from_go_rovd: "",
         social_status: "",
@@ -2922,6 +2990,9 @@ export default {
     orderedMedals() {
       return this.medals.results
     },
+    orderedInWhoseInterests() {
+      return this.inWhoseInterests.results
+    },
     isDataFromServerEqualChangedData() {
       return isEqual(
         this.removeFileFieldsFromObj(this.currentCadetData),
@@ -2991,6 +3062,7 @@ export default {
       educationLevels: "educationLevel/getList",
       educationLocalityKinds: "educationLocalityKind/getList",
       medals: "medals/getList",
+      inWhoseInterests: "inWhoseInterests/getList",
     }),
   },
 }

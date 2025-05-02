@@ -211,6 +211,14 @@ export default {
           itemTitle: "Льготы",
           itemUrl: "dictionaries-privileges",
         },
+        {
+          itemTitle: "Виды документа",
+          itemUrl: "dictionaries-document-types",
+        },
+        {
+          itemTitle: "В чьих интересах",
+          itemUrl: "dictionaries-in-whose-interests",
+        },
       ],
     }
   },
@@ -218,8 +226,14 @@ export default {
     ...mapGetters({
       isCommonLoading: "common/getIsCommonLoading",
     }),
+    orderedDictionaryList() {
+      return this.dictionaryItemsList.sort((a, b) =>
+        a.itemTitle > b.itemTitle ? 1 : b.itemTitle > a.itemTitle ? -1 : 0,
+      )
+    },
+
     filteredDictionaries() {
-      return this.dictionaryItemsList.filter((item) =>
+      return this.orderedDictionaryList.filter((item) =>
         item.itemTitle
           .toLowerCase()
           .includes(this.dictionaryItemsSearchInput.toLowerCase()),

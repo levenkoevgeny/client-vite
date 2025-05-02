@@ -59,6 +59,18 @@
                   />
                 </div>
                 <div class="mb-3">
+                  <label for="id_patronymic_rus" class="form-label"
+                    >Отчество</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="id_patronymic_rus"
+                    v-model="cadetNewForm.patronymic_rus"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
                   <label for="id_date_of_birth" class="form-label"
                     >Дата рождения</label
                   >
@@ -249,6 +261,7 @@ export default {
         category: 3,
         last_name_rus: "",
         first_name_rus: "",
+        patronymic_rus: "",
         date_of_birth: null,
       },
     }
@@ -281,6 +294,7 @@ export default {
         category: 3,
         last_name_rus: "",
         first_name_rus: "",
+        patronymic_rus: "",
         date_of_birth: null,
       }
       this.isLoading = false

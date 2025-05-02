@@ -29,3 +29,5 @@ export { default as EducationLocationKindList } from "./educationLocationKind/Ed
 export { default as VPKCategoryListView } from "./VPKCategory/VPKCategoryListView.vue"
 export { default as PFLCategoryListView } from "./PFLCategory/PFLCategoryListView.vue"
 export { default as PrivilegeListView } from "./privilege/PrivilegeListView.vue"
+export { default as DocumentTypeListView } from "./documentType/DocumentTypeListView.vue"
+export { default as InWhoseInterestsListView } from "./inWhoseInterests/InWhoseInterestsListView.vue"

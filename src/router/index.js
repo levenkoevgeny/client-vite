@@ -69,6 +69,8 @@ import {
   VPKCategoryListView,
   PFLCategoryListView,
   PrivilegeListView,
+  DocumentTypeListView,
+  InWhoseInterestsListView,
 } from "@/components/dictionaries"
 
 import LoginView from "@/components/auth/LoginView.vue"
@@ -391,6 +393,16 @@ const routes = [
             path: "privileges",
             component: PrivilegeListView,
             name: "dictionaries-privileges",
+          },
+          {
+            path: "document-types",
+            component: DocumentTypeListView,
+            name: "dictionaries-document-types",
+          },
+          {
+            path: "in-whose-interests",
+            component: InWhoseInterestsListView,
+            name: "dictionaries-in-whose-interests",
           },
         ],
       },
