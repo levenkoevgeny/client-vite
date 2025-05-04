@@ -263,6 +263,7 @@ export default {
         first_name_rus: "",
         patronymic_rus: "",
         date_of_birth: null,
+        entrance_year: new Date().getFullYear(),
       },
     }
   },
@@ -296,6 +297,7 @@ export default {
         first_name_rus: "",
         patronymic_rus: "",
         date_of_birth: null,
+        entrance_year: new Date().getFullYear(),
       }
       this.isLoading = false
     },
