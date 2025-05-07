@@ -2505,7 +2505,7 @@
 
 <script>
 import NavigationLayout from "@/components/layouts/NavigationLayout.vue"
-import { globalCadetAPIForEntranceInstance } from "@/api/cadet/cadetAPI"
+import { globalCadetAPIForEntranceInstance } from "@/api/cadet/cadetAPI.js"
 import getActionHistoryAPIInstance from "@/api/cadet/actionHistoryAPI.js"
 import { isEqual } from "lodash"
 import { mapGetters } from "vuex"

@@ -1,12 +1,12 @@
 <template>
   <base-list-layout
     :is-loading="isLoading"
-    :main-list-length="cadetList.count"
+    :main-list-length="studentList.count"
     title="Личные дела"
     :load-more-data="null"
   >
     <template v-slot:add-button>
-      <button class="btn btn-warning" @click="showCadetAddModal">
+      <button class="btn btn-warning" @click="showStudentAddModal">
         Добавить личное дело
       </button>
     </template>
@@ -14,11 +14,11 @@
     <template v-slot:modals>
       <div
         class="modal fade"
-        id="cadetAddModal"
+        id="studentAddModal"
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
-        ref="cadetAddModal"
+        ref="studentAddModal"
       >
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
@@ -34,7 +34,7 @@
               ></button>
             </div>
 
-            <form @submit.prevent="addNewCadetForEntrance">
+            <form @submit.prevent="addNewStudentForEntrance">
               <div class="modal-body">
                 <div class="mb-3">
                   <label for="id_last_name_rus" class="form-label"
@@ -44,7 +44,7 @@
                     type="text"
                     class="form-control"
                     id="id_last_name_rus"
-                    v-model="cadetNewForm.last_name_rus"
+                    v-model="studentNewForm.last_name_rus"
                     required
                   />
                 </div>
@@ -54,7 +54,7 @@
                     type="text"
                     class="form-control"
                     id="id_first_name_rus"
-                    v-model="cadetNewForm.first_name_rus"
+                    v-model="studentNewForm.first_name_rus"
                     required
                   />
                 </div>
@@ -66,7 +66,7 @@
                     type="text"
                     class="form-control"
                     id="id_patronymic_rus"
-                    v-model="cadetNewForm.patronymic_rus"
+                    v-model="studentNewForm.patronymic_rus"
                     required
                   />
                 </div>
@@ -78,7 +78,7 @@
                     type="date"
                     class="form-control"
                     id="id_date_of_birth"
-                    v-model="cadetNewForm.date_of_birth"
+                    v-model="studentNewForm.date_of_birth"
                     required
                   />
                 </div>
@@ -88,7 +88,7 @@
                   type="button"
                   class="btn btn-secondary"
                   data-bs-dismiss="modal"
-                  ref="cadetAddModalCloseButton"
+                  ref="studentAddModalCloseButton"
                 >
                   Закрыть без сохранения
                 </button>
@@ -106,32 +106,30 @@
         <th scope="col">Имя</th>
         <th scope="col">Отчество</th>
         <th scope="col">Дата рождения</th>
-        <th scope="col">Комплектующий орган</th>
       </tr>
     </template>
     <template v-slot:tbody>
       <tr
         class="align-middle"
-        v-for="cadet in orderedCadets"
-        :key="cadet.id"
+        v-for="student in orderedStudents"
+        :key="student.id"
         @dblclick="
           $router.push({
             name: 'entrance-input-form',
-            params: { id: cadet.id },
+            params: { id: student.id },
           })
         "
       >
         <td>
-          {{ cadet.last_name_rus }}
+          {{ student.last_name_rus }}
         </td>
         <td>
-          {{ cadet.first_name_rus }}
+          {{ student.first_name_rus }}
         </td>
         <td>
-          {{ cadet.patronymic_rus }}
+          {{ student.patronymic_rus }}
         </td>
-        <td>{{ cadet.date_of_birth }}</td>
-        <td>{{ cadet.get_component_organ }}</td>
+        <td>{{ student.date_of_birth }}</td>
       </tr>
     </template>
 
@@ -146,17 +144,7 @@
         />
       </div>
       <div class="mb-3">
-        <label for="subdivision" class="form-label">Комплектующий орган</label>
-        <v-select
-          v-model="searchForm.component_organ__in"
-          :options="orderedComponentOrgans"
-          label="component_name"
-          :reduce="(orderedComponentOrgan) => orderedComponentOrgan.id"
-          multiple
-        />
-      </div>
-      <div class="mb-3">
-        <label for="category" class="form-label">Пол</label>
+        <label for="gender" class="form-label">Пол</label>
         <select
           class="form-select"
           aria-label="Default select example"
@@ -199,26 +187,22 @@
       <div class="row">
         <div class="col-6">
           <div class="mb-3">
-            <label for="date_of_birth__gte" class="form-label"
-              >Возраст (с)</label
-            >
+            <label for="age_gte" class="form-label">Возраст (с)</label>
             <input
               type="number"
               class="form-control"
-              id="date_of_birth__gte"
+              id="age_gte"
               v-model="searchForm.age_gte"
             />
           </div>
         </div>
         <div class="col-6">
           <div class="mb-3">
-            <label for="date_of_birth__lte" class="form-label"
-              >Возраст (по)</label
-            >
+            <label for="age_lte" class="form-label">Возраст (по)</label>
             <input
               type="number"
               class="form-control"
-              id="date_of_birth__lte"
+              id="age_lte"
               v-model="searchForm.age_lte"
             />
           </div>
@@ -235,29 +219,27 @@
 
 <script>
 import NavigationLayout from "@/components/layouts/NavigationLayout.vue"
-import { globalCadetAPIForEntranceInstance } from "@/api/cadet/cadetAPI"
+import { globalStudentAPIForEntranceInstance } from "@/api/student/studentAPI.js"
 import { debounce } from "lodash/function"
 import { mapGetters } from "vuex"
 import BaseListLayout from "@/components/layouts/BaseListLayout.vue"
-
 export default {
-  name: "EntranceListView",
+  name: "EntranceStudentListView",
   components: { NavigationLayout, BaseListLayout },
   data() {
     return {
       isLoading: true,
       isError: false,
-      currentTime: new Date(),
       BACKEND_PROTOCOL: import.meta.env.VITE_APP_BACKEND_PROTOCOL,
       BACKEND_HOST: import.meta.env.VITE_APP_BACKEND_HOST,
       BACKEND_PORT: import.meta.env.VITE__APP_BACKEND_PORT,
-      cadetList: { count: 0, results: [], previous: null, next: null },
-      cadetAPIInstance: globalCadetAPIForEntranceInstance,
+      studentList: { count: 0, results: [], previous: null, next: null },
+      studentAPIInstance: globalStudentAPIForEntranceInstance,
       searchForm: Object.assign(
         {},
-        globalCadetAPIForEntranceInstance.searchObj,
+        globalStudentAPIForEntranceInstance.searchObj,
       ),
-      cadetNewForm: {
+      studentNewForm: {
         category: 3,
         last_name_rus: "",
         first_name_rus: "",
@@ -273,25 +255,27 @@ export default {
   methods: {
     async loadData() {
       this.isLoading = true
-      const response = await this.cadetAPIInstance.getItemsList()
-      this.cadetList = await response.data
+      const response = await this.studentAPIInstance.getItemsList()
+      this.studentList = await response.data
       this.isLoading = false
     },
-    showCadetAddModal() {
-      let addModal = this.$refs.cadetAddModal
+    showStudentAddModal() {
+      let addModal = this.$refs.studentAddModal
       let myModal = new bootstrap.Modal(addModal, {
         keyboard: false,
       })
       myModal.show()
     },
-    async addNewCadetForEntrance() {
+    async addNewStudentForEntrance() {
       this.isLoading = true
-      const response = await this.cadetAPIInstance.addItem(this.cadetNewForm)
+      const response = await this.studentAPIInstance.addItem(
+        this.studentNewForm,
+      )
       const newItem = response.data
-      this.cadetList.results.unshift(newItem)
-      this.cadetList.count = this.cadetList.count + 1
-      this.$refs.cadetAddModalCloseButton.click()
-      this.cadetNewForm = {
+      this.studentList.results.unshift(newItem)
+      this.studentList.count = this.studentList.count + 1
+      this.$refs.studentAddModalCloseButton.click()
+      this.studentNewForm = {
         category: 3,
         last_name_rus: "",
         first_name_rus: "",
@@ -303,15 +287,15 @@ export default {
     },
     debouncedSearch: debounce(async function () {
       this.isLoading = true
-      this.cadetAPIInstance.searchObj = this.searchForm
-      const cadetAResponse = await this.cadetAPIInstance.getItemsList()
-      this.cadetList = await cadetAResponse.data
+      this.studentAPIInstance.searchObj = this.searchForm
+      const studentAResponse = await this.studentAPIInstance.getItemsList()
+      this.studentList = await studentAResponse.data
       this.isLoading = false
     }, 500),
     clearFilter() {
       this.searchForm = Object.assign(
         {},
-        this.cadetAPIInstance.searchObjDefault,
+        this.studentAPIInstance.searchObjDefault,
       )
     },
   },
@@ -319,8 +303,8 @@ export default {
     orderedCadetCategories() {
       return this.categories.results
     },
-    orderedCadets() {
-      return this.cadetList.results
+    orderedStudents() {
+      return this.studentList.results
     },
     orderedSubdivisions() {
       return this.subdivisions.results.filter(
@@ -365,6 +349,7 @@ export default {
   },
 }
 </script>
+
 <style scoped>
 >>> {
   --vs-controls-color: #664cc3;

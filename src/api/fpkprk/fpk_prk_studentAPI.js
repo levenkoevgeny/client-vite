@@ -1,6 +1,6 @@
 import BaseAPI from "@/api/baseAPIClass"
 
-class CadetAPI extends BaseAPI {
+class FPKPRKStudentAPI extends BaseAPI {
   getQueryStringFromSearchObj() {
     let queryString = "?"
     for (let key in this.searchObj) {
@@ -58,29 +58,15 @@ const searchObj = {
   current_position__in: "",
   age_gte: "",
   age_lte: "",
+  fpk_mag_choice: "",
   student_record_book_number__icontains: "",
-  removed_from_military_registration__gte: "",
-  removed_from_military_registration__lte: "",
-  father_date_of_birth__gte: "",
-  father_date_of_birth__lte: "",
-  mother_date_of_birth__gte: "",
-  mother_date_of_birth__lte: "",
-  foreign_language_was: "",
-  foreign_language_will_be: "",
+  foreign_language: "",
   group: "",
   group__in: "",
   academy_start_date__gte: "",
   academy_start_date__lte: "",
   academy_end_date__gte: "",
   academy_end_date__lte: "",
-  graduation_reason: "",
-  graduation_reason__in: "",
-  graduation_reason_article__icontains: "",
-  graduation_extra_data__icontains: "",
-  specialization: "",
-  specialization__in: "",
-  direction_ord: "",
-  direction_ord__in: "",
   current_speciality: "",
   current_speciality__in: "",
   component_organ: "",
@@ -89,22 +75,18 @@ const searchObj = {
   entrance_category__in: "",
   arrived_from_go_rovd: "",
   arrived_from_go_rovd__in: "",
-  social_status: "",
-  social_status_in: "",
-  region_for_medical_examination: "",
-  region_for_medical_examination__in: "",
-  military_office: "",
-  military_office__in: "",
-  extra_data__icontains: "",
   ordering: null,
 }
 
-export default function getCadetAPIInstance() {
-  return new CadetAPI("cadet", searchObj)
+export default function getFPKPRKStudentAPIInstance() {
+  return new FPKPRKStudentAPI("fpk-mag-student", searchObj)
 }
 
-export const globalCadetAPIInstance = getCadetAPIInstance()
-export const globalCadetAPIForEntranceInstance = new CadetAPI("cadet", {
-  ...searchObj,
-  category: 3,
-})
+export const globalFPKPRKStudentAPIInstance = getFPKPRKStudentAPIInstance()
+export const globalFPKPRKStudentAPIForEntranceInstance = new FPKPRKStudentAPI(
+  "fpk-mag-student",
+  {
+    ...searchObj,
+    category: 3,
+  },
+)

@@ -6,8 +6,15 @@ import { PositionListView } from "@/components/cadet/position"
 import { RankHistoryListView } from "@/components/cadet/rank"
 import {
   EntranceMainView,
-  EntranceListView,
-  EntranceInputForm,
+  EntranceCadetMainView,
+  EntranceCadetListView,
+  EntranceCadetInputForm,
+  EntranceNavigationView,
+  EntranceFPKPRKMainView,
+  EntranceFPKPRKListView,
+  EntranceFPKPRKInputForm,
+  EntranceStudentMainView,
+  EntranceStudentListView,
 } from "@/components/entrance_campaign"
 import { SpecialityHistoryView } from "@/components/cadet/speciality"
 import { CadetUpdateView } from "@/components/cadet"
@@ -414,13 +421,59 @@ const routes = [
         children: [
           {
             path: "",
-            component: EntranceListView,
-            name: "entrance-list",
+            component: EntranceNavigationView,
+            name: "entrance-navigation",
           },
           {
-            path: ":id/update",
-            component: EntranceInputForm,
-            name: "entrance-input-form",
+            path: "cadet",
+            component: EntranceCadetMainView,
+            name: "entrance-cadet-main",
+            children: [
+              {
+                path: "",
+                component: EntranceCadetListView,
+                name: "entrance-cadet-list",
+              },
+              {
+                path: ":id/update",
+                component: EntranceCadetInputForm,
+                name: "entrance-cadet-input-form",
+              },
+            ],
+          },
+          {
+            path: "fpk-prk-mag",
+            component: EntranceFPKPRKMainView,
+            name: "entrance-fpk-prk-mag-main",
+            children: [
+              {
+                path: "",
+                component: EntranceFPKPRKListView,
+                name: "entrance-fpk-prk-mag-list",
+              },
+              {
+                path: ":id/update",
+                component: EntranceFPKPRKInputForm,
+                name: "entrance-fpk-prk-mag-input-form",
+              },
+            ],
+          },
+          {
+            path: "student",
+            component: EntranceStudentMainView,
+            name: "entrance-student-main",
+            children: [
+              {
+                path: "",
+                component: EntranceStudentListView,
+                name: "entrance-student-list",
+              },
+              // {
+              //   path: ":id/update",
+              //   component: EntranceCadetInputForm,
+              //   name: "entrance-input-form",
+              // },
+            ],
           },
         ],
       },

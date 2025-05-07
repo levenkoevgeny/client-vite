@@ -78,7 +78,7 @@
             </p>
             <router-link
               class="btn btn-primary"
-              :to="{ name: 'entrance-list' }"
+              :to="{ name: 'entrance-navigation' }"
             >
               Перейти
             </router-link>
