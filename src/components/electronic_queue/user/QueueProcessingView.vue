@@ -69,6 +69,7 @@ export default {
       currentTime: new Date(),
       states: { 0: "В ожидании", 1: "В обработке", 2: "Обработан" },
       nextTicketToProcessButtonDisabled: false,
+      interval: null,
     }
   },
   async created() {
@@ -76,7 +77,7 @@ export default {
       this.currentTime = new Date()
     }, 1000)
 
-    setInterval(async () => {
+    this.interval = setInterval(async () => {
       await this.loadData(this.$route.params.id)
     }, 3000)
 
@@ -87,6 +88,9 @@ export default {
       },
     )
     await this.loadData(this.$route.params.id)
+  },
+  unmounted() {
+    clearInterval(this.interval)
   },
   methods: {
     async loadData(queueId) {

@@ -37,6 +37,22 @@
               <div class="modal-body">
                 <div class="mb-3">
                   <label for="id_last_name_rus" class="form-label"
+                    >Категория</label
+                  >
+
+                  <select
+                    class="form-select"
+                    id="id_fpk_mag_choice"
+                    v-model="fpkNewForm.fpk_mag_choice"
+                    required
+                  >
+                    <option value="">-----</option>
+                    <option value="1">ФПК ПРК</option>
+                    <option value="2">Маг</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="id_last_name_rus" class="form-label"
                     >Фамилия</label
                   >
                   <input
@@ -269,6 +285,7 @@ export default {
         patronymic_rus: "",
         date_of_birth: null,
         entrance_year: new Date().getFullYear(),
+        fpk_mag_choice: "",
       },
     }
   },
@@ -305,6 +322,7 @@ export default {
         patronymic_rus: "",
         date_of_birth: null,
         entrance_year: new Date().getFullYear(),
+        fpk_mag_choice: null,
       }
       this.isLoading = false
     },

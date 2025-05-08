@@ -31,7 +31,7 @@
                 class="nav-link"
                 :to="{ name: 'entrance-fpk-prk-mag-list' }"
               >
-                Главная
+                Список личных дел
               </router-link>
             </li>
           </ul>
@@ -39,7 +39,7 @@
       </template>
     </navigation-layout>
     <div class="container-fluid">
-      <h2 class="mt-3">Переменный состав</h2>
+      <h2 class="mt-3">ФПК ПРК / МАГ</h2>
     </div>
     <router-view></router-view>
   </div>

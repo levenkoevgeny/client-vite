@@ -2858,7 +2858,6 @@ export default {
           item.id !== this.currentCadetData.speciality_7,
       )
     },
-
     orderedSpecialities_select_3() {
       return this.specialities.results.filter(
         (item) =>
@@ -2870,7 +2869,6 @@ export default {
           item.id !== this.currentCadetData.speciality_7,
       )
     },
-
     orderedSpecialities_select_4() {
       return this.specialities.results.filter(
         (item) =>
@@ -2882,7 +2880,6 @@ export default {
           item.id !== this.currentCadetData.speciality_7,
       )
     },
-
     orderedSpecialities_select_5() {
       return this.specialities.results.filter(
         (item) =>
@@ -2894,7 +2891,6 @@ export default {
           item.id !== this.currentCadetData.speciality_7,
       )
     },
-
     orderedSpecialities_select_6() {
       return this.specialities.results.filter(
         (item) =>
@@ -2906,7 +2902,6 @@ export default {
           item.id !== this.currentCadetData.speciality_7,
       )
     },
-
     orderedSpecialities_select_7() {
       return this.specialities.results.filter(
         (item) =>

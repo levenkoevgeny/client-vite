@@ -31,7 +31,7 @@
                 class="nav-link"
                 :to="{ name: 'entrance-cadet-list' }"
               >
-                Главная
+                Список личных дел
               </router-link>
             </li>
           </ul>
