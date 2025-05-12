@@ -99,6 +99,8 @@ export default {
           const resQueue = await this.queueAPIInstance.getItemData(queueId)
           this.currentQueueData = resQueue.data
           this.mainItemAPIInstance.searchObj.queue = queueId
+          this.mainItemAPIInstance.searchObj.limit = 100000
+
           const res = await this.mainItemAPIInstance.getItemsList()
           this.mainItemList = await res.data
         } catch (error) {

@@ -665,7 +665,7 @@ export default {
     return { v$: useVuelidate() }
   },
   validations() {
-    const loginRegex = helpers.regex(/^[a-zA-Z\d]*$/)
+    const loginRegex = helpers.regex(/^[a-zA-Z_\d]*$/)
     const passwordRegex = helpers.regex(
       /(?=.*[0-9])(?=.*[!@#$%^&*_])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*_]{8,}/,
     )
