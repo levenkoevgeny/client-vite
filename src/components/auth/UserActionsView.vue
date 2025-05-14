@@ -8,7 +8,7 @@
     <template v-slot:modals>
       <!-- add modal-->
     </template>
-    <template v-slot:add-button> </template>
+    <template v-slot:add-button>&nbsp;</template>
     <template v-slot:thead>
       <tr>
         <th>Пользователь</th>

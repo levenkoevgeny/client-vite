@@ -471,7 +471,7 @@
                     <a
                       class="list-group-item list-group-item-action rounded-1"
                       href="#simple-list-passport-data"
-                      >Пасспортные данные</a
+                      >Паспортные данные</a
                     >
                   </div>
                 </div>

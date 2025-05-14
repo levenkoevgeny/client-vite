@@ -1,7 +1,7 @@
 <template>
   <base-list-layout
     :is-loading="isLoading"
-    :main-list-length="cadetList.count"
+    :main-list-length="fpk_mag_List.count"
     title="Главная"
     :load-more-data="loadMoreData"
   >
@@ -9,15 +9,6 @@
       <button class="btn btn-warning" @click="showCadetAddModal">
         Добавить запись
       </button>
-    </template>
-    <template v-slot:table-mode-button>
-      <router-link
-        :to="{ name: 'cadet-full' }"
-        class="fs-3 fw-light link-secondary"
-        title="Табличный режим"
-      >
-        <font-awesome-icon :icon="['fas', 'table']" />
-      </router-link>
     </template>
     <template v-slot:modals>
       <div
@@ -110,7 +101,7 @@
         v-for="cadet in orderedCadets"
         :key="cadet.id"
         @dblclick="
-          $router.push({ name: 'cadet-update', params: { id: cadet.id } })
+          $router.push({ name: 'fpk-mag-update', params: { id: cadet.id } })
         "
       >
         <td>
@@ -152,8 +143,21 @@
         </td>
       </tr>
     </template>
-    <template v-slot:paginator> </template>
+
     <template v-slot:search-form>
+      <div class="mb-3">
+        <label for="gender_search" class="form-label">Категория</label>
+        <select
+          class="form-select"
+          v-model="searchForm.fpk_mag_choice"
+          id="gender_search"
+        >
+          <option selected value="">--------</option>
+          <option value="1">ФПКиПРК</option>
+          <option value="2">Магистратура</option>
+        </select>
+      </div>
+
       <div class="mb-3">
         <label for="last_name_rus" class="form-label">Активная запись</label>
         <select
@@ -176,24 +180,6 @@
         />
       </div>
       <div class="mb-3">
-        <label for="category_search" class="form-label">Категория</label>
-        <select
-          id="category_search"
-          class="form-select"
-          aria-label="Default select example"
-          v-model="searchForm.category"
-        >
-          <option selected value="">--------</option>
-          <option
-            v-for="category in orderedCadetCategories"
-            :key="category.id"
-            :value="category.id"
-          >
-            {{ category.category }}
-          </option>
-        </select>
-      </div>
-      <div class="mb-3">
         <label for="gender_search" class="form-label">Пол</label>
         <select
           class="form-select"
@@ -204,16 +190,6 @@
           <option value="1">Мужской</option>
           <option value="0">Женский</option>
         </select>
-      </div>
-      <div class="mb-3">
-        <label for="subdivision_search" class="form-label">Факультет</label>
-        <v-select
-          v-model="searchForm.subdivision__in"
-          :options="orderedSubdivisions"
-          label="subdivision_short_name"
-          :reduce="(subdivision) => subdivision.id"
-          multiple
-        />
       </div>
       <div class="mb-3">
         <label for="group_search" class="form-label">Группа</label>
@@ -235,27 +211,6 @@
           multiple
         />
       </div>
-      <div class="mb-3">
-        <label for="speciality_search" class="form-label">Специальность</label>
-        <v-select
-          v-model="searchForm.current_speciality__in"
-          :options="orderedSpecialities"
-          label="speciality_name"
-          :reduce="(speciality) => speciality.id"
-          multiple
-        />
-      </div>
-      <div class="mb-3">
-        <label for="position_search" class="form-label">Должность</label>
-        <v-select
-          v-model="searchForm.current_position__in"
-          :options="orderedPositions"
-          label="position"
-          :reduce="(position) => position.id"
-          multiple
-        />
-      </div>
-
       <div class="row">
         <div class="col-6">
           <div class="mb-3">
@@ -308,35 +263,6 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-6">
-          <div class="mb-3">
-            <label for="academy_start_date__gte" class="form-label"
-              >Дата поступления (с)</label
-            >
-            <input
-              type="date"
-              max="2100"
-              class="form-control"
-              id="academy_start_date__gte"
-              v-model="searchForm.academy_start_date__gte"
-            />
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="mb-3">
-            <label for="academy_start_date__lte" class="form-label"
-              >Дата поступления (по)</label
-            >
-            <input
-              type="date"
-              class="form-control"
-              id="academy_start_date__lte"
-              v-model="searchForm.academy_start_date__lte"
-            />
-          </div>
-        </div>
-      </div>
     </template>
 
     <template v-slot:search-form-clear-button>
@@ -348,32 +274,25 @@
 </template>
 
 <script>
-import { globalCadetAPIInstance } from "@/api/cadet/cadetAPI"
+import { globalFPKPRKStudentAPIInstance } from "@/api/fpkprk/fpk_prk_studentAPI.js"
 import BaseListLayout from "@/components/layouts/BaseListLayout.vue"
 import { PaginatorView } from "@/components/common"
 import { debounce } from "lodash/function"
 import { mapGetters } from "vuex"
 
 export default {
-  name: "CadetList",
-  components: {
-    BaseListLayout,
-    PaginatorView,
-  },
+  name: "FPKListView",
+  components: { BaseListLayout, PaginatorView },
   data() {
     return {
-      cadetList: { count: 0, results: [], previous: null, next: null },
+      fpk_mag_List: { count: 0, results: [], previous: null, next: null },
       isLoading: true,
       isError: false,
       BACKEND_PROTOCOL: import.meta.env.VITE_APP_BACKEND_PROTOCOL,
       BACKEND_HOST: import.meta.env.VITE_APP_BACKEND_HOST,
       BACKEND_PORT: import.meta.env.VITE_APP_BACKEND_PORT,
-      cadetAPIInstance: globalCadetAPIInstance,
-      searchForm: Object.assign(
-        {},
-
-        globalCadetAPIInstance.searchObj,
-      ),
+      fpk_mag_APIInstance: globalFPKPRKStudentAPIInstance,
+      searchForm: Object.assign({}, globalFPKPRKStudentAPIInstance.searchObj),
       cadetNewForm: {
         last_name_rus: "",
         first_name_rus: "",
@@ -387,16 +306,15 @@ export default {
   methods: {
     async loadData() {
       this.isLoading = true
-      this.cadetAPIInstance.searchObj.category__in = [4, 5]
-      const response = await this.cadetAPIInstance.getItemsList()
-      this.cadetList = await response.data
+      const response = await this.fpk_mag_APIInstance.getItemsList()
+      this.fpk_mag_List = await response.data
       this.isLoading = false
     },
     async updatePaginator(url) {
       this.isLoading = true
       try {
-        const response = await this.cadetAPIInstance.updateList(url)
-        this.cadetList = await response.data
+        const response = await this.fpk_mag_APIInstance.updateList(url)
+        this.fpk_mag_List = await response.data
       } catch (error) {
         this.isError = true
       } finally {
@@ -405,10 +323,10 @@ export default {
     },
     debouncedSearch: debounce(async function () {
       this.isLoading = true
-      this.cadetAPIInstance.searchObj = this.searchForm
+      this.fpk_mag_APIInstance.searchObj = this.searchForm
       try {
-        const cadetAResponse = await this.cadetAPIInstance.getItemsList()
-        this.cadetList = await cadetAResponse.data
+        const cadetAResponse = await this.fpk_mag_APIInstance.getItemsList()
+        this.fpk_mag_List = await cadetAResponse.data
       } catch (e) {
         this.isError = true
       } finally {
@@ -418,7 +336,7 @@ export default {
     clearFilter() {
       this.searchForm = Object.assign(
         {},
-        this.cadetAPIInstance.searchObjDefault,
+        this.fpk_mag_APIInstance.searchObjDefault,
       )
     },
     showCadetAddModal() {
@@ -430,9 +348,11 @@ export default {
     },
     async addNewCadet() {
       try {
-        const response = await this.cadetAPIInstance.addItem(this.cadetNewForm)
+        const response = await this.fpk_mag_APIInstance.addItem(
+          this.cadetNewForm,
+        )
         const newItem = await response.data
-        this.cadetList.results.unshift(newItem)
+        this.fpk_mag_List.results.unshift(newItem)
         this.$refs.cadetAddModalCloseButton.click()
         this.cadetNewForm = {
           last_name_rus: "",
@@ -451,19 +371,19 @@ export default {
         listElem.scrollTop + listElem.clientHeight >=
         listElem.scrollHeight - 1
       ) {
-        if (this.cadetList.next) {
+        if (this.fpk_mag_List.next) {
           try {
-            const response = await this.cadetAPIInstance.updateList(
-              this.cadetList.next,
+            const response = await this.fpk_mag_APIInstance.updateList(
+              this.fpk_mag_List.next,
             )
 
             const newData = await response.data
-            this.cadetList.results = [
-              ...this.cadetList.results,
+            this.fpk_mag_List.results = [
+              ...this.fpk_mag_List.results,
               ...newData.results,
             ]
-            this.cadetList.next = newData.next
-            this.cadetList.previous = newData.previous
+            this.fpk_mag_List.next = newData.next
+            this.fpk_mag_List.previous = newData.previous
             this.setSerialNumbers()
           } catch (error) {
             this.isError = true
@@ -473,13 +393,9 @@ export default {
       }
     },
   },
-
   computed: {
-    orderedCadetCategories() {
-      return this.categories.results
-    },
     orderedCadets() {
-      return this.cadetList.results
+      return this.fpk_mag_List.results
     },
     orderedSubdivisions() {
       return this.subdivisions.results.filter(
@@ -491,14 +407,6 @@ export default {
     },
     orderedRanks() {
       return this.ranks.results
-    },
-    orderedSpecialities() {
-      return this.specialities.results
-    },
-    orderedPositions() {
-      return this.positions.results.filter(
-        (position) => position.position_category === "1",
-      )
     },
     ...mapGetters({
       groups: "groups/getList",

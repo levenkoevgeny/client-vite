@@ -17,9 +17,13 @@ import {
   EntranceStudentListView,
 } from "@/components/entrance_campaign"
 import { SpecialityHistoryView } from "@/components/cadet/speciality"
-import { CadetUpdateView } from "@/components/cadet"
-import { CadetListOkView } from "@/components/cadet"
+import { CadetUpdateView, CadetListOkView } from "@/components/cadet"
 import { FiredCadetComponent } from "@/components/cadet/fired"
+import {
+  FPKMainView,
+  FPKListView,
+  FPKUpdateView,
+} from "@/components/fpk/index.js"
 import store from "@/store"
 
 import {
@@ -517,6 +521,24 @@ const routes = [
             path: "admin",
             component: ElectronicQueueListAdmin,
             name: "queue-list-admin",
+          },
+        ],
+      },
+      {
+        path: "/fpk-mag",
+        component: FPKMainView,
+        meta: { requiresAuth: true },
+        name: "fpk-mag-main",
+        children: [
+          {
+            path: "",
+            component: FPKListView,
+            name: "fpk-mag-list",
+          },
+          {
+            path: ":id/update",
+            component: FPKUpdateView,
+            name: "fpk-mag-update",
           },
         ],
       },

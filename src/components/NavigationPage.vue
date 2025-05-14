@@ -48,6 +48,19 @@
             </router-link>
           </div>
         </div>
+
+        <div class="card me-4 mb-4 border-0" style="width: 24rem">
+          <div class="card-body">
+            <h5 class="card-title">КИС ФПКиПРК / Магистратура</h5>
+            <p class="card-text">
+              Комплексная информационная система "КИС ФПКиПРК / Магистратура"
+            </p>
+            <router-link class="btn btn-primary" :to="{ name: 'fpk-mag-list' }">
+              Перейти
+            </router-link>
+          </div>
+        </div>
+
         <div class="card me-4 mb-4 border-0" style="width: 24rem">
           <div class="card-body">
             <h5 class="card-title">КИС Идеология</h5>

@@ -801,7 +801,7 @@
                           <select
                             id="id_education_level"
                             class="form-select"
-                            v-model="currentCadetData.education_kind"
+                            v-model="currentCadetData.education_level"
                           >
                             <option :value="null">---------</option>
                             <option
@@ -1191,7 +1191,7 @@
                         </div>
                       </div>
                       <div class="row">
-                        <div class="col-3">
+                        <div class="col-6">
                           <div class="form-floating mb-3">
                             <input
                               id="id_mother_address_residence"
@@ -1207,7 +1207,7 @@
                             >
                           </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col-6">
                           <div class="form-floating mb-3">
                             <input
                               id="id_mother_address_registration"
@@ -1223,7 +1223,9 @@
                             >
                           </div>
                         </div>
-                        <div class="col-3">
+                      </div>
+                      <div class="row">
+                        <div class="col-6">
                           <div class="form-floating mb-3">
                             <input
                               id="id_mother_place_of_work"
@@ -1237,7 +1239,7 @@
                             >
                           </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col-6">
                           <div class="form-floating mb-3">
                             <input
                               id="id_mother_phone_number"
@@ -1252,6 +1254,7 @@
                           </div>
                         </div>
                       </div>
+
                       <p class="fs-6 fw-bold my-2">Отец</p>
                       <div class="row">
                         <div class="col-xl-3">
@@ -1306,7 +1309,7 @@
                         </div>
                       </div>
                       <div class="row">
-                        <div class="col-3">
+                        <div class="col-6">
                           <div class="form-floating mb-3">
                             <input
                               id="id_father_address_residence"
@@ -1322,7 +1325,7 @@
                             >
                           </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col-6">
                           <div class="form-floating mb-3">
                             <input
                               id="id_father_address_registration"
@@ -1338,7 +1341,10 @@
                             >
                           </div>
                         </div>
-                        <div class="col-3">
+                      </div>
+
+                      <div class="row">
+                        <div class="col-6">
                           <div class="form-floating mb-3">
                             <input
                               id="id_father_place_of_work"
@@ -1352,7 +1358,7 @@
                             >
                           </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col-6">
                           <div class="form-floating mb-3">
                             <input
                               id="id_father_phone_number"
@@ -1953,7 +1959,7 @@
                         v-model="currentCadetData.has_dactocard"
                       />
                       <label class="form-check-label" for="id_has_dactocard"
-                        >Дактокарта</label
+                        >Дактилоскопирование</label
                       >
                     </div>
                     <div class="form-check mb-3">
@@ -2776,6 +2782,7 @@ export default {
         this.actionHistoryAPIInstance.searchObj.model_name = "CadetInheritance"
         this.actionHistoryAPIInstance.searchObj.record_id =
           this.currentCadetData.id
+        this.actionHistoryAPIInstance.searchObj.limit = 100000
         const response = await this.actionHistoryAPIInstance.getItemsList()
         this.cadetHistoryList = response.data
         let historyModal = this.$refs.cadetHistoryModal
