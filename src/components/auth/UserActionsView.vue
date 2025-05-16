@@ -71,9 +71,53 @@
                 :key="user.id"
                 v-for="user in orderedUsersList"
               >
-                {{ user.username }}
+                {{ user.get_display_name }}
               </option>
             </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="id_model_search" class="form-label">Таблица</label>
+            <select
+              id="id_model_search"
+              class="form-select"
+              v-model="searchForm.model_name"
+            >
+              <option value="">-----</option>
+              <option
+                :value="model.model_name"
+                :key="model.model_name"
+                v-for="model in orderedModelsList"
+              >
+                {{ model.model_name_verbose }}
+              </option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <div class="row">
+              <div class="col-6">
+                <label for="id_date_time_created_gte_search" class="form-label"
+                  >Дата (с)</label
+                >
+                <input
+                  type="date"
+                  id="id_date_time_created_gte_search"
+                  class="form-control"
+                  v-model="searchForm.date_time_created__gte"
+                />
+              </div>
+              <div class="col-6">
+                <label for="id_date_time_created_lte_search" class="form-label"
+                  >Дата (по)</label
+                >
+                <input
+                  type="date"
+                  id="id_date_time_created_lte_search"
+                  class="form-control"
+                  v-model="searchForm.date_time_created__lte"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -102,6 +146,7 @@ export default {
       usersAPIInstance: getUsersAPIInstance(),
       mainItemList: { count: 0, results: [], previous: null, next: null },
       usersList: { count: 0, results: [], previous: null, next: null },
+      modelsList: [],
       isLoading: true,
       BACKEND_PROTOCOL: import.meta.env.VITE_APP_BACKEND_PROTOCOL,
       BACKEND_HOST: import.meta.env.VITE_APP_BACKEND_HOST,
@@ -121,6 +166,8 @@ export default {
         this.mainItemList = await response.data
         const responseUser = await this.usersAPIInstance.getItemsList()
         this.usersList = await responseUser.data
+        const responseModels = await this.mainItemAPIInstance.getModelsList()
+        this.modelsList = await responseModels.data
       } catch (error) {
       } finally {
         this.isLoading = false
@@ -128,7 +175,25 @@ export default {
     },
     debouncedSearch: debounce(async function () {
       this.isLoading = true
-      this.mainItemAPIInstance.searchObj = this.searchForm
+
+      let correctedDateTimeCreatedGTE = ""
+      let correctedDateTimeCreatedLTE = ""
+
+      if (this.searchForm.date_time_created__gte !== "") {
+        correctedDateTimeCreatedGTE =
+          this.searchForm.date_time_created__gte + " 00:00:00"
+      }
+
+      if (this.searchForm.date_time_created__lte !== "") {
+        correctedDateTimeCreatedLTE =
+          this.searchForm.date_time_created__lte + " 23:59:59"
+      }
+
+      this.mainItemAPIInstance.searchObj = {
+        ...this.searchForm,
+        date_time_created__gte: correctedDateTimeCreatedGTE,
+        date_time_created__lte: correctedDateTimeCreatedLTE,
+      }
       try {
         const userResponse = await this.mainItemAPIInstance.getItemsList()
         this.mainItemList = userResponse.data
@@ -176,6 +241,11 @@ export default {
     },
     orderedUsersList() {
       return this.usersList.results
+    },
+    orderedModelsList() {
+      return this.modelsList.sort((a, b) =>
+        a.model_name_verbose.localeCompare(b.model_name_verbose),
+      )
     },
     ...mapGetters({
       currentAuthUser: "auth/getUser",

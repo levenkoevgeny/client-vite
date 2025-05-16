@@ -387,7 +387,6 @@ export default {
   methods: {
     async loadData() {
       this.isLoading = true
-      this.cadetAPIInstance.searchObj.category__in = [4, 5]
       const response = await this.cadetAPIInstance.getItemsList()
       this.cadetList = await response.data
       this.isLoading = false

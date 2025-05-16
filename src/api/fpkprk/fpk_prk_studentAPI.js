@@ -79,7 +79,10 @@ const searchObj = {
 }
 
 export default function getFPKPRKStudentAPIInstance() {
-  return new FPKPRKStudentAPI("fpk-mag-student", searchObj)
+  return new FPKPRKStudentAPI("fpk-mag-student", {
+    ...searchObj,
+    category__in: [4, 5],
+  })
 }
 
 export const globalFPKPRKStudentAPIInstance = getFPKPRKStudentAPIInstance()

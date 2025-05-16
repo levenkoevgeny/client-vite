@@ -130,7 +130,15 @@
         <td>
           {{ cadet.patronymic_rus }}
         </td>
-        <td>{{ cadet.date_of_birth }}</td>
+        <td>
+          {{
+            new Date(cadet.date_of_birth).toLocaleString("ru-RU", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            })
+          }}
+        </td>
         <td>{{ cadet.get_component_organ }}</td>
       </tr>
     </template>

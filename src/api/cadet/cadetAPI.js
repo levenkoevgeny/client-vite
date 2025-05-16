@@ -100,7 +100,7 @@ const searchObj = {
 }
 
 export default function getCadetAPIInstance() {
-  return new CadetAPI("cadet", searchObj)
+  return new CadetAPI("cadet", { ...searchObj, category__in: [4, 5] })
 }
 
 export const globalCadetAPIInstance = getCadetAPIInstance()
