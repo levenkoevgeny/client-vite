@@ -39,6 +39,7 @@ import errors from "@/store/modules/errors"
 import medals from "@/store/modules/medals"
 import inWhoseInterests from "@/store/modules/inWhoseInterests.js"
 import profiling from "@/store/modules/profiling.js"
+import admissionQuota from "@/store/modules/admissionQuota.js"
 
 const store = createStore({
   modules: {
@@ -82,6 +83,7 @@ const store = createStore({
     medals,
     inWhoseInterests,
     profiling,
+    admissionQuota,
   },
 })
 

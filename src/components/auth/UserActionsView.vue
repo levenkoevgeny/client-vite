@@ -186,7 +186,7 @@ export default {
 
       if (this.searchForm.date_time_created__lte !== "") {
         correctedDateTimeCreatedLTE =
-          this.searchForm.date_time_created__lte + " 23:59:59"
+          this.searchForm.date_time_created__lte + " 23:59:59.59"
       }
 
       this.mainItemAPIInstance.searchObj = {

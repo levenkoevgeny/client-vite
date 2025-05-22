@@ -338,18 +338,6 @@
                     <label for="id_rank">Звание</label>
                   </div>
                 </div>
-                <div class="col-xl-3">
-                  <div class="form-floating mb-3">
-                    <input
-                      id="id_personal_number_mvd"
-                      type="text"
-                      class="form-control"
-                      placeholder="Личный номер"
-                      v-model="currentFPKPRKData.personal_number_mvd"
-                    />
-                    <label for="id_personal_number_mvd">Личный номер</label>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -358,43 +346,6 @@
             <div class="card-body">
               <h5 class="card-title">Блок по Академии</h5>
               <div class="row mt-3">
-                <div class="col-xl-3">
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_subdivision"
-                      class="form-select"
-                      v-model="currentFPKPRKData.subdivision"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="subdivision.id"
-                        v-for="subdivision in orderedSubdivisions"
-                      >
-                        {{ subdivision.subdivision_short_name }}
-                      </option>
-                    </select>
-                    <label for="id_subdivision">Факультет</label>
-                  </div>
-                </div>
-
-                <div class="col-xl-3">
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_document_type"
-                      class="form-select"
-                      v-model="currentFPKPRKData.document_type"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="document_type.id"
-                        v-for="document_type in orderedDocumentTypes"
-                      >
-                        {{ document_type.document_type }}
-                      </option>
-                    </select>
-                    <label for="id_document_type">Документ</label>
-                  </div>
-                </div>
                 <div class="col-xl-3">
                   <div class="form-floating mb-3">
                     <select
@@ -429,9 +380,7 @@
                         {{ foreign_language.foreign_language }}
                       </option>
                     </select>
-                    <label for="id_foreign_language"
-                      >Иностранный язык (будет)</label
-                    >
+                    <label for="id_foreign_language">Иностранный язык</label>
                   </div>
                 </div>
               </div>
@@ -477,66 +426,6 @@
                     aria-selected="false"
                   >
                     Личная информация
-                  </button>
-                  <button
-                    class="nav-link"
-                    id="nav-representatives-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#nav-representatives"
-                    type="button"
-                    role="tab"
-                    aria-controls="nav-representatives"
-                    aria-selected="false"
-                  >
-                    Представители
-                  </button>
-                  <button
-                    class="nav-link"
-                    id="nav-questionary-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#nav-questionary"
-                    type="button"
-                    role="tab"
-                    aria-controls="nav-questionary"
-                    aria-selected="false"
-                  >
-                    Анкета
-                  </button>
-                  <button
-                    class="nav-link"
-                    id="nav-med-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#nav-med"
-                    type="button"
-                    role="tab"
-                    aria-controls="nav-med"
-                    aria-selected="false"
-                  >
-                    Данные мед. осв-я
-                  </button>
-                  <button
-                    class="nav-link"
-                    id="nav-services-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#nav-services"
-                    type="button"
-                    role="tab"
-                    aria-controls="nav-services"
-                    aria-selected="false"
-                  >
-                    Прохождение службы
-                  </button>
-                  <button
-                    class="nav-link"
-                    id="nav-attached_documents-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#nav-attached_documents"
-                    type="button"
-                    role="tab"
-                    aria-controls="nav-attached_documents"
-                    aria-selected="false"
-                  >
-                    Отсканированные документы
                   </button>
                 </div>
               </nav>
@@ -587,48 +476,6 @@
                               </option>
                             </select>
                             <label for="id_entrance_category">Категория</label>
-                          </div>
-                        </div>
-                        <div class="col-lg-3">
-                          <div class="form-floating mb-3">
-                            <select
-                              id="id_social_status"
-                              class="form-select"
-                              v-model="currentFPKPRKData.social_status"
-                            >
-                              <option :value="null">---------</option>
-                              <option
-                                :value="socialStatus.id"
-                                v-for="socialStatus in orderedSocialStatuses"
-                              >
-                                {{ socialStatus.social_status }}
-                              </option>
-                            </select>
-                            <label for="id_social_status"
-                              >Социальный статус</label
-                            >
-                          </div>
-                        </div>
-                        <div class="col-lg-3">
-                          <div class="form-floating mb-3">
-                            <select
-                              id="id_region_for_medical_examination"
-                              class="form-select"
-                              v-model="
-                                currentFPKPRKData.region_for_medical_examination
-                              "
-                            >
-                              <option :value="null">---------</option>
-                              <option
-                                :value="countryRegion.id"
-                                v-for="countryRegion in orderedCountryRegions"
-                              >
-                                {{ countryRegion.country_region }}
-                              </option>
-                            </select>
-                            <label for="id_region_for_medical_examination"
-                              >Обл. для мед. ком.</label
-                            >
                           </div>
                         </div>
                       </div>
@@ -1763,230 +1610,6 @@
               </div>
             </div>
             <!--Анкета-->
-            <div class="card shadow mb-2 rounded border-0">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-xl-4">
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_needs_increased_attention"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentFPKPRKData.needs_increased_attention"
-                      />
-                      <label
-                        class="form-check-label"
-                        for="id_needs_increased_attention"
-                      >
-                        Требует повышенного внимания
-                      </label>
-                    </div>
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_needs_psychological_support"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentFPKPRKData.needs_psychological_support"
-                      />
-                      <label
-                        class="form-check-label"
-                        for="id_needs_psychological_support"
-                      >
-                        Требует психологического сопровождения
-                      </label>
-                    </div>
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_is_risk_group"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentFPKPRKData.is_risk_group"
-                      />
-                      <label class="form-check-label" for="id_is_risk_group"
-                        >Группа риска</label
-                      >
-                    </div>
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_has_conviction"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentFPKPRKData.has_conviction"
-                      />
-                      <label class="form-check-label" for="id_has_conviction"
-                        >Судимость</label
-                      >
-                    </div>
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_has_dactocard"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentFPKPRKData.has_dactocard"
-                      />
-                      <label class="form-check-label" for="id_has_dactocard"
-                        >Дактокарта</label
-                      >
-                    </div>
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_has_gusb_check"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentFPKPRKData.has_gusb_check"
-                      />
-                      <label class="form-check-label" for="id_has_gusb_check"
-                        >Проверка ГУСБ</label
-                      >
-                    </div>
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_has_employee_in_family"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentFPKPRKData.has_employee_in_family"
-                      />
-                      <label
-                        class="form-check-label"
-                        for="id_has_employee_in_family"
-                        >Сотрудники в семье</label
-                      >
-                    </div>
-                    <div class="form-check mb-3">
-                      <input
-                        id="is_is_orphan"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentFPKPRKData.is_orphan"
-                      />
-                      <label class="form-check-label" for="is_is_orphan"
-                        >Сирота</label
-                      >
-                    </div>
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_is_employee"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentFPKPRKData.is_employee"
-                      />
-                      <label class="form-check-label" for="id_is_employee"
-                        >Сотрудник</label
-                      >
-                    </div>
-                  </div>
-                  <div class="col-xl-4">
-                    <p>Сертификаты</p>
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_has_certificate_ideas_for_Belarus"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="
-                          currentFPKPRKData.has_certificate_ideas_for_Belarus
-                        "
-                      />
-                      <label
-                        class="form-check-label"
-                        for="id_has_certificate_ideas_for_Belarus"
-                        >100 идей для Беларуси</label
-                      >
-                    </div>
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_has_certificate_kind_heart"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentFPKPRKData.has_certificate_kind_heart"
-                      />
-                      <label
-                        class="form-check-label"
-                        for="id_has_certificate_kind_heart"
-                        >Доброе сердце</label
-                      >
-                    </div>
-                  </div>
-                  <div class="col-xl-4">
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_is_law_class"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentFPKPRKData.is_law_class"
-                      />
-                      <label class="form-check-label" for="id_is_law_class"
-                        >Правовой класс</label
-                      >
-                    </div>
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_is_law_enforcement"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentFPKPRKData.is_law_enforcement"
-                      />
-                      <label
-                        class="form-check-label"
-                        for="id_is_law_enforcement"
-                        >Охрана правопорядка</label
-                      >
-                    </div>
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_is_reserve"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentFPKPRKData.is_reserve"
-                      />
-                      <label class="form-check-label" for="id_is_reserve"
-                        >Резерв</label
-                      >
-                    </div>
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_is_fired"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentFPKPRKData.is_fired"
-                      />
-                      <label class="form-check-label" for="id_is_fired"
-                        >Уволен</label
-                      >
-                    </div>
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_took_documents"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentFPKPRKData.took_documents"
-                      />
-                      <label class="form-check-label" for="id_took_documents"
-                        >Забрал документы</label
-                      >
-                    </div>
-
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_is_vv"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentFPKPRKData.is_vv"
-                      />
-                      <label class="form-check-label" for="id_is_vv">ВВ</label>
-                    </div>
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_is_fp"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentFPKPRKData.is_fp"
-                      />
-                      <label class="form-check-label" for="id_is_fp">ФП</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
 
           <div class="border-bottom border-4 my-3"></div>

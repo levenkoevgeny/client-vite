@@ -1,17 +1,21 @@
-:root,
-:host {
-    --vs-controls-color: #664cc3;
-    --vs-border-color: #664cc3;
+:root {
+    --vs-dropdown-bg: var(--phoenix-secondary-bg-color);
+    --vs-dropdown-color: var(--phoenix-secondary-bg-color);
+    --vs-dropdown-option-color: var(--bs-body-color);
+    --vs-selected-bg: #ffc107;
+    --vs-dropdown-option--active-bg: #ffc107;
+    --vs-border-color: var(--bs-border-color);
+    --vs-selected-color: #212529;
+    --vs-controls-color: #212529;
+    --vs-search-input-color: var(--bs-body-color);
+    --vs-dropdown-option--active-color: #212529;
+}
 
-    --vs-dropdown-bg: #282c34;
-    --vs-dropdown-color: #cc99cd;
-    --vs-dropdown-option-color: #cc99cd;
 
-    --vs-selected-bg: #664cc3;
-    --vs-selected-color: #eeeeee;
+.vs__dropdown-toggle {
+    background-color: var(--phoenix-secondary-bg-color);
+}
 
-    --vs-search-input-color: #eeeeee;
-
-    --vs-dropdown-option--active-bg: #664cc3;
-    --vs-dropdown-option--active-color: #eeeeee;
+.vs__dropdown-menu {
+    border-top: var(--vs-border-width) var(--vs-border-style) var(--vs-border-color);;
 }
