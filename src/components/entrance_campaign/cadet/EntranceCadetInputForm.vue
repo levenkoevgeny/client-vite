@@ -158,7 +158,7 @@
                 @click="makePrinting(this.currentCadetData.id)"
               >
                 <font-awesome-icon :icon="['fas', 'print']" />&nbsp;&nbsp; Все
-                равно отпечатать заявление
+                равно напечатать заявление
               </button>
             </div>
           </div>
@@ -246,7 +246,9 @@
               >
             </h1>
             &nbsp;&nbsp;
-            <h1 class="fw-lighter">({{ currentCadetData.get_age }} лет)</h1>
+            <h1 class="fw-lighter">
+              (возраст - {{ currentCadetData.get_age }} лет)
+            </h1>
           </div>
 
           <button class="mx-2 btn btn-warning" @click="showHistory">
@@ -260,7 +262,7 @@
           >
             <h3>
               <font-awesome-icon :icon="['fas', 'print']" />
-              Заявление отпечатано
+              Заявление напечатано
               <span v-if="currentCadetData.application_has_been_printed_date">
                 -
                 {{
@@ -2762,7 +2764,7 @@
               disabled
             >
               <font-awesome-icon :icon="['fas', 'print']" />&nbsp;&nbsp;
-              Заявление отпечатано
+              Заявление напечатано
             </button>
             <button
               v-else
@@ -2770,7 +2772,7 @@
               @click="printApplication(this.currentCadetData.id)"
             >
               <font-awesome-icon :icon="['fas', 'print']" />&nbsp;&nbsp;
-              Отпечатать заявление
+              Напечатать заявление
             </button>
             <div class="form-check my-3" v-if="currentUser.is_superuser">
               <input
@@ -2783,7 +2785,7 @@
                 class="form-check-label"
                 for="id_application_has_been_printed"
               >
-                Заявление отпечатано
+                Заявление напечатано
               </label>
             </div>
           </div>
