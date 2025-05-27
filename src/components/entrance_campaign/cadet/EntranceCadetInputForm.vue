@@ -123,6 +123,59 @@
       </div>
     </div>
 
+    <!--    Application print Validation modal-->
+    <div
+      class="modal fade"
+      id="id_application_validationErrorsModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      ref="application_validationErrorsModal"
+    >
+      <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Для печати заявления исправте следующие ошибки:
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <div style="max-height: 400px; overflow-y: auto">
+              <p v-for="error of v$.applicationPrintData.$errors">
+                {{ error.$message }}
+              </p>
+            </div>
+            <div>
+              <button
+                class="btn btn-primary my-3"
+                @click="makePrinting(this.currentCadetData.id)"
+              >
+                <font-awesome-icon :icon="['fas', 'print']" />&nbsp;&nbsp; Все
+                равно отпечатать заявление
+              </button>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              ref="applicationValidationErrorsModalCloseButton"
+            >
+              Закрыть
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!--Has to save data before printing-->
     <div
       class="modal fade"
@@ -298,9 +351,11 @@
                     <input
                       id="id_date_of_birth"
                       type="date"
+                      name="date_of_birth"
                       class="form-control"
                       placeholder="Дата рождения"
                       v-model="currentCadetData.date_of_birth"
+                      @input="makeInputDefaultNullValueIfEmpty"
                     />
                     <label for="id_date_of_birth">Дата рождения</label>
                   </div>
@@ -1052,9 +1107,11 @@
                             <input
                               type="date"
                               id="id_passport_issue_date"
+                              name="passport_issue_date"
                               class="form-control form-control-sm"
                               placeholder="Дата выдачи"
                               v-model="currentCadetData.passport_issue_date"
+                              @input="makeInputDefaultNullValueIfEmpty"
                             />
                             <label for="id_passport_issue_date"
                               >Дата выдачи</label
@@ -1147,10 +1204,12 @@
                           <div class="form-floating mb-3">
                             <input
                               id="id_mother_date_of_birth"
+                              name="mother_date_of_birth"
                               type="date"
                               class="form-control form-control-sm"
                               placeholder="Мать (дата рождения)"
                               v-model="currentCadetData.mother_date_of_birth"
+                              @input="makeInputDefaultNullValueIfEmpty"
                             />
                             <label for="id_mother_date_of_birth"
                               >Дата рождения</label
@@ -1266,9 +1325,11 @@
                             <input
                               id="id_father_date_of_birth"
                               type="date"
+                              name="father_date_of_birth"
                               class="form-control form-control-sm"
                               placeholder="Отец (дата рождения)"
                               v-model="currentCadetData.father_date_of_birth"
+                              @input="makeInputDefaultNullValueIfEmpty"
                             />
                             <label for="id_father_date_of_birth"
                               >Дата рождения</label
@@ -1607,11 +1668,13 @@
                             <input
                               id="id_passed_medical_examination_date"
                               class="form-control"
+                              name="passed_medical_examination_date"
                               placeholder="Дата прохождения"
                               type="date"
                               v-model="
                                 currentCadetData.passed_medical_examination_date
                               "
+                              @input="makeInputDefaultNullValueIfEmpty"
                             />
                             <label
                               class="form-check-label"
@@ -1659,9 +1722,11 @@
                             <input
                               id="id_military_service_start"
                               type="date"
+                              name="military_service_start"
                               class="form-control form-control-sm"
                               placeholder="Начало"
                               v-model="currentCadetData.military_service_start"
+                              @input="makeInputDefaultNullValueIfEmpty"
                             />
                             <label for="id_military_service_start"
                               >Начало</label
@@ -1676,6 +1741,8 @@
                               class="form-control form-control-sm"
                               placeholder="Окончание"
                               v-model="currentCadetData.military_service_end"
+                              name="military_service_end"
+                              @input="makeInputDefaultNullValueIfEmpty"
                             />
                             <label for="id_military_service_end"
                               >Окончание</label
@@ -1717,9 +1784,11 @@
                             <input
                               id="id_mvd_service_start"
                               type="date"
+                              name="mvd_service_start"
                               class="form-control form-control-sm"
                               placeholder="Начало"
                               v-model="currentCadetData.mvd_service_start"
+                              @input="makeInputDefaultNullValueIfEmpty"
                             />
                             <label for="id_mvd_service_start">Начало</label>
                           </div>
@@ -1729,9 +1798,11 @@
                             <input
                               id="id_mvd_service_end"
                               type="date"
+                              name="mvd_service_end"
                               class="form-control form-control-sm"
                               placeholder="Окончание"
                               v-model="currentCadetData.mvd_service_end"
+                              @input="makeInputDefaultNullValueIfEmpty"
                             />
                             <label for="id_mvd_service_end">Окончание</label>
                           </div>
@@ -2565,7 +2636,17 @@
                   </tbody>
                 </table>
                 <div class="border-bottom border-4 my-3"></div>
-                <p class="fw-bold">Аттестат, 10 / 10 /100</p>
+
+                <div
+                  class="d-flex flex-row justify-content-between align-items-end"
+                >
+                  <p class="fw-bold">Аттестат, 10 / 10 /100</p>
+                  <button class="btn btn-warning mb-3">
+                    <font-awesome-icon :icon="['fas', 'calculator']" />
+                    &nbsp;Калькулятор среднего балла
+                  </button>
+                </div>
+
                 <table class="table">
                   <thead>
                     <tr>
@@ -2644,9 +2725,6 @@
                     </tr>
                   </tbody>
                 </table>
-                <button class="btn btn-warning">
-                  Калькулятор среднего балла
-                </button>
 
                 <div class="my-3"></div>
 
@@ -2887,6 +2965,7 @@ export default {
         privilege_8: "",
         privilege_9: "",
       },
+      applicationPrintData: {},
       currentCadetDataFromServer: {},
       cadetAPIInstance: globalCadetAPIForEntranceInstance,
       actionHistoryAPIInstance: getActionHistoryAPIInstance(),
@@ -2901,13 +2980,20 @@ export default {
     return { v$: useVuelidate() }
   },
   validations() {
-    const education_graduating_end_year_minValueValue = minValue(2000)
+    const education_graduating_end_year_minValueValue = minValue(1940)
     const education_graduating_end_year_maxValueValue = maxValue(2025)
     return {
       currentCadetData: {
         last_name_rus: {
           required: helpers.withMessage(
-            "Поле 'Фамилия (рус)' не может быть пустым",
+            "Поле 'Фамилия' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        date_of_birth: {
+          required: helpers.withMessage(
+            "Поле 'Дата рождения' не может быть пустым",
             required,
           ),
           $autoDirty: true,
@@ -2920,6 +3006,183 @@ export default {
           education_graduating_end_year_minValueValue: helpers.withMessage(
             "Некорректное значение поля 'Год окончания школы'",
             education_graduating_end_year_minValueValue,
+          ),
+          $autoDirty: true,
+        },
+      },
+      applicationPrintData: {
+        last_name_rus: {
+          required: helpers.withMessage(
+            "Поле 'Фамилия' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        first_name_rus: {
+          required: helpers.withMessage(
+            "Поле 'Имя' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        patronymic_rus: {
+          required: helpers.withMessage(
+            "Поле 'Отчество' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        address_residence: {
+          required: helpers.withMessage(
+            "Поле 'Проживает по адресу' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        education_graduating_end_year: {
+          required: helpers.withMessage(
+            "Поле 'Год окончания учреждения образования' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        education_graduated: {
+          required: helpers.withMessage(
+            "Поле 'Учреждение образования' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        component_organ: {
+          required: helpers.withMessage(
+            "Поле 'Комплектующий орган' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        foreign_language_was: {
+          required: helpers.withMessage(
+            "Поле 'Иностранный язык, который изучал' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        date_of_birth: {
+          required: helpers.withMessage(
+            "Поле 'Дата рождения' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        phone_number: {
+          required: helpers.withMessage(
+            "Поле 'Номер телефона' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        mother_last_name: {
+          required: helpers.withMessage(
+            "Поле 'Фамилия матери' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        mother_first_name: {
+          required: helpers.withMessage(
+            "Поле 'Имя матери' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        mother_patronymic: {
+          required: helpers.withMessage(
+            "Поле 'Отчество матери' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        mother_address_residence: {
+          required: helpers.withMessage(
+            "Поле 'Мать проживает по адресу' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        mother_phone_number: {
+          required: helpers.withMessage(
+            "Поле 'Мать - контактный телефон' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        father_last_name: {
+          required: helpers.withMessage(
+            "Поле 'Фамилия отца' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        father_first_name: {
+          required: helpers.withMessage(
+            "Поле 'Имя отца' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        father_patronymic: {
+          required: helpers.withMessage(
+            "Поле 'Отчество отца' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        father_address_residence: {
+          required: helpers.withMessage(
+            "Поле 'Отец проживает по адресу' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        father_phone_number: {
+          required: helpers.withMessage(
+            "Поле 'Отец - контактный телефон' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        passport_document_type: {
+          required: helpers.withMessage(
+            "Поле 'Вид документа удостоверяющего личность' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        passport_issue_date: {
+          required: helpers.withMessage(
+            "Поле 'Дата выдачи пасспорта' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        passport_issue_authority_text: {
+          required: helpers.withMessage(
+            "Поле 'Орган выдачи пасспорта' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        identification_number: {
+          required: helpers.withMessage(
+            "Поле 'Идентификационный номер' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        foreign_language_will_be: {
+          required: helpers.withMessage(
+            "Поле 'Иностранный язык, который будет изучать' не может быть пустым",
+            required,
           ),
           $autoDirty: true,
         },
@@ -2972,7 +3235,7 @@ export default {
       }
     },
     async saveEntranceForm() {
-      if (this.v$.$invalid) {
+      if (this.v$.currentCadetData.$invalid) {
         let validationErrorsModal = this.$refs.validationErrorsModal
         let myModal = new bootstrap.Modal(validationErrorsModal, {
           keyboard: false,
@@ -3028,46 +3291,53 @@ export default {
           keyboard: false,
         })
         myModal.show()
-      } else {
-        let queryString = `?application_id=${entranceId}`
-
-        let dataObj = {
-          id: this.currentCadetData.id,
-          application_has_been_printed: true,
-        }
-
-        if (!this.currentCadetData.application_has_been_printed_date) {
-          dataObj = {
-            ...dataObj,
-            application_has_been_printed_date: new Date().toISOString(),
-          }
-        }
-
-        const resp = await this.cadetAPIInstance.updateItemPartly(dataObj)
-
-        this.currentCadetData = { ...this.currentCadetData, ...resp.data }
-        this.currentCadetDataFromServer = Object.assign(
-          {},
-          this.currentCadetData,
-        )
-
-        this.$axios
-          .get(
-            `${this.BACKEND_PROTOCOL}://${this.BACKEND_HOST}:${this.BACKEND_PORT}/api/application-print/${queryString}`,
-            { responseType: "blob" },
-          )
-          .then((response) => {
-            const url = window.URL.createObjectURL(new Blob([response.data]))
-            const link = document.createElement("a")
-            link.href = url
-            link.setAttribute(
-              "download",
-              `${this.currentCadetData.last_name_rus}.docx`,
-            )
-            document.body.appendChild(link)
-            link.click()
-          })
+        return
       }
+      if (this.v$.applicationPrintData.$invalid) {
+        let applicationValidationErrorsModal =
+          this.$refs.application_validationErrorsModal
+        let myModal = new bootstrap.Modal(applicationValidationErrorsModal, {
+          keyboard: false,
+        })
+        myModal.show()
+        return
+      } else {
+        await this.makePrinting(entranceId)
+      }
+    },
+
+    async makePrinting(entranceId) {
+      let queryString = `?application_id=${entranceId}`
+      let dataObj = {
+        id: this.currentCadetData.id,
+        application_has_been_printed: true,
+      }
+      if (!this.currentCadetData.application_has_been_printed_date) {
+        dataObj = {
+          ...dataObj,
+          application_has_been_printed_date: new Date().toISOString(),
+        }
+      }
+      const resp = await this.cadetAPIInstance.updateItemPartly(dataObj)
+      this.currentCadetData = { ...this.currentCadetData, ...resp.data }
+      this.currentCadetDataFromServer = Object.assign({}, this.currentCadetData)
+      this.$axios
+        .get(
+          `${this.BACKEND_PROTOCOL}://${this.BACKEND_HOST}:${this.BACKEND_PORT}/api/application-print/${queryString}`,
+          { responseType: "blob" },
+        )
+        .then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]))
+          const link = document.createElement("a")
+          link.href = url
+          link.setAttribute(
+            "download",
+            `${this.currentCadetData.last_name_rus}.docx`,
+          )
+          document.body.appendChild(link)
+          link.click()
+        })
+      this.$refs.applicationValidationErrorsModalCloseButton.click()
     },
 
     averageScoreSelectChange(e) {
@@ -3350,6 +3620,14 @@ export default {
       admissionQuota: "admissionQuota/getList",
       currentUser: "auth/getUser",
     }),
+  },
+  watch: {
+    currentCadetData: {
+      handler(newValue, oldValue) {
+        this.applicationPrintData = Object.assign({}, this.currentCadetData)
+      },
+      deep: true,
+    },
   },
 }
 </script>

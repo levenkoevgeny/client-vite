@@ -40,6 +40,7 @@ import { faPrint } from "@fortawesome/free-solid-svg-icons"
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons"
 import { faKey } from "@fortawesome/free-solid-svg-icons"
 import { faDatabase } from "@fortawesome/free-solid-svg-icons"
+import { faCalculator } from "@fortawesome/free-solid-svg-icons"
 import axios from "axios"
 import "../public/vue-select.css"
 export const axiosInstance = axios.create()
@@ -78,6 +79,7 @@ library.add(faArrowRightFromBracket)
 library.add(faPrint)
 library.add(faKey)
 library.add(faDatabase)
+library.add(faCalculator)
 
 axiosInstance.interceptors.request.use(
   (config) => {
