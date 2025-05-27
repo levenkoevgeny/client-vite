@@ -177,20 +177,25 @@
     <div v-else>
       <div class="d-flex flex-row justify-content-between align-items-end pb-3">
         <div>
-          <h1
-            class="fw-lighter"
-            :class="{
-              'bg-success-subtle':
-                currentCadetData.application_has_been_printed,
-            }"
-          >
-            Личное дело абитуриента
-            <span class="fw-normal text-decoration-underline"
-              >{{ currentCadetData.last_name_rus }}&nbsp;{{
-                currentCadetData.first_name_rus
-              }}&nbsp;{{ currentCadetData.patronymic_rus }}</span
+          <div class="d-flex flex-row align-items-end">
+            <h1
+              class="fw-lighter"
+              :class="{
+                'bg-success-subtle':
+                  currentCadetData.application_has_been_printed,
+              }"
             >
-          </h1>
+              Личное дело абитуриента
+              <span class="fw-normal text-decoration-underline"
+                >{{ currentCadetData.last_name_rus }}&nbsp;{{
+                  currentCadetData.first_name_rus
+                }}&nbsp;{{ currentCadetData.patronymic_rus }}</span
+              >
+            </h1>
+            &nbsp;&nbsp;
+            <h1 class="fw-lighter">({{ currentCadetData.get_age }} лет)</h1>
+          </div>
+
           <button class="mx-2 btn btn-warning" @click="showHistory">
             История изменений&nbsp;&nbsp;<font-awesome-icon
               :icon="['fas', 'database']"
@@ -300,39 +305,6 @@
                     <label for="id_date_of_birth">Дата рождения</label>
                   </div>
                 </div>
-                <!--                <div class="col-xl-3">-->
-                <!--                  <div class="form-floating mb-3">-->
-                <!--                    <input-->
-                <!--                      id="id_last_name_bel"-->
-                <!--                      type="text"-->
-                <!--                      class="form-control form-control-sm"-->
-                <!--                      placeholder="Фамилия (бел)"-->
-                <!--                      v-model="currentCadetData.last_name_bel"-->
-                <!--                    />-->
-                <!--                    <label for="id_last_name_bel">Фамилия (бел)</label>-->
-                <!--                  </div>-->
-                <!--                  <div class="form-floating mb-3">-->
-                <!--                    <input-->
-                <!--                      id="id_first_name_bel"-->
-                <!--                      type="text"-->
-                <!--                      class="form-control"-->
-                <!--                      placeholder="Имя (бел)"-->
-                <!--                      v-model="currentCadetData.first_name_bel"-->
-                <!--                      required-->
-                <!--                    />-->
-                <!--                    <label for="id_first_name_bel">Имя (бел)</label>-->
-                <!--                  </div>-->
-                <!--                  <div class="form-floating mb-3">-->
-                <!--                    <input-->
-                <!--                      id="id_patronymic_bel"-->
-                <!--                      type="text"-->
-                <!--                      class="form-control"-->
-                <!--                      placeholder="Отчество (бел)"-->
-                <!--                      v-model="currentCadetData.patronymic_bel"-->
-                <!--                    />-->
-                <!--                    <label for="id_patronymic_bel">Отчество (бел)</label>-->
-                <!--                  </div>-->
-                <!--                </div>-->
               </div>
 
               <div class="row">
@@ -377,6 +349,7 @@
                     <label for="id_personal_number_mvd">Личный номер</label>
                   </div>
                 </div>
+                <div class="col-xl-3"></div>
               </div>
             </div>
           </div>
@@ -439,24 +412,6 @@
                       </option>
                     </select>
                     <label for="id_document_type">Документ</label>
-                  </div>
-                </div>
-                <div class="col-xl-3">
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_privilege"
-                      class="form-select"
-                      v-model="currentCadetData.privilege"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="privilege.id"
-                        v-for="privilege in orderedPrivileges"
-                      >
-                        {{ privilege.privilege }}
-                      </option>
-                    </select>
-                    <label for="id_privilege">Льгота</label>
                   </div>
                 </div>
 
@@ -1053,13 +1008,11 @@
                               type="text"
                               id="id_passport_number"
                               class="form-control form-control-sm"
-                              placeholder="Серия и номер паспорта (номер идентификационной
-                              карты)"
+                              placeholder="Серия и номер паспорта (номер ид. карты)"
                               v-model="currentCadetData.passport_number"
                             />
                             <label for="id_passport_number"
-                              >Серия и номер паспорта (номер идентификационной
-                              карты)</label
+                              >Серия и номер паспорта (номер ид. карты)</label
                             >
                           </div>
                         </div>
@@ -3080,12 +3033,12 @@ export default {
 
         let dataObj = {
           id: this.currentCadetData.id,
+          application_has_been_printed: true,
         }
 
         if (!this.currentCadetData.application_has_been_printed_date) {
           dataObj = {
             ...dataObj,
-            application_has_been_printed: true,
             application_has_been_printed_date: new Date().toISOString(),
           }
         }

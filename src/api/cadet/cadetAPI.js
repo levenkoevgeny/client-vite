@@ -87,6 +87,8 @@ const searchObj = {
   component_organ__in: "",
   entrance_category: "",
   entrance_category__in: "",
+  educational_institution: "",
+  educational_institution__in: "",
   arrived_from_go_rovd: "",
   arrived_from_go_rovd__in: "",
   social_status: "",

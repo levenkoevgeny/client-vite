@@ -8,3 +8,4 @@ export { default as EntranceFPKPRKListView } from "./fpk_prk/EntranceFPKPRKListV
 export { default as EntranceFPKPRKInputForm } from "./fpk_prk/EntranceFPKPRKInputForm.vue"
 export { default as EntranceStudentMainView } from "./student/EntranceStudentMainView.vue"
 export { default as EntranceStudentListView } from "./student/EntranceStudentListView.vue"
+export { default as EntranceCadetTableView } from "./cadet/EntranceCadetTableView.vue"

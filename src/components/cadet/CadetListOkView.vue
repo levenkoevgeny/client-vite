@@ -1471,17 +1471,6 @@ export default {
         this.isLoading = false
       }
     }, 500),
-    async updatePaginator(url) {
-      this.isLoading = true
-      try {
-        const response = await this.cadetAPIInstance.updateList(url)
-        this.cadetList = await response.data
-      } catch (error) {
-        this.isError = true
-      } finally {
-        this.isLoading = false
-      }
-    },
     setOrdering(fieldName) {
       this.searchForm.ordering = fieldName
 
