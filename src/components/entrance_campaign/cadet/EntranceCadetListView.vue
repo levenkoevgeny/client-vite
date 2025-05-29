@@ -256,6 +256,7 @@ import { globalCadetAPIForEntranceInstance } from "@/api/cadet/cadetAPI.js"
 import { debounce } from "lodash/function"
 import { mapGetters } from "vuex"
 import BaseListLayout from "@/components/layouts/BaseListLayout.vue"
+import { isEqual } from "lodash"
 
 export default {
   name: "EntranceListView",
@@ -271,6 +272,10 @@ export default {
       cadetList: { count: 0, results: [], previous: null, next: null },
       cadetAPIInstance: globalCadetAPIForEntranceInstance,
       searchForm: Object.assign(
+        {},
+        globalCadetAPIForEntranceInstance.searchObj,
+      ),
+      searchFormInit: Object.assign(
         {},
         globalCadetAPIForEntranceInstance.searchObj,
       ),
@@ -539,6 +544,9 @@ export default {
     },
     orderedComponentOrgans() {
       return this.componentOrgans.results
+    },
+    isSearchFormFilled() {
+      return isEqual(this.searchForm, this.searchFormInit)
     },
     ...mapGetters({
       groups: "groups/getList",

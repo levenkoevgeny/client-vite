@@ -218,6 +218,129 @@
       </div>
     </div>
 
+    <!--Average score calculating-->
+    <div
+      class="modal fade"
+      id="id_averageScoreCalculatingModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      ref="averageScoreCalculatingModal"
+    >
+      <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Калькулятор среднего балла
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <div class="d-flex flex-row alert alert-warning">
+              <h5 class="me-3 my-0">
+                Количество записей - {{ getAverageScoreCount() }}
+              </h5>
+              <h5 class="my-0">Средний балл - {{ getAverageScore }}</h5>
+            </div>
+
+            <div class="mt-3">
+              <div class="form-floating">
+                <select
+                  class="form-select"
+                  v-model="average_score_calculation.choice"
+                  @change="average_score_calculation_select_change"
+                >
+                  <option value="">-------</option>
+                  <option value="cert">Школа (11 классов)</option>
+                  <option value="cert,dipl">
+                    Школа (11 классов) + проф.тех
+                  </option>
+                  <option value="cert,dipl">
+                    Школа (11 классов) + ср. спец.
+                  </option>
+                  <option value="cert">Проф.тех</option>
+                  <option value="dipl">Ср. спец.</option>
+                </select>
+                <label for="id_privilege">Что окончил</label>
+              </div>
+              <div
+                class="d-flex flex-row py-2 my-3"
+                style="max-height: 400px; overflow-y: auto"
+              >
+                <div
+                  style="width: 50%"
+                  class="me-2"
+                  v-if="this.average_score_calculation.choice.includes('cert')"
+                >
+                  <h5 class="ms-2">Школьный аттестат</h5>
+                  <select
+                    class="form-select"
+                    :name="select.selectIndex"
+                    v-for="select in average_score_calculation.certificate"
+                    v-model="select.selectValue"
+                    @change="averageScoreCertificateSelectChange"
+                  >
+                    <option value=""></option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                  </select>
+                </div>
+                <div v-else style="width: 50%"></div>
+                <div
+                  style="width: 50%"
+                  v-if="this.average_score_calculation.choice.includes('dipl')"
+                >
+                  <h5 class="ms-2">Диплом</h5>
+                  <select
+                    class="form-select"
+                    :name="select.selectIndex"
+                    v-for="select in average_score_calculation.diploma"
+                    v-model="select.selectValue"
+                    @change="averageScoreDiplomaSelectChange"
+                  >
+                    <option value=""></option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                  </select>
+                </div>
+                <div v-else style="width: 50%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-success"
+              data-bs-dismiss="modal"
+              ref="averageScoreCalculatingModalCloseButton"
+            >
+              Готово
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div
       v-if="isLoading || isCommonLoading"
       style="height: calc(100vh - 170px)"
@@ -2472,8 +2595,7 @@
                 <p class="fw-bold">
                   Сертификаты централизованного тестирования
                 </p>
-                {{ currentCadetDataFromServer.rus_score_ct }}
-                {{ currentCadetData.rus_score_ct }}
+                <h3>Сумма баллов - {{ currentCadetData.get_score_sum }}</h3>
                 <table class="table">
                   <thead>
                     <tr>
@@ -2495,7 +2617,7 @@
                           id="id_rus_bel_cert_number"
                           type="text"
                           class="form-control text-center"
-                          value=""
+                          v-model="currentCadetData.rus_bel_ct_number"
                         />
                       </td>
                       <td class="text-center table-warning">
@@ -2506,7 +2628,7 @@
                           id="id_social_science_cert_number"
                           type="text"
                           class="form-control text-center"
-                          value=""
+                          v-model="currentCadetData.social_science_ct_number"
                         />
                       </td>
                       <td class="text-center table-success">
@@ -2517,7 +2639,7 @@
                           id="id_foreign_lang_cert_number"
                           type="text"
                           class="form-control text-center"
-                          value=""
+                          v-model="currentCadetData.foreign_lang_ct_number"
                         />
                       </td>
                     </tr>
@@ -2557,7 +2679,7 @@
                           name="social_science_ct"
                           type="number"
                           class="form-control text-center"
-                          v-model="currentCadetData.social_science_ct"
+                          v-model="currentCadetData.social_science_score_ct"
                           @input="makeInputDefaultNullValueIfEmpty"
                         />
                       </td>
@@ -2570,15 +2692,18 @@
                           name="foreign_lang_ct"
                           type="number"
                           class="form-control text-center"
-                          v-model="currentCadetData.foreign_lang_ct"
+                          v-model="currentCadetData.foreign_lang_score_ct"
                           @input="makeInputDefaultNullValueIfEmpty"
                         />
                       </td>
                     </tr>
                     <tr>
                       <td class="text-center table-primary">
-                        <select class="form-select">
-                          <option selected class="text-center">
+                        <select
+                          class="form-select"
+                          v-model="currentCadetData.rus_ct_choice"
+                        >
+                          <option selected class="text-center" value="">
                             ----------
                           </option>
                           <option value="2024 ЦЭ" class="text-center">
@@ -2590,8 +2715,11 @@
                         </select>
                       </td>
                       <td class="text-center table-primary">
-                        <select class="form-select">
-                          <option selected class="text-center">
+                        <select
+                          class="form-select"
+                          v-model="currentCadetData.bel_ct_choice"
+                        >
+                          <option selected class="text-center" value="">
                             ----------
                           </option>
                           <option value="2024 ЦЭ" class="text-center">
@@ -2603,8 +2731,11 @@
                         </select>
                       </td>
                       <td class="text-center table-warning">
-                        <select class="form-select">
-                          <option selected class="text-center">
+                        <select
+                          class="form-select"
+                          v-model="currentCadetData.social_science_ct_choice"
+                        >
+                          <option selected class="text-center" value="">
                             ----------
                           </option>
                           <option value="2024 ЦЭ" class="text-center">
@@ -2616,8 +2747,11 @@
                         </select>
                       </td>
                       <td class="text-center table-success">
-                        <select class="form-select">
-                          <option selected class="text-center">
+                        <select
+                          class="form-select"
+                          v-model="currentCadetData.foreign_lang_ct_choice"
+                        >
+                          <option selected class="text-center" value="">
                             ----------
                           </option>
                           <option value="2024 ЦЭ" class="text-center">
@@ -2643,10 +2777,6 @@
                   class="d-flex flex-row justify-content-between align-items-end"
                 >
                   <p class="fw-bold">Аттестат, 10 / 10 /100</p>
-                  <button class="btn btn-warning mb-3">
-                    <font-awesome-icon :icon="['fas', 'calculator']" />
-                    &nbsp;Калькулятор среднего балла
-                  </button>
                 </div>
 
                 <table class="table">
@@ -2685,7 +2815,7 @@
                           name="social_science_cert"
                           type="number"
                           class="form-control text-center"
-                          v-model="currentCadetData.social_science_cert"
+                          v-model="currentCadetData.social_science_score_cert"
                           @input="makeInputDefaultNullValueIfEmpty"
                         />
                       </td>
@@ -2694,7 +2824,7 @@
                           name="foreign_lang_cert"
                           type="number"
                           class="form-control text-center"
-                          v-model="currentCadetData.foreign_lang_cert"
+                          v-model="currentCadetData.foreign_lang_score_cert"
                           @input="makeInputDefaultNullValueIfEmpty"
                         />
                       </td>
@@ -2709,12 +2839,22 @@
                     </tr>
                     <tr>
                       <td colspan="2" class="text-center table-primary">
-                        <input
-                          type="number"
-                          class="form-control text-center"
-                          :value="getAverageCertificateScore"
-                          disabled
-                        />
+                        <div class="d-flex flex-row">
+                          <button
+                            class="btn btn-warning me-2 text-nowrap"
+                            @click="showAverageScoreCalculatingModal"
+                          >
+                            <font-awesome-icon
+                              :icon="['fas', 'calculator']"
+                            />&nbsp;Рассчитать
+                          </button>
+                          <input
+                            type="number"
+                            class="form-control text-center"
+                            v-model="currentCadetData.education_average_score"
+                            disabled
+                          />
+                        </div>
                       </td>
                       <td colspan="2" class="text-center table-primary">
                         <input
@@ -2729,28 +2869,6 @@
                 </table>
 
                 <div class="my-3"></div>
-
-                <p>Количество - {{ getAverageScoreCount() }}</p>
-                <p>Средний балл - {{ getAverageScore }}</p>
-
-                <select
-                  class="form-select"
-                  :name="select.selectIndex"
-                  v-for="select in averageScoreSelects"
-                  v-model="select.selectValue"
-                  @change="averageScoreSelectChange"
-                >
-                  <option value=""></option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                </select>
               </div>
             </div>
           </div>
@@ -2903,6 +3021,7 @@ export default {
         education_graduating_start_year: "",
         education_graduating_end_year: "",
         education_average_score: "",
+        education_average_score_calculation: "",
         education_location_kind: "",
         is_located_in_Minsk: "",
         medal: "",
@@ -2940,14 +3059,21 @@ export default {
         is_fp: "",
         application_has_been_printed: "",
         application_has_been_printed_date: "",
+        rus_ct_choice: "",
+        bel_ct_choice: "",
+        social_science_ct_choice: "",
+        foreign_lang_ct_choice: "",
+        rus_bel_ct_number: "",
         rus_score_ct: "",
         bel_score_ct: "",
-        social_science_ct: "",
-        foreign_lang_ct: "",
+        social_science_ct_number: "",
+        social_science_score_ct: "",
+        foreign_lang_ct_number: "",
+        foreign_lang_score_ct: "",
         rus_score_cert: "",
         bel_score_cert: "",
-        social_science_cert: "",
-        foreign_lang_cert: "",
+        social_science_score_cert: "",
+        foreign_lang_score_cert: "",
         speciality_1: "",
         speciality_2: "",
         speciality_3: "",
@@ -2966,6 +3092,7 @@ export default {
         privilege_7: "",
         privilege_8: "",
         privilege_9: "",
+        get_score_sum: "",
       },
       applicationPrintData: {},
       currentCadetDataFromServer: {},
@@ -2975,7 +3102,11 @@ export default {
       BACKEND_HOST: import.meta.env.VITE_APP_BACKEND_HOST,
       BACKEND_PORT: import.meta.env.VITE_APP_BACKEND_PORT,
       cadetHistoryList: { count: 0, results: [], previous: null, next: null },
-      averageScoreSelects: [{ selectIndex: 0, selectValue: 0 }],
+      average_score_calculation: {
+        choice: "",
+        certificate: [{ selectIndex: 0, selectValue: 0 }],
+        diploma: [{ selectIndex: 0, selectValue: 0 }],
+      },
     }
   },
   setup() {
@@ -3065,6 +3196,13 @@ export default {
         foreign_language_was: {
           required: helpers.withMessage(
             "Поле 'Иностранный язык, который изучал' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        foreign_language_will_be: {
+          required: helpers.withMessage(
+            "Поле 'Иностранный язык, который будет изучать' не может быть пустым",
             required,
           ),
           $autoDirty: true,
@@ -3181,9 +3319,58 @@ export default {
           ),
           $autoDirty: true,
         },
-        foreign_language_will_be: {
+        rus_score_ct: {
           required: helpers.withMessage(
-            "Поле 'Иностранный язык, который будет изучать' не может быть пустым",
+            "Поле 'Русский язык - количество баллов по сертификату' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        bel_score_ct: {
+          required: helpers.withMessage(
+            "Поле 'Белорусский язык - количество баллов по сертификату' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        social_science_score_ct: {
+          required: helpers.withMessage(
+            "Поле 'Обществоведение - количество баллов по сертификату' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        foreign_lang_score_ct: {
+          required: helpers.withMessage(
+            "Поле 'Иностранный язык - количество баллов по сертификату' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        rus_score_cert: {
+          required: helpers.withMessage(
+            "Поле 'Русский язык - количество баллов в аттестате' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        bel_score_cert: {
+          required: helpers.withMessage(
+            "Поле 'Белорусский язык - количество баллов в аттестате' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        social_science_score_cert: {
+          required: helpers.withMessage(
+            "Поле 'Обществоведение - количество баллов в аттестате' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        foreign_lang_score_cert: {
+          required: helpers.withMessage(
+            "Поле 'Иностранный язык - количество баллов в аттестате' не может быть пустым",
             required,
           ),
           $autoDirty: true,
@@ -3203,6 +3390,11 @@ export default {
           {},
           this.currentCadetData,
         )
+        if (this.currentCadetData.education_average_score_calculation) {
+          this.average_score_calculation = JSON.parse(
+            this.currentCadetData.education_average_score_calculation,
+          )
+        }
       } catch (error) {
       } finally {
         this.isLoading = false
@@ -3307,7 +3499,6 @@ export default {
         await this.makePrinting(entranceId)
       }
     },
-
     async makePrinting(entranceId) {
       let queryString = `?application_id=${entranceId}`
       let dataObj = {
@@ -3342,26 +3533,61 @@ export default {
       this.$refs.applicationValidationErrorsModalCloseButton.click()
     },
 
-    averageScoreSelectChange(e) {
+    averageScoreCertificateSelectChange(e) {
       const lastIndex =
-        this.averageScoreSelects[this.averageScoreSelects.length - 1]
-          .selectIndex
+        this.average_score_calculation.certificate[
+          this.average_score_calculation.certificate.length - 1
+        ].selectIndex
       if (parseInt(e.target.name) === lastIndex) {
-        this.averageScoreSelects.push({
+        this.average_score_calculation.certificate.push({
           selectIndex: lastIndex + 1,
           selectValue: 0,
         })
       }
     },
+
+    averageScoreDiplomaSelectChange(e) {
+      const lastIndex =
+        this.average_score_calculation.diploma[
+          this.average_score_calculation.diploma.length - 1
+        ].selectIndex
+      if (parseInt(e.target.name) === lastIndex) {
+        this.average_score_calculation.diploma.push({
+          selectIndex: lastIndex + 1,
+          selectValue: 0,
+        })
+      }
+    },
+
     getAverageScoreCount() {
-      return this.averageScoreSelects.filter((item) => item.selectValue !== 0)
-        .length
+      return (
+        this.average_score_calculation.certificate.filter(
+          (item) => item.selectValue !== 0 && item.selectValue !== "",
+        ).length +
+        this.average_score_calculation.diploma.filter(
+          (item) => item.selectValue !== 0 && item.selectValue !== "",
+        ).length
+      )
+    },
+
+    average_score_calculation_select_change() {
+      this.average_score_calculation.certificate = [
+        { selectIndex: 0, selectValue: 0 },
+      ]
+      this.average_score_calculation.diploma = [
+        { selectIndex: 0, selectValue: 0 },
+      ]
+    },
+
+    showAverageScoreCalculatingModal() {
+      let validationErrorsModal = this.$refs.averageScoreCalculatingModal
+      let myModal = new bootstrap.Modal(validationErrorsModal, {
+        keyboard: false,
+      })
+      myModal.show()
     },
   },
   computed: {
-    orderedCadetCategories() {
-      return this.categories.results
-    },
     orderedRanks() {
       return this.ranks.results
     },
@@ -3547,28 +3773,28 @@ export default {
         this.removeFileFieldsFromObj(this.currentCadetDataFromServer),
       )
     },
-    getAverageCertificateScore() {
-      let averageCertificateScore = ""
-      if (
-        isFinite(this.currentCadetData.rus_score_cert) &&
-        this.currentCadetData.rus_score_cert !== null &&
-        isFinite(this.currentCadetData.bel_score_cert) &&
-        this.currentCadetData.bel_score_cert !== null &&
-        isFinite(this.currentCadetData.social_science_cert) &&
-        this.currentCadetData.social_science_cert !== null &&
-        isFinite(this.currentCadetData.foreign_lang_cert) &&
-        this.currentCadetData.foreign_lang_cert !== null
-      ) {
-        averageCertificateScore =
-          (this.currentCadetData.rus_score_cert +
-            this.currentCadetData.bel_score_cert +
-            this.currentCadetData.social_science_cert +
-            this.currentCadetData.foreign_lang_cert) /
-          4
-        return averageCertificateScore.toFixed(1)
-      }
-      return averageCertificateScore
-    },
+    // getAverageCertificateScore() {
+    //   let averageCertificateScore = ""
+    //   if (
+    //     isFinite(this.currentCadetData.rus_score_cert) &&
+    //     this.currentCadetData.rus_score_cert !== null &&
+    //     isFinite(this.currentCadetData.bel_score_cert) &&
+    //     this.currentCadetData.bel_score_cert !== null &&
+    //     isFinite(this.currentCadetData.social_science_cert) &&
+    //     this.currentCadetData.social_science_cert !== null &&
+    //     isFinite(this.currentCadetData.foreign_lang_cert) &&
+    //     this.currentCadetData.foreign_lang_cert !== null
+    //   ) {
+    //     averageCertificateScore =
+    //       (this.currentCadetData.rus_score_cert +
+    //         this.currentCadetData.bel_score_cert +
+    //         this.currentCadetData.social_science_cert +
+    //         this.currentCadetData.foreign_lang_cert) /
+    //       4
+    //     return averageCertificateScore.toFixed(1)
+    //   }
+    //   return averageCertificateScore
+    // },
     getARussianAndBelorussianSumScore() {
       let scoreSum = ""
       if (
@@ -3583,10 +3809,21 @@ export default {
       }
       return scoreSum
     },
+    get_average_score_calculation_text_for_db() {
+      return JSON.stringify(this.average_score_calculation)
+    },
+
     getAverageScore() {
       let counter = 0
-      this.averageScoreSelects.forEach((item) => {
-        counter = counter + parseInt(item.selectValue)
+      this.average_score_calculation.certificate.forEach((item) => {
+        if (item.selectValue !== 0 && item.selectValue !== "") {
+          counter = counter + parseInt(item.selectValue)
+        }
+      })
+      this.average_score_calculation.diploma.forEach((item) => {
+        if (item.selectValue !== 0 && item.selectValue !== "") {
+          counter = counter + parseInt(item.selectValue)
+        }
       })
       if (this.getAverageScoreCount() > 0) {
         return ((counter / this.getAverageScoreCount()) * 10).toFixed(1)
@@ -3627,6 +3864,17 @@ export default {
     currentCadetData: {
       handler(newValue, oldValue) {
         this.applicationPrintData = Object.assign({}, this.currentCadetData)
+      },
+      deep: true,
+    },
+    average_score_calculation: {
+      handler(newValue, oldValue) {
+        this.currentCadetData.education_average_score_calculation =
+          this.get_average_score_calculation_text_for_db
+        if (this.getAverageScore === 0) {
+          this.currentCadetData.education_average_score = null
+        } else
+          this.currentCadetData.education_average_score = this.getAverageScore
       },
       deep: true,
     },
