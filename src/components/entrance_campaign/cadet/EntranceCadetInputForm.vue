@@ -2676,7 +2676,7 @@
                         >
                         <input
                           id="id_social_science_ct"
-                          name="social_science_ct"
+                          name="social_science_score_ct"
                           type="number"
                           class="form-control text-center"
                           v-model="currentCadetData.social_science_score_ct"
@@ -2689,7 +2689,7 @@
                         >
                         <input
                           id="id_foreign_lang_ct"
-                          name="foreign_lang_ct"
+                          name="foreign_lang_score_ct"
                           type="number"
                           class="form-control text-center"
                           v-model="currentCadetData.foreign_lang_score_ct"
@@ -2812,7 +2812,7 @@
                       </td>
                       <td class="text-center table-warning">
                         <input
-                          name="social_science_cert"
+                          name="social_science_score_cert"
                           type="number"
                           class="form-control text-center"
                           v-model="currentCadetData.social_science_score_cert"
@@ -2821,7 +2821,7 @@
                       </td>
                       <td class="text-center table-success">
                         <input
-                          name="foreign_lang_cert"
+                          name="foreign_lang_score_cert"
                           type="number"
                           class="form-control text-center"
                           v-model="currentCadetData.foreign_lang_score_cert"
@@ -3115,6 +3115,10 @@ export default {
   validations() {
     const education_graduating_end_year_minValueValue = minValue(1940)
     const education_graduating_end_year_maxValueValue = maxValue(2025)
+    const ct_maxValueValue = maxValue(100)
+    const ct_minValueValue = minValue(1)
+    const cert_maxValueValue = maxValue(10)
+    const cert_minValueValue = minValue(1)
     return {
       currentCadetData: {
         last_name_rus: {
@@ -3133,12 +3137,100 @@ export default {
         },
         education_graduating_end_year: {
           education_graduating_end_year_maxValueValue: helpers.withMessage(
-            "Некорректное значение поля 'Год окончания школы'",
+            "Некорректное значение поля 'Год окончания школы' - не может превышать 2025",
             education_graduating_end_year_maxValueValue,
           ),
           education_graduating_end_year_minValueValue: helpers.withMessage(
             "Некорректное значение поля 'Год окончания школы'",
             education_graduating_end_year_minValueValue,
+          ),
+          $autoDirty: true,
+        },
+        rus_score_ct: {
+          ct_maxValueValue: helpers.withMessage(
+            "Значение поля 'Русский язык - колличество баллов по сертификату' не может превышать 100",
+            ct_maxValueValue,
+          ),
+          ct_minValueValue: helpers.withMessage(
+            "Значение поля 'Русский язык - колличество баллов по сертификату' не может быть меньше 1",
+            ct_minValueValue,
+          ),
+          $autoDirty: true,
+        },
+        bel_score_ct: {
+          ct_maxValueValue: helpers.withMessage(
+            "Значение поля 'Белорусский язык - колличество баллов по сертификату' не может превышать 100",
+            ct_maxValueValue,
+          ),
+          ct_minValueValue: helpers.withMessage(
+            "Значение поля 'Белорусский язык - колличество баллов по сертификату' не может быть меньше 1",
+            ct_minValueValue,
+          ),
+          $autoDirty: true,
+        },
+        social_science_score_ct: {
+          ct_maxValueValue: helpers.withMessage(
+            "Значение поля 'Обществоведение - колличество баллов по сертификату' не может превышать 100",
+            ct_maxValueValue,
+          ),
+          ct_minValueValue: helpers.withMessage(
+            "Значение поля 'Обществоведение - колличество баллов по сертификату' не может быть меньше 1",
+            ct_minValueValue,
+          ),
+          $autoDirty: true,
+        },
+        foreign_lang_score_ct: {
+          ct_maxValueValue: helpers.withMessage(
+            "Значение поля 'Иностранный язык - колличество баллов по сертификату' не может превышать 100",
+            ct_maxValueValue,
+          ),
+          ct_minValueValue: helpers.withMessage(
+            "Значение поля 'Иностранный язык - колличество баллов по сертификату' не может быть меньше 1",
+            ct_minValueValue,
+          ),
+          $autoDirty: true,
+        },
+        rus_score_cert: {
+          cert_maxValueValue: helpers.withMessage(
+            "Значение поля 'Русский язык - колличество баллов в аттестате' не может превышать 10",
+            cert_maxValueValue,
+          ),
+          cert_minValueValue: helpers.withMessage(
+            "Значение поля 'Русский язык - колличество баллов в аттестате' не может быть меньше 1",
+            cert_minValueValue,
+          ),
+          $autoDirty: true,
+        },
+        bel_score_cert: {
+          cert_maxValueValue: helpers.withMessage(
+            "Значение поля 'Белорусский язык - колличество баллов в аттестате' не может превышать 10",
+            cert_maxValueValue,
+          ),
+          cert_minValueValue: helpers.withMessage(
+            "Значение поля 'Белорусский язык - колличество баллов в аттестате' не может быть меньше 1",
+            cert_minValueValue,
+          ),
+          $autoDirty: true,
+        },
+        social_science_score_cert: {
+          cert_maxValueValue: helpers.withMessage(
+            "Значение поля 'Обществоведение - колличество баллов в аттестате' не может превышать 10",
+            cert_maxValueValue,
+          ),
+          cert_minValueValue: helpers.withMessage(
+            "Значение поля 'Обществоведение - колличество баллов в аттестате' не может быть меньше 1",
+            cert_minValueValue,
+          ),
+          $autoDirty: true,
+        },
+        foreign_lang_score_cert: {
+          cert_maxValueValue: helpers.withMessage(
+            "Значение поля 'Иностранный язык - колличество баллов в аттестате' не может превышать 10",
+            cert_maxValueValue,
+          ),
+          cert_minValueValue: helpers.withMessage(
+            "Значение поля 'Иностранный язык - колличество баллов в аттестате' не может быть меньше 1",
+            cert_minValueValue,
           ),
           $autoDirty: true,
         },
@@ -3386,15 +3478,15 @@ export default {
       try {
         const response = await this.cadetAPIInstance.getItemData(applicantId)
         this.currentCadetData = response.data
-        this.currentCadetDataFromServer = Object.assign(
-          {},
-          this.currentCadetData,
-        )
         if (this.currentCadetData.education_average_score_calculation) {
           this.average_score_calculation = JSON.parse(
             this.currentCadetData.education_average_score_calculation,
           )
         }
+        this.currentCadetDataFromServer = Object.assign(
+          {},
+          this.currentCadetData,
+        )
       } catch (error) {
       } finally {
         this.isLoading = false
