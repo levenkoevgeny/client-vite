@@ -331,8 +331,8 @@
             <button
               type="button"
               class="btn btn-success"
-              data-bs-dismiss="modal"
               ref="averageScoreCalculatingModalCloseButton"
+              @click="saveAverageScore"
             >
               Готово
             </button>
@@ -417,7 +417,6 @@
           <div class="me-4 text-warning fs-5" v-else>
             &#8226; &nbsp;Несохраненные данные
           </div>
-
           <div>
             <button
               class="btn btn-primary"
@@ -2295,7 +2294,7 @@
             <div class="col-xxl-6">
               <h5 class="fw-bold">Выбор специальностей</h5>
               <div class="row">
-                <div class="col-6">
+                <div class="col-5">
                   <div class="form-floating mb-3">
                     <select
                       id="id_s1"
@@ -2305,7 +2304,7 @@
                       <option :value="null">---------</option>
                       <option
                         :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotas"
+                        v-for="quota in orderedAdmissionQuotes_select_1"
                       >
                         {{ quota.quota_verbose_name }}
                       </option>
@@ -2321,7 +2320,7 @@
                       <option :value="null">---------</option>
                       <option
                         :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotas"
+                        v-for="quota in orderedAdmissionQuotes_select_2"
                       >
                         {{ quota.quota_verbose_name }}
                       </option>
@@ -2337,7 +2336,7 @@
                       <option :value="null">---------</option>
                       <option
                         :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotas"
+                        v-for="quota in orderedAdmissionQuotes_select_3"
                       >
                         {{ quota.quota_verbose_name }}
                       </option>
@@ -2353,7 +2352,7 @@
                       <option :value="null">---------</option>
                       <option
                         :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotas"
+                        v-for="quota in orderedAdmissionQuotes_select_4"
                       >
                         {{ quota.quota_verbose_name }}
                       </option>
@@ -2369,7 +2368,7 @@
                       <option :value="null">---------</option>
                       <option
                         :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotas"
+                        v-for="quota in orderedAdmissionQuotes_select_5"
                       >
                         {{ quota.quota_verbose_name }}
                       </option>
@@ -2385,7 +2384,7 @@
                       <option :value="null">---------</option>
                       <option
                         :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotas"
+                        v-for="quota in orderedAdmissionQuotes_select_6"
                       >
                         {{ quota.quota_verbose_name }}
                       </option>
@@ -2401,7 +2400,7 @@
                       <option :value="null">---------</option>
                       <option
                         :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotas"
+                        v-for="quota in orderedAdmissionQuotes_select_7"
                       >
                         {{ quota.quota_verbose_name }}
                       </option>
@@ -2417,7 +2416,7 @@
                       <option :value="null">---------</option>
                       <option
                         :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotas"
+                        v-for="quota in orderedAdmissionQuotes_select_8"
                       >
                         {{ quota.quota_verbose_name }}
                       </option>
@@ -2433,7 +2432,7 @@
                       <option :value="null">---------</option>
                       <option
                         :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotas"
+                        v-for="quota in orderedAdmissionQuotes_select_9"
                       >
                         {{ quota.quota_verbose_name }}
                       </option>
@@ -2441,7 +2440,153 @@
                     <label for="id_s7">Специальность 9</label>
                   </div>
                 </div>
-                <div class="col-6">
+                <div class="col-2">
+                  <div class="form-floating mb-3">
+                    <select
+                      id="id_s1"
+                      class="form-select"
+                      v-model="currentCadetData.speciality_1"
+                    >
+                      <option :value="null">---------</option>
+                      <option
+                        :value="quota.id"
+                        v-for="quota in orderedAdmissionQuotes_select_1"
+                      >
+                        {{ quota.admission_code }}
+                      </option>
+                    </select>
+                    <label for="id_s1">Код 1</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <select
+                      id="id_s2"
+                      class="form-select"
+                      v-model="currentCadetData.speciality_2"
+                    >
+                      <option :value="null">---------</option>
+                      <option
+                        :value="quota.id"
+                        v-for="quota in orderedAdmissionQuotes_select_2"
+                      >
+                        {{ quota.admission_code }}
+                      </option>
+                    </select>
+                    <label for="id_s2">Код 2</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <select
+                      id="id_s3"
+                      class="form-select"
+                      v-model="currentCadetData.speciality_3"
+                    >
+                      <option :value="null">---------</option>
+                      <option
+                        :value="quota.id"
+                        v-for="quota in orderedAdmissionQuotes_select_3"
+                      >
+                        {{ quota.admission_code }}
+                      </option>
+                    </select>
+                    <label for="id_s3">Код 3</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <select
+                      id="id_s4"
+                      class="form-select"
+                      v-model="currentCadetData.speciality_4"
+                    >
+                      <option :value="null">---------</option>
+                      <option
+                        :value="quota.id"
+                        v-for="quota in orderedAdmissionQuotes_select_4"
+                      >
+                        {{ quota.admission_code }}
+                      </option>
+                    </select>
+                    <label for="id_s4">Код 4</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <select
+                      id="id_s5"
+                      class="form-select"
+                      v-model="currentCadetData.speciality_5"
+                    >
+                      <option :value="null">---------</option>
+                      <option
+                        :value="quota.id"
+                        v-for="quota in orderedAdmissionQuotes_select_5"
+                      >
+                        {{ quota.admission_code }}
+                      </option>
+                    </select>
+                    <label for="id_s5">Код 5</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <select
+                      id="id_s6"
+                      class="form-select"
+                      v-model="currentCadetData.speciality_6"
+                    >
+                      <option :value="null">---------</option>
+                      <option
+                        :value="quota.id"
+                        v-for="quota in orderedAdmissionQuotes_select_6"
+                      >
+                        {{ quota.admission_code }}
+                      </option>
+                    </select>
+                    <label for="id_s6">Код 6</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <select
+                      id="id_s7"
+                      class="form-select"
+                      v-model="currentCadetData.speciality_7"
+                    >
+                      <option :value="null">---------</option>
+                      <option
+                        :value="quota.id"
+                        v-for="quota in orderedAdmissionQuotes_select_7"
+                      >
+                        {{ quota.admission_code }}
+                      </option>
+                    </select>
+                    <label for="id_s7">Код 7</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <select
+                      id="id_s8"
+                      class="form-select"
+                      v-model="currentCadetData.speciality_8"
+                    >
+                      <option :value="null">---------</option>
+                      <option
+                        :value="quota.id"
+                        v-for="quota in orderedAdmissionQuotes_select_8"
+                      >
+                        {{ quota.quota_verbose_name }}
+                      </option>
+                    </select>
+                    <label for="id_s7">Специальность 8</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <select
+                      id="id_s9"
+                      class="form-select"
+                      v-model="currentCadetData.speciality_9"
+                    >
+                      <option :value="null">---------</option>
+                      <option
+                        :value="quota.id"
+                        v-for="quota in orderedAdmissionQuotes_select_9"
+                      >
+                        {{ quota.quota_verbose_name }}
+                      </option>
+                    </select>
+                    <label for="id_s7">Специальность 9</label>
+                  </div>
+                </div>
+                <div class="col-5">
                   <div class="form-floating mb-3">
                     <select
                       id="id_privilege"
@@ -2595,7 +2740,7 @@
                 <p class="fw-bold">
                   Сертификаты централизованного тестирования
                 </p>
-                <h3>Сумма баллов - {{ currentCadetData.get_score_sum }}</h3>
+                <h3>Сумма баллов - {{ get_score_sum }}</h3>
                 <table class="table">
                   <thead>
                     <tr>
@@ -2890,7 +3035,10 @@
               @click="printApplication(this.currentCadetData.id)"
             >
               <font-awesome-icon :icon="['fas', 'print']" />&nbsp;&nbsp;
-              Напечатать заявление
+              <template v-if="isPrintingApplication"
+                >Формирование заявления ...</template
+              >
+              <template v-else>Напечатать заявление</template>
             </button>
             <div class="form-check my-3" v-if="currentUser.is_superuser">
               <input
@@ -2930,6 +3078,7 @@ export default {
       currentTime: new Date(),
       isLoading: true,
       isDataSaving: false,
+      isPrintingApplication: false,
       isError: false,
       currentCadetData: {
         id: "",
@@ -3588,7 +3737,9 @@ export default {
         myModal.show()
         return
       } else {
+        this.isPrintingApplication = true
         await this.makePrinting(entranceId)
+        this.isPrintingApplication = false
       }
     },
     async makePrinting(entranceId) {
@@ -3678,6 +3829,15 @@ export default {
       })
       myModal.show()
     },
+
+    saveAverageScore() {
+      this.currentCadetData.education_average_score_calculation =
+        JSON.stringify(this.average_score_calculation)
+      if (this.getAverageScore === 0) {
+        this.currentCadetData.education_average_score = null
+      } else
+        this.currentCadetData.education_average_score = this.getAverageScore
+    },
   },
   computed: {
     orderedRanks() {
@@ -3688,87 +3848,127 @@ export default {
         (subdivision) => subdivision.subdivision_category == "1",
       )
     },
-    orderedSpecialities_select_1() {
-      return this.specialities.results.filter(
+    orderedAdmissionQuotes_select_1() {
+      return this.admissionQuota.results.filter(
         (item) =>
           item.id !== this.currentCadetData.speciality_2 &&
           item.id !== this.currentCadetData.speciality_3 &&
           item.id !== this.currentCadetData.speciality_4 &&
           item.id !== this.currentCadetData.speciality_5 &&
           item.id !== this.currentCadetData.speciality_6 &&
-          item.id !== this.currentCadetData.speciality_7,
+          item.id !== this.currentCadetData.speciality_7 &&
+          item.id !== this.currentCadetData.speciality_8 &&
+          item.id !== this.currentCadetData.speciality_9,
       )
     },
-    orderedSpecialities_select_2() {
-      return this.specialities.results.filter(
+    orderedAdmissionQuotes_select_2() {
+      return this.admissionQuota.results.filter(
         (item) =>
           item.id !== this.currentCadetData.speciality_1 &&
           item.id !== this.currentCadetData.speciality_3 &&
           item.id !== this.currentCadetData.speciality_4 &&
           item.id !== this.currentCadetData.speciality_5 &&
           item.id !== this.currentCadetData.speciality_6 &&
-          item.id !== this.currentCadetData.speciality_7,
+          item.id !== this.currentCadetData.speciality_7 &&
+          item.id !== this.currentCadetData.speciality_8 &&
+          item.id !== this.currentCadetData.speciality_9,
       )
     },
-    orderedSpecialities_select_3() {
-      return this.specialities.results.filter(
+    orderedAdmissionQuotes_select_3() {
+      return this.admissionQuota.results.filter(
         (item) =>
           item.id !== this.currentCadetData.speciality_1 &&
           item.id !== this.currentCadetData.speciality_2 &&
           item.id !== this.currentCadetData.speciality_4 &&
           item.id !== this.currentCadetData.speciality_5 &&
           item.id !== this.currentCadetData.speciality_6 &&
-          item.id !== this.currentCadetData.speciality_7,
+          item.id !== this.currentCadetData.speciality_7 &&
+          item.id !== this.currentCadetData.speciality_8 &&
+          item.id !== this.currentCadetData.speciality_9,
       )
     },
-    orderedSpecialities_select_4() {
-      return this.specialities.results.filter(
+    orderedAdmissionQuotes_select_4() {
+      return this.admissionQuota.results.filter(
         (item) =>
           item.id !== this.currentCadetData.speciality_1 &&
           item.id !== this.currentCadetData.speciality_2 &&
           item.id !== this.currentCadetData.speciality_3 &&
           item.id !== this.currentCadetData.speciality_5 &&
           item.id !== this.currentCadetData.speciality_6 &&
-          item.id !== this.currentCadetData.speciality_7,
+          item.id !== this.currentCadetData.speciality_7 &&
+          item.id !== this.currentCadetData.speciality_8 &&
+          item.id !== this.currentCadetData.speciality_9,
       )
     },
-    orderedSpecialities_select_5() {
-      return this.specialities.results.filter(
+    orderedAdmissionQuotes_select_5() {
+      return this.admissionQuota.results.filter(
         (item) =>
           item.id !== this.currentCadetData.speciality_1 &&
           item.id !== this.currentCadetData.speciality_2 &&
           item.id !== this.currentCadetData.speciality_3 &&
           item.id !== this.currentCadetData.speciality_4 &&
           item.id !== this.currentCadetData.speciality_6 &&
-          item.id !== this.currentCadetData.speciality_7,
+          item.id !== this.currentCadetData.speciality_7 &&
+          item.id !== this.currentCadetData.speciality_8 &&
+          item.id !== this.currentCadetData.speciality_9,
       )
     },
-    orderedSpecialities_select_6() {
-      return this.specialities.results.filter(
+    orderedAdmissionQuotes_select_6() {
+      return this.admissionQuota.results.filter(
         (item) =>
           item.id !== this.currentCadetData.speciality_1 &&
           item.id !== this.currentCadetData.speciality_2 &&
           item.id !== this.currentCadetData.speciality_3 &&
           item.id !== this.currentCadetData.speciality_4 &&
           item.id !== this.currentCadetData.speciality_5 &&
-          item.id !== this.currentCadetData.speciality_7,
+          item.id !== this.currentCadetData.speciality_7 &&
+          item.id !== this.currentCadetData.speciality_8 &&
+          item.id !== this.currentCadetData.speciality_9,
       )
     },
-    orderedSpecialities_select_7() {
-      return this.specialities.results.filter(
+    orderedAdmissionQuotes_select_7() {
+      return this.admissionQuota.results.filter(
         (item) =>
           item.id !== this.currentCadetData.speciality_1 &&
           item.id !== this.currentCadetData.speciality_2 &&
           item.id !== this.currentCadetData.speciality_3 &&
           item.id !== this.currentCadetData.speciality_4 &&
           item.id !== this.currentCadetData.speciality_5 &&
-          item.id !== this.currentCadetData.speciality_6,
+          item.id !== this.currentCadetData.speciality_6 &&
+          item.id !== this.currentCadetData.speciality_8 &&
+          item.id !== this.currentCadetData.speciality_9,
+      )
+    },
+    orderedAdmissionQuotes_select_8() {
+      return this.admissionQuota.results.filter(
+        (item) =>
+          item.id !== this.currentCadetData.speciality_1 &&
+          item.id !== this.currentCadetData.speciality_2 &&
+          item.id !== this.currentCadetData.speciality_3 &&
+          item.id !== this.currentCadetData.speciality_4 &&
+          item.id !== this.currentCadetData.speciality_5 &&
+          item.id !== this.currentCadetData.speciality_6 &&
+          item.id !== this.currentCadetData.speciality_7 &&
+          item.id !== this.currentCadetData.speciality_9,
+      )
+    },
+    orderedAdmissionQuotes_select_9() {
+      return this.admissionQuota.results.filter(
+        (item) =>
+          item.id !== this.currentCadetData.speciality_1 &&
+          item.id !== this.currentCadetData.speciality_2 &&
+          item.id !== this.currentCadetData.speciality_3 &&
+          item.id !== this.currentCadetData.speciality_4 &&
+          item.id !== this.currentCadetData.speciality_5 &&
+          item.id !== this.currentCadetData.speciality_6 &&
+          item.id !== this.currentCadetData.speciality_7 &&
+          item.id !== this.currentCadetData.speciality_8,
       )
     },
     orderedComponentOrgans() {
       return this.componentOrgans.results.sort((a, b) => {
-        const nameA = a.component_name.toUpperCase() // ignore upper and lowercase
-        const nameB = b.component_name.toUpperCase() // ignore upper and lowercase
+        const nameA = a.component_name.toUpperCase()
+        const nameB = b.component_name.toUpperCase()
         if (nameA < nameB) {
           return -1
         }
@@ -3865,28 +4065,6 @@ export default {
         this.removeFileFieldsFromObj(this.currentCadetDataFromServer),
       )
     },
-    // getAverageCertificateScore() {
-    //   let averageCertificateScore = ""
-    //   if (
-    //     isFinite(this.currentCadetData.rus_score_cert) &&
-    //     this.currentCadetData.rus_score_cert !== null &&
-    //     isFinite(this.currentCadetData.bel_score_cert) &&
-    //     this.currentCadetData.bel_score_cert !== null &&
-    //     isFinite(this.currentCadetData.social_science_cert) &&
-    //     this.currentCadetData.social_science_cert !== null &&
-    //     isFinite(this.currentCadetData.foreign_lang_cert) &&
-    //     this.currentCadetData.foreign_lang_cert !== null
-    //   ) {
-    //     averageCertificateScore =
-    //       (this.currentCadetData.rus_score_cert +
-    //         this.currentCadetData.bel_score_cert +
-    //         this.currentCadetData.social_science_cert +
-    //         this.currentCadetData.foreign_lang_cert) /
-    //       4
-    //     return averageCertificateScore.toFixed(1)
-    //   }
-    //   return averageCertificateScore
-    // },
     getARussianAndBelorussianSumScore() {
       let scoreSum = ""
       if (
@@ -3901,8 +4079,33 @@ export default {
       }
       return scoreSum
     },
-    get_average_score_calculation_text_for_db() {
-      return JSON.stringify(this.average_score_calculation)
+    get_score_sum() {
+      let education_average_score = this.currentCadetData
+        .education_average_score
+        ? parseFloat(this.currentCadetData.education_average_score)
+        : 0
+      let rus_score_ct = this.currentCadetData.rus_score_ct
+        ? this.currentCadetData.rus_score_ct
+        : 0
+      let bel_score_ct = this.currentCadetData.bel_score_ct
+        ? this.currentCadetData.bel_score_ct
+        : 0
+      let social_science_score_ct = this.currentCadetData
+        .social_science_score_ct
+        ? this.currentCadetData.social_science_score_ct
+        : 0
+      let foreign_lang_score_ct = this.currentCadetData.foreign_lang_score_ct
+        ? this.currentCadetData.foreign_lang_score_ct
+        : 0
+
+      let sum =
+        education_average_score +
+        rus_score_ct +
+        bel_score_ct +
+        social_science_score_ct +
+        foreign_lang_score_ct
+
+      return sum.toFixed(1)
     },
 
     getAverageScore() {
@@ -3956,17 +4159,6 @@ export default {
     currentCadetData: {
       handler(newValue, oldValue) {
         this.applicationPrintData = Object.assign({}, this.currentCadetData)
-      },
-      deep: true,
-    },
-    average_score_calculation: {
-      handler(newValue, oldValue) {
-        this.currentCadetData.education_average_score_calculation =
-          this.get_average_score_calculation_text_for_db
-        if (this.getAverageScore === 0) {
-          this.currentCadetData.education_average_score = null
-        } else
-          this.currentCadetData.education_average_score = this.getAverageScore
       },
       deep: true,
     },
