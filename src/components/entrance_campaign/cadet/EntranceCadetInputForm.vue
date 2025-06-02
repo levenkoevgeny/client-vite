@@ -238,6 +238,7 @@
               class="btn-close"
               data-bs-dismiss="modal"
               aria-label="Close"
+              ref="averageScoreCalculatingModalCloseButton"
             ></button>
           </div>
 
@@ -331,7 +332,6 @@
             <button
               type="button"
               class="btn btn-success"
-              ref="averageScoreCalculatingModalCloseButton"
               @click="saveAverageScore"
             >
               Готово
@@ -3837,6 +3837,7 @@ export default {
         this.currentCadetData.education_average_score = null
       } else
         this.currentCadetData.education_average_score = this.getAverageScore
+      this.$refs.averageScoreCalculatingModalCloseButton.click()
     },
   },
   computed: {
@@ -3849,7 +3850,7 @@ export default {
       )
     },
     orderedAdmissionQuotes_select_1() {
-      return this.admissionQuota.results.filter(
+      return this.orderedAdmissionQuotes.filter(
         (item) =>
           item.id !== this.currentCadetData.speciality_2 &&
           item.id !== this.currentCadetData.speciality_3 &&
@@ -3965,6 +3966,21 @@ export default {
           item.id !== this.currentCadetData.speciality_8,
       )
     },
+
+    orderedAdmissionQuotes() {
+      return this.admissionQuota.results.sort((a, b) => {
+        const admission_codeA = a.admission_code
+        const admission_codeB = b.admission_code
+        if (admission_codeA < admission_codeB) {
+          return -1
+        }
+        if (admission_codeA > admission_codeB) {
+          return 1
+        }
+        return 0
+      })
+    },
+
     orderedComponentOrgans() {
       return this.componentOrgans.results.sort((a, b) => {
         const nameA = a.component_name.toUpperCase()
