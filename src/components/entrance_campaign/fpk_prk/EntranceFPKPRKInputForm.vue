@@ -1999,13 +1999,13 @@
 </template>
 
 <script>
-import NavigationLayout from "@/components/layouts/NavigationLayout.vue"
-import { globalFPKPRKStudentAPIForEntranceInstance } from "@/api/fpkprk/fpk_prk_studentAPI.js"
-import getActionHistoryAPIInstance from "@/api/cadet/actionHistoryAPI.js"
-import { mapGetters } from "vuex"
-import useVuelidate from "@vuelidate/core"
-import { required, helpers, minValue, maxValue } from "@vuelidate/validators"
-import { isEqual } from "lodash"
+import NavigationLayout from "@/components/layouts/NavigationLayout.vue";
+import { globalFPKPRKStudentAPIForEntranceInstance } from "@/api/fpkprk/fpk_prk_studentAPI.js";
+import getActionHistoryAPIInstance from "@/api/cadet/actionHistoryAPI.js";
+import { mapGetters } from "vuex";
+import useVuelidate from "@vuelidate/core";
+import { required, helpers, minValue, maxValue } from "@vuelidate/validators";
+import { isEqual } from "lodash";
 
 export default {
   name: "FPKPRKInputForm",
@@ -2043,14 +2043,14 @@ export default {
       BACKEND_HOST: import.meta.env.VITE_APP_BACKEND_HOST,
       BACKEND_PORT: import.meta.env.VITE_APP_BACKEND_PORT,
       fpk_prkHistoryList: { count: 0, results: [], previous: null, next: null },
-    }
+    };
   },
   setup() {
-    return { v$: useVuelidate() }
+    return { v$: useVuelidate() };
   },
   validations() {
-    const education_graduating_end_year_minValueValue = minValue(2000)
-    const education_graduating_end_year_maxValueValue = maxValue(2025)
+    const education_graduating_end_year_minValueValue = minValue(2000);
+    const education_graduating_end_year_maxValueValue = maxValue(2025);
     return {
       currentFPKPRKData: {
         last_name_rus: {
@@ -2072,238 +2072,239 @@ export default {
           $autoDirty: true,
         },
       },
-    }
+    };
   },
   async created() {
-    await this.loadData(this.$route.params.id)
+    await this.loadData(this.$route.params.id);
   },
   methods: {
     async loadData(applicantId) {
       try {
-        const response = await this.fpk_prkAPIInstance.getItemData(applicantId)
-        this.currentFPKPRKData = response.data
+        const response = await this.fpk_prkAPIInstance.getItemData(applicantId);
+        this.currentFPKPRKData = response.data;
         this.currentFPKPRKDataFromServer = Object.assign(
           {},
           this.currentFPKPRKData,
-        )
+        );
       } catch (error) {
       } finally {
-        this.isLoading = false
+        this.isLoading = false;
       }
     },
     async uploadDocument() {
-      let formData = new FormData()
+      let formData = new FormData();
       formData.append(
         "attached_documents",
         this.$refs.uploadedDocument.files[0],
-      )
+      );
 
       const response = await this.fpk_prkAPIInstance.updatePhotoOrAnyFile(
         this.currentFPKPRKData.id,
         formData,
-      )
+      );
 
       this.currentFPKPRKData = {
         ...this.currentFPKPRKData,
         attached_documents: response.data.attached_documents,
-      }
+      };
     },
     async deleteDocument() {
       const response = await this.fpk_prkAPIInstance.updatePhotoOrAnyFile(
         this.currentFPKPRKData.id,
         { attached_documents: null },
-      )
+      );
 
       this.currentFPKPRKData = {
         ...this.currentFPKPRKData,
         attached_documents: response.data.attached_documents,
-      }
+      };
     },
     async saveEntranceForm() {
       if (this.v$.$invalid) {
-        let validationErrorsModal = this.$refs.validationErrorsModal
+        let validationErrorsModal = this.$refs.validationErrorsModal;
         let myModal = new bootstrap.Modal(validationErrorsModal, {
           keyboard: false,
-        })
-        myModal.show()
+        });
+        myModal.show();
       } else {
-        this.isDataSaving = true
+        this.isDataSaving = true;
         try {
-          const { photo, attached_documents, ...rest } = this.currentFPKPRKData
-          const updatedData = await this.fpk_prkAPIInstance.updateItem(rest)
-          this.currentFPKPRKData = updatedData.data
+          const { photo, attached_documents, sign_image, ...rest } =
+            this.currentFPKPRKData;
+          const updatedData = await this.fpk_prkAPIInstance.updateItem(rest);
+          this.currentFPKPRKData = updatedData.data;
           this.currentFPKPRKDataFromServer = Object.assign(
             {},
             this.currentFPKPRKData,
-          )
+          );
         } catch (e) {
         } finally {
-          this.isDataSaving = false
+          this.isDataSaving = false;
         }
       }
     },
     async showHistory() {
       try {
-        this.actionHistoryAPIInstance.searchObj.app_label = "kis_inheritance"
-        this.actionHistoryAPIInstance.searchObj.model_name = "FPKPRKMAGStudent"
+        this.actionHistoryAPIInstance.searchObj.app_label = "kis_inheritance";
+        this.actionHistoryAPIInstance.searchObj.model_name = "FPKPRKMAGStudent";
         this.actionHistoryAPIInstance.searchObj.record_id =
-          this.currentFPKPRKData.id
-        const response = await this.actionHistoryAPIInstance.getItemsList()
-        this.fpk_prkHistoryList = response.data
-        let historyModal = this.$refs.cadetHistoryModal
+          this.currentFPKPRKData.id;
+        const response = await this.actionHistoryAPIInstance.getItemsList();
+        this.fpk_prkHistoryList = response.data;
+        let historyModal = this.$refs.cadetHistoryModal;
         let myModal = new bootstrap.Modal(historyModal, {
           keyboard: false,
-        })
-        myModal.show()
+        });
+        myModal.show();
       } catch (error) {
       } finally {
       }
     },
     makeInputDefaultNullValueIfEmpty(event) {
       if (event.target.value.trim().length === 0) {
-        this.currentFPKPRKData[event.target.name] = null
+        this.currentFPKPRKData[event.target.name] = null;
       }
     },
     removeFileFieldsFromObj(obj) {
-      const { photo, attached_documents, ...rest } = obj
-      return rest
+      const { photo, attached_documents, sign_image, ...rest } = obj;
+      return rest;
     },
     printApplication(entranceId) {
       if (!this.isDataFromServerEqualChangedData) {
-        let hasToSaveDataModal = this.$refs.hasToSaveDataModal
+        let hasToSaveDataModal = this.$refs.hasToSaveDataModal;
         let myModal = new bootstrap.Modal(hasToSaveDataModal, {
           keyboard: false,
-        })
-        myModal.show()
+        });
+        myModal.show();
       } else {
-        let queryString = `?application_id=${entranceId}`
+        let queryString = `?application_id=${entranceId}`;
         this.$axios
           .get(
             `${this.BACKEND_PROTOCOL}://${this.BACKEND_HOST}:${this.BACKEND_PORT}/api/application-print/${queryString}`,
             { responseType: "blob" },
           )
           .then((response) => {
-            const url = window.URL.createObjectURL(new Blob([response.data]))
-            const link = document.createElement("a")
-            link.href = url
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement("a");
+            link.href = url;
             link.setAttribute(
               "download",
               `${this.currentFPKPRKData.last_name_rus}.docx`,
-            )
-            document.body.appendChild(link)
-            link.click()
-          })
+            );
+            document.body.appendChild(link);
+            link.click();
+          });
       }
     },
   },
   computed: {
     orderedRanks() {
-      return this.ranks.results
+      return this.ranks.results;
     },
     orderedSubdivisions() {
       return this.subdivisions.results.filter(
         (subdivision) => subdivision.subdivision_category == "1",
-      )
+      );
     },
     orderedComponentOrgans() {
       return this.componentOrgans.results.sort((a, b) => {
-        const nameA = a.component_name.toUpperCase() // ignore upper and lowercase
-        const nameB = b.component_name.toUpperCase() // ignore upper and lowercase
+        const nameA = a.component_name.toUpperCase(); // ignore upper and lowercase
+        const nameB = b.component_name.toUpperCase(); // ignore upper and lowercase
         if (nameA < nameB) {
-          return -1
+          return -1;
         }
         if (nameA > nameB) {
-          return 1
+          return 1;
         }
-        return 0
-      })
+        return 0;
+      });
     },
     orderedEntranceCategories() {
-      return this.entranceCategories.results
+      return this.entranceCategories.results;
     },
     orderedSocialStatuses() {
-      return this.socialStatuses.results
+      return this.socialStatuses.results;
     },
     orderedCountryRegions() {
       return this.countryRegions.results.sort((a, b) => {
-        const nameA = a.country_region.toUpperCase() // ignore upper and lowercase
-        const nameB = b.country_region.toUpperCase() // ignore upper and lowercase
+        const nameA = a.country_region.toUpperCase(); // ignore upper and lowercase
+        const nameB = b.country_region.toUpperCase(); // ignore upper and lowercase
         if (nameA < nameB) {
-          return -1
+          return -1;
         }
         if (nameA > nameB) {
-          return 1
+          return 1;
         }
-        return 0
-      })
+        return 0;
+      });
     },
     orderedGorovds() {
       return this.gorovds.results.sort((a, b) => {
-        const nameA = a.go_rovd_name.toUpperCase() // ignore upper and lowercase
-        const nameB = b.go_rovd_name.toUpperCase() // ignore upper and lowercase
+        const nameA = a.go_rovd_name.toUpperCase(); // ignore upper and lowercase
+        const nameB = b.go_rovd_name.toUpperCase(); // ignore upper and lowercase
         if (nameA < nameB) {
-          return -1
+          return -1;
         }
         if (nameA > nameB) {
-          return 1
+          return 1;
         }
-        return 0
-      })
+        return 0;
+      });
     },
     orderedMilitaryOffices() {
       return this.militaryOffices.results.sort((a, b) => {
-        const nameA = a.military_office.toUpperCase() // ignore upper and lowercase
-        const nameB = b.military_office.toUpperCase() // ignore upper and lowercase
+        const nameA = a.military_office.toUpperCase(); // ignore upper and lowercase
+        const nameB = b.military_office.toUpperCase(); // ignore upper and lowercase
         if (nameA < nameB) {
-          return -1
+          return -1;
         }
         if (nameA > nameB) {
-          return 1
+          return 1;
         }
-        return 0
-      })
+        return 0;
+      });
     },
     orderedEducationalInstitutions() {
-      return this.educationalInstitutions.results
+      return this.educationalInstitutions.results;
     },
     orderedDocumentTypes() {
-      return this.documentTypes.results
+      return this.documentTypes.results;
     },
     orderedPrivileges() {
-      return this.privileges.results
+      return this.privileges.results;
     },
     orderedForeignLanguages() {
-      return this.foreignLanguages.results
+      return this.foreignLanguages.results;
     },
     orderedPpflCategories() {
-      return this.ppflCategories.results
+      return this.ppflCategories.results;
     },
     orderedVpkCategories() {
-      return this.vpkCategories.results
+      return this.vpkCategories.results;
     },
     orderedEducationKinds() {
-      return this.educationKinds.results
+      return this.educationKinds.results;
     },
     orderedEducationLevels() {
-      return this.educationLevels.results
+      return this.educationLevels.results;
     },
     orderedEducationLocalityKinds() {
-      return this.educationLocalityKinds.results
+      return this.educationLocalityKinds.results;
     },
     orderedMedals() {
-      return this.medals.results
+      return this.medals.results;
     },
     orderedInWhoseInterests() {
-      return this.inWhoseInterests.results
+      return this.inWhoseInterests.results;
     },
     isDataFromServerEqualChangedData() {
       return isEqual(
         this.removeFileFieldsFromObj(this.currentFPKPRKData),
         this.removeFileFieldsFromObj(this.currentFPKPRKDataFromServer),
-      )
+      );
     },
     getAverageCertificateScore() {
-      let averageCertificateScore = ""
+      let averageCertificateScore = "";
       if (
         isFinite(this.currentFPKPRKData.rus_score_cert) &&
         this.currentFPKPRKData.rus_score_cert !== null &&
@@ -2319,13 +2320,13 @@ export default {
             this.currentFPKPRKData.bel_score_cert +
             this.currentFPKPRKData.social_science_cert +
             this.currentFPKPRKData.foreign_lang_cert) /
-          4
-        return averageCertificateScore.toFixed(1)
+          4;
+        return averageCertificateScore.toFixed(1);
       }
-      return averageCertificateScore
+      return averageCertificateScore;
     },
     getARussianAndBelorussianSumScore() {
-      let scoreSum = ""
+      let scoreSum = "";
       if (
         isFinite(this.currentFPKPRKData.rus_score_cert) &&
         this.currentFPKPRKData.rus_score_cert !== null &&
@@ -2333,10 +2334,10 @@ export default {
       ) {
         scoreSum =
           this.currentFPKPRKData.rus_score_cert +
-          this.currentFPKPRKData.bel_score_cert
-        return scoreSum
+          this.currentFPKPRKData.bel_score_cert;
+        return scoreSum;
       }
-      return scoreSum
+      return scoreSum;
     },
     ...mapGetters({
       groups: "groups/getList",
@@ -2367,5 +2368,5 @@ export default {
       inWhoseInterests: "inWhoseInterests/getList",
     }),
   },
-}
+};
 </script>

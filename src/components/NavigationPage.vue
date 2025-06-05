@@ -128,6 +128,18 @@
             </router-link>
           </div>
         </div>
+        <div class="card me-4 mb-4 border-0" style="width: 24rem">
+          <div class="card-body">
+            <h5 class="card-title">Бюро пропусков</h5>
+            <p class="card-text">Изготовление пропусков, зачетных книжек</p>
+            <router-link
+              class="btn btn-primary"
+              :to="{ name: 'pass-office-main' }"
+            >
+              Перейти
+            </router-link>
+          </div>
+        </div>
       </div>
     </div>
   </div>

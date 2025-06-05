@@ -16,6 +16,7 @@ import {
   EntranceFPKPRKInputForm,
   EntranceStudentMainView,
   EntranceStudentListView,
+  EntranceStudentInputForm,
 } from "@/components/entrance_campaign"
 import { SpecialityHistoryView } from "@/components/cadet/speciality"
 import { CadetUpdateView, CadetListOkView } from "@/components/cadet"
@@ -98,6 +99,14 @@ import {
   ServerErrorView,
 } from "@/components/errors"
 
+import {
+  PassOfficeView,
+  PassOfficeCadetView,
+  PassOfficeEmployeeView,
+  PassOfficeStudentView,
+  PassOfficeFPKPRKView,
+} from "@/components/passOffice/index.js"
+
 const routes = [
   { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFoundView },
   {
@@ -119,6 +128,35 @@ const routes = [
         name: "navigation",
         component: NavigationPage,
       },
+      {
+        path: "pass-office",
+        name: "pass-office-main",
+        component: PassOfficeView,
+        meta: { requiresAuth: true },
+        children: [
+          {
+            path: "cadets",
+            component: PassOfficeCadetView,
+            name: "pass-office-cadet",
+          },
+          {
+            path: "employees",
+            component: PassOfficeEmployeeView,
+            name: "pass-office-employees",
+          },
+          {
+            path: "students",
+            component: PassOfficeStudentView,
+            name: "pass-office-students",
+          },
+          {
+            path: "fpk-prk",
+            component: PassOfficeFPKPRKView,
+            name: "pass-office-fpk-prk",
+          },
+        ],
+      },
+
       {
         path: "cadet",
         name: "cadet-main",
@@ -478,11 +516,11 @@ const routes = [
                 component: EntranceStudentListView,
                 name: "entrance-student-list",
               },
-              // {
-              //   path: ":id/update",
-              //   component: EntranceCadetInputForm,
-              //   name: "entrance-input-form",
-              // },
+              {
+                path: ":id/update",
+                component: EntranceStudentInputForm,
+                name: "entrance-student-input-form",
+              },
             ],
           },
         ],

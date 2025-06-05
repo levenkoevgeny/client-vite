@@ -1,0 +1,5 @@
+export { default as PassOfficeView } from "./PassOfficeView.vue"
+export { default as PassOfficeCadetView } from "./cadet/PassOfficeCadetView.vue"
+export { default as PassOfficeStudentView } from "./student/PassOfficeStudentView.vue"
+export { default as PassOfficeEmployeeView } from "./employee/PassOfficeEmployeeView.vue"
+export { default as PassOfficeFPKPRKView } from "./fpkprk/PassOfficeFPKPRKView.vue"

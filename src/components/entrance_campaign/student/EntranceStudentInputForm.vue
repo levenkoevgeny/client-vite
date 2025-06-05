@@ -2,11 +2,11 @@
   <div class="container-fluid">
     <div
       class="modal fade"
-      id="id_cadetHistoryModal"
+      id="id_studentHistoryModal"
       tabindex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
-      ref="cadetHistoryModal"
+      ref="studentHistoryModal"
     >
       <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
@@ -25,7 +25,7 @@
           <div class="modal-body">
             <div
               style="max-height: 400px; overflow-y: auto"
-              v-if="cadetHistoryList.results.length > 0"
+              v-if="studentHistoryList.results.length > 0"
             >
               <table class="table">
                 <thead>
@@ -37,7 +37,7 @@
                 </thead>
                 <tbody>
                   <tr
-                    v-for="record in cadetHistoryList.results"
+                    v-for="record in studentHistoryList.results"
                     :key="record.id"
                   >
                     <td>{{ record.get_user }}</td>
@@ -70,7 +70,7 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-              ref="cadetAddModalCloseButton"
+              ref="studentAddModalCloseButton"
             >
               Закрыть
             </button>
@@ -104,7 +104,7 @@
 
           <div class="modal-body">
             <div style="max-height: 400px; overflow-y: auto">
-              <p v-for="error of v$.currentCadetData.$errors">
+              <p v-for="error of v$.currentStudentData.$errors">
                 {{ error.$message }}
               </p>
             </div>
@@ -114,7 +114,7 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-              ref="cadetAddModalCloseButton"
+              ref="studentAddModalCloseButton"
             >
               Закрыть
             </button>
@@ -155,7 +155,7 @@
             <div>
               <button
                 class="btn btn-primary my-3"
-                @click="makePrinting(this.currentCadetData.id)"
+                @click="makePrinting(this.currentStudentData.id)"
               >
                 <font-awesome-icon :icon="['fas', 'print']" />&nbsp;&nbsp; Все
                 равно напечатать заявление
@@ -209,7 +209,7 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-              ref="cadetAddModalCloseButton"
+              ref="studentAddModalCloseButton"
             >
               Закрыть
             </button>
@@ -358,19 +358,19 @@
               class="fw-lighter"
               :class="{
                 'bg-success-subtle':
-                  currentCadetData.application_has_been_printed,
+                  currentStudentData.application_has_been_printed,
               }"
             >
               Личное дело абитуриента
               <span class="fw-normal text-decoration-underline"
-                >{{ currentCadetData.last_name_rus }}&nbsp;{{
-                  currentCadetData.first_name_rus
-                }}&nbsp;{{ currentCadetData.patronymic_rus }}</span
+                >{{ currentStudentData.last_name_rus }}&nbsp;{{
+                  currentStudentData.first_name_rus
+                }}&nbsp;{{ currentStudentData.patronymic_rus }}</span
               >
             </h1>
             &nbsp;&nbsp;
             <h1 class="fw-lighter">
-              (возраст - {{ currentCadetData.get_age }} лет)
+              (возраст - {{ currentStudentData.get_age }} лет)
             </h1>
           </div>
 
@@ -380,17 +380,17 @@
             />
           </button>
           <div
-            v-if="currentCadetData.application_has_been_printed"
+            v-if="currentStudentData.application_has_been_printed"
             class="my-3"
           >
             <h3>
               <font-awesome-icon :icon="['fas', 'print']" />
               Заявление напечатано
-              <span v-if="currentCadetData.application_has_been_printed_date">
+              <span v-if="currentStudentData.application_has_been_printed_date">
                 -
                 {{
                   new Date(
-                    currentCadetData.application_has_been_printed_date,
+                    currentStudentData.application_has_been_printed_date,
                   ).toLocaleString("ru-RU", {
                     day: "numeric",
                     month: "long",
@@ -441,7 +441,7 @@
                       type="text"
                       class="form-control form-control-sm"
                       placeholder="Фамилия"
-                      v-model="currentCadetData.last_name_rus"
+                      v-model="currentStudentData.last_name_rus"
                     />
                     <label for="id_last_name_rus">Фамилия (рус)</label>
                   </div>
@@ -453,7 +453,7 @@
                       type="text"
                       class="form-control"
                       placeholder="Имя"
-                      v-model="currentCadetData.first_name_rus"
+                      v-model="currentStudentData.first_name_rus"
                     />
                     <label for="id_first_name_rus">Имя (рус)</label>
                   </div>
@@ -465,11 +465,12 @@
                       type="text"
                       class="form-control"
                       placeholder="Отчество"
-                      v-model="currentCadetData.patronymic_rus"
+                      v-model="currentStudentData.patronymic_rus"
                     />
                     <label for="id_patronymic_rus">Отчество (рус)</label>
                   </div>
                 </div>
+
                 <div class="col-xl-3">
                   <div class="form-floating mb-3">
                     <input
@@ -478,57 +479,64 @@
                       name="date_of_birth"
                       class="form-control"
                       placeholder="Дата рождения"
-                      v-model="currentCadetData.date_of_birth"
+                      v-model="currentStudentData.date_of_birth"
                       @input="makeInputDefaultNullValueIfEmpty"
                     />
                     <label for="id_date_of_birth">Дата рождения</label>
                   </div>
                 </div>
               </div>
-
-              <div class="row">
+              <div class="row mt-3">
+                <div class="col-xl-3">
+                  <div class="form-floating mb-3">
+                    <input
+                      id="id_last_name_bel"
+                      type="text"
+                      class="form-control form-control-sm"
+                      placeholder="Фамилия"
+                      v-model="currentStudentData.last_name_bel"
+                    />
+                    <label for="id_last_name_rus">Фамилия (бел)</label>
+                  </div>
+                </div>
+                <div class="col-xl-3">
+                  <div class="form-floating mb-3">
+                    <input
+                      id="id_first_name_bel"
+                      type="text"
+                      class="form-control"
+                      placeholder="Имя"
+                      v-model="currentStudentData.first_name_bel"
+                    />
+                    <label for="id_first_name_rus">Имя (бел)</label>
+                  </div>
+                </div>
+                <div class="col-xl-3">
+                  <div class="form-floating mb-3">
+                    <input
+                      id="id_patronymic_bel"
+                      type="text"
+                      class="form-control"
+                      placeholder="Отчество"
+                      v-model="currentStudentData.patronymic_bel"
+                    />
+                    <label for="id_patronymic_rus">Отчество (бел)</label>
+                  </div>
+                </div>
                 <div class="col-xl-3">
                   <div class="form-floating mb-3">
                     <select
                       id="id_gender"
                       class="form-select"
-                      v-model="currentCadetData.gender"
+                      v-model="currentStudentData.gender"
                     >
-                      <option :value="null">---------</option>
+                      <option value="">---------</option>
                       <option value="1">Мужской</option>
                       <option value="0">Женский</option>
                     </select>
                     <label for="id_gender">Пол</label>
                   </div>
                 </div>
-                <div class="col-xl-3">
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_rank"
-                      class="form-select"
-                      v-model="currentCadetData.current_rank"
-                    >
-                      <option :value="null">---------</option>
-                      <option :value="rank.id" v-for="rank in orderedRanks">
-                        {{ rank.rank }}
-                      </option>
-                    </select>
-                    <label for="id_rank">Звание</label>
-                  </div>
-                </div>
-                <div class="col-xl-3">
-                  <div class="form-floating mb-3">
-                    <input
-                      id="id_personal_number_mvd"
-                      type="text"
-                      class="form-control"
-                      placeholder="Личный номер"
-                      v-model="currentCadetData.personal_number_mvd"
-                    />
-                    <label for="id_personal_number_mvd">Личный номер</label>
-                  </div>
-                </div>
-                <div class="col-xl-3"></div>
               </div>
             </div>
           </div>
@@ -540,38 +548,58 @@
                 <div class="col-xl-3">
                   <div class="form-floating mb-3">
                     <select
-                      id="id_subdivision"
+                      id="id_foreign_language_was"
                       class="form-select"
-                      v-model="currentCadetData.subdivision"
+                      v-model="currentStudentData.education_form"
                     >
                       <option :value="null">---------</option>
                       <option
-                        :value="subdivision.id"
-                        v-for="subdivision in orderedSubdivisions"
+                        :value="education_form.id"
+                        v-for="education_form in orderedEducationForms"
                       >
-                        {{ subdivision.subdivision_short_name }}
+                        {{ education_form.education_form }}
                       </option>
                     </select>
-                    <label for="id_subdivision">Факультет</label>
+                    <label for="id_foreign_language_was">Форма обучения</label>
                   </div>
                 </div>
                 <div class="col-xl-3">
                   <div class="form-floating mb-3">
                     <select
-                      id="id_educational_institution"
+                      id="id_foreign_language_was"
                       class="form-select"
-                      v-model="currentCadetData.educational_institution"
+                      v-model="currentStudentData.foreign_language_was"
                     >
                       <option :value="null">---------</option>
                       <option
-                        :value="educationalInstitution.id"
-                        v-for="educationalInstitution in orderedEducationalInstitutions"
+                        :value="foreign_language.id"
+                        v-for="foreign_language in orderedForeignLanguages"
                       >
-                        {{ educationalInstitution.educational_institution }}
+                        {{ foreign_language.foreign_language }}
                       </option>
                     </select>
-                    <label for="id_educational_institution"
-                      >Учреждение образования</label
+                    <label for="id_foreign_language_was"
+                      >Иностранный язык (был)</label
+                    >
+                  </div>
+                </div>
+                <div class="col-xl-3">
+                  <div class="form-floating mb-3">
+                    <select
+                      id="id_foreign_language_will_be"
+                      class="form-select"
+                      v-model="currentStudentData.foreign_language_will_be"
+                    >
+                      <option :value="null">---------</option>
+                      <option
+                        :value="foreign_language.id"
+                        v-for="foreign_language in orderedForeignLanguages"
+                      >
+                        {{ foreign_language.foreign_language }}
+                      </option>
+                    </select>
+                    <label for="id_foreign_language_will_be"
+                      >Иностранный язык (будет)</label
                     >
                   </div>
                 </div>
@@ -580,7 +608,7 @@
                     <select
                       id="id_document_type"
                       class="form-select"
-                      v-model="currentCadetData.document_type"
+                      v-model="currentStudentData.document_type"
                     >
                       <option :value="null">---------</option>
                       <option
@@ -593,47 +621,45 @@
                     <label for="id_document_type">Документ</label>
                   </div>
                 </div>
+              </div>
 
-                <div class="row mt-3">
-                  <div class="col-xl-3">
-                    <div class="form-floating mb-3">
-                      <select
-                        id="id_foreign_language_was"
-                        class="form-select"
-                        v-model="currentCadetData.foreign_language_was"
-                      >
-                        <option :value="null">---------</option>
-                        <option
-                          :value="foreign_language.id"
-                          v-for="foreign_language in orderedForeignLanguages"
-                        >
-                          {{ foreign_language.foreign_language }}
-                        </option>
-                      </select>
-                      <label for="id_foreign_language_was"
-                        >Иностранный язык (был)</label
-                      >
-                    </div>
+              <div class="row">
+                <div class="col-xl-3">
+                  <div class="form-floating mb-3">
+                    <select
+                      id="id_health_group"
+                      class="form-select"
+                      aria-label="Floating label select example"
+                      v-model="currentStudentData.health_group"
+                    >
+                      <option :value="null">---------</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>
+                    <label for="id_health_group">Группа здоровья</label>
                   </div>
-                  <div class="col-xl-3">
-                    <div class="form-floating mb-3">
-                      <select
-                        id="id_foreign_language_will_be"
-                        class="form-select"
-                        v-model="currentCadetData.foreign_language_will_be"
+                </div>
+                <div class="col-xl-3">
+                  <div class="form-floating mb-3">
+                    <select
+                      id="id_ppfl_test"
+                      class="form-select"
+                      v-model="currentStudentData.ppfl_test"
+                    >
+                      <option :value="null">---------</option>
+                      <option
+                        :value="ppfl.id"
+                        v-for="ppfl in orderedPpflCategories"
                       >
-                        <option :value="null">---------</option>
-                        <option
-                          :value="foreign_language.id"
-                          v-for="foreign_language in orderedForeignLanguages"
-                        >
-                          {{ foreign_language.foreign_language }}
-                        </option>
-                      </select>
-                      <label for="id_foreign_language_will_be"
-                        >Иностранный язык (будет)</label
-                      >
-                    </div>
+                        {{ ppfl.category }}
+                      </option>
+                    </select>
+                    <label for="id_ppfl_test"
+                      >Группа по физической культуре</label
+                    >
                   </div>
                 </div>
               </div>
@@ -646,18 +672,6 @@
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                   <button
                     class="nav-link active"
-                    id="nav-assembly-organ-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#nav-assembly-organ"
-                    type="button"
-                    role="tab"
-                    aria-controls="nav-assembly-organ"
-                    aria-selected="true"
-                  >
-                    Комплектующий орган
-                  </button>
-                  <button
-                    class="nav-link"
                     id="nav-education-tab"
                     data-bs-toggle="tab"
                     data-bs-target="#nav-education"
@@ -704,30 +718,7 @@
                   >
                     Анкета
                   </button>
-                  <button
-                    class="nav-link"
-                    id="nav-med-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#nav-med"
-                    type="button"
-                    role="tab"
-                    aria-controls="nav-med"
-                    aria-selected="false"
-                  >
-                    Данные мед. осв-я
-                  </button>
-                  <button
-                    class="nav-link"
-                    id="nav-services-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#nav-services"
-                    type="button"
-                    role="tab"
-                    aria-controls="nav-services"
-                    aria-selected="false"
-                  >
-                    Прохождение службы
-                  </button>
+
                   <button
                     class="nav-link"
                     id="nav-attached_documents-tab"
@@ -745,181 +736,6 @@
               <div class="tab-content" id="nav-tabContent">
                 <div
                   class="tab-pane fade show active"
-                  id="nav-assembly-organ"
-                  role="tabpanel"
-                  aria-labelledby="nav-assembly-organ-tab"
-                  tabindex="0"
-                >
-                  <div>
-                    <div class="my-3">
-                      <div class="row">
-                        <div class="col-xl-3">
-                          <div class="form-floating mb-3">
-                            <select
-                              id="id_component_organ"
-                              class="form-select"
-                              v-model="currentCadetData.in_whose_interests"
-                            >
-                              <option :value="null">---------</option>
-                              <option
-                                :value="in_whose_interests.id"
-                                v-for="in_whose_interests in orderedInWhoseInterests"
-                              >
-                                {{ in_whose_interests.in_whose_interests }}
-                              </option>
-                            </select>
-                            <label for="id_component_organ"
-                              >В чьих интересах</label
-                            >
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-xl-3">
-                          <div class="form-floating mb-3">
-                            <select
-                              id="id_component_organ"
-                              class="form-select"
-                              v-model="currentCadetData.component_organ"
-                            >
-                              <option :value="null">---------</option>
-                              <option
-                                :value="componentOrg.id"
-                                v-for="componentOrg in orderedComponentOrgans"
-                              >
-                                {{ componentOrg.component_name }}
-                              </option>
-                            </select>
-                            <label for="id_component_organ"
-                              >Комплектующий орган</label
-                            >
-                          </div>
-                        </div>
-                        <div class="col-lg-3">
-                          <div class="form-floating mb-3">
-                            <select
-                              id="id_entrance_category"
-                              class="form-select"
-                              v-model="currentCadetData.entrance_category"
-                            >
-                              <option :value="null">---------</option>
-                              <option
-                                :value="entranceCategory.id"
-                                v-for="entranceCategory in orderedEntranceCategories"
-                              >
-                                {{ entranceCategory.entrance_category_name }}
-                              </option>
-                            </select>
-                            <label for="id_entrance_category">Категория</label>
-                          </div>
-                        </div>
-                        <div class="col-lg-3">
-                          <div class="form-floating mb-3">
-                            <select
-                              id="id_social_status"
-                              class="form-select"
-                              v-model="currentCadetData.social_status"
-                            >
-                              <option :value="null">---------</option>
-                              <option
-                                :value="socialStatus.id"
-                                v-for="socialStatus in orderedSocialStatuses"
-                              >
-                                {{ socialStatus.social_status }}
-                              </option>
-                            </select>
-                            <label for="id_social_status"
-                              >Социальный статус</label
-                            >
-                          </div>
-                        </div>
-                        <div class="col-lg-3">
-                          <div class="form-floating mb-3">
-                            <select
-                              id="id_region_for_medical_examination"
-                              class="form-select"
-                              v-model="
-                                currentCadetData.region_for_medical_examination
-                              "
-                            >
-                              <option :value="null">---------</option>
-                              <option
-                                :value="countryRegion.id"
-                                v-for="countryRegion in orderedCountryRegions"
-                              >
-                                {{ countryRegion.country_region }}
-                              </option>
-                            </select>
-                            <label for="id_region_for_medical_examination"
-                              >Обл. для мед. ком.</label
-                            >
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-lg-3">
-                          <div class="form-floating mb-3">
-                            <select
-                              id="id_arrived_from_go_rovd"
-                              class="form-select"
-                              v-model="currentCadetData.arrived_from_go_rovd"
-                            >
-                              <option :value="null">---------</option>
-                              <option
-                                :value="go_rovd.id"
-                                v-for="go_rovd in orderedGorovds"
-                              >
-                                {{ go_rovd.go_rovd_name }}
-                              </option>
-                            </select>
-                            <label for="id_arrived_from_go_rovd"
-                              >Прибыл из ГО-РОВД</label
-                            >
-                          </div>
-                        </div>
-                        <div class="col-lg-3">
-                          <div class="form-floating mb-3">
-                            <select
-                              id="id_military_office"
-                              class="form-select"
-                              v-model="currentCadetData.military_office"
-                            >
-                              <option :value="null">---------</option>
-                              <option
-                                :value="militaryOffice.id"
-                                v-for="militaryOffice in orderedMilitaryOffices"
-                              >
-                                {{ militaryOffice.military_office }}
-                              </option>
-                            </select>
-                            <label for="id_military_office">Военкомат</label>
-                          </div>
-                        </div>
-
-                        <div class="col-lg-6">
-                          <div class="form-floating mb-3">
-                            <input
-                              type="text"
-                              id="id_military_office_extra_data"
-                              class="form-control form-control-sm"
-                              placeholder="Военкомат (доп. информация)"
-                              v-model="
-                                currentCadetData.military_office_extra_data
-                              "
-                            />
-                            <label for="id_military_office_extra_data"
-                              >Военкомат (доп. информация)</label
-                            >
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="tab-pane fade"
                   id="nav-education"
                   role="tabpanel"
                   aria-labelledby="nav-education-tab"
@@ -932,7 +748,7 @@
                           <select
                             id="id_education_kind"
                             class="form-select"
-                            v-model="currentCadetData.education_kind"
+                            v-model="currentStudentData.education_kind"
                           >
                             <option :value="null">---------</option>
                             <option
@@ -950,7 +766,7 @@
                           <select
                             id="id_education_level"
                             class="form-select"
-                            v-model="currentCadetData.education_level"
+                            v-model="currentStudentData.education_level"
                           >
                             <option :value="null">---------</option>
                             <option
@@ -974,7 +790,7 @@
                             class="form-control form-control-sm"
                             placeholder="Год окончания"
                             v-model="
-                              currentCadetData.education_graduating_end_year
+                              currentStudentData.education_graduating_end_year
                             "
                             @input="makeInputDefaultNullValueIfEmpty"
                           />
@@ -991,7 +807,7 @@
                         <!--                            class="form-control form-control-sm"-->
                         <!--                            placeholder="Год поступления"-->
                         <!--                            v-model="-->
-                        <!--                              currentCadetData.education_graduating_start_year-->
+                        <!--                              currentStudentData.education_graduating_start_year-->
                         <!--                            "-->
                         <!--                            @input="makeInputDefaultNullValueIfEmpty"-->
                         <!--                          />-->
@@ -1005,7 +821,7 @@
                           <select
                             id="id_medal"
                             class="form-select"
-                            v-model="currentCadetData.medal"
+                            v-model="currentStudentData.medal"
                           >
                             <option :value="null">---------</option>
                             <option
@@ -1027,7 +843,7 @@
                             id="id_education_graduated"
                             rows="2"
                             class="form-control form-control-sm"
-                            v-model="currentCadetData.education_graduated"
+                            v-model="currentStudentData.education_graduated"
                             placeholder="Наименование УО"
                           ></textarea>
                           <label for="id_education_graduated"
@@ -1040,7 +856,7 @@
                           <select
                             id="id_education_location_kind"
                             class="form-select"
-                            v-model="currentCadetData.education_location_kind"
+                            v-model="currentStudentData.education_location_kind"
                           >
                             <option :value="null">---------</option>
                             <option
@@ -1057,25 +873,7 @@
                           >
                         </div>
                       </div>
-                      <div class="col-xl-3">
-                        <!--                        <div class="form-floating mb-3">-->
-                        <!--                          <input-->
-                        <!--                            type="number"-->
-                        <!--                            id="id_education_average_score"-->
-                        <!--                            name="education_average_score"-->
-                        <!--                            class="form-control form-control-sm"-->
-                        <!--                            placeholder="Средний бал"-->
-                        <!--                            v-model="currentCadetData.education_average_score"-->
-                        <!--                            @input="makeInputDefaultNullValueIfEmpty"-->
-                        <!--                          />-->
-                        <!--                          <label for="id_education_average_score"-->
-                        <!--                            >Средний бал</label-->
-                        <!--                          >-->
-                        <!--                        </div>-->
-                      </div>
-                      <div class="col-xl-3"></div>
                     </div>
-
                     <div class="row">
                       <div class="col-12">
                         <div class="form-check mb-3">
@@ -1083,7 +881,7 @@
                             id="id_is_located_in_Minsk"
                             class="form-check-input"
                             type="checkbox"
-                            v-model="currentCadetData.is_located_in_Minsk"
+                            v-model="currentStudentData.is_located_in_Minsk"
                           />
                           <label
                             class="form-check-label"
@@ -1091,6 +889,24 @@
                           >
                             УО расположено в г. Минск
                           </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-12">
+                        <div class="form-floating mb-3">
+                          <textarea
+                            id="id_education_tab_extra_data"
+                            class="form-control"
+                            placeholder="Примечание по образованию"
+                            rows="2"
+                            v-model="
+                              currentStudentData.education_tab_extra_data
+                            "
+                          ></textarea>
+                          <label for="id_education_tab_extra_data"
+                            >Примечание по образованию</label
+                          >
                         </div>
                       </div>
                     </div>
@@ -1106,33 +922,79 @@
                   <div>
                     <div class="my-3">
                       <div class="row">
-                        <div class="col-6">
+                        <div class="col-xl-3">
                           <div class="form-floating mb-3">
                             <input
                               type="text"
                               id="id_place_of_birth"
                               class="form-control form-control-sm"
                               placeholder="Место рождения"
-                              v-model="currentCadetData.place_of_birth"
+                              v-model="currentStudentData.place_of_birth"
                             />
                             <label for="id_place_of_birth"
                               >Место рождения</label
                             >
                           </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-xl-3">
                           <div class="form-floating mb-3">
                             <input
                               type="text"
                               id="id_phone_number"
                               class="form-control form-control-sm"
                               placeholder="Номер телефона"
-                              v-model="currentCadetData.phone_number"
+                              v-model="currentStudentData.phone_number"
                             />
                             <label for="id_phone_number">Номер телефона</label>
                           </div>
                         </div>
+                        <div class="col-xl-3">
+                          <div class="form-floating mb-3">
+                            <select
+                              id="id_education_location_kind"
+                              class="form-select"
+                              v-model="
+                                currentStudentData.residence_location_kind
+                              "
+                            >
+                              <option :value="null">---------</option>
+                              <option
+                                :value="educationLocalityKind.id"
+                                v-for="educationLocalityKind in orderedEducationLocalityKinds"
+                              >
+                                {{
+                                  educationLocalityKind.education_location_kind
+                                }}
+                              </option>
+                            </select>
+                            <label for="id_education_location_kind"
+                              >Место жительства - город/село</label
+                            >
+                          </div>
+                        </div>
+
+                        <div class="col-lg-3">
+                          <div class="form-floating mb-3">
+                            <select
+                              id="id_region_for_medical_examination"
+                              class="form-select"
+                              v-model="currentStudentData.residence_region"
+                            >
+                              <option :value="null">---------</option>
+                              <option
+                                :value="countryRegion.id"
+                                v-for="countryRegion in orderedCountryRegions"
+                              >
+                                {{ countryRegion.country_region }}
+                              </option>
+                            </select>
+                            <label for="id_region_for_medical_examination"
+                              >Область места жительства</label
+                            >
+                          </div>
+                        </div>
                       </div>
+
                       <div class="row">
                         <div class="col-6">
                           <div class="form-floating mb-3">
@@ -1141,7 +1003,7 @@
                               id="id_address_registration"
                               class="form-control form-control-sm"
                               placeholder="Место жительства (регистрация)"
-                              v-model="currentCadetData.address_registration"
+                              v-model="currentStudentData.address_registration"
                               required
                             />
                             <label for="id_address_registration"
@@ -1156,7 +1018,7 @@
                               type="text"
                               class="form-control form-control-sm"
                               placeholder="Место жительства (проживание)"
-                              v-model="currentCadetData.address_residence"
+                              v-model="currentStudentData.address_residence"
                             />
                             <label for="id_address_residence"
                               >Место жительства (проживание)</label
@@ -1170,7 +1032,9 @@
                             <select
                               class="form-select"
                               id="id_passport_document_type"
-                              v-model="currentCadetData.passport_document_type"
+                              v-model="
+                                currentStudentData.passport_document_type
+                              "
                             >
                               <option :value="null">---------</option>
                               <option value="1">Паспорт</option>
@@ -1188,7 +1052,7 @@
                               id="id_passport_number"
                               class="form-control form-control-sm"
                               placeholder="Серия и номер паспорта (номер ид. карты)"
-                              v-model="currentCadetData.passport_number"
+                              v-model="currentStudentData.passport_number"
                             />
                             <label for="id_passport_number"
                               >Серия и номер паспорта (номер ид. карты)</label
@@ -1202,7 +1066,7 @@
                               id="id_identification_number"
                               class="form-control form-control-sm"
                               placeholder="Номер паспорта"
-                              v-model="currentCadetData.identification_number"
+                              v-model="currentStudentData.identification_number"
                             />
                             <label for="id_identification_number"
                               >Идентификационный номер</label
@@ -1218,7 +1082,7 @@
                               rows="1"
                               id="id_passport_issue_authority_text"
                               v-model="
-                                currentCadetData.passport_issue_authority_text
+                                currentStudentData.passport_issue_authority_text
                               "
                             />
                             <label for="id_passport_issue_authority_text"
@@ -1234,7 +1098,7 @@
                               name="passport_issue_date"
                               class="form-control form-control-sm"
                               placeholder="Дата выдачи"
-                              v-model="currentCadetData.passport_issue_date"
+                              v-model="currentStudentData.passport_issue_date"
                               @input="makeInputDefaultNullValueIfEmpty"
                             />
                             <label for="id_passport_issue_date"
@@ -1250,11 +1114,30 @@
                               class="form-control form-control-sm"
                               placeholder="Срок действия"
                               v-model="
-                                currentCadetData.passport_validity_period
+                                currentStudentData.passport_validity_period
                               "
                             />
                             <label for="id_passport_validity_period"
                               >Срок действия</label
+                            >
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-xl-12">
+                          <div class="form-floating mb-3">
+                            <textarea
+                              id="id_personal_information_tab_extra_data"
+                              class="form-control"
+                              placeholder="Примечание по личной информации"
+                              rows="2"
+                              v-model="
+                                currentStudentData.personal_information_tab_extra_data
+                              "
+                            ></textarea>
+                            <label for="id_personal_information_tab_extra_data"
+                              >Примечание по личной информации</label
                             >
                           </div>
                         </div>
@@ -1275,7 +1158,7 @@
                         id="id_parents_is_in_divorce"
                         class="form-check-input"
                         type="checkbox"
-                        v-model="currentCadetData.parents_is_in_divorce"
+                        v-model="currentStudentData.parents_is_in_divorce"
                       />
                       <label
                         class="form-check-label"
@@ -1295,7 +1178,7 @@
                               type="text"
                               class="form-control form-control-sm"
                               placeholder="Мать (фамилия)"
-                              v-model="currentCadetData.mother_last_name"
+                              v-model="currentStudentData.mother_last_name"
                             />
                             <label for="id_mother_last_name">Фамилия</label>
                           </div>
@@ -1307,7 +1190,7 @@
                               type="text"
                               class="form-control form-control-sm"
                               placeholder="Мать (имя)"
-                              v-model="currentCadetData.mother_first_name"
+                              v-model="currentStudentData.mother_first_name"
                             />
                             <label for="id_mother_first_name">Имя</label>
                           </div>
@@ -1319,7 +1202,7 @@
                               type="text"
                               class="form-control form-control-sm"
                               placeholder="Мать (отчество)"
-                              v-model="currentCadetData.mother_patronymic"
+                              v-model="currentStudentData.mother_patronymic"
                             />
                             <label for="id_mother_patronymic">Отчество</label>
                           </div>
@@ -1332,7 +1215,7 @@
                               type="date"
                               class="form-control form-control-sm"
                               placeholder="Мать (дата рождения)"
-                              v-model="currentCadetData.mother_date_of_birth"
+                              v-model="currentStudentData.mother_date_of_birth"
                               @input="makeInputDefaultNullValueIfEmpty"
                             />
                             <label for="id_mother_date_of_birth"
@@ -1350,7 +1233,7 @@
                               class="form-control form-control-sm"
                               placeholder="Проживает"
                               v-model="
-                                currentCadetData.mother_address_residence
+                                currentStudentData.mother_address_residence
                               "
                             />
                             <label for="id_mother_address_residence"
@@ -1366,7 +1249,7 @@
                               class="form-control form-control-sm"
                               placeholder="Зарегистрирована"
                               v-model="
-                                currentCadetData.mother_address_registration
+                                currentStudentData.mother_address_registration
                               "
                             />
                             <label for="id_mother_address_registration"
@@ -1383,7 +1266,7 @@
                               type="text"
                               class="form-control form-control-sm"
                               placeholder="Место работы и должность"
-                              v-model="currentCadetData.mother_place_of_work"
+                              v-model="currentStudentData.mother_place_of_work"
                             />
                             <label for="id_mother_place_of_work"
                               >Место работы и должность</label
@@ -1397,7 +1280,7 @@
                               type="text"
                               class="form-control form-control-sm"
                               placeholder="Номер телефона"
-                              v-model="currentCadetData.mother_phone_number"
+                              v-model="currentStudentData.mother_phone_number"
                             />
                             <label for="id_mother_phone_number"
                               >Номер телефона</label
@@ -1415,7 +1298,7 @@
                               type="text"
                               class="form-control form-control-sm"
                               placeholder="Отец (фамилия)"
-                              v-model="currentCadetData.father_last_name"
+                              v-model="currentStudentData.father_last_name"
                             />
                             <label for="id_father_last_name">Фамилия</label>
                           </div>
@@ -1427,7 +1310,7 @@
                               type="text"
                               class="form-control form-control-sm"
                               placeholder="Отец (имя)"
-                              v-model="currentCadetData.father_first_name"
+                              v-model="currentStudentData.father_first_name"
                             />
                             <label for="id_father_first_name">Имя</label>
                           </div>
@@ -1439,7 +1322,7 @@
                               type="text"
                               class="form-control form-control-sm"
                               placeholder="Отец (отчество)"
-                              v-model="currentCadetData.father_patronymic"
+                              v-model="currentStudentData.father_patronymic"
                             />
                             <label for="id_father_patronymic">Отчество</label>
                           </div>
@@ -1452,7 +1335,7 @@
                               name="father_date_of_birth"
                               class="form-control form-control-sm"
                               placeholder="Отец (дата рождения)"
-                              v-model="currentCadetData.father_date_of_birth"
+                              v-model="currentStudentData.father_date_of_birth"
                               @input="makeInputDefaultNullValueIfEmpty"
                             />
                             <label for="id_father_date_of_birth"
@@ -1470,7 +1353,7 @@
                               class="form-control form-control-sm"
                               placeholder="Проживает"
                               v-model="
-                                currentCadetData.father_address_residence
+                                currentStudentData.father_address_residence
                               "
                             />
                             <label for="id_father_address_residence"
@@ -1486,7 +1369,7 @@
                               class="form-control form-control-sm"
                               placeholder="Зарегистрирован"
                               v-model="
-                                currentCadetData.father_address_registration
+                                currentStudentData.father_address_registration
                               "
                             />
                             <label for="id_father_address_registration"
@@ -1504,7 +1387,7 @@
                               type="text"
                               class="form-control form-control-sm"
                               placeholder="Место работы и должность"
-                              v-model="currentCadetData.father_place_of_work"
+                              v-model="currentStudentData.father_place_of_work"
                             />
                             <label for="id_father_place_of_work"
                               >Место работы и должность</label
@@ -1518,11 +1401,29 @@
                               type="text"
                               class="form-control form-control-sm"
                               placeholder="Номер телефона"
-                              v-model="currentCadetData.father_phone_number"
+                              v-model="currentStudentData.father_phone_number"
                             />
                             <label for="id_father_phone_number"
                               >Номер телефона</label
                             >
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-xl-12">
+                            <div class="form-floating mb-3">
+                              <textarea
+                                id="id_parents_tab_extra_data"
+                                class="form-control"
+                                placeholder="Примечание по представителям"
+                                rows="2"
+                                v-model="
+                                  currentStudentData.parents_tab_extra_data
+                                "
+                              ></textarea>
+                              <label for="id_parents_tab_extra_data"
+                                >Примечание по представителям
+                              </label>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -1539,12 +1440,12 @@
                   <div>
                     <div class="my-3">
                       <div class="row">
-                        <div class="col-xl-6">
+                        <div class="col-xl-4">
                           <div class="form-floating mb-3">
                             <select
                               id="id_vpk"
                               class="form-select"
-                              v-model="currentCadetData.vpk"
+                              v-model="currentStudentData.vpk"
                             >
                               <option :value="null">---------</option>
                               <option
@@ -1559,21 +1460,41 @@
                             >
                           </div>
                         </div>
-                        <div class="col-xl-6">
+                        <div class="col-xl-4">
                           <div class="form-floating mb-3">
                             <input
                               id="id_vpk_data"
                               type="text"
                               class="form-control form-control-sm"
                               placeholder="Данные по ВПК"
-                              v-model="currentCadetData.vpk_data"
+                              v-model="currentStudentData.vpk_data"
                             />
                             <label for="id_vpk_data">Данные по ВПК</label>
                           </div>
                         </div>
+                        <div class="col-xl-4">
+                          <div class="form-floating mb-3">
+                            <select
+                              id="id_social_status"
+                              class="form-select"
+                              v-model="currentStudentData.social_status"
+                            >
+                              <option :value="null">---------</option>
+                              <option
+                                :value="socialStatus.id"
+                                v-for="socialStatus in orderedSocialStatuses"
+                              >
+                                {{ socialStatus.social_status }}
+                              </option>
+                            </select>
+                            <label for="id_social_status"
+                              >Социальный статус</label
+                            >
+                          </div>
+                        </div>
                       </div>
 
-                      <div class="row">
+                      <div class="row d-flex flex-row align-items-center">
                         <div class="col-xl-3">
                           <div class="form-check mb-3">
                             <input
@@ -1581,7 +1502,7 @@
                               class="form-check-input"
                               type="checkbox"
                               v-model="
-                                currentCadetData.aims_to_graduate_with_honors
+                                currentStudentData.aims_to_graduate_with_honors
                               "
                             />
                             <label
@@ -1592,13 +1513,33 @@
                             </label>
                           </div>
                         </div>
+                        <div class="col-xl-9">
+                          <div class="form-floating mb-3">
+                            <input
+                              id="id_aims_to_graduate_with_honors_extra_data"
+                              type="text"
+                              class="form-control"
+                              placeholder="Претендует на аттестат с отличием (доп)"
+                              v-model="
+                                currentStudentData.aims_to_graduate_with_honors_extra_data
+                              "
+                            />
+                            <label
+                              for="id_aims_to_graduate_with_honors_extra_data"
+                              >Претендует на аттестат с отличием (доп)</label
+                            >
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row d-flex flex-row align-items-center">
                         <div class="col-xl-3">
                           <div class="form-check mb-3">
                             <input
                               id="id_is_olympiad_winner"
                               class="form-check-input"
                               type="checkbox"
-                              v-model="currentCadetData.is_olympiad_winner"
+                              v-model="currentStudentData.is_olympiad_winner"
                             />
                             <label
                               class="form-check-label"
@@ -1609,7 +1550,26 @@
                             </label>
                           </div>
                         </div>
+                        <div class="col-xl-9">
+                          <div class="form-floating mb-3">
+                            <input
+                              id="id_olympiad_winner_extra_data"
+                              type="text"
+                              class="form-control"
+                              placeholder="Претендует на аттестат с отличием (доп)"
+                              v-model="
+                                currentStudentData.olympiad_winner_extra_data
+                              "
+                            />
+                            <label for="id_olympiad_winner_extra_data"
+                              >Победитель ресбуликанских или региональных
+                              олимпиад (доп)</label
+                            >
+                          </div>
+                        </div>
+                      </div>
 
+                      <div class="row d-flex flex-row align-items-center">
                         <div class="col-xl-3">
                           <div class="form-check mb-3">
                             <input
@@ -1617,7 +1577,7 @@
                               class="form-check-input"
                               type="checkbox"
                               v-model="
-                                currentCadetData.has_achievements_in_sports
+                                currentStudentData.has_achievements_in_sports
                               "
                             />
                             <label
@@ -1628,16 +1588,33 @@
                             </label>
                           </div>
                         </div>
+                        <div class="col-xl-9">
+                          <div class="form-floating mb-3">
+                            <input
+                              id="id_has_achievements_in_sports_extra_data"
+                              type="text"
+                              class="form-control"
+                              placeholder="Претендует на аттестат с отличием (доп)"
+                              v-model="
+                                currentStudentData.has_achievements_in_sports_extra_data
+                              "
+                            />
+                            <label
+                              for="id_has_achievements_in_sports_extra_data"
+                              >Достижения в спорте (доп)</label
+                            >
+                          </div>
+                        </div>
                       </div>
 
-                      <div class="row">
+                      <div class="row d-flex flex-row align-items-center">
                         <div class="col-xl-3">
                           <div class="form-check mb-3">
                             <input
                               id="id_is_class_vpn"
                               class="form-check-input"
                               type="checkbox"
-                              v-model="currentCadetData.is_class_vpn"
+                              v-model="currentStudentData.is_class_vpn"
                             />
                             <label
                               class="form-check-label"
@@ -1647,13 +1624,31 @@
                             </label>
                           </div>
                         </div>
+                        <div class="col-xl-9">
+                          <div class="form-floating mb-3">
+                            <input
+                              id="id_class_vpn_extra_data"
+                              type="text"
+                              class="form-control"
+                              placeholder="Претендует на аттестат с отличием (доп)"
+                              v-model="currentStudentData.class_vpn_extra_data"
+                            />
+                            <label for="id_class_vpn_extra_data"
+                              >Класс военно-патриотической направленности
+                              (доп)</label
+                            >
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row d-flex flex-row align-items-center">
                         <div class="col-xl-3">
                           <div class="form-check mb-3">
                             <input
                               id="id_is_class_pn"
                               class="form-check-input"
                               type="checkbox"
-                              v-model="currentCadetData.is_class_pn"
+                              v-model="currentStudentData.is_class_pn"
                             />
                             <label
                               class="form-check-label"
@@ -1663,13 +1658,29 @@
                             </label>
                           </div>
                         </div>
+                        <div class="col-xl-9">
+                          <div class="form-floating mb-3">
+                            <input
+                              id="id_class_pn_extra_data"
+                              type="text"
+                              class="form-control"
+                              placeholder="Претендует на аттестат с отличием (доп)"
+                              v-model="currentStudentData.class_pn_extra_data"
+                            />
+                            <label for="id_class_pn_extra_data"
+                              >Класс правовой направленности (доп)</label
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row d-flex flex-row align-items-center">
                         <div class="col-xl-3">
                           <div class="form-check mb-3">
                             <input
                               id="id_is_class_other"
                               class="form-check-input"
                               type="checkbox"
-                              v-model="currentCadetData.is_class_other"
+                              v-model="currentStudentData.is_class_other"
                             />
                             <label
                               class="form-check-label"
@@ -1678,151 +1689,344 @@
                               Профильный класс иной направленности
                             </label>
                           </div>
+                        </div>
+                        <div class="col-xl-9">
                           <div class="form-floating mb-3">
                             <input
                               id="id_class_other_extra_data"
                               type="text"
                               class="form-control form-control-sm"
-                              placeholder="Доп. данные к классу иной
-                              направленности"
-                              v-model="currentCadetData.class_other_extra_data"
+                              placeholder="Профильный класс иной направленности
+                              (доп.)"
+                              v-model="
+                                currentStudentData.class_other_extra_data
+                              "
                             />
                             <label for="id_class_other_extra_data"
-                              >Доп. данные к классу иной направленности</label
-                            >
-                          </div>
-                        </div>
-                        <div class="col-xl-3"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="tab-pane fade"
-                  id="nav-med"
-                  role="tabpanel"
-                  aria-labelledby="nav-med-tab"
-                  tabindex="0"
-                >
-                  <div>
-                    <div class="my-3">
-                      <div class="row">
-                        <div class="col-xl-4">
-                          <div class="form-floating mb-3">
-                            <select
-                              id="id_health_group"
-                              class="form-select"
-                              aria-label="Floating label select example"
-                              v-model="currentCadetData.health_group"
-                            >
-                              <option :value="null">---------</option>
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                              <option value="5">5</option>
-                            </select>
-                            <label for="id_health_group"
-                              >Группа предназначения</label
-                            >
-                          </div>
-                        </div>
-                        <div class="col-xl-4">
-                          <div class="form-floating mb-3">
-                            <select
-                              id="id_ppfl_test"
-                              class="form-select"
-                              v-model="currentCadetData.ppfl_test"
-                            >
-                              <option :value="null">---------</option>
-                              <option
-                                :value="ppfl.id"
-                                v-for="ppfl in orderedPpflCategories"
-                              >
-                                {{ ppfl.category }}
-                              </option>
-                            </select>
-                            <label for="id_ppfl_test"
-                              >Категория профессионального соответствия</label
-                            >
-                          </div>
-                        </div>
-                        <div class="col-xl-4">
-                          <div class="form-floating mb-3">
-                            <select
-                              id="id_medical_age_group"
-                              class="form-select"
-                              aria-label="Floating label select example"
-                              v-model="currentCadetData.medical_age_group"
-                            >
-                              <option :value="null">---------</option>
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                              <option value="5">5</option>
-                            </select>
-                            <label for="id_medical_age_group"
-                              >Медико-возрастная группа</label
+                              >Профильный класс иной направленности
+                              (доп.)</label
                             >
                           </div>
                         </div>
                       </div>
-                      <div class="row">
-                        <div class="col-xl-2">
-                          <div class="form-check">
+                      <div class="row d-flex flex-row align-items-center">
+                        <div class="col-xl-3">
+                          <div class="form-check mb-3">
                             <input
-                              id="id_passed_medical_examination"
+                              id="id_has_intellectual_and_scientific_research_events"
                               class="form-check-input"
                               type="checkbox"
                               v-model="
-                                currentCadetData.passed_medical_examination
+                                currentStudentData.has_intellectual_and_scientific_research_events
                               "
                             />
                             <label
                               class="form-check-label"
-                              for="id_passed_medical_examination"
+                              for="id_has_intellectual_and_scientific_research_events"
                             >
-                              Окончательное мед. освидетельствование
+                              Мероприятия интелектуального и
+                              научно-исследовательского характера
                             </label>
                           </div>
                         </div>
-                        <div class="col-xl-2">
+                        <div class="col-xl-9">
                           <div class="form-floating mb-3">
                             <input
-                              id="id_passed_medical_examination_date"
-                              class="form-control"
-                              name="passed_medical_examination_date"
-                              placeholder="Дата прохождения"
-                              type="date"
+                              id="id_has_intellectual_and_scientific_research_events_extra_data"
+                              type="text"
+                              class="form-control form-control-sm"
+                              placeholder="Мероприятия интелектуального и
+                              научно-исследовательского характера (доп.)"
                               v-model="
-                                currentCadetData.passed_medical_examination_date
+                                currentStudentData.has_intellectual_and_scientific_research_events_extra_data
                               "
-                              @input="makeInputDefaultNullValueIfEmpty"
+                            />
+                            <label
+                              for="id_has_intellectual_and_scientific_research_events_extra_data"
+                              >Мероприятия интелектуального и
+                              научно-исследовательского характера (доп.)</label
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row d-flex flex-row align-items-center">
+                        <div class="col-xl-3">
+                          <div class="form-check mb-3">
+                            <input
+                              id="id_is_from_large_family"
+                              class="form-check-input"
+                              type="checkbox"
+                              v-model="currentStudentData.is_from_large_family"
                             />
                             <label
                               class="form-check-label"
-                              for="id_passed_medical_examination_date"
-                              >Дата прохождения
+                              for="id_is_from_large_family"
+                            >
+                              Из многодетной семьи
                             </label>
                           </div>
                         </div>
+                        <div class="col-xl-9">
+                          <div class="form-floating mb-3">
+                            <input
+                              id="id_from_large_family_extra_data"
+                              type="text"
+                              class="form-control form-control-sm"
+                              placeholder="Мероприятия интелектуального и
+                              научно-исследовательского характера (доп.)"
+                              v-model="
+                                currentStudentData.from_large_family_extra_data
+                              "
+                            />
+                            <label for="id_from_large_family_extra_data"
+                              >Мероприятия интелектуального и
+                              научно-исследовательского характера (доп.)</label
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row d-flex flex-row align-items-center">
+                        <div class="col-xl-3">
+                          <div class="form-check mb-3">
+                            <input
+                              id="id_is_from_low_income_families"
+                              class="form-check-input"
+                              type="checkbox"
+                              v-model="
+                                currentStudentData.is_from_low_income_families
+                              "
+                            />
+                            <label
+                              class="form-check-label"
+                              for="id_is_from_low_income_families"
+                            >
+                              Из малообеспеченных
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-xl-9">
+                          <div class="form-floating mb-3">
+                            <input
+                              id="id_from_low_income_families_extra_data"
+                              type="text"
+                              class="form-control form-control-sm"
+                              placeholder="Из малообеспеченных (доп.)"
+                              v-model="
+                                currentStudentData.from_low_income_families_extra_data
+                              "
+                            />
+                            <label for="id_from_low_income_families_extra_data"
+                              >Из малообеспеченных (доп.)</label
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row d-flex flex-row align-items-center">
+                        <div class="col-xl-3">
+                          <div class="form-check mb-3">
+                            <input
+                              id="id_have_dependent_children_parents"
+                              class="form-check-input"
+                              type="checkbox"
+                              v-model="
+                                currentStudentData.have_dependent_children_parents
+                              "
+                            />
+                            <label
+                              class="form-check-label"
+                              for="id_have_dependent_children_parents"
+                            >
+                              Имеют на иждевении детей и / или родителей
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-xl-9">
+                          <div class="form-floating mb-3">
+                            <input
+                              id="id_have_dependent_children_parents_extra_data"
+                              type="text"
+                              class="form-control form-control-sm"
+                              placeholder="Имеют на иждевении детей и / или родителей (доп.)"
+                              v-model="
+                                currentStudentData.have_dependent_children_parents_extra_data
+                              "
+                            />
+                            <label
+                              for="id_have_dependent_children_parents_extra_data"
+                              >Имеют на иждевении детей и / или родителей
+                              (доп.)</label
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row d-flex flex-row align-items-center">
+                        <div class="col-xl-3">
+                          <div class="form-check mb-3">
+                            <input
+                              id="id_victims_of_the_Chernobyl_disaster"
+                              class="form-check-input"
+                              type="checkbox"
+                              v-model="
+                                currentStudentData.victims_of_the_Chernobyl_disaster
+                              "
+                            />
+                            <label
+                              class="form-check-label"
+                              for="id_victims_of_the_Chernobyl_disaster"
+                            >
+                              Пострадавшие от катастрофы на ЧАЭС
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-xl-9">
+                          <div class="form-floating mb-3">
+                            <input
+                              id="id_victims_of_the_Chernobyl_disaster_extra_data"
+                              type="text"
+                              class="form-control form-control-sm"
+                              placeholder="Пострадавшие от катастрофы на ЧАЭС (доп.)"
+                              v-model="
+                                currentStudentData.victims_of_the_Chernobyl_disaster_extra_data
+                              "
+                            />
+                            <label
+                              for="id_victims_of_the_Chernobyl_disaster_extra_data"
+                              >Пострадавшие от катастрофы на ЧАЭС (доп.)</label
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row d-flex flex-row align-items-center">
+                        <div class="col-xl-3">
+                          <div class="form-floating mb-3">
+                            <select
+                              id="id_cultural_and_mass_events"
+                              class="form-select"
+                              v-model="
+                                currentStudentData.cultural_and_mass_events
+                              "
+                            >
+                              <option :value="null">---------</option>
+                              <option
+                                :value="cult_event.id"
+                                v-for="cult_event in orderedCulturalMassEvents"
+                              >
+                                {{ cult_event.event_name }}
+                              </option>
+                            </select>
+                            <label for="id_cultural_and_mass_events"
+                              >Культурно-массовые мероприятия</label
+                            >
+                          </div>
+                        </div>
+                        <div class="col-xl-9">
+                          <div class="form-floating mb-3">
+                            <input
+                              id="id_cultural_and_mass_events_extra_data"
+                              type="text"
+                              class="form-control form-control-sm"
+                              placeholder="Культурно-массовые мероприятия (доп.)"
+                              v-model="
+                                currentStudentData.cultural_and_mass_events_extra_data
+                              "
+                            />
+                            <label for="id_cultural_and_mass_events_extra_data"
+                              >Культурно-массовые мероприятия (доп.)</label
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row d-flex flex-row align-items-center">
+                        <div class="col-xl-3">
+                          <div class="form-floating mb-3">
+                            <select
+                              id="id_family_status"
+                              class="form-select"
+                              v-model="currentStudentData.family_status"
+                            >
+                              <option :value="null">---------</option>
+                              <option value="0" key="0">Полная</option>
+                              <option value="1" key="1">Неролная</option>
+                            </select>
+                            <label for="id_family_status">Статус семьи</label>
+                          </div>
+                        </div>
+                        <div class="col-xl-9">
+                          <div class="form-floating mb-3">
+                            <input
+                              id="id_family_status_extra_data"
+                              type="text"
+                              class="form-control form-control-sm"
+                              placeholder="Статус семьи (доп.)"
+                              v-model="
+                                currentStudentData.family_status_extra_data
+                              "
+                            />
+                            <label for="id_cfamily_status_extra_data"
+                              >Статус семьи (доп.)</label
+                            >
+                          </div>
+                        </div>
+                      </div>
 
-                        <div class="col-xl-8">
+                      <div class="row d-flex flex-row align-items-center">
+                        <div class="col-xl-3">
+                          <div class="form-floating mb-3">
+                            <select
+                              id="id_membership_in_public_organizations"
+                              class="form-select"
+                              v-model="
+                                currentStudentData.membership_in_public_organizations
+                              "
+                            >
+                              <option :value="null">---------</option>
+                              <option
+                                :value="public_organization.id"
+                                v-for="public_organization in orderedPublicOrganizations"
+                              >
+                                {{ public_organization.organization_name }}
+                              </option>
+                            </select>
+                            <label for="id_membership_in_public_organizations"
+                              >Членство в общественных организациях</label
+                            >
+                          </div>
+                        </div>
+                        <div class="col-xl-9">
+                          <div class="form-floating mb-3">
+                            <input
+                              id="id_membership_in_public_organizations_extra_data"
+                              type="text"
+                              class="form-control form-control-sm"
+                              placeholder="Членство в общественных организациях (доп.)"
+                              v-model="
+                                currentStudentData.membership_in_public_organizations_extra_data
+                              "
+                            />
+                            <label
+                              for="id_membership_in_public_organizations_extra_data"
+                              >Членство в общественных организациях
+                              (доп.)</label
+                            >
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-xl-12">
                           <div class="form-floating mb-3">
                             <textarea
-                              id="id_passed_medical_examination_extra_data"
+                              id="id_questionary_tab_extra_data"
                               class="form-control"
-                              placeholder="Примечание по медицинской комиссии"
+                              placeholder="Примечание по анкете"
                               rows="2"
                               v-model="
-                                currentCadetData.passed_medical_examination_extra_data
+                                currentStudentData.questionary_tab_extra_data
                               "
                             ></textarea>
-                            <label
-                              for="id_passed_medical_examination_extra_data"
-                              >Примечание по медицинской комиссии</label
-                            >
+                            <label for="id_questionary_tab_extra_data"
+                              >Примечание по анкете
+                            </label>
                           </div>
                         </div>
                       </div>
@@ -1830,138 +2034,139 @@
                   </div>
                 </div>
 
-                <div
-                  class="tab-pane fade"
-                  id="nav-services"
-                  role="tabpanel"
-                  aria-labelledby="nav-med-tab"
-                  tabindex="0"
-                >
-                  <div>
-                    <div class="my-3">
-                      <h5>Служба в ВС РБ</h5>
-                      <div class="row">
-                        <div class="col-xl-2">
-                          <div class="form-floating mb-3">
-                            <input
-                              id="id_military_service_start"
-                              type="date"
-                              name="military_service_start"
-                              class="form-control form-control-sm"
-                              placeholder="Начало"
-                              v-model="currentCadetData.military_service_start"
-                              @input="makeInputDefaultNullValueIfEmpty"
-                            />
-                            <label for="id_military_service_start"
-                              >Начало</label
-                            >
-                          </div>
-                        </div>
-                        <div class="col-xl-2">
-                          <div class="form-floating mb-3">
-                            <input
-                              id="id_military_service_end"
-                              type="date"
-                              class="form-control form-control-sm"
-                              placeholder="Окончание"
-                              v-model="currentCadetData.military_service_end"
-                              name="military_service_end"
-                              @input="makeInputDefaultNullValueIfEmpty"
-                            />
-                            <label for="id_military_service_end"
-                              >Окончание</label
-                            >
-                          </div>
-                        </div>
+                <!--                <div-->
+                <!--                  class="tab-pane fade"-->
+                <!--                  id="nav-med"-->
+                <!--                  role="tabpanel"-->
+                <!--                  aria-labelledby="nav-med-tab"-->
+                <!--                  tabindex="0"-->
+                <!--                >-->
+                <!--                  <div>-->
+                <!--                    <div class="my-3">-->
+                <!--                      <div class="row">-->
+                <!--                        <div class="col-xl-4">-->
+                <!--                          <div class="form-floating mb-3">-->
+                <!--                            <select-->
+                <!--                              id="id_health_group"-->
+                <!--                              class="form-select"-->
+                <!--                              aria-label="Floating label select example"-->
+                <!--                              v-model="currentStudentData.health_group"-->
+                <!--                            >-->
+                <!--                              <option :value="null">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
+                <!--                              <option value="1">1</option>-->
+                <!--                              <option value="2">2</option>-->
+                <!--                              <option value="3">3</option>-->
+                <!--                              <option value="4">4</option>-->
+                <!--                              <option value="5">5</option>-->
+                <!--                            </select>-->
+                <!--                            <label for="id_health_group"-->
+                <!--                              >Группа предназначения</label-->
+                <!--                            >-->
+                <!--                          </div>-->
+                <!--                        </div>-->
+                <!--                        <div class="col-xl-4">-->
+                <!--                          <div class="form-floating mb-3">-->
+                <!--                            <select-->
+                <!--                              id="id_ppfl_test"-->
+                <!--                              class="form-select"-->
+                <!--                              v-model="currentStudentData.ppfl_test"-->
+                <!--                            >-->
+                <!--                              <option :value="null">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
+                <!--                              <option-->
+                <!--                                :value="ppfl.id"-->
+                <!--                                v-for="ppfl in orderedPpflCategories"-->
+                <!--                              >-->
+                <!--                                {{ ppfl.category }}-->
+                <!--                              </option>-->
+                <!--                            </select>-->
+                <!--                            <label for="id_ppfl_test"-->
+                <!--                              >Категория профессионального соответствия</label-->
+                <!--                            >-->
+                <!--                          </div>-->
+                <!--                        </div>-->
+                <!--                        -->
+                <!--                        <div class="col-xl-4">-->
+                <!--                          <div class="form-floating mb-3">-->
+                <!--                            <select-->
+                <!--                              id="id_medical_age_group"-->
+                <!--                              class="form-select"-->
+                <!--                              aria-label="Floating label select example"-->
+                <!--                              v-model="currentStudentData.medical_age_group"-->
+                <!--                            >-->
+                <!--                              <option :value="null">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
+                <!--                              <option value="1">1</option>-->
+                <!--                              <option value="2">2</option>-->
+                <!--                              <option value="3">3</option>-->
+                <!--                              <option value="4">4</option>-->
+                <!--                              <option value="5">5</option>-->
+                <!--                            </select>-->
+                <!--                            <label for="id_medical_age_group"-->
+                <!--                              >Медико-возрастная группа</label-->
+                <!--                            >-->
+                <!--                          </div>-->
+                <!--                        </div>-->
+                <!--                      </div>-->
+                <!--                      <div class="row">-->
+                <!--                        <div class="col-xl-2">-->
+                <!--                          <div class="form-check">-->
+                <!--                            <input-->
+                <!--                              id="id_passed_medical_examination"-->
+                <!--                              class="form-check-input"-->
+                <!--                              type="checkbox"-->
+                <!--                              v-model="-->
+                <!--                                currentStudentData.passed_medical_examination-->
+                <!--                              "-->
+                <!--                            />-->
+                <!--                            <label-->
+                <!--                              class="form-check-label"-->
+                <!--                              for="id_passed_medical_examination"-->
+                <!--                            >-->
+                <!--                              Окончательное мед. освидетельствование-->
+                <!--                            </label>-->
+                <!--                          </div>-->
+                <!--                        </div>-->
+                <!--                        <div class="col-xl-2">-->
+                <!--                          <div class="form-floating mb-3">-->
+                <!--                            <input-->
+                <!--                              id="id_passed_medical_examination_date"-->
+                <!--                              class="form-control"-->
+                <!--                              name="passed_medical_examination_date"-->
+                <!--                              placeholder="Дата прохождения"-->
+                <!--                              type="date"-->
+                <!--                              v-model="-->
+                <!--                                currentStudentData.passed_medical_examination_date-->
+                <!--                              "-->
+                <!--                              @input="makeInputDefaultNullValueIfEmpty"-->
+                <!--                            />-->
+                <!--                            <label-->
+                <!--                              class="form-check-label"-->
+                <!--                              for="id_passed_medical_examination_date"-->
+                <!--                              >Дата прохождения-->
+                <!--                            </label>-->
+                <!--                          </div>-->
+                <!--                        </div>-->
 
-                        <div class="col-xl-4">
-                          <div class="form-floating mb-3">
-                            <textarea
-                              id="id_military_organization"
-                              class="form-control"
-                              placeholder="Место прохождения службы"
-                              rows="2"
-                              v-model="currentCadetData.military_organization"
-                            ></textarea>
-                            <label for="id_military_organization"
-                              >Место прохождения службы</label
-                            >
-                          </div>
-                        </div>
-                        <div class="col-xl-4">
-                          <div class="form-floating mb-3">
-                            <textarea
-                              id="id_military_position"
-                              class="form-control"
-                              placeholder="Должность"
-                              rows="2"
-                              v-model="currentCadetData.military_position"
-                            ></textarea>
-                            <label for="id_military_position">Должность</label>
-                          </div>
-                        </div>
-                      </div>
-                      <h5>Служба в МВД</h5>
-                      <div class="row">
-                        <div class="col-xl-2">
-                          <div class="form-floating mb-3">
-                            <input
-                              id="id_mvd_service_start"
-                              type="date"
-                              name="mvd_service_start"
-                              class="form-control form-control-sm"
-                              placeholder="Начало"
-                              v-model="currentCadetData.mvd_service_start"
-                              @input="makeInputDefaultNullValueIfEmpty"
-                            />
-                            <label for="id_mvd_service_start">Начало</label>
-                          </div>
-                        </div>
-                        <div class="col-xl-2">
-                          <div class="form-floating mb-3">
-                            <input
-                              id="id_mvd_service_end"
-                              type="date"
-                              name="mvd_service_end"
-                              class="form-control form-control-sm"
-                              placeholder="Окончание"
-                              v-model="currentCadetData.mvd_service_end"
-                              @input="makeInputDefaultNullValueIfEmpty"
-                            />
-                            <label for="id_mvd_service_end">Окончание</label>
-                          </div>
-                        </div>
-
-                        <div class="col-xl-4">
-                          <div class="form-floating mb-3">
-                            <textarea
-                              id="id_mvd_organization"
-                              class="form-control"
-                              placeholder="Место прохождения службы"
-                              rows="2"
-                              v-model="currentCadetData.mvd_organization"
-                            ></textarea>
-                            <label for="id_mvd_organization"
-                              >Место прохождения службы</label
-                            >
-                          </div>
-                        </div>
-                        <div class="col-xl-4">
-                          <div class="form-floating mb-3">
-                            <textarea
-                              id="id_mvd_position"
-                              class="form-control"
-                              placeholder="Должность"
-                              rows="2"
-                              v-model="currentCadetData.mvd_position"
-                            ></textarea>
-                            <label for="id_mvd_position">Должность</label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <!--                        <div class="col-xl-8">-->
+                <!--                          <div class="form-floating mb-3">-->
+                <!--                            <textarea-->
+                <!--                              id="id_passed_medical_examination_extra_data"-->
+                <!--                              class="form-control"-->
+                <!--                              placeholder="Примечание по медицинской комиссии"-->
+                <!--                              rows="2"-->
+                <!--                              v-model="-->
+                <!--                                currentStudentData.passed_medical_examination_extra_data-->
+                <!--                              "-->
+                <!--                            ></textarea>-->
+                <!--                            <label-->
+                <!--                              for="id_passed_medical_examination_extra_data"-->
+                <!--                              >Примечание по медицинской комиссии</label-->
+                <!--                            >-->
+                <!--                          </div>-->
+                <!--                        </div>-->
+                <!--                      </div>-->
+                <!--                    </div>-->
+                <!--                  </div>-->
+                <!--                </div>-->
 
                 <div
                   class="tab-pane fade"
@@ -1971,7 +2176,7 @@
                   tabindex="0"
                 >
                   <div class="m-3">
-                    <div v-if="currentCadetData.attached_documents">
+                    <div v-if="currentStudentData.attached_documents">
                       <div class="d-flex flex-row my-2">
                         <div class="mx-3">
                           <input
@@ -1995,7 +2200,7 @@
                       </div>
 
                       <object
-                        :data="currentCadetData.attached_documents"
+                        :data="currentStudentData.attached_documents"
                         type="application/pdf"
                         ref="objectWithDocument"
                         width="100%"
@@ -2004,7 +2209,7 @@
                         <p>
                           <b>Ошибка загрузки pdf документа.</b> Попробуйте
                           скачать его
-                          <a :href="currentCadetData.attached_documents"
+                          <a :href="currentStudentData.attached_documents"
                             >отсюда</a
                           >.
                         </p>
@@ -2036,25 +2241,13 @@
               <div class="card-body">
                 <div class="mb-3">
                   <label class="form-label" for="id_extra_data"
-                    >Примечание для отдела кадров</label
+                    >Примечание по личному делу</label
                   >
                   <textarea
                     id="id_extra_data"
                     class="form-control"
                     rows="2"
-                    v-model="currentCadetData.extra_data"
-                  ></textarea>
-                </div>
-                <!--                <div class="border-bottom border-4 my-3"></div>-->
-                <div class="mb-3">
-                  <label class="form-label" for="id_comments_on_personal_file"
-                    >Замечания по личному делу</label
-                  >
-                  <textarea
-                    id="id_comments_on_personal_file"
-                    class="form-control"
-                    rows="3"
-                    v-model="currentCadetData.comments_on_personal_file"
+                    v-model="currentStudentData.extra_data"
                   ></textarea>
                 </div>
               </div>
@@ -2069,7 +2262,7 @@
                         id="id_needs_increased_attention"
                         class="form-check-input"
                         type="checkbox"
-                        v-model="currentCadetData.needs_increased_attention"
+                        v-model="currentStudentData.needs_increased_attention"
                       />
                       <label
                         class="form-check-label"
@@ -2083,7 +2276,7 @@
                         id="id_needs_psychological_support"
                         class="form-check-input"
                         type="checkbox"
-                        v-model="currentCadetData.needs_psychological_support"
+                        v-model="currentStudentData.needs_psychological_support"
                       />
                       <label
                         class="form-check-label"
@@ -2097,7 +2290,7 @@
                         id="id_is_risk_group"
                         class="form-check-input"
                         type="checkbox"
-                        v-model="currentCadetData.is_risk_group"
+                        v-model="currentStudentData.is_risk_group"
                       />
                       <label class="form-check-label" for="id_is_risk_group"
                         >Группа риска</label
@@ -2108,7 +2301,7 @@
                         id="id_has_conviction"
                         class="form-check-input"
                         type="checkbox"
-                        v-model="currentCadetData.has_conviction"
+                        v-model="currentStudentData.has_conviction"
                       />
                       <label class="form-check-label" for="id_has_conviction"
                         >Судимость</label
@@ -2119,7 +2312,7 @@
                         id="id_has_dactocard"
                         class="form-check-input"
                         type="checkbox"
-                        v-model="currentCadetData.has_dactocard"
+                        v-model="currentStudentData.has_dactocard"
                       />
                       <label class="form-check-label" for="id_has_dactocard"
                         >Дактилоскопирование</label
@@ -2130,7 +2323,7 @@
                         id="id_has_gusb_check"
                         class="form-check-input"
                         type="checkbox"
-                        v-model="currentCadetData.has_gusb_check"
+                        v-model="currentStudentData.has_gusb_check"
                       />
                       <label class="form-check-label" for="id_has_gusb_check"
                         >Проверка ГУСБ</label
@@ -2141,7 +2334,7 @@
                         id="id_has_employee_in_family"
                         class="form-check-input"
                         type="checkbox"
-                        v-model="currentCadetData.has_employee_in_family"
+                        v-model="currentStudentData.has_employee_in_family"
                       />
                       <label
                         class="form-check-label"
@@ -2154,7 +2347,7 @@
                         id="is_is_orphan"
                         class="form-check-input"
                         type="checkbox"
-                        v-model="currentCadetData.is_orphan"
+                        v-model="currentStudentData.is_orphan"
                       />
                       <label class="form-check-label" for="is_is_orphan"
                         >Сирота</label
@@ -2165,7 +2358,7 @@
                         id="id_is_employee"
                         class="form-check-input"
                         type="checkbox"
-                        v-model="currentCadetData.is_employee"
+                        v-model="currentStudentData.is_employee"
                       />
                       <label class="form-check-label" for="id_is_employee"
                         >Сотрудник</label
@@ -2180,7 +2373,7 @@
                         class="form-check-input"
                         type="checkbox"
                         v-model="
-                          currentCadetData.has_certificate_ideas_for_Belarus
+                          currentStudentData.has_certificate_ideas_for_Belarus
                         "
                       />
                       <label
@@ -2194,7 +2387,7 @@
                         id="id_has_certificate_kind_heart"
                         class="form-check-input"
                         type="checkbox"
-                        v-model="currentCadetData.has_certificate_kind_heart"
+                        v-model="currentStudentData.has_certificate_kind_heart"
                       />
                       <label
                         class="form-check-label"
@@ -2209,7 +2402,7 @@
                         id="id_is_law_class"
                         class="form-check-input"
                         type="checkbox"
-                        v-model="currentCadetData.is_law_class"
+                        v-model="currentStudentData.is_law_class"
                       />
                       <label class="form-check-label" for="id_is_law_class"
                         >Правовой класс</label
@@ -2220,7 +2413,7 @@
                         id="id_is_law_enforcement"
                         class="form-check-input"
                         type="checkbox"
-                        v-model="currentCadetData.is_law_enforcement"
+                        v-model="currentStudentData.is_law_enforcement"
                       />
                       <label
                         class="form-check-label"
@@ -2233,7 +2426,7 @@
                         id="id_is_reserve"
                         class="form-check-input"
                         type="checkbox"
-                        v-model="currentCadetData.is_reserve"
+                        v-model="currentStudentData.is_reserve"
                       />
                       <label class="form-check-label" for="id_is_reserve"
                         >Резерв</label
@@ -2244,7 +2437,7 @@
                         id="id_is_fired"
                         class="form-check-input"
                         type="checkbox"
-                        v-model="currentCadetData.is_fired"
+                        v-model="currentStudentData.is_fired"
                       />
                       <label class="form-check-label" for="id_is_fired"
                         >Уволен</label
@@ -2255,7 +2448,7 @@
                         id="id_took_documents"
                         class="form-check-input"
                         type="checkbox"
-                        v-model="currentCadetData.took_documents"
+                        v-model="currentStudentData.took_documents"
                       />
                       <label class="form-check-label" for="id_took_documents"
                         >Забрал документы</label
@@ -2267,7 +2460,7 @@
                         id="id_is_vv"
                         class="form-check-input"
                         type="checkbox"
-                        v-model="currentCadetData.is_vv"
+                        v-model="currentStudentData.is_vv"
                       />
                       <label class="form-check-label" for="id_is_vv">ВВ</label>
                     </div>
@@ -2276,7 +2469,7 @@
                         id="id_is_fp"
                         class="form-check-input"
                         type="checkbox"
-                        v-model="currentCadetData.is_fp"
+                        v-model="currentStudentData.is_fp"
                       />
                       <label class="form-check-label" for="id_is_fp">ФП</label>
                     </div>
@@ -2294,12 +2487,12 @@
             <div class="col-xxl-6">
               <h5 class="fw-bold">Выбор специальностей</h5>
               <div class="row">
-                <div class="col-5">
+                <div class="col-6">
                   <div class="form-floating mb-3">
                     <select
                       id="id_s1"
                       class="form-select"
-                      v-model="currentCadetData.speciality_1"
+                      v-model="currentStudentData.speciality_1"
                     >
                       <option :value="null">---------</option>
                       <option
@@ -2309,289 +2502,15 @@
                         {{ quota.quota_verbose_name }}
                       </option>
                     </select>
-                    <label for="id_s1">Специальность 1</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_s2"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_2"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_2"
-                      >
-                        {{ quota.quota_verbose_name }}
-                      </option>
-                    </select>
-                    <label for="id_s2">Специальность 2</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_s3"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_3"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_3"
-                      >
-                        {{ quota.quota_verbose_name }}
-                      </option>
-                    </select>
-                    <label for="id_s3">Специальность 3</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_s4"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_4"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_4"
-                      >
-                        {{ quota.quota_verbose_name }}
-                      </option>
-                    </select>
-                    <label for="id_s4">Специальность 4</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_s5"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_5"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_5"
-                      >
-                        {{ quota.quota_verbose_name }}
-                      </option>
-                    </select>
-                    <label for="id_s5">Специальность 5</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_s6"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_6"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_6"
-                      >
-                        {{ quota.quota_verbose_name }}
-                      </option>
-                    </select>
-                    <label for="id_s6">Специальность 6</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_s7"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_7"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_7"
-                      >
-                        {{ quota.quota_verbose_name }}
-                      </option>
-                    </select>
-                    <label for="id_s7">Специальность 7</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_s8"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_8"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_8"
-                      >
-                        {{ quota.quota_verbose_name }}
-                      </option>
-                    </select>
-                    <label for="id_s7">Специальность 8</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_s9"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_9"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_9"
-                      >
-                        {{ quota.quota_verbose_name }}
-                      </option>
-                    </select>
-                    <label for="id_s7">Специальность 9</label>
+                    <label for="id_s1">Специальность</label>
                   </div>
                 </div>
-                <div class="col-2">
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_s1"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_1"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_1"
-                      >
-                        {{ quota.admission_code }}
-                      </option>
-                    </select>
-                    <label for="id_s1">Код 1</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_s2"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_2"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_2"
-                      >
-                        {{ quota.admission_code }}
-                      </option>
-                    </select>
-                    <label for="id_s2">Код 2</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_s3"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_3"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_3"
-                      >
-                        {{ quota.admission_code }}
-                      </option>
-                    </select>
-                    <label for="id_s3">Код 3</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_s4"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_4"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_4"
-                      >
-                        {{ quota.admission_code }}
-                      </option>
-                    </select>
-                    <label for="id_s4">Код 4</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_s5"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_5"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_5"
-                      >
-                        {{ quota.admission_code }}
-                      </option>
-                    </select>
-                    <label for="id_s5">Код 5</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_s6"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_6"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_6"
-                      >
-                        {{ quota.admission_code }}
-                      </option>
-                    </select>
-                    <label for="id_s6">Код 6</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_s7"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_7"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_7"
-                      >
-                        {{ quota.admission_code }}
-                      </option>
-                    </select>
-                    <label for="id_s7">Код 7</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_s8"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_8"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_8"
-                      >
-                        {{ quota.quota_verbose_name }}
-                      </option>
-                    </select>
-                    <label for="id_s7">Специальность 8</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_s9"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_9"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_9"
-                      >
-                        {{ quota.quota_verbose_name }}
-                      </option>
-                    </select>
-                    <label for="id_s7">Специальность 9</label>
-                  </div>
-                </div>
-                <div class="col-5">
+                <div class="col-6">
                   <div class="form-floating mb-3">
                     <select
                       id="id_privilege"
                       class="form-select"
-                      v-model="currentCadetData.privilege_1"
+                      v-model="currentStudentData.privilege_1"
                     >
                       <option :value="null">---------</option>
                       <option
@@ -2601,140 +2520,10 @@
                         {{ privilege.privilege }}
                       </option>
                     </select>
-                    <label for="id_privilege">Льгота 1</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_privilege"
-                      class="form-select"
-                      v-model="currentCadetData.privilege_2"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="privilege.id"
-                        v-for="privilege in orderedPrivileges"
-                      >
-                        {{ privilege.privilege }}
-                      </option>
-                    </select>
-                    <label for="id_privilege">Льгота 2</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_privilege"
-                      class="form-select"
-                      v-model="currentCadetData.privilege_3"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="privilege.id"
-                        v-for="privilege in orderedPrivileges"
-                      >
-                        {{ privilege.privilege }}
-                      </option>
-                    </select>
-                    <label for="id_privilege">Льгота 3</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_privilege"
-                      class="form-select"
-                      v-model="currentCadetData.privilege_4"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="privilege.id"
-                        v-for="privilege in orderedPrivileges"
-                      >
-                        {{ privilege.privilege }}
-                      </option>
-                    </select>
-                    <label for="id_privilege">Льгота 4</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_privilege"
-                      class="form-select"
-                      v-model="currentCadetData.privilege_5"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="privilege.id"
-                        v-for="privilege in orderedPrivileges"
-                      >
-                        {{ privilege.privilege }}
-                      </option>
-                    </select>
-                    <label for="id_privilege">Льгота 5</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_privilege"
-                      class="form-select"
-                      v-model="currentCadetData.privilege_6"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="privilege.id"
-                        v-for="privilege in orderedPrivileges"
-                      >
-                        {{ privilege.privilege }}
-                      </option>
-                    </select>
-                    <label for="id_privilege">Льгота 6</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_privilege"
-                      class="form-select"
-                      v-model="currentCadetData.privilege_7"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="privilege.id"
-                        v-for="privilege in orderedPrivileges"
-                      >
-                        {{ privilege.privilege }}
-                      </option>
-                    </select>
-                    <label for="id_privilege">Льгота 7</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_privilege"
-                      class="form-select"
-                      v-model="currentCadetData.privilege_8"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="privilege.id"
-                        v-for="privilege in orderedPrivileges"
-                      >
-                        {{ privilege.privilege }}
-                      </option>
-                    </select>
-                    <label for="id_privilege">Льгота 8</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_privilege"
-                      class="form-select"
-                      v-model="currentCadetData.privilege_9"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="privilege.id"
-                        v-for="privilege in orderedPrivileges"
-                      >
-                        {{ privilege.privilege }}
-                      </option>
-                    </select>
-                    <label for="id_privilege">Льгота 9</label>
+                    <label for="id_privilege">Льгота</label>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="col-xxl-6">
               <h5>Набранные баллы</h5>
               <div>
                 <p class="fw-bold">
@@ -2762,7 +2551,7 @@
                           id="id_rus_bel_cert_number"
                           type="text"
                           class="form-control text-center"
-                          v-model="currentCadetData.rus_bel_ct_number"
+                          v-model="currentStudentData.rus_bel_ct_number"
                         />
                       </td>
                       <td class="text-center table-warning">
@@ -2773,7 +2562,7 @@
                           id="id_social_science_cert_number"
                           type="text"
                           class="form-control text-center"
-                          v-model="currentCadetData.social_science_ct_number"
+                          v-model="currentStudentData.social_science_ct_number"
                         />
                       </td>
                       <td class="text-center table-success">
@@ -2784,7 +2573,7 @@
                           id="id_foreign_lang_cert_number"
                           type="text"
                           class="form-control text-center"
-                          v-model="currentCadetData.foreign_lang_ct_number"
+                          v-model="currentStudentData.foreign_lang_ct_number"
                         />
                       </td>
                     </tr>
@@ -2798,7 +2587,7 @@
                           name="rus_score_ct"
                           type="number"
                           class="form-control text-center"
-                          v-model="currentCadetData.rus_score_ct"
+                          v-model="currentStudentData.rus_score_ct"
                           @input="makeInputDefaultNullValueIfEmpty"
                         />
                       </td>
@@ -2811,7 +2600,7 @@
                           name="bel_score_ct"
                           type="number"
                           class="form-control text-center"
-                          v-model="currentCadetData.bel_score_ct"
+                          v-model="currentStudentData.bel_score_ct"
                           @input="makeInputDefaultNullValueIfEmpty"
                         />
                       </td>
@@ -2824,7 +2613,7 @@
                           name="social_science_score_ct"
                           type="number"
                           class="form-control text-center"
-                          v-model="currentCadetData.social_science_score_ct"
+                          v-model="currentStudentData.social_science_score_ct"
                           @input="makeInputDefaultNullValueIfEmpty"
                         />
                       </td>
@@ -2837,7 +2626,7 @@
                           name="foreign_lang_score_ct"
                           type="number"
                           class="form-control text-center"
-                          v-model="currentCadetData.foreign_lang_score_ct"
+                          v-model="currentStudentData.foreign_lang_score_ct"
                           @input="makeInputDefaultNullValueIfEmpty"
                         />
                       </td>
@@ -2846,7 +2635,7 @@
                       <td class="text-center table-primary">
                         <select
                           class="form-select"
-                          v-model="currentCadetData.rus_ct_choice"
+                          v-model="currentStudentData.rus_ct_choice"
                         >
                           <option selected class="text-center" value="">
                             ----------
@@ -2862,7 +2651,7 @@
                       <td class="text-center table-primary">
                         <select
                           class="form-select"
-                          v-model="currentCadetData.bel_ct_choice"
+                          v-model="currentStudentData.bel_ct_choice"
                         >
                           <option selected class="text-center" value="">
                             ----------
@@ -2878,7 +2667,7 @@
                       <td class="text-center table-warning">
                         <select
                           class="form-select"
-                          v-model="currentCadetData.social_science_ct_choice"
+                          v-model="currentStudentData.social_science_ct_choice"
                         >
                           <option selected class="text-center" value="">
                             ----------
@@ -2894,7 +2683,7 @@
                       <td class="text-center table-success">
                         <select
                           class="form-select"
-                          v-model="currentCadetData.foreign_lang_ct_choice"
+                          v-model="currentStudentData.foreign_lang_ct_choice"
                         >
                           <option selected class="text-center" value="">
                             ----------
@@ -2942,7 +2731,7 @@
                           name="rus_score_cert"
                           type="number"
                           class="form-control text-center"
-                          v-model="currentCadetData.rus_score_cert"
+                          v-model="currentStudentData.rus_score_cert"
                           @input="makeInputDefaultNullValueIfEmpty"
                         />
                       </td>
@@ -2951,7 +2740,7 @@
                           name="bel_score_cert"
                           type="number"
                           class="form-control text-center"
-                          v-model="currentCadetData.bel_score_cert"
+                          v-model="currentStudentData.bel_score_cert"
                           @input="makeInputDefaultNullValueIfEmpty"
                         />
                       </td>
@@ -2960,7 +2749,7 @@
                           name="social_science_score_cert"
                           type="number"
                           class="form-control text-center"
-                          v-model="currentCadetData.social_science_score_cert"
+                          v-model="currentStudentData.social_science_score_cert"
                           @input="makeInputDefaultNullValueIfEmpty"
                         />
                       </td>
@@ -2969,7 +2758,7 @@
                           name="foreign_lang_score_cert"
                           type="number"
                           class="form-control text-center"
-                          v-model="currentCadetData.foreign_lang_score_cert"
+                          v-model="currentStudentData.foreign_lang_score_cert"
                           @input="makeInputDefaultNullValueIfEmpty"
                         />
                       </td>
@@ -2996,7 +2785,7 @@
                           <input
                             type="number"
                             class="form-control text-center"
-                            v-model="currentCadetData.education_average_score"
+                            v-model="currentStudentData.education_average_score"
                             disabled
                           />
                         </div>
@@ -3016,13 +2805,15 @@
                 <div class="my-3"></div>
               </div>
             </div>
+
+            <div class="col-xxl-6"></div>
           </div>
 
           <div class="border-bottom border-4 my-3"></div>
 
           <div>
             <button
-              v-if="currentCadetData.application_has_been_printed"
+              v-if="currentStudentData.application_has_been_printed"
               class="btn btn-primary my-3"
               disabled
             >
@@ -3030,14 +2821,15 @@
               Заявление напечатано
             </button>
             <button
+              disabled
               v-else
               class="btn btn-primary my-3"
-              @click="printApplication(this.currentCadetData.id)"
+              @click="printApplication(this.currentStudentData.id)"
             >
               <font-awesome-icon :icon="['fas', 'print']" />&nbsp;&nbsp;
               <template v-if="isPrintingApplication"
-                >Формирование заявления ...</template
-              >
+                >Формирование заявления ...
+              </template>
               <template v-else>Напечатать заявление</template>
             </button>
             <div class="form-check my-3" v-if="currentUser.is_superuser">
@@ -3045,7 +2837,7 @@
                 id="id_application_has_been_printed"
                 class="form-check-input"
                 type="checkbox"
-                v-model="currentCadetData.application_has_been_printed"
+                v-model="currentStudentData.application_has_been_printed"
               />
               <label
                 class="form-check-label"
@@ -3063,8 +2855,8 @@
 
 <script>
 import NavigationLayout from "@/components/layouts/NavigationLayout.vue"
-import { globalCadetAPIForEntranceInstance } from "@/api/cadet/cadetAPI.js"
-import getActionHistoryAPIInstance from "@/api/cadet/actionHistoryAPI.js"
+import { globalStudentAPIForEntranceInstance } from "@/api/student/studentAPI"
+import getActionHistoryAPIInstance from "@/api/cadet/actionHistoryAPI"
 import { isEqual } from "lodash"
 import { mapGetters } from "vuex"
 import useVuelidate from "@vuelidate/core"
@@ -3077,7 +2869,7 @@ import {
 } from "@vuelidate/validators"
 
 export default {
-  name: "EntranceInputForm",
+  name: "EntranceStudentInputForm",
   components: { NavigationLayout },
   data() {
     return {
@@ -3085,7 +2877,7 @@ export default {
       isDataSaving: false,
       isPrintingApplication: false,
       isError: false,
-      currentCadetData: {
+      currentStudentData: {
         id: "",
         is_active: "",
         category: "",
@@ -3156,7 +2948,6 @@ export default {
         military_office: "",
         military_office_extra_data: "",
         extra_data: "",
-        comments_on_personal_file: "",
         educational_institution: "",
         document_type: "",
         privilege: "",
@@ -3182,11 +2973,15 @@ export default {
         vpk: "",
         vpk_data: "",
         is_class_vpn: "",
+        class_vpn_extra_data: "",
         is_class_pn: "",
+        class_pn_extra_data: "",
         is_class_other: "",
         class_other_extra_data: "",
         has_achievements_in_sports: "",
+        has_achievements_in_sports_extra_data: "",
         is_olympiad_winner: "",
+        olympiad_winner_extra_data: "",
         health_group: "",
         ppfl_test: "",
         medical_age_group: "",
@@ -3229,39 +3024,46 @@ export default {
         social_science_score_cert: "",
         foreign_lang_score_cert: "",
         speciality_1: "",
-        speciality_2: "",
-        speciality_3: "",
-        speciality_4: "",
-        speciality_5: "",
-        speciality_6: "",
-        speciality_7: "",
-        speciality_8: "",
-        speciality_9: "",
         privilege_1: "",
-        privilege_2: "",
-        privilege_3: "",
-        privilege_4: "",
-        privilege_5: "",
-        privilege_6: "",
-        privilege_7: "",
-        privilege_8: "",
-        privilege_9: "",
-        get_score_sum: "",
+        education_form: "",
+        education_tab_extra_data: "",
+        personal_information_tab_extra_data: "",
+        residence_region: "",
+        residence_location_kind: "",
+        parents_tab_extra_data: "",
+        questionary_tab_extra_data: "",
+        aims_to_graduate_with_honors: "",
+        aims_to_graduate_with_honors_extra_data: "",
+        has_intellectual_and_scientific_research_events: "",
+        has_intellectual_and_scientific_research_events_extra_data: "",
+        cultural_and_mass_events: "",
+        cultural_and_mass_events_extra_data: "",
+        family_status: "",
+        family_status_extra_data: "",
+        is_from_large_family: "",
+        from_large_family_extra_data: "",
+        is_from_low_income_families: "",
+        from_low_income_families_extra_data: "",
+        have_dependent_children_parents: "",
+        have_dependent_children_parents_extra_data: "",
+        victims_of_the_Chernobyl_disaster: "",
+        victims_of_the_Chernobyl_disaster_extra_data: "",
+        membership_in_public_organizations: "",
+        membership_in_public_organizations_extra_data: "",
       },
       applicationPrintData: {},
-      currentCadetDataFromServer: {},
-      cadetAPIInstance: globalCadetAPIForEntranceInstance,
+      currentStudentDataFromServer: {},
+      studentAPIInstance: globalStudentAPIForEntranceInstance,
       actionHistoryAPIInstance: getActionHistoryAPIInstance(),
       BACKEND_PROTOCOL: import.meta.env.VITE_APP_BACKEND_PROTOCOL,
       BACKEND_HOST: import.meta.env.VITE_APP_BACKEND_HOST,
       BACKEND_PORT: import.meta.env.VITE_APP_BACKEND_PORT,
-      cadetHistoryList: { count: 0, results: [], previous: null, next: null },
+      studentHistoryList: { count: 0, results: [], previous: null, next: null },
       average_score_calculation: {
         choice: "",
         certificate: [{ selectIndex: 0, selectValue: 0 }],
         diploma: [{ selectIndex: 0, selectValue: 0 }],
       },
-      video: null,
     }
   },
   setup() {
@@ -3275,7 +3077,7 @@ export default {
     const cert_maxValueValue = maxValue(10)
     const cert_minValueValue = minValue(1)
     return {
-      currentCadetData: {
+      currentStudentData: {
         last_name_rus: {
           required: helpers.withMessage(
             "Поле 'Фамилия' не может быть пустым",
@@ -3627,29 +3429,20 @@ export default {
   },
   async created() {
     await this.loadData(this.$route.params.id)
-    console.log(this.$refs.video)
   },
   methods: {
-    startCapture() {
-      navigator.mediaDevices
-        .getUserMedia({ video: true, audio: false })
-        .then((stream) => {
-          this.video.srcObject = stream
-          this.video.play()
-        })
-    },
     async loadData(applicantId) {
       try {
-        const response = await this.cadetAPIInstance.getItemData(applicantId)
-        this.currentCadetData = response.data
-        if (this.currentCadetData.education_average_score_calculation) {
+        const response = await this.studentAPIInstance.getItemData(applicantId)
+        this.currentStudentData = response.data
+        if (this.currentStudentData.education_average_score_calculation) {
           this.average_score_calculation = JSON.parse(
-            this.currentCadetData.education_average_score_calculation,
+            this.currentStudentData.education_average_score_calculation,
           )
         }
-        this.currentCadetDataFromServer = Object.assign(
+        this.currentStudentDataFromServer = Object.assign(
           {},
-          this.currentCadetData,
+          this.currentStudentData,
         )
       } catch (error) {
       } finally {
@@ -3663,29 +3456,30 @@ export default {
         this.$refs.uploadedDocument.files[0],
       )
 
-      const response = await this.cadetAPIInstance.updatePhotoOrAnyFile(
-        this.currentCadetData.id,
+      const response = await this.studentAPIInstance.updatePhotoOrAnyFile(
+        this.currentStudentData.id,
         formData,
       )
 
-      this.currentCadetData = {
-        ...this.currentCadetData,
+      this.currentStudentData = {
+        ...this.currentStudentData,
         attached_documents: response.data.attached_documents,
       }
     },
     async deleteDocument() {
-      const response = await this.cadetAPIInstance.updatePhotoOrAnyFile(
-        this.currentCadetData.id,
+      const response = await this.studentAPIInstance.updatePhotoOrAnyFile(
+        this.currentStudentData.id,
         { attached_documents: null },
       )
 
-      this.currentCadetData = {
-        ...this.currentCadetData,
+      this.currentStudentData = {
+        ...this.currentStudentData,
         attached_documents: response.data.attached_documents,
       }
     },
+
     async saveEntranceForm() {
-      if (this.v$.currentCadetData.$invalid) {
+      if (this.v$.currentStudentData.$invalid) {
         let validationErrorsModal = this.$refs.validationErrorsModal
         let myModal = new bootstrap.Modal(validationErrorsModal, {
           keyboard: false,
@@ -3695,12 +3489,12 @@ export default {
         this.isDataSaving = true
         try {
           const { photo, attached_documents, sign_image, ...rest } =
-            this.currentCadetData
-          const updatedData = await this.cadetAPIInstance.updateItem(rest)
-          this.currentCadetData = updatedData.data
-          this.currentCadetDataFromServer = Object.assign(
+            this.currentStudentData
+          const updatedData = await this.studentAPIInstance.updateItem(rest)
+          this.currentStudentData = updatedData.data
+          this.currentStudentDataFromServer = Object.assign(
             {},
-            this.currentCadetData,
+            this.currentStudentData,
           )
         } catch (e) {
         } finally {
@@ -3708,16 +3502,18 @@ export default {
         }
       }
     },
+
     async showHistory() {
       try {
         this.actionHistoryAPIInstance.searchObj.app_label = "kis_inheritance"
-        this.actionHistoryAPIInstance.searchObj.model_name = "CadetInheritance"
+        this.actionHistoryAPIInstance.searchObj.model_name =
+          "StudentInheritance"
         this.actionHistoryAPIInstance.searchObj.record_id =
-          this.currentCadetData.id
+          this.currentStudentData.id
         this.actionHistoryAPIInstance.searchObj.limit = 100000
         const response = await this.actionHistoryAPIInstance.getItemsList()
-        this.cadetHistoryList = response.data
-        let historyModal = this.$refs.cadetHistoryModal
+        this.studentHistoryList = response.data
+        let historyModal = this.$refs.studentHistoryModal
         let myModal = new bootstrap.Modal(historyModal, {
           keyboard: false,
         })
@@ -3728,7 +3524,7 @@ export default {
     },
     makeInputDefaultNullValueIfEmpty(event) {
       if (event.target.value.trim().length === 0) {
-        this.currentCadetData[event.target.name] = null
+        this.currentStudentData[event.target.name] = null
       }
     },
     removeFileFieldsFromObj(obj) {
@@ -3761,18 +3557,21 @@ export default {
     async makePrinting(entranceId) {
       let queryString = `?application_id=${entranceId}`
       let dataObj = {
-        id: this.currentCadetData.id,
+        id: this.currentStudentData.id,
         application_has_been_printed: true,
       }
-      if (!this.currentCadetData.application_has_been_printed_date) {
+      if (!this.currentStudentData.application_has_been_printed_date) {
         dataObj = {
           ...dataObj,
           application_has_been_printed_date: new Date().toISOString(),
         }
       }
-      const resp = await this.cadetAPIInstance.updateItemPartly(dataObj)
-      this.currentCadetData = { ...this.currentCadetData, ...resp.data }
-      this.currentCadetDataFromServer = Object.assign({}, this.currentCadetData)
+      const resp = await this.studentAPIInstance.updateItemPartly(dataObj)
+      this.currentStudentData = { ...this.currentStudentData, ...resp.data }
+      this.currentStudentDataFromServer = Object.assign(
+        {},
+        this.currentStudentData,
+      )
       this.$axios
         .get(
           `${this.BACKEND_PROTOCOL}://${this.BACKEND_HOST}:${this.BACKEND_PORT}/api/application-print/${queryString}`,
@@ -3784,13 +3583,14 @@ export default {
           link.href = url
           link.setAttribute(
             "download",
-            `${this.currentCadetData.last_name_rus}.docx`,
+            `${this.currentStudentData.last_name_rus}.docx`,
           )
           document.body.appendChild(link)
           link.click()
         })
       this.$refs.applicationValidationErrorsModalCloseButton.click()
     },
+
     averageScoreCertificateSelectChange(e) {
       const lastIndex =
         this.average_score_calculation.certificate[
@@ -3803,6 +3603,7 @@ export default {
         })
       }
     },
+
     averageScoreDiplomaSelectChange(e) {
       const lastIndex =
         this.average_score_calculation.diploma[
@@ -3815,6 +3616,7 @@ export default {
         })
       }
     },
+
     getAverageScoreCount() {
       return (
         this.average_score_calculation.certificate.filter(
@@ -3825,6 +3627,7 @@ export default {
         ).length
       )
     },
+
     average_score_calculation_select_change() {
       this.average_score_calculation.certificate = [
         { selectIndex: 0, selectValue: 0 },
@@ -3833,6 +3636,7 @@ export default {
         { selectIndex: 0, selectValue: 0 },
       ]
     },
+
     showAverageScoreCalculatingModal() {
       let validationErrorsModal = this.$refs.averageScoreCalculatingModal
       let myModal = new bootstrap.Modal(validationErrorsModal, {
@@ -3840,141 +3644,25 @@ export default {
       })
       myModal.show()
     },
+
     saveAverageScore() {
-      this.currentCadetData.education_average_score_calculation =
+      this.currentStudentData.education_average_score_calculation =
         JSON.stringify(this.average_score_calculation)
       if (this.getAverageScore === 0) {
-        this.currentCadetData.education_average_score = null
+        this.currentStudentData.education_average_score = null
       } else
-        this.currentCadetData.education_average_score = this.getAverageScore
+        this.currentStudentData.education_average_score = this.getAverageScore
       this.$refs.averageScoreCalculatingModalCloseButton.click()
     },
   },
   computed: {
-    orderedRanks() {
-      return this.ranks.results
-    },
     orderedSubdivisions() {
       return this.subdivisions.results.filter(
         (subdivision) => subdivision.subdivision_category == "1",
       )
     },
     orderedAdmissionQuotes_select_1() {
-      return this.orderedAdmissionQuotes.filter(
-        (item) =>
-          item.id !== this.currentCadetData.speciality_2 &&
-          item.id !== this.currentCadetData.speciality_3 &&
-          item.id !== this.currentCadetData.speciality_4 &&
-          item.id !== this.currentCadetData.speciality_5 &&
-          item.id !== this.currentCadetData.speciality_6 &&
-          item.id !== this.currentCadetData.speciality_7 &&
-          item.id !== this.currentCadetData.speciality_8 &&
-          item.id !== this.currentCadetData.speciality_9,
-      )
-    },
-    orderedAdmissionQuotes_select_2() {
-      return this.admissionQuota.results.filter(
-        (item) =>
-          item.id !== this.currentCadetData.speciality_1 &&
-          item.id !== this.currentCadetData.speciality_3 &&
-          item.id !== this.currentCadetData.speciality_4 &&
-          item.id !== this.currentCadetData.speciality_5 &&
-          item.id !== this.currentCadetData.speciality_6 &&
-          item.id !== this.currentCadetData.speciality_7 &&
-          item.id !== this.currentCadetData.speciality_8 &&
-          item.id !== this.currentCadetData.speciality_9,
-      )
-    },
-    orderedAdmissionQuotes_select_3() {
-      return this.admissionQuota.results.filter(
-        (item) =>
-          item.id !== this.currentCadetData.speciality_1 &&
-          item.id !== this.currentCadetData.speciality_2 &&
-          item.id !== this.currentCadetData.speciality_4 &&
-          item.id !== this.currentCadetData.speciality_5 &&
-          item.id !== this.currentCadetData.speciality_6 &&
-          item.id !== this.currentCadetData.speciality_7 &&
-          item.id !== this.currentCadetData.speciality_8 &&
-          item.id !== this.currentCadetData.speciality_9,
-      )
-    },
-    orderedAdmissionQuotes_select_4() {
-      return this.admissionQuota.results.filter(
-        (item) =>
-          item.id !== this.currentCadetData.speciality_1 &&
-          item.id !== this.currentCadetData.speciality_2 &&
-          item.id !== this.currentCadetData.speciality_3 &&
-          item.id !== this.currentCadetData.speciality_5 &&
-          item.id !== this.currentCadetData.speciality_6 &&
-          item.id !== this.currentCadetData.speciality_7 &&
-          item.id !== this.currentCadetData.speciality_8 &&
-          item.id !== this.currentCadetData.speciality_9,
-      )
-    },
-    orderedAdmissionQuotes_select_5() {
-      return this.admissionQuota.results.filter(
-        (item) =>
-          item.id !== this.currentCadetData.speciality_1 &&
-          item.id !== this.currentCadetData.speciality_2 &&
-          item.id !== this.currentCadetData.speciality_3 &&
-          item.id !== this.currentCadetData.speciality_4 &&
-          item.id !== this.currentCadetData.speciality_6 &&
-          item.id !== this.currentCadetData.speciality_7 &&
-          item.id !== this.currentCadetData.speciality_8 &&
-          item.id !== this.currentCadetData.speciality_9,
-      )
-    },
-    orderedAdmissionQuotes_select_6() {
-      return this.admissionQuota.results.filter(
-        (item) =>
-          item.id !== this.currentCadetData.speciality_1 &&
-          item.id !== this.currentCadetData.speciality_2 &&
-          item.id !== this.currentCadetData.speciality_3 &&
-          item.id !== this.currentCadetData.speciality_4 &&
-          item.id !== this.currentCadetData.speciality_5 &&
-          item.id !== this.currentCadetData.speciality_7 &&
-          item.id !== this.currentCadetData.speciality_8 &&
-          item.id !== this.currentCadetData.speciality_9,
-      )
-    },
-    orderedAdmissionQuotes_select_7() {
-      return this.admissionQuota.results.filter(
-        (item) =>
-          item.id !== this.currentCadetData.speciality_1 &&
-          item.id !== this.currentCadetData.speciality_2 &&
-          item.id !== this.currentCadetData.speciality_3 &&
-          item.id !== this.currentCadetData.speciality_4 &&
-          item.id !== this.currentCadetData.speciality_5 &&
-          item.id !== this.currentCadetData.speciality_6 &&
-          item.id !== this.currentCadetData.speciality_8 &&
-          item.id !== this.currentCadetData.speciality_9,
-      )
-    },
-    orderedAdmissionQuotes_select_8() {
-      return this.admissionQuota.results.filter(
-        (item) =>
-          item.id !== this.currentCadetData.speciality_1 &&
-          item.id !== this.currentCadetData.speciality_2 &&
-          item.id !== this.currentCadetData.speciality_3 &&
-          item.id !== this.currentCadetData.speciality_4 &&
-          item.id !== this.currentCadetData.speciality_5 &&
-          item.id !== this.currentCadetData.speciality_6 &&
-          item.id !== this.currentCadetData.speciality_7 &&
-          item.id !== this.currentCadetData.speciality_9,
-      )
-    },
-    orderedAdmissionQuotes_select_9() {
-      return this.admissionQuota.results.filter(
-        (item) =>
-          item.id !== this.currentCadetData.speciality_1 &&
-          item.id !== this.currentCadetData.speciality_2 &&
-          item.id !== this.currentCadetData.speciality_3 &&
-          item.id !== this.currentCadetData.speciality_4 &&
-          item.id !== this.currentCadetData.speciality_5 &&
-          item.id !== this.currentCadetData.speciality_6 &&
-          item.id !== this.currentCadetData.speciality_7 &&
-          item.id !== this.currentCadetData.speciality_8,
-      )
+      return this.orderedAdmissionQuotes
     },
 
     orderedAdmissionQuotes() {
@@ -3991,19 +3679,6 @@ export default {
       })
     },
 
-    orderedComponentOrgans() {
-      return this.componentOrgans.results.sort((a, b) => {
-        const nameA = a.component_name.toUpperCase()
-        const nameB = b.component_name.toUpperCase()
-        if (nameA < nameB) {
-          return -1
-        }
-        if (nameA > nameB) {
-          return 1
-        }
-        return 0
-      })
-    },
     orderedEntranceCategories() {
       return this.entranceCategories.results
     },
@@ -4023,38 +3698,7 @@ export default {
         return 0
       })
     },
-    orderedGorovds() {
-      return this.gorovds.results.sort((a, b) => {
-        const nameA = a.go_rovd_name.toUpperCase() // ignore upper and lowercase
-        const nameB = b.go_rovd_name.toUpperCase() // ignore upper and lowercase
-        if (nameA < nameB) {
-          return -1
-        }
-        if (nameA > nameB) {
-          return 1
-        }
-        return 0
-      })
-    },
-    orderedMilitaryOffices() {
-      return this.militaryOffices.results.sort((a, b) => {
-        const nameA = a.military_office.toUpperCase() // ignore upper and lowercase
-        const nameB = b.military_office.toUpperCase() // ignore upper and lowercase
-        if (nameA < nameB) {
-          return -1
-        }
-        if (nameA > nameB) {
-          return 1
-        }
-        return 0
-      })
-    },
-    orderedEducationalInstitutions() {
-      return this.educationalInstitutions.results
-    },
-    orderedDocumentTypes() {
-      return this.documentTypes.results
-    },
+
     orderedPrivileges() {
       return this.privileges.results
     },
@@ -4082,43 +3726,57 @@ export default {
     orderedInWhoseInterests() {
       return this.inWhoseInterests.results
     },
+    orderedEducationForms() {
+      return this.educationForms.results
+    },
+    orderedCulturalMassEvents() {
+      return this.culturalMassEvents.results
+    },
+
+    orderedPublicOrganizations() {
+      return this.publicOrganizations.results
+    },
+    orderedDocumentTypes() {
+      return this.documentTypes.results
+    },
+
     isDataFromServerEqualChangedData() {
       return isEqual(
-        this.removeFileFieldsFromObj(this.currentCadetData),
-        this.removeFileFieldsFromObj(this.currentCadetDataFromServer),
+        this.removeFileFieldsFromObj(this.currentStudentData),
+        this.removeFileFieldsFromObj(this.currentStudentDataFromServer),
       )
     },
     getARussianAndBelorussianSumScore() {
       let scoreSum = ""
       if (
-        isFinite(this.currentCadetData.rus_score_cert) &&
-        this.currentCadetData.rus_score_cert !== null &&
-        isFinite(this.currentCadetData.bel_score_cert)
+        isFinite(this.currentStudentData.rus_score_cert) &&
+        this.currentStudentData.rus_score_cert !== null &&
+        isFinite(this.currentStudentData.bel_score_cert)
       ) {
         scoreSum =
-          this.currentCadetData.rus_score_cert +
-          this.currentCadetData.bel_score_cert
+          this.currentStudentData.rus_score_cert +
+          this.currentStudentData.bel_score_cert
         return scoreSum
       }
       return scoreSum
     },
     get_score_sum() {
-      let education_average_score = this.currentCadetData
+      let education_average_score = this.currentStudentData
         .education_average_score
-        ? parseFloat(this.currentCadetData.education_average_score)
+        ? parseFloat(this.currentStudentData.education_average_score)
         : 0
-      let rus_score_ct = this.currentCadetData.rus_score_ct
-        ? this.currentCadetData.rus_score_ct
+      let rus_score_ct = this.currentStudentData.rus_score_ct
+        ? this.currentStudentData.rus_score_ct
         : 0
-      let bel_score_ct = this.currentCadetData.bel_score_ct
-        ? this.currentCadetData.bel_score_ct
+      let bel_score_ct = this.currentStudentData.bel_score_ct
+        ? this.currentStudentData.bel_score_ct
         : 0
-      let social_science_score_ct = this.currentCadetData
+      let social_science_score_ct = this.currentStudentData
         .social_science_score_ct
-        ? this.currentCadetData.social_science_score_ct
+        ? this.currentStudentData.social_science_score_ct
         : 0
-      let foreign_lang_score_ct = this.currentCadetData.foreign_lang_score_ct
-        ? this.currentCadetData.foreign_lang_score_ct
+      let foreign_lang_score_ct = this.currentStudentData.foreign_lang_score_ct
+        ? this.currentStudentData.foreign_lang_score_ct
         : 0
 
       let sum =
@@ -4158,10 +3816,6 @@ export default {
       entranceCategories: "entranceCategory/getList",
       socialStatuses: "socialStatus/getList",
       countryRegions: "countryRegion/getList",
-      gorovds: "gorovds/getList",
-      militaryOffices: "militaryOffices/getList",
-      educationalInstitutions: "educationalInstitutions/getList",
-      documentTypes: "documentType/getList",
       privileges: "privileges/getList",
       passportAuthorities: "passportAuthorities/getList",
       foreignLanguages: "foreignLanguages/getList",
@@ -4176,15 +3830,21 @@ export default {
       inWhoseInterests: "inWhoseInterests/getList",
       admissionQuota: "admissionQuota/getList",
       currentUser: "auth/getUser",
+      educationForms: "educationForms/getList",
+      documentTypes: "documentType/getList",
+      culturalMassEvents: "culturalMassEvents/getList",
+      publicOrganizations: "publicOrganizations/getList",
     }),
   },
   watch: {
-    currentCadetData: {
+    currentStudentData: {
       handler(newValue, oldValue) {
-        this.applicationPrintData = Object.assign({}, this.currentCadetData)
+        this.applicationPrintData = Object.assign({}, this.currentStudentData)
       },
       deep: true,
     },
   },
 }
 </script>
+
+<style scoped></style>

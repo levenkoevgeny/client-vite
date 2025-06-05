@@ -115,7 +115,7 @@
         :key="student.id"
         @dblclick="
           $router.push({
-            name: 'entrance-input-form',
+            name: 'entrance-student-input-form',
             params: { id: student.id },
           })
         "
@@ -218,11 +218,11 @@
 </template>
 
 <script>
-import NavigationLayout from "@/components/layouts/NavigationLayout.vue"
-import { globalStudentAPIForEntranceInstance } from "@/api/student/studentAPI.js"
-import { debounce } from "lodash/function"
-import { mapGetters } from "vuex"
-import BaseListLayout from "@/components/layouts/BaseListLayout.vue"
+import NavigationLayout from "@/components/layouts/NavigationLayout.vue";
+import { globalStudentAPIForEntranceInstance } from "@/api/student/studentAPI.js";
+import { debounce } from "lodash/function";
+import { mapGetters } from "vuex";
+import BaseListLayout from "@/components/layouts/BaseListLayout.vue";
 export default {
   name: "EntranceStudentListView",
   components: { NavigationLayout, BaseListLayout },
@@ -230,9 +230,6 @@ export default {
     return {
       isLoading: true,
       isError: false,
-      BACKEND_PROTOCOL: import.meta.env.VITE_APP_BACKEND_PROTOCOL,
-      BACKEND_HOST: import.meta.env.VITE_APP_BACKEND_HOST,
-      BACKEND_PORT: import.meta.env.VITE__APP_BACKEND_PORT,
       studentList: { count: 0, results: [], previous: null, next: null },
       studentAPIInstance: globalStudentAPIForEntranceInstance,
       searchForm: Object.assign(
@@ -241,40 +238,41 @@ export default {
       ),
       studentNewForm: {
         category: 3,
+        subdivision: 8,
         last_name_rus: "",
         first_name_rus: "",
         patronymic_rus: "",
         date_of_birth: null,
         entrance_year: new Date().getFullYear(),
       },
-    }
+    };
   },
   async created() {
-    await this.loadData()
+    await this.loadData();
   },
   methods: {
     async loadData() {
-      this.isLoading = true
-      const response = await this.studentAPIInstance.getItemsList()
-      this.studentList = await response.data
-      this.isLoading = false
+      this.isLoading = true;
+      const response = await this.studentAPIInstance.getItemsList();
+      this.studentList = await response.data;
+      this.isLoading = false;
     },
     showStudentAddModal() {
-      let addModal = this.$refs.studentAddModal
+      let addModal = this.$refs.studentAddModal;
       let myModal = new bootstrap.Modal(addModal, {
         keyboard: false,
-      })
-      myModal.show()
+      });
+      myModal.show();
     },
     async addNewStudentForEntrance() {
-      this.isLoading = true
+      this.isLoading = true;
       const response = await this.studentAPIInstance.addItem(
         this.studentNewForm,
-      )
-      const newItem = response.data
-      this.studentList.results.unshift(newItem)
-      this.studentList.count = this.studentList.count + 1
-      this.$refs.studentAddModalCloseButton.click()
+      );
+      const newItem = response.data;
+      this.studentList.results.unshift(newItem);
+      this.studentList.count = this.studentList.count + 1;
+      this.$refs.studentAddModalCloseButton.click();
       this.studentNewForm = {
         category: 3,
         last_name_rus: "",
@@ -282,89 +280,45 @@ export default {
         patronymic_rus: "",
         date_of_birth: null,
         entrance_year: new Date().getFullYear(),
-      }
-      this.isLoading = false
+      };
+      this.isLoading = false;
     },
     debouncedSearch: debounce(async function () {
-      this.isLoading = true
-      this.studentAPIInstance.searchObj = this.searchForm
-      const studentAResponse = await this.studentAPIInstance.getItemsList()
-      this.studentList = await studentAResponse.data
-      this.isLoading = false
+      this.isLoading = true;
+      this.studentAPIInstance.searchObj = this.searchForm;
+      const studentAResponse = await this.studentAPIInstance.getItemsList();
+      this.studentList = await studentAResponse.data;
+      this.isLoading = false;
     }, 500),
     clearFilter() {
       this.searchForm = Object.assign(
         {},
         this.studentAPIInstance.searchObjDefault,
-      )
+      );
     },
   },
   computed: {
-    orderedCadetCategories() {
-      return this.categories.results
-    },
     orderedStudents() {
-      return this.studentList.results
+      return this.studentList.results;
     },
     orderedSubdivisions() {
       return this.subdivisions.results.filter(
         (subdivision) => subdivision.subdivision_category == "1",
-      )
-    },
-    orderedGroups() {
-      return this.groups.results
-    },
-    orderedRanks() {
-      return this.ranks.results
-    },
-    orderedSpecialities() {
-      return this.specialities.results
-    },
-    orderedPositions() {
-      return this.positions.results.filter(
-        (position) => position.position_category == "1",
-      )
-    },
-    orderedComponentOrgans() {
-      return this.componentOrgans.results
+      );
     },
     ...mapGetters({
-      groups: "groups/getList",
-      ranks: "ranks/getList",
       subdivisions: "subdivisions/getList",
-      specialities: "specialities/getList",
-      positions: "positions/getList",
-      categories: "personCategories/getList",
-      componentOrgans: "componentOrgans/getList",
-      token: "auth/getToken",
     }),
   },
   watch: {
     searchForm: {
       handler(newValue, oldValue) {
-        this.debouncedSearch()
+        this.debouncedSearch();
       },
       deep: true,
     },
   },
-}
+};
 </script>
 
-<style scoped>
->>> {
-  --vs-controls-color: #664cc3;
-  --vs-border-color: #664cc3;
-
-  --vs-dropdown-bg: #282c34;
-  --vs-dropdown-color: #cc99cd;
-  --vs-dropdown-option-color: #cc99cd;
-
-  --vs-selected-bg: #664cc3;
-  --vs-selected-color: #eeeeee;
-
-  --vs-search-input-color: #eeeeee;
-
-  --vs-dropdown-option--active-bg: #664cc3;
-  --vs-dropdown-option--active-color: #eeeeee;
-}
-</style>
+<style scoped></style>

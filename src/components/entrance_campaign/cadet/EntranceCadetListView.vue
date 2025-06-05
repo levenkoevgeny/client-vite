@@ -180,7 +180,13 @@
                 >
                   Закрыть без сохранения
                 </button>
-                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <button
+                  :disabled="isLoading"
+                  type="submit"
+                  class="btn btn-primary"
+                >
+                  Сохранить
+                </button>
               </div>
             </form>
           </div>

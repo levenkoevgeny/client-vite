@@ -450,6 +450,537 @@
                 </div>
               </div>
             </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <nobr>Номер зачетной книжки</nobr>
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('student_record_book_number')"
+                      >
+                        А -> Я
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('-student_record_book_number')"
+                      >
+                        Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <nobr>Номер сертификата по рус./ бел.</nobr>
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('rus_bel_ct_number')"
+                      >
+                        А -> Я
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('-rus_bel_ct_number')"
+                      >
+                        Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <nobr>Колличество баллов по русскому языку (сертификат)</nobr>
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('rus_score_ct')"
+                      >
+                        А -> Я
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('-rus_score_ct')"
+                      >
+                        Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <nobr>Что сдавал по русскому языку</nobr>
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('rus_ct_choice')"
+                      >
+                        А -> Я
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('-rus_ct_choice')"
+                      >
+                        Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <nobr
+                  >Колличество баллов по белорусскому языку (сертификат)</nobr
+                >
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('bel_score_ct')"
+                      >
+                        А -> Я
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('-bel_score_ct')"
+                      >
+                        Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <nobr>Что сдавал по белорусскому языку</nobr>
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('bel_ct_choice')"
+                      >
+                        А -> Я
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('-bel_ct_choice')"
+                      >
+                        Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <nobr>Номер сертификата по обществоведению</nobr>
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('social_science_ct_number')"
+                      >
+                        А -> Я
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('-social_science_ct_number')"
+                      >
+                        Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <nobr>Колличество баллов по обществоведению (сертификат)</nobr>
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('social_science_score_ct')"
+                      >
+                        А -> Я
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('-social_science_score_ct')"
+                      >
+                        Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <nobr>Что сдавал по обществоведению</nobr>
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('social_science_ct_choice')"
+                      >
+                        А -> Я
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('-social_science_ct_choice')"
+                      >
+                        Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <nobr>Номер сертификата по иностранному языку</nobr>
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('foreign_lang_ct_number')"
+                      >
+                        А -> Я
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('-foreign_lang_ct_number')"
+                      >
+                        Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <nobr
+                  >Колличество баллов по иностранному языку (сертификат)</nobr
+                >
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('foreign_lang_score_ct')"
+                      >
+                        А -> Я
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('-foreign_lang_score_ct')"
+                      >
+                        Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <nobr>Что сдавал по иностранному языку</nobr>
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('foreign_lang_ct_choice')"
+                      >
+                        А -> Я
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('-foreign_lang_ct_choice')"
+                      >
+                        Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <nobr>Колличество баллов по русскому языку (аттестат)</nobr>
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('rus_score_cert')"
+                      >
+                        А -> Я
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('-rus_score_cert')"
+                      >
+                        Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <nobr>Колличество баллов по белорусскому языку (аттестат)</nobr>
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('bel_score_cert')"
+                      >
+                        А -> Я
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('-bel_score_cert')"
+                      >
+                        Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <nobr>Колличество баллов по обществоведению (аттестат)</nobr>
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('social_science_score_cert')"
+                      >
+                        А -> Я
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('-social_science_score_cert')"
+                      >
+                        Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <nobr>Колличество баллов по иностранному языку (аттестат)</nobr>
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('foreign_lang_score_cert')"
+                      >
+                        А -> Я
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('-foreign_lang_score_cert')"
+                      >
+                        Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <nobr>Средний балл (аттестат)</nobr>
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('education_average_score')"
+                      >
+                        А -> Я
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('-education_average_score')"
+                      >
+                        Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
           </tr>
           <tr>
             <th></th>
@@ -685,6 +1216,202 @@
                 multiple
               />
             </th>
+            <th>
+              <input
+                type="text"
+                class="form-control"
+                v-model="searchForm.student_record_book_number__icontains"
+              />
+            </th>
+            <th>
+              <input
+                type="text"
+                class="form-control"
+                v-model="searchForm.rus_bel_ct_number__icontains"
+              />
+            </th>
+            <th>
+              <div class="d-flex justify-content-center align-items-center">
+                <input
+                  type="text"
+                  class="form-control me-2"
+                  v-model="searchForm.rus_score_ct__gte"
+                />
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="searchForm.rus_score_ct__lte"
+                />
+              </div>
+            </th>
+            <th>
+              <select class="form-select" v-model="searchForm.rus_ct_choice">
+                <option selected value="">-------</option>
+                <option value="2024 ЦЭ" key="2024 ЦЭ">2024 ЦЭ</option>
+                <option value="2024 ЦТ" key="2024 ЦТ">2024 ЦТ</option>
+                <option value="2025 ЦЭ" key="2025 ЦЭ">2025 ЦЭ</option>
+                <option value="2025 ЦТ" key="2025 ЦТ">2025 ЦТ</option>
+              </select>
+            </th>
+            <th>
+              <div class="d-flex justify-content-center align-items-center">
+                <input
+                  type="text"
+                  class="form-control me-2"
+                  v-model="searchForm.bel_score_ct__gte"
+                />
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="searchForm.bel_score_ct__lte"
+                />
+              </div>
+            </th>
+            <th>
+              <select class="form-select" v-model="searchForm.bel_ct_choice">
+                <option selected value="">-------</option>
+                <option value="2024 ЦЭ" key="2024 ЦЭ">2024 ЦЭ</option>
+                <option value="2024 ЦТ" key="2024 ЦТ">2024 ЦТ</option>
+                <option value="2025 ЦЭ" key="2025 ЦЭ">2025 ЦЭ</option>
+                <option value="2025 ЦТ" key="2025 ЦТ">2025 ЦТ</option>
+              </select>
+            </th>
+            <th>
+              <input
+                type="text"
+                class="form-control"
+                v-model="searchForm.social_science_ct_number__icontains"
+              />
+            </th>
+            <th>
+              <div class="d-flex justify-content-center align-items-center">
+                <input
+                  type="text"
+                  class="form-control me-2"
+                  v-model="searchForm.social_science_score_ct__gte"
+                />
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="searchForm.social_science_score_ct__lte"
+                />
+              </div>
+            </th>
+            <th>
+              <select
+                class="form-select"
+                v-model="searchForm.social_science_ct_choice"
+              >
+                <option selected value="">-------</option>
+                <option value="2024 ЦЭ" key="2024 ЦЭ">2024 ЦЭ</option>
+                <option value="2024 ЦТ" key="2024 ЦТ">2024 ЦТ</option>
+                <option value="2025 ЦЭ" key="2025 ЦЭ">2025 ЦЭ</option>
+                <option value="2025 ЦТ" key="2025 ЦТ">2025 ЦТ</option>
+              </select>
+            </th>
+            <th>
+              <input
+                type="text"
+                class="form-control"
+                v-model="searchForm.foreign_lang_ct_number__icontains"
+              />
+            </th>
+            <th>
+              <div class="d-flex justify-content-center align-items-center">
+                <input
+                  type="text"
+                  class="form-control me-2"
+                  v-model="searchForm.foreign_lang_score_ct__gte"
+                />
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="searchForm.foreign_lang_score_ct__lte"
+                />
+              </div>
+            </th>
+            <th>
+              <select
+                class="form-select"
+                v-model="searchForm.foreign_lang_ct_choice"
+              >
+                <option selected value="">-------</option>
+                <option value="2024 ЦЭ" key="2024 ЦЭ">2024 ЦЭ</option>
+                <option value="2024 ЦТ" key="2024 ЦТ">2024 ЦТ</option>
+                <option value="2025 ЦЭ" key="2025 ЦЭ">2025 ЦЭ</option>
+                <option value="2025 ЦТ" key="2025 ЦТ">2025 ЦТ</option>
+              </select>
+            </th>
+            <th>
+              <div class="d-flex justify-content-center align-items-center">
+                <input
+                  type="text"
+                  class="form-control me-2"
+                  v-model="searchForm.rus_score_cert__gte"
+                />
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="searchForm.rus_score_cert__lte"
+                />
+              </div>
+            </th>
+            <th>
+              <div class="d-flex justify-content-center align-items-center">
+                <input
+                  type="text"
+                  class="form-control me-2"
+                  v-model="searchForm.bel_score_cert__gte"
+                />
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="searchForm.bel_score_cert__lte"
+                />
+              </div>
+            </th>
+            <th>
+              <div class="d-flex justify-content-center align-items-center">
+                <input
+                  type="text"
+                  class="form-control me-2"
+                  v-model="searchForm.social_science_score_cert__gte"
+                />
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="searchForm.social_science_score_cert__lte"
+                />
+              </div>
+            </th>
+            <th>
+              <div class="d-flex justify-content-center align-items-center">
+                <input
+                  type="text"
+                  class="form-control me-2"
+                  v-model="searchForm.foreign_lang_score_cert__gte"
+                />
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="searchForm.foreign_lang_score_cert__lte"
+                />
+              </div>
+            </th>
+            <th>
+              <div class="d-flex justify-content-center align-items-center">
+                <input
+                  type="text"
+                  class="form-control me-2"
+                  v-model="searchForm.education_average_score__gte"
+                />
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="searchForm.education_average_score__lte"
+                />
+              </div>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -737,6 +1464,23 @@
             <td>
               <span class="text-nowrap">{{ cadet.get_military_office }}</span>
             </td>
+            <td class="text-center">{{ cadet.student_record_book_number }}</td>
+            <td class="text-center">{{ cadet.rus_bel_ct_number }}</td>
+            <td class="text-center">{{ cadet.rus_score_ct }}</td>
+            <td class="text-center">{{ cadet.rus_ct_choice }}</td>
+            <td class="text-center">{{ cadet.bel_score_ct }}</td>
+            <td class="text-center">{{ cadet.bel_ct_choice }}</td>
+            <td class="text-center">{{ cadet.social_science_ct_number }}</td>
+            <td class="text-center">{{ cadet.social_science_score_ct }}</td>
+            <td class="text-center">{{ cadet.social_science_ct_choice }}</td>
+            <td class="text-center">{{ cadet.foreign_lang_ct_number }}</td>
+            <td class="text-center">{{ cadet.foreign_lang_score_ct }}</td>
+            <td class="text-center">{{ cadet.foreign_lang_ct_choice }}</td>
+            <td class="text-center">{{ cadet.rus_score_cert }}</td>
+            <td class="text-center">{{ cadet.bel_score_cert }}</td>
+            <td class="text-center">{{ cadet.social_science_score_cert }}</td>
+            <td class="text-center">{{ cadet.foreign_lang_score_cert }}</td>
+            <td class="text-center">{{ cadet.education_average_score }}</td>
           </tr>
         </tbody>
       </table>

@@ -33,11 +33,8 @@
               overflow-y: scroll;
             "
           >
-            <div
-              class="shadow p-3 mb-3 bg-body-tertiary rounded"
-              id="simple-list-personal-data"
-            >
-              <div class="card">
+            <div class="shadow p-3 mb-3" id="simple-list-personal-data">
+              <div class="card border-0">
                 <div class="card-body">
                   <h5 class="card-title">Личные данные</h5>
                   <div class="row">
@@ -68,7 +65,6 @@
                       </div>
                     </div>
                     <div class="col-lg-8">
-                      <p>{{ getStudentStatus }}</p>
                       <div class="d-flex flex-row">
                         <h3 class="me-3" v-if="currentStudentData.get_age">
                           Возраст - {{ currentStudentData.get_age }} лет
@@ -345,11 +341,8 @@
               </div>
             </div>
 
-            <div
-              class="shadow p-3 mb-3 bg-body-tertiary rounded"
-              id="simple-list-passport-data"
-            >
-              <div class="card">
+            <div class="shadow p-3 mb-3" id="simple-list-passport-data">
+              <div class="card border-0">
                 <div class="card-body">
                   <h5 class="card-title">Паспортные данные</h5>
                   <div class="row">
@@ -428,11 +421,8 @@
               </div>
             </div>
 
-            <div
-              class="shadow p-3 mb-3 bg-body-tertiary rounded"
-              id="simple-list-academy-data"
-            >
-              <div class="card">
+            <div class="shadow p-3 mb-3" id="simple-list-academy-data">
+              <div class="card border-0">
                 <div class="card-body">
                   <h5 class="card-title">Обучение в Академии МВД</h5>
                   <div class="row">
@@ -673,11 +663,8 @@
               </div>
             </div>
 
-            <div
-              class="shadow p-3 mb-3 bg-body-tertiary rounded"
-              id="simple-list-parents-data"
-            >
-              <div class="card">
+            <div class="shadow p-3 mb-3" id="simple-list-parents-data">
+              <div class="card border-0">
                 <div class="card-body">
                   <h5 class="card-title mb-3">Данные о родителях</h5>
                   <div class="row">
@@ -919,11 +906,8 @@
               </div>
             </div>
 
-            <div
-              class="shadow p-3 mb-3 bg-body-tertiary rounded"
-              id="simple-list-orders-data"
-            >
-              <div class="card">
+            <div class="shadow p-3 mb-3" id="simple-list-orders-data">
+              <div class="card border-0">
                 <div class="card-body">
                   <h5 class="card-title mb-3">Приказы</h5>
                   <div class="row">
@@ -1024,8 +1008,8 @@
               overflow-y: scroll;
             "
           >
-            <div class="shadow p-3 mb-5 bg-body-tertiary rounded">
-              <div class="card">
+            <div class="shadow p-2 mb-5 rounded">
+              <div class="card border-0">
                 <div class="card-body">
                   <div class="list-group">
                     <a
@@ -1067,27 +1051,26 @@
 </template>
 
 <script>
-import getStudentAPIInstance from "@/api/student/studentAPI"
-import getJobHistoryAPIInstance from "@/api/cadet/jobHistoryAPI"
-import { debounce } from "lodash/function"
+import getStudentAPIInstance from "@/api/student/studentAPI";
+import getJobHistoryAPIInstance from "@/api/cadet/jobHistoryAPI";
+import { debounce } from "lodash/function";
 
-import { EducationHistoryCadetComponent } from "@/components/cadet/education"
-import { ForeignLanguagesCadetComponent } from "@/components/cadet/languages"
-import { ScientificWorksCadetComponent } from "@/components/cadet/scientific_works"
-import { JobCadetComponent } from "@/components/cadet/job"
+import { EducationHistoryCadetComponent } from "@/components/cadet/education";
+import { ForeignLanguagesCadetComponent } from "@/components/cadet/languages";
+import { ScientificWorksCadetComponent } from "@/components/cadet/scientific_works";
+import { JobCadetComponent } from "@/components/cadet/job";
 import {
   ArmyServiceCadetComponent,
   MVDServiceCadetComponent,
-} from "@/components/cadet/service"
-import { RewardCadetComponent } from "@/components/cadet/reward"
-import { PunishmentCadetComponent } from "@/components/cadet/punishment"
-import { PositionCadetComponent } from "@/components/cadet/position"
-import { SpecialityCadetComponent } from "@/components/cadet/speciality"
-import RelativesCadetComponent from "@/components/cadet/relatives/RelativesCadetComponent.vue"
+} from "@/components/cadet/service";
+import { RewardCadetComponent } from "@/components/cadet/reward";
+import { PunishmentCadetComponent } from "@/components/cadet/punishment";
+import { PositionCadetComponent } from "@/components/cadet/position";
+import { SpecialityCadetComponent } from "@/components/cadet/speciality";
+import RelativesCadetComponent from "@/components/cadet/relatives/RelativesCadetComponent.vue";
 
-import "vue-select/dist/vue-select.css"
-import { mapGetters } from "vuex"
-import * as dayjs from "dayjs"
+import "vue-select/dist/vue-select.css";
+import { mapGetters } from "vuex";
 
 export default {
   name: "StudentUpdateView",
@@ -1164,63 +1147,72 @@ export default {
       },
       studentAPIInstance: getStudentAPIInstance(),
       jobHistoryAPIInstance: getJobHistoryAPIInstance(),
-    }
+    };
   },
   async created() {
-    await this.loadData(this.$route.params.id)
+    const video = document.getElementById("live-stream");
+
+    // Check if the browser supports the MediaDevices API
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      // Request access to the user's camera
+      navigator.mediaDevices
+        .getUserMedia({ video: true })
+        .then((stream) => {
+          // Set the video source to the camera stream
+          video.srcObject = stream;
+        })
+        .catch((error) => {
+          console.error("Error accessing the camera: ", error);
+        });
+    } else {
+      console.log("getUserMedia is not supported in this browser.");
+    }
+    await this.loadData(this.$route.params.id);
   },
   methods: {
     async loadData(studentId) {
       const [student] = await Promise.all([
         this.getStudentData(studentId),
-      ]).catch(() => (this.isError = true))
-      this.currentStudentData = student
+      ]).catch(() => (this.isError = true));
+      this.currentStudentData = student;
     },
     async getStudentData(studentId) {
-      const res = await this.studentAPIInstance.getItemData(studentId)
-      return res.data
+      const res = await this.studentAPIInstance.getItemData(studentId);
+      return res.data;
     },
     debouncedUpdate: debounce(async function () {
-      this.isLoading = true
+      this.isLoading = true;
       try {
-        const { photo, ...rest } = this.currentStudentData
-        await this.studentAPIInstance.updateItem(rest)
+        const { photo, ...rest } = this.currentStudentData;
+        await this.studentAPIInstance.updateItem(rest);
       } catch (e) {
       } finally {
-        this.isLoading = false
+        this.isLoading = false;
       }
     }, 500),
   },
   computed: {
     orderedGroups() {
-      return this.groups.results
+      return this.groups.results;
     },
     orderedPassportIssueAuthorities() {
-      return this.passportAuthorities.results
+      return this.passportAuthorities.results;
     },
     orderedGraduationReasons() {
-      return []
+      return [];
     },
     orderedEducationForms() {
-      return this.educationForms.results
+      return this.educationForms.results;
     },
     orderedCategories() {
       return this.categories.results.filter(
         (category) => category.category_group == "3",
-      )
+      );
     },
     orderedSubdivisions() {
       return this.subdivisions.results.filter(
         (subdivision) => subdivision.subdivision_category == "3",
-      )
-    },
-
-    getStudentStatus() {
-      if (dayjs().isBefore(dayjs(this.currentStudentData.academy_end_date))) {
-        return "Обучается"
-      } else
-        return `Дата окончания обучения - ${this.currentStudentData.academy_end_date}, причина - ${this.currentStudentData.get_graduation_reason || "Нет данных"},
-        статья - ${this.currentStudentData.graduation_reason_article || "Нет данных"}`
+      );
     },
     ...mapGetters({
       groups: "groups/getList",
@@ -1235,12 +1227,18 @@ export default {
   watch: {
     currentStudentData: {
       handler(newValue, oldValue) {
-        this.debouncedUpdate()
+        this.debouncedUpdate();
       },
       deep: true,
     },
   },
-}
+};
 </script>
 
-<style scoped></style>
+<style scoped>
+video {
+  width: 100%;
+  max-width: 600px;
+  border: 1px solid #ccc;
+}
+</style>
