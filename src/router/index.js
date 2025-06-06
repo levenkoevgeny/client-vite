@@ -101,10 +101,11 @@ import {
 
 import {
   PassOfficeView,
-  PassOfficeCadetView,
-  PassOfficeEmployeeView,
-  PassOfficeStudentView,
-  PassOfficeFPKPRKView,
+  PassOfficeCadetListView,
+  PassOfficeStudentListView,
+  PassOfficeEmployeeListView,
+  PassOfficeFPKPRKListView,
+  PassOfficeCadetItemView,
 } from "@/components/passOffice/index.js"
 
 const routes = [
@@ -136,22 +137,27 @@ const routes = [
         children: [
           {
             path: "cadets",
-            component: PassOfficeCadetView,
+            component: PassOfficeCadetListView,
             name: "pass-office-cadet",
           },
           {
+            path: "cadets/:id/update",
+            component: PassOfficeCadetItemView,
+            name: "pass-office-cadet-update",
+          },
+          {
             path: "employees",
-            component: PassOfficeEmployeeView,
+            component: PassOfficeEmployeeListView,
             name: "pass-office-employees",
           },
           {
             path: "students",
-            component: PassOfficeStudentView,
+            component: PassOfficeStudentListView,
             name: "pass-office-students",
           },
           {
             path: "fpk-prk",
-            component: PassOfficeFPKPRKView,
+            component: PassOfficeFPKPRKListView,
             name: "pass-office-fpk-prk",
           },
         ],

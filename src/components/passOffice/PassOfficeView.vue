@@ -1,5 +1,3 @@
-<!--https://developer.mozilla.org/en-US/docs/Web/API/Media_Capture_and_Streams_API/Taking_still_photos-->
-
 <template>
   <navigation-layout>
     <template v-slot:menu>
@@ -37,7 +35,11 @@
     <div class="card" style="width: 45rem">
       <div class="card-body">
         <h5 class="card-title">Выберите категорию</h5>
-        <select class="form-select" @change="categorySelectChange">
+        <select
+          class="form-select"
+          @change="categorySelectChange"
+          v-model="currentPath"
+        >
           <option selected value="">-----</option>
           <option value="employees">Сотрудники</option>
           <option value="cadets">Курсанты</option>
@@ -46,18 +48,9 @@
         </select>
       </div>
     </div>
+    <div class="my-4"></div>
+    <router-view></router-view>
   </div>
-
-  <router-view></router-view>
-
-  <!--  <video ref="video" width="320" @canplay="playVideo">Stream</video>-->
-
-  <!--  <button @click="takePicture">Take a picture</button>-->
-
-  <!--  <canvas ref="canvas"> </canvas>-->
-  <!--  <div class="output">-->
-  <!--    <img ref="photo" alt="The screen capture will appear in this box." />-->
-  <!--  </div>-->
 </template>
 
 <script>
@@ -67,45 +60,20 @@ export default {
   name: "PassOfficeView",
   components: { NavigationLayout },
   data() {
-    return { video: null, canvas: null, photo: null, width: 320 }
+    return {
+      currentPath: "",
+    }
   },
-  mounted() {
-    // this.video = this.$refs.video
-    // this.canvas = this.$refs.canvas
-    // this.photo = this.$refs.photo
-    // this.startCapture()
+  created() {
+    let fullPath = this.$router.currentRoute.value.path.toString()
+    if (fullPath === "/pass-office") {
+      this.currentPath = ""
+    } else this.currentPath = fullPath.slice(fullPath.lastIndexOf("/") + 1)
   },
   methods: {
     categorySelectChange(e) {
       this.$router.push({ path: `/pass-office/${e.target.value}` })
     },
-
-    // startCapture() {
-    //   navigator.mediaDevices
-    //     .getUserMedia({ video: true, audio: false })
-    //     .then((stream) => {
-    //       this.video.srcObject = stream
-    //       this.video.play()
-    //     })
-    // },
-    // playVideo() {
-    //   const height =
-    //     (this.video.videoHeight / this.video.videoWidth) * this.width
-    //
-    //   this.video.setAttribute("width", this.width)
-    //   this.video.setAttribute("height", height)
-    //   this.canvas.setAttribute("width", this.width)
-    //   this.canvas.setAttribute("height", height)
-    // },
-    // takePicture() {
-    //   let width = 320
-    //   let height = (this.video.videoHeight / this.video.videoWidth) * width
-    //   const context = this.canvas.getContext("2d")
-    //   context.drawImage(this.video, 0, 0, width, height)
-    //   const data = this.canvas.toDataURL("image/jpeg")
-    //   this.photo.setAttribute("src", data)
-    // },
-    // clearPhoto() {},
   },
 }
 </script>
