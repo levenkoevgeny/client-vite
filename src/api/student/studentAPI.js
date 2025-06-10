@@ -88,10 +88,10 @@ const searchObj = {
 }
 
 export default function getStudentAPIInstance() {
-  return new StudentAPI("student", searchObj)
+  return new StudentAPI("student", { ...searchObj, category__in: [4, 5] })
 }
-
 export const globalStudentAPIInstance = getStudentAPIInstance()
+export const globalStudentAPIInstanceForPassOffice = getStudentAPIInstance()
 export const globalStudentAPIForEntranceInstance = new StudentAPI("student", {
   ...searchObj,
   category: 3,

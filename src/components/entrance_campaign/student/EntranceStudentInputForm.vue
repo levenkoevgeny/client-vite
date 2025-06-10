@@ -2786,7 +2786,6 @@
                             type="number"
                             class="form-control text-center"
                             v-model="currentStudentData.education_average_score"
-                            disabled
                           />
                         </div>
                       </td>

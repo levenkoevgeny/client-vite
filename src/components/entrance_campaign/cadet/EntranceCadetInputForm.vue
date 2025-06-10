@@ -3252,9 +3252,6 @@ export default {
       currentCadetDataFromServer: {},
       cadetAPIInstance: globalCadetAPIForEntranceInstance,
       actionHistoryAPIInstance: getActionHistoryAPIInstance(),
-      BACKEND_PROTOCOL: import.meta.env.VITE_APP_BACKEND_PROTOCOL,
-      BACKEND_HOST: import.meta.env.VITE_APP_BACKEND_HOST,
-      BACKEND_PORT: import.meta.env.VITE_APP_BACKEND_PORT,
       cadetHistoryList: { count: 0, results: [], previous: null, next: null },
       average_score_calculation: {
         choice: "",
@@ -3773,11 +3770,9 @@ export default {
       const resp = await this.cadetAPIInstance.updateItemPartly(dataObj)
       this.currentCadetData = { ...this.currentCadetData, ...resp.data }
       this.currentCadetDataFromServer = Object.assign({}, this.currentCadetData)
-      this.$axios
-        .get(
-          `${this.BACKEND_PROTOCOL}://${this.BACKEND_HOST}:${this.BACKEND_PORT}/api/application-print/${queryString}`,
-          { responseType: "blob" },
-        )
+
+      this.cadetAPIInstance
+        .entrance_application_print(this.currentCadetData.id)
         .then((response) => {
           const url = window.URL.createObjectURL(new Blob([response.data]))
           const link = document.createElement("a")

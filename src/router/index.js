@@ -107,6 +107,7 @@ import {
   PassOfficeFPKPRKListView,
   PassOfficeCadetItemView,
 } from "@/components/passOffice/index.js"
+import EntranceFPKPRKTableView from "@/components/entrance_campaign/fpk_prk/EntranceFPKPRKTableView.vue"
 
 const routes = [
   { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFoundView },
@@ -509,6 +510,11 @@ const routes = [
                 path: ":id/update",
                 component: EntranceFPKPRKInputForm,
                 name: "entrance-fpk-prk-mag-input-form",
+              },
+              {
+                path: "table-view",
+                component: EntranceFPKPRKTableView,
+                name: "entrance-fpk-prk-table-view",
               },
             ],
           },

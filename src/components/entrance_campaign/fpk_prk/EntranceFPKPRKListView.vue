@@ -10,6 +10,17 @@
         Добавить личное дело
       </button>
     </template>
+
+    <template v-slot:table-mode-button>
+      <router-link
+        :to="{ name: 'entrance-fpk-prk-table-view' }"
+        class="fs-3 fw-light link-secondary"
+        title="Табличный режим"
+      >
+        <font-awesome-icon :icon="['fas', 'table']" />
+      </router-link>
+    </template>
+
     <template v-slot:modals>
       <div
         class="modal fade"

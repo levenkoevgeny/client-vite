@@ -1,79 +1,4 @@
 <template>
-  <div
-    class="modal fade"
-    id="exportDataModal"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-    ref="exportDataModal"
-  >
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5">Экспорт данных</h1>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <div>
-            <div style="font-size: 1.7rem">
-              <button
-                class="btn btn-link text-primary"
-                style="font-size: inherit"
-                title="Экспорт в Word"
-                @click="exportData('docx')"
-              >
-                <font-awesome-icon :icon="['far', 'file-word']" />
-              </button>
-              <button
-                class="btn btn-link text-success"
-                style="font-size: inherit; color: inherit"
-                title="Экспорт в Excel"
-                @click="exportData('xlsx')"
-              >
-                <font-awesome-icon :icon="['far', 'file-excel']" />
-              </button>
-            </div>
-            <div>
-              <div
-                class="d-flex flex-row align-items-center justify-content-start my-2"
-              >
-                <button
-                  class="btn text-primary me-2 p-0"
-                  @click="checkAllFieldsForExport"
-                >
-                  <font-awesome-icon :icon="['fas', 'list-check']" />
-                  Выбрать все поля
-                </button>
-                <button
-                  class="btn text-primary m-0 p-0"
-                  @click="clearAllFieldsForExport"
-                >
-                  Очистить
-                  <font-awesome-icon :icon="['far', 'circle-xmark']" />
-                </button>
-              </div>
-              <label class="form-label">Выбор полей для экспорта</label>
-
-              <v-select
-                v-model="selectedFieldsForDataExport"
-                :options="fieldsForDataExport"
-                label="fieldName"
-                :reduce="(field) => field.fieldValue"
-                multiple
-                style="min-width: 400px"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <div class="container-fluid">
     <div class="my-3"></div>
     <ul class="nav nav-links my-3 mb-lg-2 mx-n3">
@@ -81,7 +6,7 @@
         <a class="nav-link active" aria-current="page" href="#"
           ><span>Всего </span
           ><span class="text-body-tertiary fw-semibold"
-            >({{ cadetList.count }})</span
+            >({{ fpkprkList.count }})</span
           ></a
         >
       </li>
@@ -105,8 +30,8 @@
 
     <div
       style="
-        min-height: calc(100vh - 260px);
-        max-height: calc(100vh - 260px);
+        min-height: calc(100vh - 270px);
+        max-height: calc(100vh - 270px);
         overflow: auto;
       "
       @scroll="loadMoreData"
@@ -117,45 +42,7 @@
         <thead ref="thead">
           <tr>
             <th scope="col" class="text-center">№п.п.</th>
-            <th scope="col" class="text-center">
-              <div class="d-flex flex-row align-items-center">
-                <span class="text-nowrap">Учреждение образования</span>
-                <div class="dropdown">
-                  <button
-                    class="btn dropdown-toggle"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  ></button>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <button
-                        class="dropdown-item"
-                        @click="
-                          setOrdering(
-                            'educational_institution__educational_institution',
-                          )
-                        "
-                      >
-                        А -> Я
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        class="dropdown-item"
-                        @click="
-                          setOrdering(
-                            '-educational_institution__educational_institution',
-                          )
-                        "
-                      >
-                        Я -> А
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </th>
+            <th scope="col" class="text-center">Учреждение образования</th>
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
                 <span class="text-nowrap">Комплектующий орган</span>
@@ -1454,71 +1341,71 @@
         </thead>
         <tbody>
           <tr
-            v-for="cadet in orderedMainList"
-            :key="cadet.id"
+            v-for="fpkprk in orderedMainList"
+            :key="fpkprk.id"
             @dblclick="
               $router.push({
-                name: 'entrance-cadet-input-form',
-                params: { id: cadet.id },
+                name: 'entrance-fpk-prk-input-form',
+                params: { id: fpkprk.id },
               })
             "
           >
-            <td class="text-center">{{ cadet.serial_number }}</td>
-            <td>{{ cadet.get_educational_institution }}</td>
-            <td>{{ cadet.get_component_organ }}</td>
-            <td>{{ cadet.get_arrived_from_go_rovd }}</td>
-            <td>{{ cadet.get_gender }}</td>
-            <td>{{ cadet.last_name_rus }}</td>
-            <td>{{ cadet.first_name_rus }}</td>
-            <td>{{ cadet.patronymic_rus }}</td>
-            <td class="text-center">{{ cadet.date_of_birth }}</td>
-            <td class="text-center">{{ cadet.get_age }}</td>
-            <td>{{ cadet.place_of_birth }}</td>
-            <td>{{ cadet.address_registration }}</td>
-            <td>{{ cadet.address_residence }}</td>
-            <td>{{ cadet.phone_number }}</td>
-            <td>{{ cadet.passport_number }}</td>
-            <td class="text-center">{{ cadet.passport_issue_date }}</td>
-            <td class="text-center">{{ cadet.passport_validity_period }}</td>
-            <td>{{ cadet.passport_issue_authority }}</td>
-            <td>{{ cadet.identification_number }}</td>
-            <td>{{ cadet.father_last_name }}</td>
-            <td>{{ cadet.father_first_name }}</td>
-            <td>{{ cadet.father_patronymic }}</td>
-            <td class="text-center">{{ cadet.father_date_of_birth }}</td>
-            <td>{{ cadet.father_place_of_work }}</td>
-            <td>{{ cadet.father_phone_number }}</td>
-            <td>{{ cadet.mother_last_name }}</td>
-            <td>{{ cadet.mother_first_name }}</td>
-            <td>{{ cadet.mother_patronymic }}</td>
-            <td class="text-center">{{ cadet.mother_date_of_birth }}</td>
-            <td>{{ cadet.mother_place_of_work }}</td>
-            <td>{{ cadet.mother_phone_number }}</td>
-            <td>{{ cadet.get_foreign_language_was }}</td>
-            <td>{{ cadet.get_foreign_language_will_be }}</td>
+            <td class="text-center">{{ fpkprk.serial_number }}</td>
+            <td>{{ fpkprk.get_educational_institution }}</td>
+            <td>{{ fpkprk.get_component_organ }}</td>
+            <td>{{ fpkprk.get_arrived_from_go_rovd }}</td>
+            <td>{{ fpkprk.get_gender }}</td>
+            <td>{{ fpkprk.last_name_rus }}</td>
+            <td>{{ fpkprk.first_name_rus }}</td>
+            <td>{{ fpkprk.patronymic_rus }}</td>
+            <td class="text-center">{{ fpkprk.date_of_birth }}</td>
+            <td class="text-center">{{ fpkprk.get_age }}</td>
+            <td>{{ fpkprk.place_of_birth }}</td>
+            <td>{{ fpkprk.address_registration }}</td>
+            <td>{{ fpkprk.address_residence }}</td>
+            <td>{{ fpkprk.phone_number }}</td>
+            <td>{{ fpkprk.passport_number }}</td>
+            <td class="text-center">{{ fpkprk.passport_issue_date }}</td>
+            <td class="text-center">{{ fpkprk.passport_validity_period }}</td>
+            <td>{{ fpkprk.passport_issue_authority }}</td>
+            <td>{{ fpkprk.identification_number }}</td>
+            <td>{{ fpkprk.father_last_name }}</td>
+            <td>{{ fpkprk.father_first_name }}</td>
+            <td>{{ fpkprk.father_patronymic }}</td>
+            <td class="text-center">{{ fpkprk.father_date_of_birth }}</td>
+            <td>{{ fpkprk.father_place_of_work }}</td>
+            <td>{{ fpkprk.father_phone_number }}</td>
+            <td>{{ fpkprk.mother_last_name }}</td>
+            <td>{{ fpkprk.mother_first_name }}</td>
+            <td>{{ fpkprk.mother_patronymic }}</td>
+            <td class="text-center">{{ fpkprk.mother_date_of_birth }}</td>
+            <td>{{ fpkprk.mother_place_of_work }}</td>
+            <td>{{ fpkprk.mother_phone_number }}</td>
+            <td>{{ fpkprk.get_foreign_language_was }}</td>
+            <td>{{ fpkprk.get_foreign_language_will_be }}</td>
             <td class="text-center">
-              {{ cadet.removed_from_military_registration }}
+              {{ fpkprk.removed_from_military_registration }}
             </td>
             <td>
-              <span class="text-nowrap">{{ cadet.get_military_office }}</span>
+              <span class="text-nowrap">{{ fpkprk.get_military_office }}</span>
             </td>
-            <td class="text-center">{{ cadet.student_record_book_number }}</td>
-            <td class="text-center">{{ cadet.rus_bel_ct_number }}</td>
-            <td class="text-center">{{ cadet.rus_score_ct }}</td>
-            <td class="text-center">{{ cadet.rus_ct_choice }}</td>
-            <td class="text-center">{{ cadet.bel_score_ct }}</td>
-            <td class="text-center">{{ cadet.bel_ct_choice }}</td>
-            <td class="text-center">{{ cadet.social_science_ct_number }}</td>
-            <td class="text-center">{{ cadet.social_science_score_ct }}</td>
-            <td class="text-center">{{ cadet.social_science_ct_choice }}</td>
-            <td class="text-center">{{ cadet.foreign_lang_ct_number }}</td>
-            <td class="text-center">{{ cadet.foreign_lang_score_ct }}</td>
-            <td class="text-center">{{ cadet.foreign_lang_ct_choice }}</td>
-            <td class="text-center">{{ cadet.rus_score_cert }}</td>
-            <td class="text-center">{{ cadet.bel_score_cert }}</td>
-            <td class="text-center">{{ cadet.social_science_score_cert }}</td>
-            <td class="text-center">{{ cadet.foreign_lang_score_cert }}</td>
-            <td class="text-center">{{ cadet.education_average_score }}</td>
+            <td class="text-center">{{ fpkprk.student_record_book_number }}</td>
+            <td class="text-center">{{ fpkprk.rus_bel_ct_number }}</td>
+            <td class="text-center">{{ fpkprk.rus_score_ct }}</td>
+            <td class="text-center">{{ fpkprk.rus_ct_choice }}</td>
+            <td class="text-center">{{ fpkprk.bel_score_ct }}</td>
+            <td class="text-center">{{ fpkprk.bel_ct_choice }}</td>
+            <td class="text-center">{{ fpkprk.social_science_ct_number }}</td>
+            <td class="text-center">{{ fpkprk.social_science_score_ct }}</td>
+            <td class="text-center">{{ fpkprk.social_science_ct_choice }}</td>
+            <td class="text-center">{{ fpkprk.foreign_lang_ct_number }}</td>
+            <td class="text-center">{{ fpkprk.foreign_lang_score_ct }}</td>
+            <td class="text-center">{{ fpkprk.foreign_lang_ct_choice }}</td>
+            <td class="text-center">{{ fpkprk.rus_score_cert }}</td>
+            <td class="text-center">{{ fpkprk.bel_score_cert }}</td>
+            <td class="text-center">{{ fpkprk.social_science_score_cert }}</td>
+            <td class="text-center">{{ fpkprk.foreign_lang_score_cert }}</td>
+            <td class="text-center">{{ fpkprk.education_average_score }}</td>
           </tr>
         </tbody>
       </table>
@@ -1528,42 +1415,48 @@
 </template>
 
 <script>
-import { globalCadetAPIForEntranceInstance } from "@/api/cadet/cadetAPI.js"
+import { globalFPKPRKStudentAPIForEntranceInstance } from "@/api/fpkprk/fpk_prk_studentAPI.js"
 import { debounce } from "lodash/function"
 import { mapGetters } from "vuex"
 
 export default {
-  name: "EntranceCadetTableView",
+  name: "EntranceFPKPRKTableView",
   data() {
     return {
       isLoading: true,
       isError: false,
       fieldsForDataExport: [
-        {
-          fieldName: "Статус записи (активна/ неактивна)",
-          fieldValue: "is_active",
-        },
+        { fieldName: "Фамилия", fieldValue: "last_name_rus" },
+        { fieldName: "Имя", fieldValue: "first_name_rus" },
+        { fieldName: "Отчество", fieldValue: "patronymic_rus" },
+        { fieldName: "Дата рождения", fieldValue: "date_of_birth" },
+        { fieldName: "Возраст", fieldValue: "get_age" },
         { fieldName: "Пол", fieldValue: "get_gender" },
-        { fieldName: "Фамилия (рус)", fieldValue: "last_name_rus" },
-        { fieldName: "Имя (рус)", fieldValue: "first_name_rus" },
-        { fieldName: "Отчество (рус)", fieldValue: "patronymic_rus" },
-        { fieldName: "Фамилия (бел)", fieldValue: "last_name_bel" },
-        { fieldName: "Имя (бел)", fieldValue: "first_name_bel" },
-        { fieldName: "Отчество (бел)", fieldValue: "patronymic_bel" },
-        { fieldName: "Дата рождения", fieldValue: "get_date_of_birth" },
+        {
+          fieldName: "Комплектующий орган",
+          fieldValue: "get_component_organ",
+        },
+        {
+          fieldName: "Военкомат",
+          fieldValue: "get_military_office",
+        },
         { fieldName: "Место рождения", fieldValue: "place_of_birth" },
         {
           fieldName: "Место жительства (проживания)",
           fieldValue: "address_residence",
         },
-        { fieldName: "Номер телефона", fieldValue: "phone_number" },
         {
-          fieldName: "Личный номер (жетон)",
-          fieldValue: "personal_number_mvd",
+          fieldName: "Место жительства (регистрация)",
+          fieldValue: "address_registration",
         },
-        { fieldName: "Семейное положение", fieldValue: "get_marital_status" },
-        { fieldName: "Тип паспорта", fieldValue: "get_passport_document_type" },
-        { fieldName: "Номер паспорта", fieldValue: "passport_number" },
+        {
+          fieldName: "Номер телефона",
+          fieldValue: "phone_number",
+        },
+        {
+          fieldName: "Номер паспорта",
+          fieldValue: "passport_number",
+        },
         {
           fieldName: "Дата выдачи паспорта",
           fieldValue: "passport_issue_date",
@@ -1577,306 +1470,28 @@ export default {
           fieldValue: "get_passport_issue_authority",
         },
         {
-          fieldName: "Орган выдачи паспорта",
-          fieldValue: "get_passport_issue_authority",
-        },
-        {
-          fieldName: "Орган выдачи паспорта (текстом)",
-          fieldValue: "passport_issue_authority_text",
-        },
-        {
           fieldName: "Идентификационный номер",
           fieldValue: "identification_number",
         },
-        { fieldName: "Факультет", fieldValue: "get_subdivision" },
-        { fieldName: "Звание", fieldValue: "get_rank" },
-        { fieldName: "Должность", fieldValue: "get_position" },
-        {
-          fieldName: "Номер зачетной книжки",
-          fieldValue: "student_record_book_number",
-        },
-        { fieldName: "Отец - фамилия", fieldValue: "father_last_name" },
-        { fieldName: "Отец - имя", fieldValue: "father_first_name" },
-        { fieldName: "Отец - отчество", fieldValue: "father_patronymic" },
-        {
-          fieldName: "Отец - дата рождения",
-          fieldValue: "get_father_date_of_birth",
-        },
-        {
-          fieldName: "Отец - место работы",
-          fieldValue: "father_place_of_work",
-        },
-        {
-          fieldName: "Отец - номер телефона",
-          fieldValue: "father_phone_number",
-        },
-        {
-          fieldName: "Отец - место жительства",
-          fieldValue: "father_address_residence",
-        },
-        {
-          fieldName: "Отец - место регистрации",
-          fieldValue: "father_address_registration",
-        },
-        { fieldName: "Мать - фамилия", fieldValue: "mother_last_name" },
-        { fieldName: "Мать - имя", fieldValue: "mother_first_name" },
-        { fieldName: "Мать - отчество", fieldValue: "mother_patronymic" },
-        {
-          fieldName: "Мать - дата рождения",
-          fieldValue: "get_mother_date_of_birth",
-        },
-        {
-          fieldName: "Мать - место работы",
-          fieldValue: "mother_place_of_work",
-        },
-        {
-          fieldName: "Мать - номер телефона",
-          fieldValue: "mother_phone_number",
-        },
-        {
-          fieldName: "Мать - место жительства",
-          fieldValue: "mother_address_residence",
-        },
-        {
-          fieldName: "Мать - место регистрации",
-          fieldValue: "mother_address_registration",
-        },
-        {
-          fieldName: "Родители в разводе",
-          fieldValue: "parents_is_in_divorce",
-        },
         {
           fieldName: "Снят с воинского учета",
-          fieldValue: "get_removed_from_military_registration",
-        },
-        {
-          fieldName: "Иностранный язык (изучаемый в школе)",
-          fieldValue: "get_foreign_language_was",
-        },
-        {
-          fieldName: "Иностранный язык (будет изучать)",
-          fieldValue: "get_foreign_language_will_be",
-        },
-        { fieldName: "Группа", fieldValue: "get_group" },
-        { fieldName: "Дата поступления", fieldValue: "get_academy_start_date" },
-        { fieldName: "Дата окончания", fieldValue: "get_academy_end_date" },
-        {
-          fieldName: "Причина окончания (Статья)",
-          fieldValue: "graduation_reason_article",
-        },
-        {
-          fieldName: "Причина окончания (доп. данные)",
-          fieldValue: "graduation_extra_data",
-        },
-        { fieldName: "Специализация", fieldValue: "get_specialization" },
-        { fieldName: "Направление ОРД", fieldValue: "get_direction_ord" },
-        {
-          fieldName: "Специальность (обучается)",
-          fieldValue: "get_speciality",
-        },
-        { fieldName: "Год набора", fieldValue: "entrance_year" },
-        {
-          fieldName: "Заявление было отпечатано",
-          fieldValue: "application_has_been_printed",
-        },
-        {
-          fieldName: "Дата и время отпечатки заявления",
-          fieldValue: "get_application_has_been_printed_date",
-        },
-        { fieldName: "Комплектующий орган", fieldValue: "get_component_organ" },
-        {
-          fieldName: "В чьих интересах обучается",
-          fieldValue: "get_in_whose_interests",
-        },
-        {
-          fieldName: "Категория поступающего",
-          fieldValue: "get_entrance_category",
+          fieldValue: "removed_from_military_registration",
         },
         {
           fieldName: "Прибыл из ГО-РОВД",
           fieldValue: "get_arrived_from_go_rovd",
         },
-        { fieldName: "Социальный статус", fieldValue: "get_social_status" },
-        {
-          fieldName: "Область (для прохождения мед. комиссии)",
-          fieldValue: "get_region_for_medical_examination",
-        },
-        { fieldName: "Военкомат", fieldValue: "get_military_office" },
-        {
-          fieldName: "Военкомат (дополнительные данные)",
-          fieldValue: "military_office_extra_data",
-        },
-        {
-          fieldName: "Замечания по личному делу",
-          fieldValue: "comments_on_personal_file",
-        },
-        {
-          fieldName: "Учреждение образования",
-          fieldValue: "get_educational_institution",
-        },
-        {
-          fieldName: "Место службы в армии",
-          fieldValue: "military_organization",
-        },
-        {
-          fieldName: "Служба в армии (начало)",
-          fieldValue: "get_military_service_start",
-        },
-        {
-          fieldName: "Служба в армии (окончание)",
-          fieldValue: "get_military_service_end",
-        },
-        {
-          fieldName: "Служба в армии (должность)",
-          fieldValue: "military_position",
-        },
-        { fieldName: "Служба в МВД", fieldValue: "mvd_organization" },
-        {
-          fieldName: "Служба в МВД (начало)",
-          fieldValue: "get_mvd_service_start",
-        },
-        {
-          fieldName: "Служба в МВД (окончание)",
-          fieldValue: "get_mvd_service_end",
-        },
-        { fieldName: "Служба в МВД (должность)", fieldValue: "mvd_position" },
-        {
-          fieldName: "Вид учреждения образования",
-          fieldValue: "get_education_kind",
-        },
-        { fieldName: "Уровень образования", fieldValue: "get_education_level" },
-        {
-          fieldName: "Наименование учебного заведения",
-          fieldValue: "education_graduated",
-        },
-        {
-          fieldName: "Год поступления в учебное заведение",
-          fieldValue: "education_graduating_start_year",
-        },
-        {
-          fieldName: "Год окончания учебного заведения",
-          fieldValue: "education_graduating_end_year",
-        },
-        { fieldName: "Средний бал", fieldValue: "education_average_score" },
-        {
-          fieldName: "Вид населенного пункта",
-          fieldValue: "get_education_location_kind",
-        },
-        {
-          fieldName: "Номер сертификата по русскому / белорусскому языку",
-          fieldValue: "rus_bel_ct_number",
-        },
-        {
-          fieldName: "Русский язык - ЦТ / ЦЭ - количество баллов",
-          fieldValue: "rus_score_ct",
-        },
-        {
-          fieldName: "Русский язык - ЦТ / ЦЭ - выбор",
-          fieldValue: "rus_ct_choice",
-        },
-        {
-          fieldName: "Белорусский язык - ЦТ / ЦЭ - количество баллов",
-          fieldValue: "bel_score_ct",
-        },
-        {
-          fieldName: "Белорусский язык - ЦТ / ЦЭ - выбор",
-          fieldValue: "bel_ct_choice",
-        },
-        {
-          fieldName: "Белорусский язык - ЦТ / ЦЭ - выбор",
-          fieldValue: "bel_ct_choice",
-        },
-        {
-          fieldName: "Номер сертификата по обществоведению",
-          fieldValue: "social_science_ct_number",
-        },
-        {
-          fieldName: "Обществоведение - ЦТ / ЦЭ - количество баллов",
-          fieldValue: "social_science_score_ct",
-        },
-        {
-          fieldName: "Обществоведение - ЦТ / ЦЭ - выбор",
-          fieldValue: "social_science_ct_choice",
-        },
-        {
-          fieldName: "Номер сертификата по иностранному языку",
-          fieldValue: "foreign_lang_ct_number",
-        },
-        {
-          fieldName: "Иностранный язык - ЦТ / ЦЭ - количество баллов",
-          fieldValue: "foreign_lang_score_ct",
-        },
-        {
-          fieldName: "Иностранный язык - ЦТ / ЦЭ - выбор",
-          fieldValue: "foreign_lang_ct_choice",
-        },
-        {
-          fieldName: "Русский язык - аттестат - количество баллов",
-          fieldValue: "rus_score_cert",
-        },
-        {
-          fieldName: "Белорусский язык - аттестат - количество баллов",
-          fieldValue: "bel_score_cert",
-        },
-        {
-          fieldName: "Обществоведение - аттестат - количество баллов",
-          fieldValue: "social_science_score_cert",
-        },
-        {
-          fieldName: "Иностранный язык - аттестат - количество баллов",
-          fieldValue: "foreign_lang_score_cert",
-        },
-        { fieldName: "Специальность 1", fieldValue: "get_speciality_1" },
-        { fieldName: "Специальность 2", fieldValue: "get_speciality_2" },
-        { fieldName: "Специальность 3", fieldValue: "get_speciality_3" },
-        { fieldName: "Специальность 4", fieldValue: "get_speciality_4" },
-        { fieldName: "Специальность 5", fieldValue: "get_speciality_5" },
-        { fieldName: "Специальность 6", fieldValue: "get_speciality_6" },
-        { fieldName: "Специальность 7", fieldValue: "get_speciality_7" },
-        { fieldName: "Специальность 8", fieldValue: "get_speciality_8" },
-        { fieldName: "Специальность 9", fieldValue: "get_speciality_9" },
-        { fieldName: "Льгота 1", fieldValue: "get_privilege_1" },
-        { fieldName: "Льгота 2", fieldValue: "get_privilege_2" },
-        { fieldName: "Льгота 3", fieldValue: "get_privilege_3" },
-        { fieldName: "Льгота 4", fieldValue: "get_privilege_4" },
-        { fieldName: "Льгота 5", fieldValue: "get_privilege_5" },
-        { fieldName: "Льгота 6", fieldValue: "get_privilege_6" },
-        { fieldName: "Льгота 7", fieldValue: "get_privilege_7" },
-        { fieldName: "Льгота 8", fieldValue: "get_privilege_8" },
-        { fieldName: "Льгота 9", fieldValue: "get_privilege_9" },
-        { fieldName: "Группа здоровья", fieldValue: "get_health_group" },
-        {
-          fieldName: "Категория профессионального соответствия",
-          fieldValue: "get_ppfl_test",
-        },
-        {
-          fieldName: "Медико-возрастная группа",
-          fieldValue: "medical_age_group",
-        },
-        {
-          fieldName: "Окончательное медицинское освидетельствование",
-          fieldValue: "passed_medical_examination",
-        },
-        {
-          fieldName: "Дата прохождения медицинской комиссии",
-          fieldValue: "get_passed_medical_examination_date",
-        },
-        {
-          fieldName: "Медицинская комиссия (доп. данные)",
-          fieldValue: "passed_medical_examination_extra_data",
-        },
-        { fieldName: "Возраст", fieldValue: "get_age" },
       ],
       selectedFieldsForDataExport: ["last_name_rus", "first_name_rus"],
       searchForm: Object.assign(
         {},
-        globalCadetAPIForEntranceInstance.searchObj,
+        globalFPKPRKStudentAPIForEntranceInstance.searchObj,
       ),
       BACKEND_PROTOCOL: import.meta.env.VITE_APP_BACKEND_PROTOCOL,
       BACKEND_HOST: import.meta.env.VITE_APP_BACKEND_HOST,
       BACKEND_PORT: import.meta.env.VITE_APP_BACKEND_PORT,
-      cadetList: { count: 0, results: [], previous: null, next: null },
-      cadetAPIInstance: globalCadetAPIForEntranceInstance,
+      fpkprkList: { count: 0, results: [], previous: null, next: null },
+      fpkprkAPIInstance: globalFPKPRKStudentAPIForEntranceInstance,
     }
   },
   async created() {
@@ -1885,53 +1500,24 @@ export default {
   methods: {
     async loadData() {
       this.isLoading = true
-      const response = await this.cadetAPIInstance.getItemsList()
-      this.cadetList = await response.data
+      const response = await this.fpkprkAPIInstance.getItemsList()
+      this.fpkprkList = await response.data
       this.isLoading = false
       this.setSerialNumbers()
     },
-    async loadMoreData() {
-      const listElem = this.$refs["infinite_list"]
-      if (
-        listElem.scrollTop + listElem.clientHeight >=
-        listElem.scrollHeight - 1
-      ) {
-        if (this.cadetList.next) {
-          this.isLoading = true
-          try {
-            const response = await this.cadetAPIInstance.updateList(
-              this.cadetList.next,
-            )
-
-            const newData = await response.data
-            this.cadetList.results = [
-              ...this.cadetList.results,
-              ...newData.results,
-            ]
-            this.cadetList.next = newData.next
-            this.cadetList.previous = newData.previous
-            this.setSerialNumbers()
-          } catch (error) {
-            this.isError = true
-          } finally {
-            this.isLoading = false
-          }
-        }
-      }
-    },
     setSerialNumbers() {
       let i = 1
-      this.cadetList.results.forEach((item) => {
+      this.fpkprkList.results.forEach((item) => {
         item.serial_number = i
         i++
       })
     },
     debouncedSearch: debounce(async function () {
       this.isLoading = true
-      this.cadetAPIInstance.searchObj = Object.assign({}, this.searchForm)
+      this.fpkprkAPIInstance.searchObj = Object.assign({}, this.searchForm)
       try {
-        const cadetAResponse = await this.cadetAPIInstance.getItemsList()
-        this.cadetList = await cadetAResponse.data
+        const fpkprkResponse = await this.fpkprkAPIInstance.getItemsList()
+        this.fpkprkList = await fpkprkResponse.data
         this.setSerialNumbers()
       } catch (e) {
         this.isError = true
@@ -1988,10 +1574,39 @@ export default {
           link.click()
         })
     },
+    async loadMoreData() {
+      const listElem = this.$refs["infinite_list"]
+      if (
+        listElem.scrollTop + listElem.clientHeight >=
+        listElem.scrollHeight - 1
+      ) {
+        if (this.fpkprkList.next) {
+          this.isLoading = true
+          try {
+            const response = await this.fpkprkAPIInstance.updateList(
+              this.fpkprkList.next,
+            )
+
+            const newData = await response.data
+            this.fpkprkList.results = [
+              ...this.fpkprkList.results,
+              ...newData.results,
+            ]
+            this.fpkprkList.next = newData.next
+            this.fpkprkList.previous = newData.previous
+            this.setSerialNumbers()
+          } catch (error) {
+            this.isError = true
+          } finally {
+            this.isLoading = false
+          }
+        }
+      }
+    },
     clearFilter() {
       this.searchForm = Object.assign(
         {},
-        this.cadetAPIInstance.searchObjDefault,
+        this.fpkprkAPIInstance.searchObjDefault,
       )
     },
     setOrdering(fieldName) {
@@ -2000,7 +1615,7 @@ export default {
   },
   computed: {
     orderedMainList() {
-      return this.cadetList.results
+      return this.fpkprkList.results
     },
     orderedComponentOrgans() {
       return this.componentOrgans.results
@@ -2044,25 +1659,4 @@ export default {
 }
 </script>
 
-<style scoped>
-#infinite_list th,
-td {
-  min-width: 200px;
-  text-align: start;
-  vertical-align: middle;
-}
-
-thead {
-  position: sticky;
-  top: 0;
-}
-
-input,
-select {
-  min-width: 200px;
-}
-
-z-index-select {
-  z-index: 1000;
-}
-</style>
+<style scoped></style>
