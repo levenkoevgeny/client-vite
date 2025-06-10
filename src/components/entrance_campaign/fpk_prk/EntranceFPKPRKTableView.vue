@@ -1,4 +1,79 @@
 <template>
+  <div
+    class="modal fade"
+    id="exportDataModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+    ref="exportDataModal"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Экспорт данных</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <div style="font-size: 1.7rem">
+              <button
+                class="btn btn-link text-primary"
+                style="font-size: inherit"
+                title="Экспорт в Word"
+                @click="exportData('docx')"
+              >
+                <font-awesome-icon :icon="['far', 'file-word']" />
+              </button>
+              <button
+                class="btn btn-link text-success"
+                style="font-size: inherit; color: inherit"
+                title="Экспорт в Excel"
+                @click="exportData('xlsx')"
+              >
+                <font-awesome-icon :icon="['far', 'file-excel']" />
+              </button>
+            </div>
+            <div>
+              <div
+                class="d-flex flex-row align-items-center justify-content-start my-2"
+              >
+                <button
+                  class="btn text-primary me-2 p-0"
+                  @click="checkAllFieldsForExport"
+                >
+                  <font-awesome-icon :icon="['fas', 'list-check']" />
+                  Выбрать все поля
+                </button>
+                <button
+                  class="btn text-primary m-0 p-0"
+                  @click="clearAllFieldsForExport"
+                >
+                  Очистить
+                  <font-awesome-icon :icon="['far', 'circle-xmark']" />
+                </button>
+              </div>
+              <label class="form-label">Выбор полей для экспорта</label>
+
+              <v-select
+                v-model="selectedFieldsForDataExport"
+                :options="fieldsForDataExport"
+                label="fieldName"
+                :reduce="(field) => field.fieldValue"
+                multiple
+                style="min-width: 400px"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="container-fluid">
     <div class="my-3"></div>
     <ul class="nav nav-links my-3 mb-lg-2 mx-n3">
@@ -42,7 +117,7 @@
         <thead ref="thead">
           <tr>
             <th scope="col" class="text-center">№п.п.</th>
-            <th scope="col" class="text-center">Учреждение образования</th>
+            <th scope="col" class="text-center">ФПК / МАГ</th>
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
                 <span class="text-nowrap">Комплектующий орган</span>
@@ -297,84 +372,11 @@
             <th scope="col">
               <span class="text-nowrap">Идентификационный номер</span>
             </th>
+
             <th scope="col">
-              <span class="text-nowrap">Отец (фамилия)</span>
+              <span class="text-nowrap">Иностранный язык </span>
             </th>
-            <th scope="col">
-              <span class="text-nowrap">Отец (имя)</span>
-            </th>
-            <th scope="col">
-              <span class="text-nowrap">Отец (отчество)</span>
-            </th>
-            <th scope="col">
-              <span class="text-nowrap">Отец (дата рождекния)</span>
-            </th>
-            <th scope="col">
-              <span class="text-nowrap">Отец (место работы)</span>
-            </th>
-            <th scope="col">
-              <span class="text-nowrap">Отец (номер телефона)</span>
-            </th>
-            <th scope="col">
-              <span class="text-nowrap">Мать (фамилия)</span>
-            </th>
-            <th scope="col">
-              <span class="text-nowrap">Мать (имя)</span>
-            </th>
-            <th scope="col">
-              <span class="text-nowrap">Мать (отчество)</span>
-            </th>
-            <th scope="col">
-              <span class="text-nowrap">Мать (дата рождекния)</span>
-            </th>
-            <th scope="col">
-              <span class="text-nowrap">Мать (место работы)</span>
-            </th>
-            <th scope="col">
-              <span class="text-nowrap">Мать (номер телефона)</span>
-            </th>
-            <th scope="col">
-              <span class="text-nowrap">Иностранный язык (изучал в школе)</span>
-            </th>
-            <th scope="col">
-              <span class="text-nowrap">Иностранный язык (будет изучать)</span>
-            </th>
-            <th scope="col">
-              <span class="text-nowrap">Снятие с воинского учета</span>
-            </th>
-            <th scope="col">
-              <div class="d-flex flex-row align-items-center">
-                <span class="text-nowrap">Военкомат</span>
-                <div class="dropdown">
-                  <button
-                    class="btn dropdown-toggle"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  ></button>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <button
-                        class="dropdown-item"
-                        @click="setOrdering('military_office__military_office')"
-                      >
-                        А -> Я
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        class="dropdown-item"
-                        @click="
-                          setOrdering('-military_office__military_office')
-                        "
-                      >
-                        Я -> А
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </th>
+
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
                 <nobr>Номер зачетной книжки</nobr>
@@ -910,13 +912,11 @@
           <tr>
             <th></th>
             <th style="min-width: 200px">
-              <v-select
-                v-model="searchForm.educational_institution__in"
-                :options="orderedEducationalInstitutions"
-                label="educational_institution"
-                :reduce="(institution) => institution.id"
-                multiple
-              />
+              <select class="form-select" v-model="searchForm.fpk_mag_choice">
+                <option selected value="">-------</option>
+                <option value="1" key="1">ФПКиПРК</option>
+                <option value="0" key="2">Маг</option>
+              </select>
             </th>
             <th>
               <v-select
@@ -1058,55 +1058,21 @@
               </div>
             </th>
             <th>
-              <v-select
-                v-model="searchForm.passport_issue_authority__in"
-                :options="orderedPassportIssueAuthorities"
-                label="passport_issue_authority"
-                :reduce="
-                  (passport_issue_authority) => passport_issue_authority.id
-                "
-                multiple
+              <input
+                type="text"
+                class="form-control me-2"
+                v-model="searchForm.passport_number__icontains"
               />
             </th>
             <th>
               <input
                 type="text"
                 class="form-control me-2"
-                v-model="searchForm.identification_number__icontains"
+                v-model="searchForm.passport_issue_authority_text__icontains"
               />
             </th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
             <th>
-              <select
-                class="form-select"
-                v-model="searchForm.foreign_language_was"
-              >
-                <option selected value="">-------</option>
-                <option
-                  v-for="foreignLanguage in orderedForeignLanguages"
-                  :value="foreignLanguage.id"
-                  :key="foreignLanguage.id"
-                >
-                  {{ foreignLanguage.foreign_language }}
-                </option>
-              </select>
-            </th>
-            <th>
-              <select
-                class="form-select"
-                v-model="searchForm.foreign_language_will_be"
-              >
+              <select class="form-select" v-model="searchForm.foreign_language">
                 <option selected value="">-------</option>
                 <option
                   v-for="foreignLanguage in orderedForeignLanguages"
@@ -1118,29 +1084,6 @@
               </select>
             </th>
 
-            <th>
-              <div class="d-flex justify-content-center align-items-center">
-                <input
-                  type="date"
-                  class="form-control me-2"
-                  v-model="searchForm.removed_from_military_registration__gte"
-                />
-                <input
-                  type="date"
-                  class="form-control"
-                  v-model="searchForm.removed_from_military_registration__lte"
-                />
-              </div>
-            </th>
-            <th style="min-width: 300px">
-              <v-select
-                v-model="searchForm.military_office__in"
-                :options="orderedMilitaryOffices"
-                label="military_office"
-                :reduce="(military_office) => military_office.id"
-                multiple
-              />
-            </th>
             <th>
               <input
                 type="text"
@@ -1345,13 +1288,13 @@
             :key="fpkprk.id"
             @dblclick="
               $router.push({
-                name: 'entrance-fpk-prk-input-form',
+                name: 'entrance-fpk-prk-mag-input-form',
                 params: { id: fpkprk.id },
               })
             "
           >
             <td class="text-center">{{ fpkprk.serial_number }}</td>
-            <td>{{ fpkprk.get_educational_institution }}</td>
+            <td>{{ fpkprk.get_fpk_mag_choice }}</td>
             <td>{{ fpkprk.get_component_organ }}</td>
             <td>{{ fpkprk.get_arrived_from_go_rovd }}</td>
             <td>{{ fpkprk.get_gender }}</td>
@@ -1369,26 +1312,9 @@
             <td class="text-center">{{ fpkprk.passport_validity_period }}</td>
             <td>{{ fpkprk.passport_issue_authority }}</td>
             <td>{{ fpkprk.identification_number }}</td>
-            <td>{{ fpkprk.father_last_name }}</td>
-            <td>{{ fpkprk.father_first_name }}</td>
-            <td>{{ fpkprk.father_patronymic }}</td>
-            <td class="text-center">{{ fpkprk.father_date_of_birth }}</td>
-            <td>{{ fpkprk.father_place_of_work }}</td>
-            <td>{{ fpkprk.father_phone_number }}</td>
-            <td>{{ fpkprk.mother_last_name }}</td>
-            <td>{{ fpkprk.mother_first_name }}</td>
-            <td>{{ fpkprk.mother_patronymic }}</td>
-            <td class="text-center">{{ fpkprk.mother_date_of_birth }}</td>
-            <td>{{ fpkprk.mother_place_of_work }}</td>
-            <td>{{ fpkprk.mother_phone_number }}</td>
-            <td>{{ fpkprk.get_foreign_language_was }}</td>
-            <td>{{ fpkprk.get_foreign_language_will_be }}</td>
-            <td class="text-center">
-              {{ fpkprk.removed_from_military_registration }}
-            </td>
-            <td>
-              <span class="text-nowrap">{{ fpkprk.get_military_office }}</span>
-            </td>
+
+            <td>{{ fpkprk.get_foreign_language }}</td>
+
             <td class="text-center">{{ fpkprk.student_record_book_number }}</td>
             <td class="text-center">{{ fpkprk.rus_bel_ct_number }}</td>
             <td class="text-center">{{ fpkprk.rus_score_ct }}</td>
@@ -1425,38 +1351,33 @@ export default {
     return {
       isLoading: true,
       isError: false,
+
       fieldsForDataExport: [
-        { fieldName: "Фамилия", fieldValue: "last_name_rus" },
-        { fieldName: "Имя", fieldValue: "first_name_rus" },
-        { fieldName: "Отчество", fieldValue: "patronymic_rus" },
-        { fieldName: "Дата рождения", fieldValue: "date_of_birth" },
-        { fieldName: "Возраст", fieldValue: "get_age" },
+        {
+          fieldName: "Статус записи (активна/ неактивна)",
+          fieldValue: "is_active",
+        },
         { fieldName: "Пол", fieldValue: "get_gender" },
-        {
-          fieldName: "Комплектующий орган",
-          fieldValue: "get_component_organ",
-        },
-        {
-          fieldName: "Военкомат",
-          fieldValue: "get_military_office",
-        },
+        { fieldName: "Фамилия (рус)", fieldValue: "last_name_rus" },
+        { fieldName: "Имя (рус)", fieldValue: "first_name_rus" },
+        { fieldName: "Отчество (рус)", fieldValue: "patronymic_rus" },
+        { fieldName: "Фамилия (бел)", fieldValue: "last_name_bel" },
+        { fieldName: "Имя (бел)", fieldValue: "first_name_bel" },
+        { fieldName: "Отчество (бел)", fieldValue: "patronymic_bel" },
+        { fieldName: "Дата рождения", fieldValue: "get_date_of_birth" },
         { fieldName: "Место рождения", fieldValue: "place_of_birth" },
         {
           fieldName: "Место жительства (проживания)",
           fieldValue: "address_residence",
         },
+        { fieldName: "Номер телефона", fieldValue: "phone_number" },
         {
-          fieldName: "Место жительства (регистрация)",
-          fieldValue: "address_registration",
+          fieldName: "Личный номер (жетон)",
+          fieldValue: "personal_number_mvd",
         },
-        {
-          fieldName: "Номер телефона",
-          fieldValue: "phone_number",
-        },
-        {
-          fieldName: "Номер паспорта",
-          fieldValue: "passport_number",
-        },
+        { fieldName: "Семейное положение", fieldValue: "get_marital_status" },
+        { fieldName: "Тип паспорта", fieldValue: "get_passport_document_type" },
+        { fieldName: "Номер паспорта", fieldValue: "passport_number" },
         {
           fieldName: "Дата выдачи паспорта",
           fieldValue: "passport_issue_date",
@@ -1469,20 +1390,156 @@ export default {
           fieldName: "Орган выдачи паспорта",
           fieldValue: "get_passport_issue_authority",
         },
+
+        {
+          fieldName: "Орган выдачи паспорта (текстом)",
+          fieldValue: "passport_issue_authority_text",
+        },
         {
           fieldName: "Идентификационный номер",
           fieldValue: "identification_number",
         },
+        { fieldName: "Звание", fieldValue: "get_rank" },
+        { fieldName: "ФПКиПРК или МАГ", fieldValue: "get_fpk_mag_choice" },
         {
-          fieldName: "Снят с воинского учета",
-          fieldValue: "removed_from_military_registration",
+          fieldName: "Место работы и должность",
+          fieldValue: "place_of_work_position",
         },
         {
-          fieldName: "Прибыл из ГО-РОВД",
-          fieldValue: "get_arrived_from_go_rovd",
+          fieldName: "Номер зачетной книжки",
+          fieldValue: "student_record_book_number",
+        },
+        { fieldName: "Иностранный язык", fieldValue: "get_foreign_language" },
+        { fieldName: "Группа", fieldValue: "get_group" },
+        { fieldName: "Дата поступления", fieldValue: "get_academy_start_date" },
+        { fieldName: "Дата окончания", fieldValue: "get_academy_end_date" },
+        { fieldName: "Причина окончания", fieldValue: "get_graduation_reason" },
+        {
+          fieldName: "Причина окончания (Статья)",
+          fieldValue: "graduation_reason_article",
+        },
+        {
+          fieldName: "Причина окончания (доп. данные)",
+          fieldValue: "graduation_extra_data",
+        },
+        { fieldName: "Профилизация", fieldValue: "get_profiling" },
+        {
+          fieldName: "Специальность (обучается)",
+          fieldValue: "get_speciality",
+        },
+        { fieldName: "Специализация", fieldValue: "get_specialization" },
+        {
+          fieldName: "Направление служебной деятельности",
+          fieldValue: "get_direction_service_activity",
+        },
+        { fieldName: "Курс", fieldValue: "year" },
+        { fieldName: "Литера курса", fieldValue: "year_litera" },
+        { fieldName: "Год набора", fieldValue: "entrance_year" },
+        {
+          fieldName: "Категория поступающего",
+          fieldValue: "get_entrance_category",
+        },
+        { fieldName: "Комплектующий орган", fieldValue: "get_component_organ" },
+        {
+          fieldName: "Замечания по личному делу",
+          fieldValue: "comments_on_personal_file",
+        },
+        {
+          fieldName: "Вид учреждения образования",
+          fieldValue: "get_education_kind",
+        },
+        { fieldName: "Уровень образования", fieldValue: "get_education_level" },
+        {
+          fieldName: "Наименование учебного заведения",
+          fieldValue: "education_graduated",
+        },
+        {
+          fieldName: "Год поступления в учебное заведение",
+          fieldValue: "education_graduating_start_year",
+        },
+        {
+          fieldName: "Год окончания учебного заведения",
+          fieldValue: "education_graduating_end_year",
+        },
+        { fieldName: "Средний бал", fieldValue: "education_average_score" },
+        {
+          fieldName: "Вид населенного пункта",
+          fieldValue: "get_education_location_kind",
+        },
+        {
+          fieldName: "Номер сертификата по русскому / белорусскому языку",
+          fieldValue: "rus_bel_ct_number",
+        },
+        {
+          fieldName: "Русский язык - ЦТ / ЦЭ - количество баллов",
+          fieldValue: "rus_score_ct",
+        },
+        {
+          fieldName: "Русский язык - ЦТ / ЦЭ - выбор",
+          fieldValue: "rus_ct_choice",
+        },
+        {
+          fieldName: "Белорусский язык - ЦТ / ЦЭ - количество баллов",
+          fieldValue: "bel_score_ct",
+        },
+        {
+          fieldName: "Белорусский язык - ЦТ / ЦЭ - выбор",
+          fieldValue: "bel_ct_choice",
+        },
+        {
+          fieldName: "Номер сертификата по обществоведению",
+          fieldValue: "social_science_ct_number",
+        },
+        {
+          fieldName: "Обществоведение - ЦТ / ЦЭ - количество баллов",
+          fieldValue: "social_science_score_ct",
+        },
+        {
+          fieldName: "Обществоведение - ЦТ / ЦЭ - выбор",
+          fieldValue: "social_science_ct_choice",
+        },
+        {
+          fieldName: "Номер сертификата по иностранному языку",
+          fieldValue: "foreign_lang_ct_number",
+        },
+        {
+          fieldName: "Иностранный язык - ЦТ / ЦЭ - количество баллов",
+          fieldValue: "foreign_lang_score_ct",
+        },
+        {
+          fieldName: "Иностранный язык - ЦТ / ЦЭ - выбор",
+          fieldValue: "foreign_lang_ct_choice",
+        },
+        {
+          fieldName: "Русский язык - аттестат - количество баллов",
+          fieldValue: "rus_score_cert",
+        },
+        {
+          fieldName: "Белорусский язык - аттестат - количество баллов",
+          fieldValue: "bel_score_cert",
+        },
+        {
+          fieldName: "Обществоведение - аттестат - количество баллов",
+          fieldValue: "social_science_score_cert",
+        },
+        {
+          fieldName: "Иностранный язык - аттестат - количество баллов",
+          fieldValue: "foreign_lang_score_cert",
+        },
+        {
+          fieldName: "Заявление было отпечатано",
+          fieldValue: "application_has_been_printed",
+        },
+        {
+          fieldName: "Дата и время отпечатки заявления",
+          fieldValue: "get_application_has_been_printed_date",
         },
       ],
-      selectedFieldsForDataExport: ["last_name_rus", "first_name_rus"],
+      selectedFieldsForDataExport: [
+        "last_name_rus",
+        "first_name_rus",
+        "comments_on_personal_file",
+      ],
       searchForm: Object.assign(
         {},
         globalFPKPRKStudentAPIForEntranceInstance.searchObj,
@@ -1560,19 +1617,14 @@ export default {
       queryString =
         queryString + `fields_for_export=${this.selectedFieldsForDataExport}`
       queryString = queryString + `&destination=${destination}`
-      this.$axios
-        .get(
-          `${this.BACKEND_PROTOCOL}://${this.BACKEND_HOST}:${this.BACKEND_PORT}/api/list-export/${queryString}`,
-          { responseType: "blob" },
-        )
-        .then((response) => {
-          const url = window.URL.createObjectURL(new Blob([response.data]))
-          const link = document.createElement("a")
-          link.href = url
-          link.setAttribute("download", `file.${destination}`)
-          document.body.appendChild(link)
-          link.click()
-        })
+      this.fpkprkAPIInstance.list_export(queryString).then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]))
+        const link = document.createElement("a")
+        link.href = url
+        link.setAttribute("download", `file.${destination}`)
+        document.body.appendChild(link)
+        link.click()
+      })
     },
     async loadMoreData() {
       const listElem = this.$refs["infinite_list"]

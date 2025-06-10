@@ -272,9 +272,6 @@ export default {
       isLoading: true,
       isError: false,
       currentTime: new Date(),
-      BACKEND_PROTOCOL: import.meta.env.VITE_APP_BACKEND_PROTOCOL,
-      BACKEND_HOST: import.meta.env.VITE_APP_BACKEND_HOST,
-      BACKEND_PORT: import.meta.env.VITE_APP_BACKEND_PORT,
       cadetList: { count: 0, results: [], previous: null, next: null },
       cadetAPIInstance: globalCadetAPIForEntranceInstance,
       searchForm: Object.assign(
@@ -326,10 +323,6 @@ export default {
         {
           fieldName: "Срок действия паспорта",
           fieldValue: "passport_validity_period",
-        },
-        {
-          fieldName: "Орган выдачи паспорта",
-          fieldValue: "get_passport_issue_authority",
         },
         {
           fieldName: "Орган выдачи паспорта",
@@ -538,10 +531,6 @@ export default {
           fieldValue: "bel_ct_choice",
         },
         {
-          fieldName: "Белорусский язык - ЦТ / ЦЭ - выбор",
-          fieldValue: "bel_ct_choice",
-        },
-        {
           fieldName: "Номер сертификата по обществоведению",
           fieldValue: "social_science_ct_number",
         },
@@ -714,19 +703,14 @@ export default {
         queryString + `fields_for_export=${this.selectedFieldsForDataExport}`
       queryString = queryString + `&destination=${destination}`
 
-      this.$axios
-        .get(
-          `${this.BACKEND_PROTOCOL}://${this.BACKEND_HOST}:${this.BACKEND_PORT}/api/list-export/${queryString}`,
-          { responseType: "blob" },
-        )
-        .then((response) => {
-          const url = window.URL.createObjectURL(new Blob([response.data]))
-          const link = document.createElement("a")
-          link.href = url
-          link.setAttribute("download", `file.${destination}`)
-          document.body.appendChild(link)
-          link.click()
-        })
+      this.cadetAPIInstance.list_export(queryString).then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]))
+        const link = document.createElement("a")
+        link.href = url
+        link.setAttribute("download", `file.${destination}`)
+        document.body.appendChild(link)
+        link.click()
+      })
     },
   },
   computed: {

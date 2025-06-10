@@ -1,4 +1,5 @@
 import BaseAPI from "@/api/baseAPIClass"
+import { axiosInstance as axios } from "@/main.js"
 
 class FPKPRKStudentAPI extends BaseAPI {
   getQueryStringFromSearchObj() {
@@ -18,6 +19,19 @@ class FPKPRKStudentAPI extends BaseAPI {
       }
     }
     return queryString
+  }
+  async entrance_application_print(itemId) {
+    return axios.get(
+      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/${itemId}/entrance_application_print/`,
+      { responseType: "blob" },
+    )
+  }
+
+  async list_export(queryString) {
+    return axios.get(
+      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/list_export${queryString}`,
+      { responseType: "blob" },
+    )
   }
 }
 
@@ -49,6 +63,7 @@ const searchObj = {
   passport_validity_period__lte: "",
   passport_issue_authority: "",
   passport_issue_authority__in: "",
+  passport_issue_authority_text__icontains: "",
   identification_number__icontains: "",
   subdivision: "",
   subdivision__in: "",

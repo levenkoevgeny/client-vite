@@ -1916,82 +1916,31 @@ export default {
       isLoading: true,
       isError: false,
       fieldsForDataExport: [
-        { fieldName: "Фамилия", fieldValue: "last_name_rus" },
-        { fieldName: "Имя", fieldValue: "first_name_rus" },
-        { fieldName: "Отчество", fieldValue: "patronymic_rus" },
-        { fieldName: "Дата рождения", fieldValue: "date_of_birth" },
-        { fieldName: "Возраст", fieldValue: "get_age" },
+        {
+          fieldName: "Статус записи (активна/ неактивна)",
+          fieldValue: "is_active",
+        },
         { fieldName: "Пол", fieldValue: "get_gender" },
-        {
-          fieldName: "Факультет",
-          fieldValue: "get_subdivision",
-        },
-        {
-          fieldName: "Группа",
-          fieldValue: "get_group",
-        },
-        {
-          fieldName: "Звание",
-          fieldValue: "get_rank",
-        },
-        {
-          fieldName: "Должность",
-          fieldValue: "get_position",
-        },
-        {
-          fieldName: "Специализация",
-          fieldValue: "get_specialization",
-        },
-        {
-          fieldName: "Направление ОРД",
-          fieldValue: "get_direction_ord",
-        },
-        {
-          fieldName: "Специальность",
-          fieldValue: "get_speciality",
-        },
-        {
-          fieldName: "Комплектующий орган",
-          fieldValue: "get_component_organ",
-        },
-        {
-          fieldName: "Личный номер (жетон)",
-          fieldValue: "personal_number_mvd",
-        },
-        {
-          fieldName: "Дата поступления",
-          fieldValue: "academy_start_date",
-        },
-        {
-          fieldName: "Дата окончания",
-          fieldValue: "academy_end_date",
-        },
-        {
-          fieldName: "Военкомат",
-          fieldValue: "get_military_office",
-        },
-
+        { fieldName: "Фамилия (рус)", fieldValue: "last_name_rus" },
+        { fieldName: "Имя (рус)", fieldValue: "first_name_rus" },
+        { fieldName: "Отчество (рус)", fieldValue: "patronymic_rus" },
+        { fieldName: "Фамилия (бел)", fieldValue: "last_name_bel" },
+        { fieldName: "Имя (бел)", fieldValue: "first_name_bel" },
+        { fieldName: "Отчество (бел)", fieldValue: "patronymic_bel" },
+        { fieldName: "Дата рождения", fieldValue: "get_date_of_birth" },
         { fieldName: "Место рождения", fieldValue: "place_of_birth" },
         {
           fieldName: "Место жительства (проживания)",
           fieldValue: "address_residence",
         },
+        { fieldName: "Номер телефона", fieldValue: "phone_number" },
         {
-          fieldName: "Место жительства (регистрация)",
-          fieldValue: "address_registration",
+          fieldName: "Личный номер (жетон)",
+          fieldValue: "personal_number_mvd",
         },
-        {
-          fieldName: "Номер телефона",
-          fieldValue: "phone_number",
-        },
-        {
-          fieldName: "Семейное положение",
-          fieldValue: "marital_status",
-        },
-        {
-          fieldName: "Номер паспорта",
-          fieldValue: "passport_number",
-        },
+        { fieldName: "Семейное положение", fieldValue: "get_marital_status" },
+        { fieldName: "Тип паспорта", fieldValue: "get_passport_document_type" },
+        { fieldName: "Номер паспорта", fieldValue: "passport_number" },
         {
           fieldName: "Дата выдачи паспорта",
           fieldValue: "passport_issue_date",
@@ -2005,17 +1954,85 @@ export default {
           fieldValue: "get_passport_issue_authority",
         },
         {
+          fieldName: "Орган выдачи паспорта (текстом)",
+          fieldValue: "passport_issue_authority_text",
+        },
+        {
           fieldName: "Идентификационный номер",
           fieldValue: "identification_number",
         },
+        { fieldName: "Факультет", fieldValue: "get_subdivision" },
+        { fieldName: "Звание", fieldValue: "get_rank" },
+        { fieldName: "Должность", fieldValue: "get_position" },
+        {
+          fieldName: "Номер зачетной книжки",
+          fieldValue: "student_record_book_number",
+        },
+        { fieldName: "Отец - фамилия", fieldValue: "father_last_name" },
+        { fieldName: "Отец - имя", fieldValue: "father_first_name" },
+        { fieldName: "Отец - отчество", fieldValue: "father_patronymic" },
+        {
+          fieldName: "Отец - дата рождения",
+          fieldValue: "get_father_date_of_birth",
+        },
+        {
+          fieldName: "Отец - место работы",
+          fieldValue: "father_place_of_work",
+        },
+        {
+          fieldName: "Отец - номер телефона",
+          fieldValue: "father_phone_number",
+        },
+        {
+          fieldName: "Отец - место жительства",
+          fieldValue: "father_address_residence",
+        },
+        {
+          fieldName: "Отец - место регистрации",
+          fieldValue: "father_address_registration",
+        },
+        { fieldName: "Мать - фамилия", fieldValue: "mother_last_name" },
+        { fieldName: "Мать - имя", fieldValue: "mother_first_name" },
+        { fieldName: "Мать - отчество", fieldValue: "mother_patronymic" },
+        {
+          fieldName: "Мать - дата рождения",
+          fieldValue: "get_mother_date_of_birth",
+        },
+        {
+          fieldName: "Мать - место работы",
+          fieldValue: "mother_place_of_work",
+        },
+        {
+          fieldName: "Мать - номер телефона",
+          fieldValue: "mother_phone_number",
+        },
+        {
+          fieldName: "Мать - место жительства",
+          fieldValue: "mother_address_residence",
+        },
+        {
+          fieldName: "Мать - место регистрации",
+          fieldValue: "mother_address_registration",
+        },
+        {
+          fieldName: "Родители в разводе",
+          fieldValue: "parents_is_in_divorce",
+        },
         {
           fieldName: "Снят с воинского учета",
-          fieldValue: "removed_from_military_registration",
+          fieldValue: "get_removed_from_military_registration",
         },
         {
-          fieldName: "Причина окончания",
-          fieldValue: "get_graduation_reason",
+          fieldName: "Иностранный язык (изучаемый в школе)",
+          fieldValue: "get_foreign_language_was",
         },
+        {
+          fieldName: "Иностранный язык (будет изучать)",
+          fieldValue: "get_foreign_language_will_be",
+        },
+        { fieldName: "Группа", fieldValue: "get_group" },
+        { fieldName: "Дата поступления", fieldValue: "get_academy_start_date" },
+        { fieldName: "Дата окончания", fieldValue: "get_academy_end_date" },
         {
           fieldName: "Причина окончания (Статья)",
           fieldValue: "graduation_reason_article",
@@ -2024,10 +2041,200 @@ export default {
           fieldName: "Причина окончания (доп. данные)",
           fieldValue: "graduation_extra_data",
         },
+        { fieldName: "Специализация", fieldValue: "get_specialization" },
+        { fieldName: "Направление ОРД", fieldValue: "get_direction_ord" },
+        {
+          fieldName: "Специальность (обучается)",
+          fieldValue: "get_speciality",
+        },
+        { fieldName: "Год набора", fieldValue: "entrance_year" },
+        {
+          fieldName: "Заявление было отпечатано",
+          fieldValue: "application_has_been_printed",
+        },
+        {
+          fieldName: "Дата и время отпечатки заявления",
+          fieldValue: "get_application_has_been_printed_date",
+        },
+        { fieldName: "Комплектующий орган", fieldValue: "get_component_organ" },
+        {
+          fieldName: "В чьих интересах обучается",
+          fieldValue: "get_in_whose_interests",
+        },
+        {
+          fieldName: "Категория поступающего",
+          fieldValue: "get_entrance_category",
+        },
         {
           fieldName: "Прибыл из ГО-РОВД",
           fieldValue: "get_arrived_from_go_rovd",
         },
+        { fieldName: "Социальный статус", fieldValue: "get_social_status" },
+        {
+          fieldName: "Область (для прохождения мед. комиссии)",
+          fieldValue: "get_region_for_medical_examination",
+        },
+        { fieldName: "Военкомат", fieldValue: "get_military_office" },
+        {
+          fieldName: "Военкомат (дополнительные данные)",
+          fieldValue: "military_office_extra_data",
+        },
+        {
+          fieldName: "Замечания по личному делу",
+          fieldValue: "comments_on_personal_file",
+        },
+        {
+          fieldName: "Учреждение образования",
+          fieldValue: "get_educational_institution",
+        },
+        {
+          fieldName: "Место службы в армии",
+          fieldValue: "military_organization",
+        },
+        {
+          fieldName: "Служба в армии (начало)",
+          fieldValue: "get_military_service_start",
+        },
+        {
+          fieldName: "Служба в армии (окончание)",
+          fieldValue: "get_military_service_end",
+        },
+        {
+          fieldName: "Служба в армии (должность)",
+          fieldValue: "military_position",
+        },
+        { fieldName: "Служба в МВД", fieldValue: "mvd_organization" },
+        {
+          fieldName: "Служба в МВД (начало)",
+          fieldValue: "get_mvd_service_start",
+        },
+        {
+          fieldName: "Служба в МВД (окончание)",
+          fieldValue: "get_mvd_service_end",
+        },
+        { fieldName: "Служба в МВД (должность)", fieldValue: "mvd_position" },
+        {
+          fieldName: "Вид учреждения образования",
+          fieldValue: "get_education_kind",
+        },
+        { fieldName: "Уровень образования", fieldValue: "get_education_level" },
+        {
+          fieldName: "Наименование учебного заведения",
+          fieldValue: "education_graduated",
+        },
+        {
+          fieldName: "Год поступления в учебное заведение",
+          fieldValue: "education_graduating_start_year",
+        },
+        {
+          fieldName: "Год окончания учебного заведения",
+          fieldValue: "education_graduating_end_year",
+        },
+        { fieldName: "Средний бал", fieldValue: "education_average_score" },
+        {
+          fieldName: "Вид населенного пункта",
+          fieldValue: "get_education_location_kind",
+        },
+        {
+          fieldName: "Номер сертификата по русскому / белорусскому языку",
+          fieldValue: "rus_bel_ct_number",
+        },
+        {
+          fieldName: "Русский язык - ЦТ / ЦЭ - количество баллов",
+          fieldValue: "rus_score_ct",
+        },
+        {
+          fieldName: "Русский язык - ЦТ / ЦЭ - выбор",
+          fieldValue: "rus_ct_choice",
+        },
+        {
+          fieldName: "Белорусский язык - ЦТ / ЦЭ - количество баллов",
+          fieldValue: "bel_score_ct",
+        },
+        {
+          fieldName: "Белорусский язык - ЦТ / ЦЭ - выбор",
+          fieldValue: "bel_ct_choice",
+        },
+        {
+          fieldName: "Номер сертификата по обществоведению",
+          fieldValue: "social_science_ct_number",
+        },
+        {
+          fieldName: "Обществоведение - ЦТ / ЦЭ - количество баллов",
+          fieldValue: "social_science_score_ct",
+        },
+        {
+          fieldName: "Обществоведение - ЦТ / ЦЭ - выбор",
+          fieldValue: "social_science_ct_choice",
+        },
+        {
+          fieldName: "Номер сертификата по иностранному языку",
+          fieldValue: "foreign_lang_ct_number",
+        },
+        {
+          fieldName: "Иностранный язык - ЦТ / ЦЭ - количество баллов",
+          fieldValue: "foreign_lang_score_ct",
+        },
+        {
+          fieldName: "Иностранный язык - ЦТ / ЦЭ - выбор",
+          fieldValue: "foreign_lang_ct_choice",
+        },
+        {
+          fieldName: "Русский язык - аттестат - количество баллов",
+          fieldValue: "rus_score_cert",
+        },
+        {
+          fieldName: "Белорусский язык - аттестат - количество баллов",
+          fieldValue: "bel_score_cert",
+        },
+        {
+          fieldName: "Обществоведение - аттестат - количество баллов",
+          fieldValue: "social_science_score_cert",
+        },
+        {
+          fieldName: "Иностранный язык - аттестат - количество баллов",
+          fieldValue: "foreign_lang_score_cert",
+        },
+        { fieldName: "Специальность 1", fieldValue: "get_speciality_1" },
+        { fieldName: "Специальность 2", fieldValue: "get_speciality_2" },
+        { fieldName: "Специальность 3", fieldValue: "get_speciality_3" },
+        { fieldName: "Специальность 4", fieldValue: "get_speciality_4" },
+        { fieldName: "Специальность 5", fieldValue: "get_speciality_5" },
+        { fieldName: "Специальность 6", fieldValue: "get_speciality_6" },
+        { fieldName: "Специальность 7", fieldValue: "get_speciality_7" },
+        { fieldName: "Специальность 8", fieldValue: "get_speciality_8" },
+        { fieldName: "Специальность 9", fieldValue: "get_speciality_9" },
+        { fieldName: "Льгота 1", fieldValue: "get_privilege_1" },
+        { fieldName: "Льгота 2", fieldValue: "get_privilege_2" },
+        { fieldName: "Льгота 3", fieldValue: "get_privilege_3" },
+        { fieldName: "Льгота 4", fieldValue: "get_privilege_4" },
+        { fieldName: "Льгота 5", fieldValue: "get_privilege_5" },
+        { fieldName: "Льгота 6", fieldValue: "get_privilege_6" },
+        { fieldName: "Льгота 7", fieldValue: "get_privilege_7" },
+        { fieldName: "Льгота 8", fieldValue: "get_privilege_8" },
+        { fieldName: "Льгота 9", fieldValue: "get_privilege_9" },
+        { fieldName: "Группа здоровья", fieldValue: "get_health_group" },
+        {
+          fieldName: "Категория профессионального соответствия",
+          fieldValue: "get_ppfl_test",
+        },
+        {
+          fieldName: "Медико-возрастная группа",
+          fieldValue: "medical_age_group",
+        },
+        {
+          fieldName: "Окончательное медицинское освидетельствование",
+          fieldValue: "passed_medical_examination",
+        },
+        {
+          fieldName: "Дата прохождения медицинской комиссии",
+          fieldValue: "get_passed_medical_examination_date",
+        },
+        {
+          fieldName: "Медицинская комиссия (доп. данные)",
+          fieldValue: "passed_medical_examination_extra_data",
+        },
+        { fieldName: "Возраст", fieldValue: "get_age" },
       ],
       selectedFieldsForDataExport: ["last_name_rus", "first_name_rus"],
       cadetList: {
@@ -2097,19 +2304,14 @@ export default {
       queryString =
         queryString + `fields_for_export=${this.selectedFieldsForDataExport}`
       queryString = queryString + `&destination=${destination}`
-      this.$axios
-        .get(
-          `${this.BACKEND_PROTOCOL}://${this.BACKEND_HOST}:${this.BACKEND_PORT}/api/list-export/${queryString}`,
-          { responseType: "blob" },
-        )
-        .then((response) => {
-          const url = window.URL.createObjectURL(new Blob([response.data]))
-          const link = document.createElement("a")
-          link.href = url
-          link.setAttribute("download", `file.${destination}`)
-          document.body.appendChild(link)
-          link.click()
-        })
+      this.cadetAPIInstance.list_export(queryString).then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]))
+        const link = document.createElement("a")
+        link.href = url
+        link.setAttribute("download", `file.${destination}`)
+        document.body.appendChild(link)
+        link.click()
+      })
     },
     clearFilter() {
       this.searchForm = Object.assign(
