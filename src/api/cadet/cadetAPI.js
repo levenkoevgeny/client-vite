@@ -27,9 +27,10 @@ class CadetAPI extends BaseAPI {
     )
   }
 
-  async list_export(queryString) {
-    return axios.get(
-      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/list_export${queryString}`,
+  async list_export(export_data) {
+    return axios.post(
+      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/list_export/`,
+      export_data,
       { responseType: "blob" },
     )
   }
@@ -149,4 +150,5 @@ export const globalCadetAPIInstanceForPassOffice = getCadetAPIInstance()
 export const globalCadetAPIForEntranceInstance = new CadetAPI("cadet", {
   ...searchObj,
   category: 3,
+  is_active: "",
 })

@@ -1,15 +1,13 @@
 <template>
   <base-list-layout
-      :is-loading="isLoading"
-      :main-list-length="cadetList.count"
-      title="Личные дела"
-      :load-more-data="loadMoreData"
+    :is-loading="isLoading"
+    :main-list-length="cadetList.count"
+    title="Личные дела"
+    :load-more-data="loadMoreData"
   >
     <template v-slot:add-button>
       <button class="btn btn-secondary me-3" @click="showExportDataModal">
-        Экспорт&nbsp;&nbsp;<font-awesome-icon
-          :icon="['fas', 'file-export']"
-      />
+        Экспорт&nbsp;&nbsp;<font-awesome-icon :icon="['fas', 'file-export']" />
       </button>
       <button class="btn btn-warning" @click="showCadetAddModal">
         Добавить личное дело
@@ -18,82 +16,82 @@
 
     <template v-slot:table-mode-button>
       <router-link
-          :to="{ name: 'entrance-cadet-table-view' }"
-          class="fs-3 fw-light link-secondary"
-          title="Табличный режим"
+        :to="{ name: 'entrance-cadet-table-view' }"
+        class="fs-3 fw-light link-secondary"
+        title="Табличный режим"
       >
-        <font-awesome-icon :icon="['fas', 'table']"/>
+        <font-awesome-icon :icon="['fas', 'table']" />
       </router-link>
     </template>
 
     <template v-slot:modals>
       <div
-          class="modal fade"
-          id="exportDataModal"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-          ref="exportDataModal"
+        class="modal fade"
+        id="exportDataModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+        ref="exportDataModal"
       >
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
               <h1 class="modal-title fs-5">Экспорт данных</h1>
               <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
               ></button>
             </div>
             <div class="modal-body">
               <div>
                 <div style="font-size: 1.7rem">
                   <button
-                      class="btn btn-link text-primary"
-                      style="font-size: inherit"
-                      title="Экспорт в Word"
-                      @click="exportData('docx')"
+                    class="btn btn-link text-primary"
+                    style="font-size: inherit"
+                    title="Экспорт в Word"
+                    @click="exportData('docx')"
                   >
-                    <font-awesome-icon :icon="['far', 'file-word']"/>
+                    <font-awesome-icon :icon="['far', 'file-word']" />
                   </button>
                   <button
-                      class="btn btn-link text-success"
-                      style="font-size: inherit; color: inherit"
-                      title="Экспорт в Excel"
-                      @click="exportData('xlsx')"
+                    class="btn btn-link text-success"
+                    style="font-size: inherit; color: inherit"
+                    title="Экспорт в Excel"
+                    @click="exportData('xlsx')"
                   >
-                    <font-awesome-icon :icon="['far', 'file-excel']"/>
+                    <font-awesome-icon :icon="['far', 'file-excel']" />
                   </button>
                 </div>
                 <div>
                   <div
-                      class="d-flex flex-row align-items-center justify-content-start my-2"
+                    class="d-flex flex-row align-items-center justify-content-start my-2"
                   >
                     <button
-                        class="btn text-primary me-2 p-0"
-                        @click="checkAllFieldsForExport"
+                      class="btn text-primary me-2 p-0"
+                      @click="checkAllFieldsForExport"
                     >
-                      <font-awesome-icon :icon="['fas', 'list-check']"/>
+                      <font-awesome-icon :icon="['fas', 'list-check']" />
                       Выбрать все поля
                     </button>
                     <button
-                        class="btn text-primary m-0 p-0"
-                        @click="clearAllFieldsForExport"
+                      class="btn text-primary m-0 p-0"
+                      @click="clearAllFieldsForExport"
                     >
                       Очистить
-                      <font-awesome-icon :icon="['far', 'circle-xmark']"/>
+                      <font-awesome-icon :icon="['far', 'circle-xmark']" />
                     </button>
                   </div>
                   <label class="form-label">Выбор полей для экспорта</label>
 
                   <v-select
-                      v-model="selectedFieldsForDataExport"
-                      :options="fieldsForDataExport"
-                      label="fieldName"
-                      :reduce="(field) => field.fieldValue"
-                      multiple
-                      style="min-width: 400px"
+                    v-model="selectedFieldsForDataExport"
+                    :options="fieldsForDataExport"
+                    label="fieldName"
+                    :reduce="(field) => field.fieldValue"
+                    multiple
+                    style="min-width: 400px"
                   />
                 </div>
               </div>
@@ -102,14 +100,13 @@
         </div>
       </div>
 
-
       <div
-          class="modal fade"
-          id="cadetAddModal"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-          ref="cadetAddModal"
+        class="modal fade"
+        id="cadetAddModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+        ref="cadetAddModal"
       >
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
@@ -118,10 +115,10 @@
                 Добавление личного дела
               </h1>
               <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
               ></button>
             </div>
 
@@ -129,61 +126,67 @@
               <div class="modal-body">
                 <div class="mb-3">
                   <label for="id_last_name_rus" class="form-label"
-                  >Фамилия</label
+                    >Фамилия</label
                   >
                   <input
-                      type="text"
-                      class="form-control"
-                      id="id_last_name_rus"
-                      v-model="cadetNewForm.last_name_rus"
-                      required
+                    type="text"
+                    class="form-control"
+                    id="id_last_name_rus"
+                    v-model="cadetNewForm.last_name_rus"
+                    required
                   />
                 </div>
                 <div class="mb-3">
                   <label for="id_first_name_rus" class="form-label">Имя</label>
                   <input
-                      type="text"
-                      class="form-control"
-                      id="id_first_name_rus"
-                      v-model="cadetNewForm.first_name_rus"
-                      required
+                    type="text"
+                    class="form-control"
+                    id="id_first_name_rus"
+                    v-model="cadetNewForm.first_name_rus"
+                    required
                   />
                 </div>
                 <div class="mb-3">
                   <label for="id_patronymic_rus" class="form-label"
-                  >Отчество</label
+                    >Отчество</label
                   >
                   <input
-                      type="text"
-                      class="form-control"
-                      id="id_patronymic_rus"
-                      v-model="cadetNewForm.patronymic_rus"
-                      required
+                    type="text"
+                    class="form-control"
+                    id="id_patronymic_rus"
+                    v-model="cadetNewForm.patronymic_rus"
+                    required
                   />
                 </div>
                 <div class="mb-3">
                   <label for="id_date_of_birth" class="form-label"
-                  >Дата рождения</label
+                    >Дата рождения</label
                   >
                   <input
-                      type="date"
-                      class="form-control"
-                      id="id_date_of_birth"
-                      v-model="cadetNewForm.date_of_birth"
-                      required
+                    type="date"
+                    class="form-control"
+                    id="id_date_of_birth"
+                    v-model="cadetNewForm.date_of_birth"
+                    required
                   />
                 </div>
               </div>
               <div class="modal-footer">
                 <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                    ref="cadetAddModalCloseButton"
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                  ref="cadetAddModalCloseButton"
                 >
                   Закрыть без сохранения
                 </button>
-                <button type="submit" class="btn btn-primary" :disabled="isLoading">Сохранить</button>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  :disabled="isLoading"
+                >
+                  Сохранить
+                </button>
               </div>
             </form>
           </div>
@@ -202,10 +205,10 @@
     </template>
     <template v-slot:tbody>
       <tr
-          class="align-middle"
-          v-for="cadet in orderedCadets"
-          :key="cadet.id"
-          @dblclick="
+        class="align-middle"
+        v-for="cadet in orderedCadets"
+        :key="cadet.id"
+        @dblclick="
           $router.push({
             name: 'entrance-cadet-input-form',
             params: { id: cadet.id },
@@ -238,10 +241,10 @@
       <div class="mb-3">
         <label for="last_name_rus" class="form-label">Фамилия</label>
         <input
-            type="text"
-            id="last_name_rus"
-            class="form-control"
-            v-model="searchForm.last_name_rus__icontains"
+          type="text"
+          id="last_name_rus"
+          class="form-control"
+          v-model="searchForm.last_name_rus__icontains"
         />
       </div>
     </template>
@@ -255,24 +258,24 @@
 
 <script>
 import NavigationLayout from "@/components/layouts/NavigationLayout.vue"
-import {globalCadetAPIForEntranceInstance} from "@/api/cadet/cadetAPI.js"
-import {debounce} from "lodash/function"
-import {mapGetters} from "vuex"
+import { globalCadetAPIForEntranceInstance } from "@/api/cadet/cadetAPI.js"
+import { debounce } from "lodash/function"
+import { mapGetters } from "vuex"
 import BaseListLayout from "@/components/layouts/BaseListLayout.vue"
 
 export default {
   name: "EntranceListView",
-  components: {NavigationLayout, BaseListLayout},
+  components: { NavigationLayout, BaseListLayout },
   data() {
     return {
       isLoading: true,
       isError: false,
       currentTime: new Date(),
-      cadetList: {count: 0, results: [], previous: null, next: null},
+      cadetList: { count: 0, results: [], previous: null, next: null },
       cadetAPIInstance: globalCadetAPIForEntranceInstance,
       searchForm: Object.assign(
-          {},
-          globalCadetAPIForEntranceInstance.searchObj,
+        {},
+        globalCadetAPIForEntranceInstance.searchObj,
       ),
       cadetNewForm: {
         category: 3,
@@ -604,7 +607,13 @@ export default {
         },
         { fieldName: "Возраст", fieldValue: "get_age" },
       ],
-      selectedFieldsForDataExport: ["last_name_rus", "first_name_rus", "get_component_organ", "get_arrived_from_go_rovd", "comments_on_personal_file"],
+      selectedFieldsForDataExport: [
+        "last_name_rus",
+        "first_name_rus",
+        "get_component_organ",
+        "get_arrived_from_go_rovd",
+        "comments_on_personal_file",
+      ],
     }
   },
   async created() {
@@ -621,13 +630,13 @@ export default {
     async loadMoreData() {
       const listElem = document.getElementById("infinite_list")
       if (
-          listElem.scrollTop + listElem.clientHeight >=
-          listElem.scrollHeight - 1
+        listElem.scrollTop + listElem.clientHeight >=
+        listElem.scrollHeight - 1
       ) {
         if (this.cadetList.next) {
           try {
             const response = await this.cadetAPIInstance.updateList(
-                this.cadetList.next,
+              this.cadetList.next,
             )
 
             const newData = await response.data
@@ -677,8 +686,8 @@ export default {
     }, 500),
     clearFilter() {
       this.searchForm = Object.assign(
-          {},
-          this.cadetAPIInstance.searchObjDefault,
+        {},
+        this.cadetAPIInstance.searchObjDefault,
       )
     },
     showExportDataModal() {
@@ -698,33 +707,40 @@ export default {
       this.selectedFieldsForDataExport = []
     },
     async exportData(destination) {
-      let queryString = "?"
-      for (let key in this.searchForm) {
-        if (key.includes("__in")) {
-          if (typeof this.searchForm[key] === "object") {
-            const valArray = this.searchForm[key]
-            let keyVal = ""
-            valArray.forEach((val) => {
-              keyVal = keyVal + `${key}=${val}&`
-            })
-            queryString = queryString + keyVal
+      if (this.selectedFieldsForDataExport.length === 0) {
+        alert("Выберите хотя бы одно поле для экспорта!")
+      } else {
+        let export_data = {}
+        let queryString = "?"
+        for (let key in this.searchForm) {
+          if (key.includes("__in")) {
+            if (typeof this.searchForm[key] === "object") {
+              const valArray = this.searchForm[key]
+              let keyVal = ""
+              valArray.forEach((val) => {
+                keyVal = keyVal + `${key}=${val}&`
+              })
+              queryString = queryString + keyVal
+            }
+          } else {
+            queryString = queryString + `${key}=${this.searchForm[key]}&`
           }
-        } else {
-          queryString = queryString + `${key}=${this.searchForm[key]}&`
         }
-      }
-      queryString =
-          queryString + `fields_for_export=${this.selectedFieldsForDataExport}`
-      queryString = queryString + `&destination=${destination}`
 
-      this.cadetAPIInstance.list_export(queryString).then((response) => {
-        const url = window.URL.createObjectURL(new Blob([response.data]))
-        const link = document.createElement("a")
-        link.href = url
-        link.setAttribute("download", `file.${destination}`)
-        document.body.appendChild(link)
-        link.click()
-      })
+        export_data.query_string = queryString
+        export_data.fields_for_export =
+          this.selectedFieldsForDataExport.toString()
+        export_data.destination = destination
+
+        this.cadetAPIInstance.list_export(export_data).then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]))
+          const link = document.createElement("a")
+          link.href = url
+          link.setAttribute("download", `file.${destination}`)
+          document.body.appendChild(link)
+          link.click()
+        })
+      }
     },
   },
   computed: {
@@ -743,6 +759,4 @@ export default {
   },
 }
 </script>
-<style scoped>
-
-</style>
+<style scoped></style>

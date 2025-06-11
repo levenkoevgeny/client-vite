@@ -1351,7 +1351,6 @@ export default {
     return {
       isLoading: true,
       isError: false,
-
       fieldsForDataExport: [
         {
           fieldName: "Статус записи (активна/ неактивна)",
@@ -1599,32 +1598,40 @@ export default {
       this.selectedFieldsForDataExport = []
     },
     async exportData(destination) {
-      let queryString = "?"
-      for (let key in this.searchForm) {
-        if (key.includes("__in")) {
-          if (typeof this.searchForm[key] === "object") {
-            const valArray = this.searchForm[key]
-            let keyVal = ""
-            valArray.forEach((val) => {
-              keyVal = keyVal + `${key}=${val}&`
-            })
-            queryString = queryString + keyVal
+      if (this.selectedFieldsForDataExport.length === 0) {
+        alert("Выберите хотя бы одно поле для экспорта!")
+      } else {
+        let export_data = {}
+        let queryString = "?"
+        for (let key in this.searchForm) {
+          if (key.includes("__in")) {
+            if (typeof this.searchForm[key] === "object") {
+              const valArray = this.searchForm[key]
+              let keyVal = ""
+              valArray.forEach((val) => {
+                keyVal = keyVal + `${key}=${val}&`
+              })
+              queryString = queryString + keyVal
+            }
+          } else {
+            queryString = queryString + `${key}=${this.searchForm[key]}&`
           }
-        } else {
-          queryString = queryString + `${key}=${this.searchForm[key]}&`
         }
+
+        export_data.query_string = queryString
+        export_data.fields_for_export =
+          this.selectedFieldsForDataExport.toString()
+        export_data.destination = destination
+
+        this.fpkprkAPIInstance.list_export(export_data).then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]))
+          const link = document.createElement("a")
+          link.href = url
+          link.setAttribute("download", `file.${destination}`)
+          document.body.appendChild(link)
+          link.click()
+        })
       }
-      queryString =
-        queryString + `fields_for_export=${this.selectedFieldsForDataExport}`
-      queryString = queryString + `&destination=${destination}`
-      this.fpkprkAPIInstance.list_export(queryString).then((response) => {
-        const url = window.URL.createObjectURL(new Blob([response.data]))
-        const link = document.createElement("a")
-        link.href = url
-        link.setAttribute("download", `file.${destination}`)
-        document.body.appendChild(link)
-        link.click()
-      })
     },
     async loadMoreData() {
       const listElem = this.$refs["infinite_list"]
