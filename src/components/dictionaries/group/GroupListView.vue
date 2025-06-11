@@ -83,7 +83,7 @@
               <div class="modal-body">
                 <div class="mb-3">
                   <label for="id_encouragement_kind" class="form-label"
-                    >Звание</label
+                    >Группа</label
                   >
                   <input
                     type="text"

@@ -7,6 +7,7 @@ class usersAPI extends BaseAPI {
       `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/?username=${value}`,
     )
   }
+
   async updatePassword(userId, newPassword) {
     return axios.post(
       `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/${userId}/set_password/`,

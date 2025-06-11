@@ -530,7 +530,7 @@
                       class="form-select"
                       v-model="currentStudentData.gender"
                     >
-                      <option value="">---------</option>
+                      <option :value="null">---------</option>
                       <option value="1">Мужской</option>
                       <option value="0">Женский</option>
                     </select>
@@ -548,7 +548,7 @@
                 <div class="col-xl-3">
                   <div class="form-floating mb-3">
                     <select
-                      id="id_foreign_language_was"
+                      id="id_education_form"
                       class="form-select"
                       v-model="currentStudentData.education_form"
                     >
@@ -560,7 +560,7 @@
                         {{ education_form.education_form }}
                       </option>
                     </select>
-                    <label for="id_foreign_language_was">Форма обучения</label>
+                    <label for="id_education_form">Форма обучения</label>
                   </div>
                 </div>
                 <div class="col-xl-3">
@@ -633,11 +633,12 @@
                       v-model="currentStudentData.health_group"
                     >
                       <option :value="null">---------</option>
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
+                      <option
+                          :value="health_group.id"
+                          v-for="health_group in orderedHealthGroups"
+                      >
+                        {{ health_group.health_group }}
+                      </option>
                     </select>
                     <label for="id_health_group">Группа здоровья</label>
                   </div>
@@ -2253,230 +2254,230 @@
               </div>
             </div>
             <!--Анкета-->
-            <div class="card shadow mb-2 rounded border-0">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-xl-4">
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_needs_increased_attention"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentStudentData.needs_increased_attention"
-                      />
-                      <label
-                        class="form-check-label"
-                        for="id_needs_increased_attention"
-                      >
-                        Требует повышенного внимания
-                      </label>
-                    </div>
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_needs_psychological_support"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentStudentData.needs_psychological_support"
-                      />
-                      <label
-                        class="form-check-label"
-                        for="id_needs_psychological_support"
-                      >
-                        Требует психологического сопровождения
-                      </label>
-                    </div>
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_is_risk_group"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentStudentData.is_risk_group"
-                      />
-                      <label class="form-check-label" for="id_is_risk_group"
-                        >Группа риска</label
-                      >
-                    </div>
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_has_conviction"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentStudentData.has_conviction"
-                      />
-                      <label class="form-check-label" for="id_has_conviction"
-                        >Судимость</label
-                      >
-                    </div>
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_has_dactocard"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentStudentData.has_dactocard"
-                      />
-                      <label class="form-check-label" for="id_has_dactocard"
-                        >Дактилоскопирование</label
-                      >
-                    </div>
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_has_gusb_check"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentStudentData.has_gusb_check"
-                      />
-                      <label class="form-check-label" for="id_has_gusb_check"
-                        >Проверка ГУСБ</label
-                      >
-                    </div>
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_has_employee_in_family"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentStudentData.has_employee_in_family"
-                      />
-                      <label
-                        class="form-check-label"
-                        for="id_has_employee_in_family"
-                        >Сотрудники в семье</label
-                      >
-                    </div>
-                    <div class="form-check mb-3">
-                      <input
-                        id="is_is_orphan"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentStudentData.is_orphan"
-                      />
-                      <label class="form-check-label" for="is_is_orphan"
-                        >Сирота</label
-                      >
-                    </div>
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_is_employee"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentStudentData.is_employee"
-                      />
-                      <label class="form-check-label" for="id_is_employee"
-                        >Сотрудник</label
-                      >
-                    </div>
-                  </div>
-                  <div class="col-xl-4">
-                    <p>Сертификаты</p>
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_has_certificate_ideas_for_Belarus"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="
-                          currentStudentData.has_certificate_ideas_for_Belarus
-                        "
-                      />
-                      <label
-                        class="form-check-label"
-                        for="id_has_certificate_ideas_for_Belarus"
-                        >100 идей для Беларуси</label
-                      >
-                    </div>
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_has_certificate_kind_heart"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentStudentData.has_certificate_kind_heart"
-                      />
-                      <label
-                        class="form-check-label"
-                        for="id_has_certificate_kind_heart"
-                        >Доброе сердце</label
-                      >
-                    </div>
-                  </div>
-                  <div class="col-xl-4">
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_is_law_class"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentStudentData.is_law_class"
-                      />
-                      <label class="form-check-label" for="id_is_law_class"
-                        >Правовой класс</label
-                      >
-                    </div>
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_is_law_enforcement"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentStudentData.is_law_enforcement"
-                      />
-                      <label
-                        class="form-check-label"
-                        for="id_is_law_enforcement"
-                        >Охрана правопорядка</label
-                      >
-                    </div>
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_is_reserve"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentStudentData.is_reserve"
-                      />
-                      <label class="form-check-label" for="id_is_reserve"
-                        >Резерв</label
-                      >
-                    </div>
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_is_fired"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentStudentData.is_fired"
-                      />
-                      <label class="form-check-label" for="id_is_fired"
-                        >Уволен</label
-                      >
-                    </div>
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_took_documents"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentStudentData.took_documents"
-                      />
-                      <label class="form-check-label" for="id_took_documents"
-                        >Забрал документы</label
-                      >
-                    </div>
+<!--            <div class="card shadow mb-2 rounded border-0">-->
+<!--              <div class="card-body">-->
+<!--                <div class="row">-->
+<!--                  <div class="col-xl-4">-->
+<!--                    <div class="form-check mb-3">-->
+<!--                      <input-->
+<!--                        id="id_needs_increased_attention"-->
+<!--                        class="form-check-input"-->
+<!--                        type="checkbox"-->
+<!--                        v-model="currentStudentData.needs_increased_attention"-->
+<!--                      />-->
+<!--                      <label-->
+<!--                        class="form-check-label"-->
+<!--                        for="id_needs_increased_attention"-->
+<!--                      >-->
+<!--                        Требует повышенного внимания-->
+<!--                      </label>-->
+<!--                    </div>-->
+<!--                    <div class="form-check mb-3">-->
+<!--                      <input-->
+<!--                        id="id_needs_psychological_support"-->
+<!--                        class="form-check-input"-->
+<!--                        type="checkbox"-->
+<!--                        v-model="currentStudentData.needs_psychological_support"-->
+<!--                      />-->
+<!--                      <label-->
+<!--                        class="form-check-label"-->
+<!--                        for="id_needs_psychological_support"-->
+<!--                      >-->
+<!--                        Требует психологического сопровождения-->
+<!--                      </label>-->
+<!--                    </div>-->
+<!--                    <div class="form-check mb-3">-->
+<!--                      <input-->
+<!--                        id="id_is_risk_group"-->
+<!--                        class="form-check-input"-->
+<!--                        type="checkbox"-->
+<!--                        v-model="currentStudentData.is_risk_group"-->
+<!--                      />-->
+<!--                      <label class="form-check-label" for="id_is_risk_group"-->
+<!--                        >Группа риска</label-->
+<!--                      >-->
+<!--                    </div>-->
+<!--                    <div class="form-check mb-3">-->
+<!--                      <input-->
+<!--                        id="id_has_conviction"-->
+<!--                        class="form-check-input"-->
+<!--                        type="checkbox"-->
+<!--                        v-model="currentStudentData.has_conviction"-->
+<!--                      />-->
+<!--                      <label class="form-check-label" for="id_has_conviction"-->
+<!--                        >Судимость</label-->
+<!--                      >-->
+<!--                    </div>-->
+<!--                    <div class="form-check mb-3">-->
+<!--                      <input-->
+<!--                        id="id_has_dactocard"-->
+<!--                        class="form-check-input"-->
+<!--                        type="checkbox"-->
+<!--                        v-model="currentStudentData.has_dactocard"-->
+<!--                      />-->
+<!--                      <label class="form-check-label" for="id_has_dactocard"-->
+<!--                        >Дактилоскопирование</label-->
+<!--                      >-->
+<!--                    </div>-->
+<!--                    <div class="form-check mb-3">-->
+<!--                      <input-->
+<!--                        id="id_has_gusb_check"-->
+<!--                        class="form-check-input"-->
+<!--                        type="checkbox"-->
+<!--                        v-model="currentStudentData.has_gusb_check"-->
+<!--                      />-->
+<!--                      <label class="form-check-label" for="id_has_gusb_check"-->
+<!--                        >Проверка ГУСБ</label-->
+<!--                      >-->
+<!--                    </div>-->
+<!--                    <div class="form-check mb-3">-->
+<!--                      <input-->
+<!--                        id="id_has_employee_in_family"-->
+<!--                        class="form-check-input"-->
+<!--                        type="checkbox"-->
+<!--                        v-model="currentStudentData.has_employee_in_family"-->
+<!--                      />-->
+<!--                      <label-->
+<!--                        class="form-check-label"-->
+<!--                        for="id_has_employee_in_family"-->
+<!--                        >Сотрудники в семье</label-->
+<!--                      >-->
+<!--                    </div>-->
+<!--                    <div class="form-check mb-3">-->
+<!--                      <input-->
+<!--                        id="is_is_orphan"-->
+<!--                        class="form-check-input"-->
+<!--                        type="checkbox"-->
+<!--                        v-model="currentStudentData.is_orphan"-->
+<!--                      />-->
+<!--                      <label class="form-check-label" for="is_is_orphan"-->
+<!--                        >Сирота</label-->
+<!--                      >-->
+<!--                    </div>-->
+<!--                    <div class="form-check mb-3">-->
+<!--                      <input-->
+<!--                        id="id_is_employee"-->
+<!--                        class="form-check-input"-->
+<!--                        type="checkbox"-->
+<!--                        v-model="currentStudentData.is_employee"-->
+<!--                      />-->
+<!--                      <label class="form-check-label" for="id_is_employee"-->
+<!--                        >Сотрудник</label-->
+<!--                      >-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <div class="col-xl-4">-->
+<!--                    <p>Сертификаты</p>-->
+<!--                    <div class="form-check mb-3">-->
+<!--                      <input-->
+<!--                        id="id_has_certificate_ideas_for_Belarus"-->
+<!--                        class="form-check-input"-->
+<!--                        type="checkbox"-->
+<!--                        v-model="-->
+<!--                          currentStudentData.has_certificate_ideas_for_Belarus-->
+<!--                        "-->
+<!--                      />-->
+<!--                      <label-->
+<!--                        class="form-check-label"-->
+<!--                        for="id_has_certificate_ideas_for_Belarus"-->
+<!--                        >100 идей для Беларуси</label-->
+<!--                      >-->
+<!--                    </div>-->
+<!--                    <div class="form-check mb-3">-->
+<!--                      <input-->
+<!--                        id="id_has_certificate_kind_heart"-->
+<!--                        class="form-check-input"-->
+<!--                        type="checkbox"-->
+<!--                        v-model="currentStudentData.has_certificate_kind_heart"-->
+<!--                      />-->
+<!--                      <label-->
+<!--                        class="form-check-label"-->
+<!--                        for="id_has_certificate_kind_heart"-->
+<!--                        >Доброе сердце</label-->
+<!--                      >-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <div class="col-xl-4">-->
+<!--                    <div class="form-check mb-3">-->
+<!--                      <input-->
+<!--                        id="id_is_law_class"-->
+<!--                        class="form-check-input"-->
+<!--                        type="checkbox"-->
+<!--                        v-model="currentStudentData.is_law_class"-->
+<!--                      />-->
+<!--                      <label class="form-check-label" for="id_is_law_class"-->
+<!--                        >Правовой класс</label-->
+<!--                      >-->
+<!--                    </div>-->
+<!--                    <div class="form-check mb-3">-->
+<!--                      <input-->
+<!--                        id="id_is_law_enforcement"-->
+<!--                        class="form-check-input"-->
+<!--                        type="checkbox"-->
+<!--                        v-model="currentStudentData.is_law_enforcement"-->
+<!--                      />-->
+<!--                      <label-->
+<!--                        class="form-check-label"-->
+<!--                        for="id_is_law_enforcement"-->
+<!--                        >Охрана правопорядка</label-->
+<!--                      >-->
+<!--                    </div>-->
+<!--                    <div class="form-check mb-3">-->
+<!--                      <input-->
+<!--                        id="id_is_reserve"-->
+<!--                        class="form-check-input"-->
+<!--                        type="checkbox"-->
+<!--                        v-model="currentStudentData.is_reserve"-->
+<!--                      />-->
+<!--                      <label class="form-check-label" for="id_is_reserve"-->
+<!--                        >Резерв</label-->
+<!--                      >-->
+<!--                    </div>-->
+<!--                    <div class="form-check mb-3">-->
+<!--                      <input-->
+<!--                        id="id_is_fired"-->
+<!--                        class="form-check-input"-->
+<!--                        type="checkbox"-->
+<!--                        v-model="currentStudentData.is_fired"-->
+<!--                      />-->
+<!--                      <label class="form-check-label" for="id_is_fired"-->
+<!--                        >Уволен</label-->
+<!--                      >-->
+<!--                    </div>-->
+<!--                    <div class="form-check mb-3">-->
+<!--                      <input-->
+<!--                        id="id_took_documents"-->
+<!--                        class="form-check-input"-->
+<!--                        type="checkbox"-->
+<!--                        v-model="currentStudentData.took_documents"-->
+<!--                      />-->
+<!--                      <label class="form-check-label" for="id_took_documents"-->
+<!--                        >Забрал документы</label-->
+<!--                      >-->
+<!--                    </div>-->
 
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_is_vv"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentStudentData.is_vv"
-                      />
-                      <label class="form-check-label" for="id_is_vv">ВВ</label>
-                    </div>
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_is_fp"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentStudentData.is_fp"
-                      />
-                      <label class="form-check-label" for="id_is_fp">ФП</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+<!--                    <div class="form-check mb-3">-->
+<!--                      <input-->
+<!--                        id="id_is_vv"-->
+<!--                        class="form-check-input"-->
+<!--                        type="checkbox"-->
+<!--                        v-model="currentStudentData.is_vv"-->
+<!--                      />-->
+<!--                      <label class="form-check-label" for="id_is_vv">ВВ</label>-->
+<!--                    </div>-->
+<!--                    <div class="form-check mb-3">-->
+<!--                      <input-->
+<!--                        id="id_is_fp"-->
+<!--                        class="form-check-input"-->
+<!--                        type="checkbox"-->
+<!--                        v-model="currentStudentData.is_fp"-->
+<!--                      />-->
+<!--                      <label class="form-check-label" for="id_is_fp">ФП</label>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
           </div>
 
           <div class="border-bottom border-4 my-3"></div>
@@ -3665,13 +3666,31 @@ export default {
     },
 
     orderedAdmissionQuotes() {
-      return this.admissionQuota.results.sort((a, b) => {
+      return this.admissionQuota.results.filter(
+          (quota) => quota.ownership_category === "3",
+      ).sort((a, b) => {
         const admission_codeA = a.admission_code
         const admission_codeB = b.admission_code
         if (admission_codeA < admission_codeB) {
           return -1
         }
         if (admission_codeA > admission_codeB) {
+          return 1
+        }
+        return 0
+      })
+    },
+
+    orderedHealthGroups() {
+      return this.healthGroups.results.filter(
+          (healthGroup) => healthGroup.ownership_category === "3",
+      ).sort((a, b) => {
+        const healthGroupA = a.health_group.toUpperCase()
+        const healthGroupB = b.health_group.toUpperCase()
+        if (healthGroupA < healthGroupB) {
+          return -1
+        }
+        if (healthGroupA > healthGroupB) {
           return 1
         }
         return 0
@@ -3705,7 +3724,9 @@ export default {
       return this.foreignLanguages.results
     },
     orderedPpflCategories() {
-      return this.ppflCategories.results
+      return this.ppflCategories.results.filter(
+          (ppfl) => ppfl.ownership_category === "3",
+      )
     },
     orderedVpkCategories() {
       return this.vpkCategories.results
@@ -3833,6 +3854,7 @@ export default {
       documentTypes: "documentType/getList",
       culturalMassEvents: "culturalMassEvents/getList",
       publicOrganizations: "publicOrganizations/getList",
+      healthGroups: "healthGroup/getList",
     }),
   },
   watch: {

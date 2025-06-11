@@ -64,8 +64,8 @@ export default {
     return {
       isLoading: false,
       auth_data: {
-        username: "levenko",
-        password: "1986",
+        username: "",
+        password: "",
       },
     }
   },

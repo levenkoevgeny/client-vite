@@ -31,3 +31,4 @@ export { default as PFLCategoryListView } from "./PFLCategory/PFLCategoryListVie
 export { default as PrivilegeListView } from "./privilege/PrivilegeListView.vue"
 export { default as DocumentTypeListView } from "./documentType/DocumentTypeListView.vue"
 export { default as InWhoseInterestsListView } from "./inWhoseInterests/InWhoseInterestsListView.vue"
+export { default as HealthGroupListView } from "./healthGroup/HealthGroupListView.vue"

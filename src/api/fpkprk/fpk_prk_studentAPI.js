@@ -22,15 +22,15 @@ class FPKPRKStudentAPI extends BaseAPI {
   }
   async entrance_application_print(itemId) {
     return axios.get(
-      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/${itemId}/entrance_application_print/`,
-      { responseType: "blob" },
+        `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/${itemId}/entrance_application_print/`,
+        { responseType: "blob" },
     )
   }
 
   async list_export(queryString) {
     return axios.get(
-      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/list_export${queryString}`,
-      { responseType: "blob" },
+        `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/list_export${queryString}`,
+        { responseType: "blob" },
     )
   }
 }
@@ -102,9 +102,9 @@ export default function getFPKPRKStudentAPIInstance() {
 
 export const globalFPKPRKStudentAPIInstance = getFPKPRKStudentAPIInstance()
 export const globalFPKPRKStudentAPIForEntranceInstance = new FPKPRKStudentAPI(
-  "fpk-mag-student",
-  {
-    ...searchObj,
-    category: 3,
-  },
+    "fpk-mag-student",
+    {
+      ...searchObj,
+      category: 3,
+    },
 )

@@ -70,13 +70,17 @@ export default {
       mainItemList: { results: [], count: null, next: null, previous: null },
       mainItemAPIInstance: getQueueAPIInstance(),
       currentTime: new Date(),
+      timeInterval: null
     }
   },
   async created() {
-    setInterval(() => {
+    this.timeInterval = setInterval(() => {
       this.currentTime = new Date()
     }, 1000)
     await this.loadData()
+  },
+  unmounted() {
+    clearInterval(this.timeInterval)
   },
   methods: {
     async loadData() {

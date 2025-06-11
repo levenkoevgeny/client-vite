@@ -69,15 +69,16 @@ export default {
       currentTime: new Date(),
       states: { 0: "В ожидании", 1: "В обработке", 2: "Обработан" },
       nextTicketToProcessButtonDisabled: false,
-      interval: null,
+      timeInterval: null,
+      queueInterval: null,
     }
   },
   async created() {
-    setInterval(() => {
+    this.timeInterval = setInterval(() => {
       this.currentTime = new Date()
     }, 1000)
 
-    this.interval = setInterval(async () => {
+    this.queueInterval = setInterval(async () => {
       await this.loadData(this.$route.params.id)
     }, 3000)
 
@@ -90,7 +91,8 @@ export default {
     await this.loadData(this.$route.params.id)
   },
   unmounted() {
-    clearInterval(this.interval)
+    clearInterval(this.timeInterval)
+    clearInterval(this.queueInterval)
   },
   methods: {
     async loadData(queueId) {
@@ -99,8 +101,7 @@ export default {
           const resQueue = await this.queueAPIInstance.getItemData(queueId)
           this.currentQueueData = resQueue.data
           this.mainItemAPIInstance.searchObj.queue = queueId
-          this.mainItemAPIInstance.searchObj.limit = 100000
-
+          this.mainItemAPIInstance.searchObj.limit = 1000000
           const res = await this.mainItemAPIInstance.getItemsList()
           this.mainItemList = await res.data
         } catch (error) {

@@ -1110,7 +1110,6 @@ import RelativesCadetComponent from "@/components/cadet/relatives/RelativesCadet
 
 import "vue-select/dist/vue-select.css"
 import { mapGetters } from "vuex"
-import * as dayjs from "dayjs"
 
 export default {
   name: "CadetUpdateView",

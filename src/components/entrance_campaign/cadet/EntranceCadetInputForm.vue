@@ -80,13 +80,14 @@
     </div>
 
     <!--    Validation modal-->
+
     <div
-      class="modal fade"
-      id="id_validationErrorsModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-      ref="validationErrorsModal"
+        class="modal fade"
+        id="id_validationErrorsModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+        ref="validationErrorsModal"
     >
       <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
@@ -95,10 +96,10 @@
               Для сохранения данных исправте следующие ошибки:
             </h1>
             <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
             ></button>
           </div>
 
@@ -111,10 +112,10 @@
           </div>
           <div class="modal-footer">
             <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-              ref="cadetAddModalCloseButton"
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+                ref="cadetAddModalCloseButton"
             >
               Закрыть
             </button>
@@ -124,13 +125,14 @@
     </div>
 
     <!--    Application print Validation modal-->
+
     <div
-      class="modal fade"
-      id="id_application_validationErrorsModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-      ref="application_validationErrorsModal"
+        class="modal fade"
+        id="id_application_validationErrorsModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+        ref="application_validationErrorsModal"
     >
       <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
@@ -139,10 +141,10 @@
               Для печати заявления исправте следующие ошибки:
             </h1>
             <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
             ></button>
           </div>
 
@@ -154,8 +156,8 @@
             </div>
             <div>
               <button
-                class="btn btn-primary my-3"
-                @click="makePrinting(this.currentCadetData.id)"
+                  class="btn btn-primary my-3"
+                  @click="makePrinting(this.currentCadetData.id)"
               >
                 <font-awesome-icon :icon="['fas', 'print']" />&nbsp;&nbsp; Все
                 равно напечатать заявление
@@ -164,10 +166,10 @@
           </div>
           <div class="modal-footer">
             <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-              ref="applicationValidationErrorsModalCloseButton"
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+                ref="applicationValidationErrorsModalCloseButton"
             >
               Закрыть
             </button>
@@ -175,7 +177,6 @@
         </div>
       </div>
     </div>
-
     <!--Has to save data before printing-->
     <div
       class="modal fade"
@@ -220,12 +221,12 @@
 
     <!--Average score calculating-->
     <div
-      class="modal fade"
-      id="id_averageScoreCalculatingModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-      ref="averageScoreCalculatingModal"
+        class="modal fade"
+        id="id_averageScoreCalculatingModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+        ref="averageScoreCalculatingModal"
     >
       <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
@@ -234,11 +235,11 @@
               Калькулятор среднего балла
             </h1>
             <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-              ref="averageScoreCalculatingModalCloseButton"
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+                ref="averageScoreCalculatingModalCloseButton"
             ></button>
           </div>
 
@@ -253,9 +254,9 @@
             <div class="mt-3">
               <div class="form-floating">
                 <select
-                  class="form-select"
-                  v-model="average_score_calculation.choice"
-                  @change="average_score_calculation_select_change"
+                    class="form-select"
+                    v-model="average_score_calculation.choice"
+                    @change="average_score_calculation_select_change"
                 >
                   <option value="">-------</option>
                   <option value="cert">Школа (11 классов)</option>
@@ -271,21 +272,21 @@
                 <label for="id_privilege">Что окончил</label>
               </div>
               <div
-                class="d-flex flex-row py-2 my-3"
-                style="max-height: 400px; overflow-y: auto"
+                  class="d-flex flex-row py-2 my-3"
+                  style="max-height: 400px; overflow-y: auto"
               >
                 <div
-                  style="width: 50%"
-                  class="me-2"
-                  v-if="this.average_score_calculation.choice.includes('cert')"
+                    style="width: 50%"
+                    class="me-2"
+                    v-if="this.average_score_calculation.choice.includes('cert')"
                 >
                   <h5 class="ms-2">Школьный аттестат</h5>
                   <select
-                    class="form-select"
-                    :name="select.selectIndex"
-                    v-for="select in average_score_calculation.certificate"
-                    v-model="select.selectValue"
-                    @change="averageScoreCertificateSelectChange"
+                      class="form-select"
+                      :name="select.selectIndex"
+                      v-for="select in average_score_calculation.certificate"
+                      v-model="select.selectValue"
+                      @change="averageScoreCertificateSelectChange"
                   >
                     <option value=""></option>
                     <option value="2">2</option>
@@ -301,16 +302,16 @@
                 </div>
                 <div v-else style="width: 50%"></div>
                 <div
-                  style="width: 50%"
-                  v-if="this.average_score_calculation.choice.includes('dipl')"
+                    style="width: 50%"
+                    v-if="this.average_score_calculation.choice.includes('dipl')"
                 >
                   <h5 class="ms-2">Диплом</h5>
                   <select
-                    class="form-select"
-                    :name="select.selectIndex"
-                    v-for="select in average_score_calculation.diploma"
-                    v-model="select.selectValue"
-                    @change="averageScoreDiplomaSelectChange"
+                      class="form-select"
+                      :name="select.selectIndex"
+                      v-for="select in average_score_calculation.diploma"
+                      v-model="select.selectValue"
+                      @change="averageScoreDiplomaSelectChange"
                   >
                     <option value=""></option>
                     <option value="2">2</option>
@@ -330,9 +331,9 @@
           </div>
           <div class="modal-footer">
             <button
-              type="button"
-              class="btn btn-success"
-              @click="saveAverageScore"
+                type="button"
+                class="btn btn-success"
+                @click="saveAverageScore"
             >
               Готово
             </button>
@@ -355,15 +356,15 @@
         <div>
           <div class="d-flex flex-row align-items-end">
             <h1
-              class="fw-lighter"
-              :class="{
+                class="fw-lighter"
+                :class="{
                 'bg-success-subtle':
                   currentCadetData.application_has_been_printed,
               }"
             >
               Личное дело абитуриента
               <span class="fw-normal text-decoration-underline"
-                >{{ currentCadetData.last_name_rus }}&nbsp;{{
+              >{{ currentCadetData.last_name_rus }}&nbsp;{{
                   currentCadetData.first_name_rus
                 }}&nbsp;{{ currentCadetData.patronymic_rus }}</span
               >
@@ -377,11 +378,11 @@
           <button class="mx-2 btn btn-warning" @click="showHistory">
             История изменений&nbsp;&nbsp;<font-awesome-icon
               :icon="['fas', 'database']"
-            />
+          />
           </button>
           <div
-            v-if="currentCadetData.application_has_been_printed"
-            class="my-3"
+              v-if="currentCadetData.application_has_been_printed"
+              class="my-3"
           >
             <h3>
               <font-awesome-icon :icon="['fas', 'print']" />
@@ -390,7 +391,7 @@
                 -
                 {{
                   new Date(
-                    currentCadetData.application_has_been_printed_date,
+                      currentCadetData.application_has_been_printed_date,
                   ).toLocaleString("ru-RU", {
                     day: "numeric",
                     month: "long",
@@ -417,6 +418,7 @@
           <div class="me-4 text-warning fs-5" v-else>
             &#8226; &nbsp;Несохраненные данные
           </div>
+
           <div>
             <button
               class="btn btn-primary"
@@ -430,6 +432,7 @@
       </div>
       <div style="max-height: calc(100vh - 300px); overflow-y: auto">
         <div style="max-width: 99%">
+
           <div class="card shadow mb-2 rounded border-0">
             <div class="card-body">
               <h5 class="card-title">Персональные данные</h5>
@@ -473,13 +476,13 @@
                 <div class="col-xl-3">
                   <div class="form-floating mb-3">
                     <input
-                      id="id_date_of_birth"
-                      type="date"
-                      name="date_of_birth"
-                      class="form-control"
-                      placeholder="Дата рождения"
-                      v-model="currentCadetData.date_of_birth"
-                      @input="makeInputDefaultNullValueIfEmpty"
+                        id="id_date_of_birth"
+                        type="date"
+                        name="date_of_birth"
+                        class="form-control"
+                        placeholder="Дата рождения"
+                        v-model="currentCadetData.date_of_birth"
+                        @input="makeInputDefaultNullValueIfEmpty"
                     />
                     <label for="id_date_of_birth">Дата рождения</label>
                   </div>
@@ -592,6 +595,24 @@
                     </select>
                     <label for="id_document_type">Документ</label>
                   </div>
+                </div>
+                <div class="col-xl-3">
+<!--                  <div class="form-floating mb-3">-->
+<!--                    <select-->
+<!--                      id="id_privilege"-->
+<!--                      class="form-select"-->
+<!--                      v-model="currentCadetData.privilege"-->
+<!--                    >-->
+<!--                      <option :value="null">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
+<!--                      <option-->
+<!--                        :value="privilege.id"-->
+<!--                        v-for="privilege in orderedPrivileges"-->
+<!--                      >-->
+<!--                        {{ privilege.privilege }}-->
+<!--                      </option>-->
+<!--                    </select>-->
+<!--                    <label for="id_privilege">Льгота</label>-->
+<!--                  </div>-->
                 </div>
 
                 <div class="row mt-3">
@@ -982,23 +1003,6 @@
                             >Год окончания</label
                           >
                         </div>
-
-                        <!--                        <div class="form-floating mb-3">-->
-                        <!--                          <input-->
-                        <!--                            type="number"-->
-                        <!--                            id="id_education_graduating_start_year"-->
-                        <!--                            name="education_graduating_start_year"-->
-                        <!--                            class="form-control form-control-sm"-->
-                        <!--                            placeholder="Год поступления"-->
-                        <!--                            v-model="-->
-                        <!--                              currentCadetData.education_graduating_start_year-->
-                        <!--                            "-->
-                        <!--                            @input="makeInputDefaultNullValueIfEmpty"-->
-                        <!--                          />-->
-                        <!--                          <label for="id_education_graduating_start_year"-->
-                        <!--                            >Год поступления</label-->
-                        <!--                          >-->
-                        <!--                        </div>-->
                       </div>
                       <div class="col-xl-3">
                         <div class="form-floating mb-3">
@@ -1229,16 +1233,16 @@
                         <div class="col-xl-3">
                           <div class="form-floating mb-3">
                             <input
-                              type="date"
-                              id="id_passport_issue_date"
-                              name="passport_issue_date"
-                              class="form-control form-control-sm"
-                              placeholder="Дата выдачи"
-                              v-model="currentCadetData.passport_issue_date"
-                              @input="makeInputDefaultNullValueIfEmpty"
+                                type="date"
+                                id="id_passport_issue_date"
+                                name="passport_issue_date"
+                                class="form-control form-control-sm"
+                                placeholder="Дата выдачи"
+                                v-model="currentCadetData.passport_issue_date"
+                                @input="makeInputDefaultNullValueIfEmpty"
                             />
                             <label for="id_passport_issue_date"
-                              >Дата выдачи</label
+                            >Дата выдачи</label
                             >
                           </div>
                         </div>
@@ -1327,16 +1331,16 @@
                         <div class="col-xl-3">
                           <div class="form-floating mb-3">
                             <input
-                              id="id_mother_date_of_birth"
-                              name="mother_date_of_birth"
-                              type="date"
-                              class="form-control form-control-sm"
-                              placeholder="Мать (дата рождения)"
-                              v-model="currentCadetData.mother_date_of_birth"
-                              @input="makeInputDefaultNullValueIfEmpty"
+                                id="id_mother_date_of_birth"
+                                name="mother_date_of_birth"
+                                type="date"
+                                class="form-control form-control-sm"
+                                placeholder="Мать (дата рождения)"
+                                v-model="currentCadetData.mother_date_of_birth"
+                                @input="makeInputDefaultNullValueIfEmpty"
                             />
                             <label for="id_mother_date_of_birth"
-                              >Дата рождения</label
+                            >Дата рождения</label
                             >
                           </div>
                         </div>
@@ -1447,16 +1451,16 @@
                         <div class="col-xl-3">
                           <div class="form-floating mb-3">
                             <input
-                              id="id_father_date_of_birth"
-                              type="date"
-                              name="father_date_of_birth"
-                              class="form-control form-control-sm"
-                              placeholder="Отец (дата рождения)"
-                              v-model="currentCadetData.father_date_of_birth"
-                              @input="makeInputDefaultNullValueIfEmpty"
+                                id="id_father_date_of_birth"
+                                type="date"
+                                name="father_date_of_birth"
+                                class="form-control form-control-sm"
+                                placeholder="Отец (дата рождения)"
+                                v-model="currentCadetData.father_date_of_birth"
+                                @input="makeInputDefaultNullValueIfEmpty"
                             />
                             <label for="id_father_date_of_birth"
-                              >Дата рождения</label
+                            >Дата рождения</label
                             >
                           </div>
                         </div>
@@ -1604,7 +1608,7 @@
                               class="form-check-label"
                               for="id_is_olympiad_winner"
                             >
-                              Победитель ресбуликанских или региональных
+                              Победитель республиканских или региональных
                               олимпиад
                             </label>
                           </div>
@@ -1710,20 +1714,20 @@
                         <div class="col-xl-4">
                           <div class="form-floating mb-3">
                             <select
-                              id="id_health_group"
-                              class="form-select"
-                              aria-label="Floating label select example"
-                              v-model="currentCadetData.health_group"
+                                id="id_health_group"
+                                class="form-select"
+                                v-model="currentCadetData.health_group"
                             >
                               <option :value="null">---------</option>
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                              <option value="5">5</option>
+                              <option
+                                  :value="health_group.id"
+                                  v-for="health_group in orderedHealthGroups"
+                              >
+                                {{ health_group.health_group }}
+                              </option>
                             </select>
                             <label for="id_health_group"
-                              >Группа предназначения</label
+                            >Группа предназначения</label
                             >
                           </div>
                         </div>
@@ -1790,20 +1794,20 @@
                         <div class="col-xl-2">
                           <div class="form-floating mb-3">
                             <input
-                              id="id_passed_medical_examination_date"
-                              class="form-control"
-                              name="passed_medical_examination_date"
-                              placeholder="Дата прохождения"
-                              type="date"
-                              v-model="
+                                id="id_passed_medical_examination_date"
+                                class="form-control"
+                                name="passed_medical_examination_date"
+                                placeholder="Дата прохождения"
+                                type="date"
+                                v-model="
                                 currentCadetData.passed_medical_examination_date
                               "
-                              @input="makeInputDefaultNullValueIfEmpty"
+                                @input="makeInputDefaultNullValueIfEmpty"
                             />
                             <label
-                              class="form-check-label"
-                              for="id_passed_medical_examination_date"
-                              >Дата прохождения
+                                class="form-check-label"
+                                for="id_passed_medical_examination_date"
+                            >Дата прохождения
                             </label>
                           </div>
                         </div>
@@ -1844,32 +1848,32 @@
                         <div class="col-xl-2">
                           <div class="form-floating mb-3">
                             <input
-                              id="id_military_service_start"
-                              type="date"
-                              name="military_service_start"
-                              class="form-control form-control-sm"
-                              placeholder="Начало"
-                              v-model="currentCadetData.military_service_start"
-                              @input="makeInputDefaultNullValueIfEmpty"
+                                id="id_military_service_start"
+                                type="date"
+                                name="military_service_start"
+                                class="form-control form-control-sm"
+                                placeholder="Начало"
+                                v-model="currentCadetData.military_service_start"
+                                @input="makeInputDefaultNullValueIfEmpty"
                             />
                             <label for="id_military_service_start"
-                              >Начало</label
+                            >Начало</label
                             >
                           </div>
                         </div>
                         <div class="col-xl-2">
                           <div class="form-floating mb-3">
                             <input
-                              id="id_military_service_end"
-                              type="date"
-                              class="form-control form-control-sm"
-                              placeholder="Окончание"
-                              v-model="currentCadetData.military_service_end"
-                              name="military_service_end"
-                              @input="makeInputDefaultNullValueIfEmpty"
+                                id="id_military_service_end"
+                                type="date"
+                                class="form-control form-control-sm"
+                                placeholder="Окончание"
+                                v-model="currentCadetData.military_service_end"
+                                name="military_service_end"
+                                @input="makeInputDefaultNullValueIfEmpty"
                             />
                             <label for="id_military_service_end"
-                              >Окончание</label
+                            >Окончание</label
                             >
                           </div>
                         </div>
@@ -1906,13 +1910,13 @@
                         <div class="col-xl-2">
                           <div class="form-floating mb-3">
                             <input
-                              id="id_mvd_service_start"
-                              type="date"
-                              name="mvd_service_start"
-                              class="form-control form-control-sm"
-                              placeholder="Начало"
-                              v-model="currentCadetData.mvd_service_start"
-                              @input="makeInputDefaultNullValueIfEmpty"
+                                id="id_mvd_service_start"
+                                type="date"
+                                name="mvd_service_start"
+                                class="form-control form-control-sm"
+                                placeholder="Начало"
+                                v-model="currentCadetData.mvd_service_start"
+                                @input="makeInputDefaultNullValueIfEmpty"
                             />
                             <label for="id_mvd_service_start">Начало</label>
                           </div>
@@ -1920,13 +1924,13 @@
                         <div class="col-xl-2">
                           <div class="form-floating mb-3">
                             <input
-                              id="id_mvd_service_end"
-                              type="date"
-                              name="mvd_service_end"
-                              class="form-control form-control-sm"
-                              placeholder="Окончание"
-                              v-model="currentCadetData.mvd_service_end"
-                              @input="makeInputDefaultNullValueIfEmpty"
+                                id="id_mvd_service_end"
+                                type="date"
+                                name="mvd_service_end"
+                                class="form-control form-control-sm"
+                                placeholder="Окончание"
+                                v-model="currentCadetData.mvd_service_end"
+                                @input="makeInputDefaultNullValueIfEmpty"
                             />
                             <label for="id_mvd_service_end">Окончание</label>
                           </div>
@@ -2297,14 +2301,14 @@
                 <div class="col-5">
                   <div class="form-floating mb-3">
                     <select
-                      id="id_s1"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_1"
+                        id="id_s1"
+                        class="form-select"
+                        v-model="currentCadetData.speciality_1"
                     >
                       <option :value="null">---------</option>
                       <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_1"
+                          :value="quota.id"
+                          v-for="quota in orderedAdmissionQuotes_select_1"
                       >
                         {{ quota.quota_verbose_name }}
                       </option>
@@ -2313,14 +2317,14 @@
                   </div>
                   <div class="form-floating mb-3">
                     <select
-                      id="id_s2"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_2"
+                        id="id_s2"
+                        class="form-select"
+                        v-model="currentCadetData.speciality_2"
                     >
                       <option :value="null">---------</option>
                       <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_2"
+                          :value="quota.id"
+                          v-for="quota in orderedAdmissionQuotes_select_2"
                       >
                         {{ quota.quota_verbose_name }}
                       </option>
@@ -2329,14 +2333,14 @@
                   </div>
                   <div class="form-floating mb-3">
                     <select
-                      id="id_s3"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_3"
+                        id="id_s3"
+                        class="form-select"
+                        v-model="currentCadetData.speciality_3"
                     >
                       <option :value="null">---------</option>
                       <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_3"
+                          :value="quota.id"
+                          v-for="quota in orderedAdmissionQuotes_select_3"
                       >
                         {{ quota.quota_verbose_name }}
                       </option>
@@ -2345,14 +2349,14 @@
                   </div>
                   <div class="form-floating mb-3">
                     <select
-                      id="id_s4"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_4"
+                        id="id_s4"
+                        class="form-select"
+                        v-model="currentCadetData.speciality_4"
                     >
                       <option :value="null">---------</option>
                       <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_4"
+                          :value="quota.id"
+                          v-for="quota in orderedAdmissionQuotes_select_4"
                       >
                         {{ quota.quota_verbose_name }}
                       </option>
@@ -2361,14 +2365,14 @@
                   </div>
                   <div class="form-floating mb-3">
                     <select
-                      id="id_s5"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_5"
+                        id="id_s5"
+                        class="form-select"
+                        v-model="currentCadetData.speciality_5"
                     >
                       <option :value="null">---------</option>
                       <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_5"
+                          :value="quota.id"
+                          v-for="quota in orderedAdmissionQuotes_select_5"
                       >
                         {{ quota.quota_verbose_name }}
                       </option>
@@ -2377,14 +2381,14 @@
                   </div>
                   <div class="form-floating mb-3">
                     <select
-                      id="id_s6"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_6"
+                        id="id_s6"
+                        class="form-select"
+                        v-model="currentCadetData.speciality_6"
                     >
                       <option :value="null">---------</option>
                       <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_6"
+                          :value="quota.id"
+                          v-for="quota in orderedAdmissionQuotes_select_6"
                       >
                         {{ quota.quota_verbose_name }}
                       </option>
@@ -2393,14 +2397,14 @@
                   </div>
                   <div class="form-floating mb-3">
                     <select
-                      id="id_s7"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_7"
+                        id="id_s7"
+                        class="form-select"
+                        v-model="currentCadetData.speciality_7"
                     >
                       <option :value="null">---------</option>
                       <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_7"
+                          :value="quota.id"
+                          v-for="quota in orderedAdmissionQuotes_select_7"
                       >
                         {{ quota.quota_verbose_name }}
                       </option>
@@ -2409,14 +2413,14 @@
                   </div>
                   <div class="form-floating mb-3">
                     <select
-                      id="id_s8"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_8"
+                        id="id_s8"
+                        class="form-select"
+                        v-model="currentCadetData.speciality_8"
                     >
                       <option :value="null">---------</option>
                       <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_8"
+                          :value="quota.id"
+                          v-for="quota in orderedAdmissionQuotes_select_8"
                       >
                         {{ quota.quota_verbose_name }}
                       </option>
@@ -2425,14 +2429,14 @@
                   </div>
                   <div class="form-floating mb-3">
                     <select
-                      id="id_s9"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_9"
+                        id="id_s9"
+                        class="form-select"
+                        v-model="currentCadetData.speciality_9"
                     >
                       <option :value="null">---------</option>
                       <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_9"
+                          :value="quota.id"
+                          v-for="quota in orderedAdmissionQuotes_select_9"
                       >
                         {{ quota.quota_verbose_name }}
                       </option>
@@ -2443,14 +2447,14 @@
                 <div class="col-2">
                   <div class="form-floating mb-3">
                     <select
-                      id="id_s1"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_1"
+                        id="id_s1"
+                        class="form-select"
+                        v-model="currentCadetData.speciality_1"
                     >
                       <option :value="null">---------</option>
                       <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_1"
+                          :value="quota.id"
+                          v-for="quota in orderedAdmissionQuotes_select_1"
                       >
                         {{ quota.admission_code }}
                       </option>
@@ -2459,14 +2463,14 @@
                   </div>
                   <div class="form-floating mb-3">
                     <select
-                      id="id_s2"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_2"
+                        id="id_s2"
+                        class="form-select"
+                        v-model="currentCadetData.speciality_2"
                     >
                       <option :value="null">---------</option>
                       <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_2"
+                          :value="quota.id"
+                          v-for="quota in orderedAdmissionQuotes_select_2"
                       >
                         {{ quota.admission_code }}
                       </option>
@@ -2475,14 +2479,14 @@
                   </div>
                   <div class="form-floating mb-3">
                     <select
-                      id="id_s3"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_3"
+                        id="id_s3"
+                        class="form-select"
+                        v-model="currentCadetData.speciality_3"
                     >
                       <option :value="null">---------</option>
                       <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_3"
+                          :value="quota.id"
+                          v-for="quota in orderedAdmissionQuotes_select_3"
                       >
                         {{ quota.admission_code }}
                       </option>
@@ -2491,14 +2495,14 @@
                   </div>
                   <div class="form-floating mb-3">
                     <select
-                      id="id_s4"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_4"
+                        id="id_s4"
+                        class="form-select"
+                        v-model="currentCadetData.speciality_4"
                     >
                       <option :value="null">---------</option>
                       <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_4"
+                          :value="quota.id"
+                          v-for="quota in orderedAdmissionQuotes_select_4"
                       >
                         {{ quota.admission_code }}
                       </option>
@@ -2507,14 +2511,14 @@
                   </div>
                   <div class="form-floating mb-3">
                     <select
-                      id="id_s5"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_5"
+                        id="id_s5"
+                        class="form-select"
+                        v-model="currentCadetData.speciality_5"
                     >
                       <option :value="null">---------</option>
                       <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_5"
+                          :value="quota.id"
+                          v-for="quota in orderedAdmissionQuotes_select_5"
                       >
                         {{ quota.admission_code }}
                       </option>
@@ -2523,14 +2527,14 @@
                   </div>
                   <div class="form-floating mb-3">
                     <select
-                      id="id_s6"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_6"
+                        id="id_s6"
+                        class="form-select"
+                        v-model="currentCadetData.speciality_6"
                     >
                       <option :value="null">---------</option>
                       <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_6"
+                          :value="quota.id"
+                          v-for="quota in orderedAdmissionQuotes_select_6"
                       >
                         {{ quota.admission_code }}
                       </option>
@@ -2539,14 +2543,14 @@
                   </div>
                   <div class="form-floating mb-3">
                     <select
-                      id="id_s7"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_7"
+                        id="id_s7"
+                        class="form-select"
+                        v-model="currentCadetData.speciality_7"
                     >
                       <option :value="null">---------</option>
                       <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_7"
+                          :value="quota.id"
+                          v-for="quota in orderedAdmissionQuotes_select_7"
                       >
                         {{ quota.admission_code }}
                       </option>
@@ -2555,14 +2559,14 @@
                   </div>
                   <div class="form-floating mb-3">
                     <select
-                      id="id_s8"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_8"
+                        id="id_s8"
+                        class="form-select"
+                        v-model="currentCadetData.speciality_8"
                     >
                       <option :value="null">---------</option>
                       <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_8"
+                          :value="quota.id"
+                          v-for="quota in orderedAdmissionQuotes_select_8"
                       >
                         {{ quota.quota_verbose_name }}
                       </option>
@@ -2571,14 +2575,14 @@
                   </div>
                   <div class="form-floating mb-3">
                     <select
-                      id="id_s9"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_9"
+                        id="id_s9"
+                        class="form-select"
+                        v-model="currentCadetData.speciality_9"
                     >
                       <option :value="null">---------</option>
                       <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_9"
+                          :value="quota.id"
+                          v-for="quota in orderedAdmissionQuotes_select_9"
                       >
                         {{ quota.quota_verbose_name }}
                       </option>
@@ -2589,14 +2593,14 @@
                 <div class="col-5">
                   <div class="form-floating mb-3">
                     <select
-                      id="id_privilege"
-                      class="form-select"
-                      v-model="currentCadetData.privilege_1"
+                        id="id_privilege"
+                        class="form-select"
+                        v-model="currentCadetData.privilege_1"
                     >
                       <option :value="null">---------</option>
                       <option
-                        :value="privilege.id"
-                        v-for="privilege in orderedPrivileges"
+                          :value="privilege.id"
+                          v-for="privilege in orderedPrivileges"
                       >
                         {{ privilege.privilege }}
                       </option>
@@ -2605,14 +2609,14 @@
                   </div>
                   <div class="form-floating mb-3">
                     <select
-                      id="id_privilege"
-                      class="form-select"
-                      v-model="currentCadetData.privilege_2"
+                        id="id_privilege"
+                        class="form-select"
+                        v-model="currentCadetData.privilege_2"
                     >
                       <option :value="null">---------</option>
                       <option
-                        :value="privilege.id"
-                        v-for="privilege in orderedPrivileges"
+                          :value="privilege.id"
+                          v-for="privilege in orderedPrivileges"
                       >
                         {{ privilege.privilege }}
                       </option>
@@ -2621,14 +2625,14 @@
                   </div>
                   <div class="form-floating mb-3">
                     <select
-                      id="id_privilege"
-                      class="form-select"
-                      v-model="currentCadetData.privilege_3"
+                        id="id_privilege"
+                        class="form-select"
+                        v-model="currentCadetData.privilege_3"
                     >
                       <option :value="null">---------</option>
                       <option
-                        :value="privilege.id"
-                        v-for="privilege in orderedPrivileges"
+                          :value="privilege.id"
+                          v-for="privilege in orderedPrivileges"
                       >
                         {{ privilege.privilege }}
                       </option>
@@ -2637,14 +2641,14 @@
                   </div>
                   <div class="form-floating mb-3">
                     <select
-                      id="id_privilege"
-                      class="form-select"
-                      v-model="currentCadetData.privilege_4"
+                        id="id_privilege"
+                        class="form-select"
+                        v-model="currentCadetData.privilege_4"
                     >
                       <option :value="null">---------</option>
                       <option
-                        :value="privilege.id"
-                        v-for="privilege in orderedPrivileges"
+                          :value="privilege.id"
+                          v-for="privilege in orderedPrivileges"
                       >
                         {{ privilege.privilege }}
                       </option>
@@ -2653,14 +2657,14 @@
                   </div>
                   <div class="form-floating mb-3">
                     <select
-                      id="id_privilege"
-                      class="form-select"
-                      v-model="currentCadetData.privilege_5"
+                        id="id_privilege"
+                        class="form-select"
+                        v-model="currentCadetData.privilege_5"
                     >
                       <option :value="null">---------</option>
                       <option
-                        :value="privilege.id"
-                        v-for="privilege in orderedPrivileges"
+                          :value="privilege.id"
+                          v-for="privilege in orderedPrivileges"
                       >
                         {{ privilege.privilege }}
                       </option>
@@ -2669,14 +2673,14 @@
                   </div>
                   <div class="form-floating mb-3">
                     <select
-                      id="id_privilege"
-                      class="form-select"
-                      v-model="currentCadetData.privilege_6"
+                        id="id_privilege"
+                        class="form-select"
+                        v-model="currentCadetData.privilege_6"
                     >
                       <option :value="null">---------</option>
                       <option
-                        :value="privilege.id"
-                        v-for="privilege in orderedPrivileges"
+                          :value="privilege.id"
+                          v-for="privilege in orderedPrivileges"
                       >
                         {{ privilege.privilege }}
                       </option>
@@ -2685,14 +2689,14 @@
                   </div>
                   <div class="form-floating mb-3">
                     <select
-                      id="id_privilege"
-                      class="form-select"
-                      v-model="currentCadetData.privilege_7"
+                        id="id_privilege"
+                        class="form-select"
+                        v-model="currentCadetData.privilege_7"
                     >
                       <option :value="null">---------</option>
                       <option
-                        :value="privilege.id"
-                        v-for="privilege in orderedPrivileges"
+                          :value="privilege.id"
+                          v-for="privilege in orderedPrivileges"
                       >
                         {{ privilege.privilege }}
                       </option>
@@ -2701,14 +2705,14 @@
                   </div>
                   <div class="form-floating mb-3">
                     <select
-                      id="id_privilege"
-                      class="form-select"
-                      v-model="currentCadetData.privilege_8"
+                        id="id_privilege"
+                        class="form-select"
+                        v-model="currentCadetData.privilege_8"
                     >
                       <option :value="null">---------</option>
                       <option
-                        :value="privilege.id"
-                        v-for="privilege in orderedPrivileges"
+                          :value="privilege.id"
+                          v-for="privilege in orderedPrivileges"
                       >
                         {{ privilege.privilege }}
                       </option>
@@ -2717,14 +2721,14 @@
                   </div>
                   <div class="form-floating mb-3">
                     <select
-                      id="id_privilege"
-                      class="form-select"
-                      v-model="currentCadetData.privilege_9"
+                        id="id_privilege"
+                        class="form-select"
+                        v-model="currentCadetData.privilege_9"
                     >
                       <option :value="null">---------</option>
                       <option
-                        :value="privilege.id"
-                        v-for="privilege in orderedPrivileges"
+                          :value="privilege.id"
+                          v-for="privilege in orderedPrivileges"
                       >
                         {{ privilege.privilege }}
                       </option>
@@ -2743,273 +2747,273 @@
                 <h3>Сумма баллов - {{ get_score_sum }}</h3>
                 <table class="table">
                   <thead>
-                    <tr>
-                      <th class="text-center table-primary">Русский</th>
-                      <th class="text-center table-primary">Белорусский</th>
-                      <th class="text-center table-warning">Обществоведение</th>
-                      <th class="text-center table-success">
-                        Иностранный язык
-                      </th>
-                    </tr>
+                  <tr>
+                    <th class="text-center table-primary">Русский</th>
+                    <th class="text-center table-primary">Белорусский</th>
+                    <th class="text-center table-warning">Обществоведение</th>
+                    <th class="text-center table-success">
+                      Иностранный язык
+                    </th>
+                  </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td colspan="2" class="text-center table-primary">
-                        <label for="id_rus_bel_cert_number"
-                          >№ сертификата</label
-                        >
-                        <input
+                  <tr>
+                    <td colspan="2" class="text-center table-primary">
+                      <label for="id_rus_bel_cert_number"
+                      >№ сертификата</label
+                      >
+                      <input
                           id="id_rus_bel_cert_number"
                           type="text"
                           class="form-control text-center"
                           v-model="currentCadetData.rus_bel_ct_number"
-                        />
-                      </td>
-                      <td class="text-center table-warning">
-                        <label for="id_social_science_cert_number"
-                          >№ сертификата</label
-                        >
-                        <input
+                      />
+                    </td>
+                    <td class="text-center table-warning">
+                      <label for="id_social_science_cert_number"
+                      >№ сертификата</label
+                      >
+                      <input
                           id="id_social_science_cert_number"
                           type="text"
                           class="form-control text-center"
                           v-model="currentCadetData.social_science_ct_number"
-                        />
-                      </td>
-                      <td class="text-center table-success">
-                        <label for="id_foreign_lang_cert_number"
-                          >№ сертификата</label
-                        >
-                        <input
+                      />
+                    </td>
+                    <td class="text-center table-success">
+                      <label for="id_foreign_lang_cert_number"
+                      >№ сертификата</label
+                      >
+                      <input
                           id="id_foreign_lang_cert_number"
                           type="text"
                           class="form-control text-center"
                           v-model="currentCadetData.foreign_lang_ct_number"
-                        />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="text-center table-primary">
-                        <label for="id_rus_score_ct"
-                          >Количество баллов по сертификату</label
-                        >
-                        <input
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-center table-primary">
+                      <label for="id_rus_score_ct"
+                      >Количество баллов по сертификату</label
+                      >
+                      <input
                           id="id_rus_score_ct"
                           name="rus_score_ct"
                           type="number"
                           class="form-control text-center"
                           v-model="currentCadetData.rus_score_ct"
                           @input="makeInputDefaultNullValueIfEmpty"
-                        />
-                      </td>
-                      <td class="text-center table-primary">
-                        <label for="id_bel_score_ct"
-                          >Количество баллов по сертификату</label
-                        >
-                        <input
+                      />
+                    </td>
+                    <td class="text-center table-primary">
+                      <label for="id_bel_score_ct"
+                      >Количество баллов по сертификату</label
+                      >
+                      <input
                           id="id_bel_score_ct"
                           name="bel_score_ct"
                           type="number"
                           class="form-control text-center"
                           v-model="currentCadetData.bel_score_ct"
                           @input="makeInputDefaultNullValueIfEmpty"
-                        />
-                      </td>
-                      <td class="text-center table-warning">
-                        <label for="id_social_science_ct"
-                          >Количество баллов по сертификату</label
-                        >
-                        <input
+                      />
+                    </td>
+                    <td class="text-center table-warning">
+                      <label for="id_social_science_ct"
+                      >Количество баллов по сертификату</label
+                      >
+                      <input
                           id="id_social_science_ct"
                           name="social_science_score_ct"
                           type="number"
                           class="form-control text-center"
                           v-model="currentCadetData.social_science_score_ct"
                           @input="makeInputDefaultNullValueIfEmpty"
-                        />
-                      </td>
-                      <td class="text-center table-success">
-                        <label for="id_foreign_lang_ct"
-                          >Количество баллов по сертификату</label
-                        >
-                        <input
+                      />
+                    </td>
+                    <td class="text-center table-success">
+                      <label for="id_foreign_lang_ct"
+                      >Количество баллов по сертификату</label
+                      >
+                      <input
                           id="id_foreign_lang_ct"
                           name="foreign_lang_score_ct"
                           type="number"
                           class="form-control text-center"
                           v-model="currentCadetData.foreign_lang_score_ct"
                           @input="makeInputDefaultNullValueIfEmpty"
-                        />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="text-center table-primary">
-                        <select
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-center table-primary">
+                      <select
                           class="form-select"
                           v-model="currentCadetData.rus_ct_choice"
-                        >
-                          <option selected class="text-center" value="">
-                            ----------
-                          </option>
-                          <option value="2024 ЦЭ" class="text-center">
-                            2024 ЦЭ
-                          </option>
-                          <option value="2024 ЦТ" class="text-center">
-                            2024 ЦТ
-                          </option>
-                        </select>
-                      </td>
-                      <td class="text-center table-primary">
-                        <select
+                      >
+                        <option selected class="text-center" value="">
+                          ----------
+                        </option>
+                        <option value="2024 ЦЭ" class="text-center">
+                          2024 ЦЭ
+                        </option>
+                        <option value="2024 ЦТ" class="text-center">
+                          2024 ЦТ
+                        </option>
+                      </select>
+                    </td>
+                    <td class="text-center table-primary">
+                      <select
                           class="form-select"
                           v-model="currentCadetData.bel_ct_choice"
-                        >
-                          <option selected class="text-center" value="">
-                            ----------
-                          </option>
-                          <option value="2024 ЦЭ" class="text-center">
-                            2024 ЦЭ
-                          </option>
-                          <option value="2024 ЦТ" class="text-center">
-                            2024 ЦТ
-                          </option>
-                        </select>
-                      </td>
-                      <td class="text-center table-warning">
-                        <select
+                      >
+                        <option selected class="text-center" value="">
+                          ----------
+                        </option>
+                        <option value="2024 ЦЭ" class="text-center">
+                          2024 ЦЭ
+                        </option>
+                        <option value="2024 ЦТ" class="text-center">
+                          2024 ЦТ
+                        </option>
+                      </select>
+                    </td>
+                    <td class="text-center table-warning">
+                      <select
                           class="form-select"
                           v-model="currentCadetData.social_science_ct_choice"
-                        >
-                          <option selected class="text-center" value="">
-                            ----------
-                          </option>
-                          <option value="2024 ЦЭ" class="text-center">
-                            2024 ЦЭ
-                          </option>
-                          <option value="2024 ЦТ" class="text-center">
-                            2024 ЦТ
-                          </option>
-                        </select>
-                      </td>
-                      <td class="text-center table-success">
-                        <select
+                      >
+                        <option selected class="text-center" value="">
+                          ----------
+                        </option>
+                        <option value="2024 ЦЭ" class="text-center">
+                          2024 ЦЭ
+                        </option>
+                        <option value="2024 ЦТ" class="text-center">
+                          2024 ЦТ
+                        </option>
+                      </select>
+                    </td>
+                    <td class="text-center table-success">
+                      <select
                           class="form-select"
                           v-model="currentCadetData.foreign_lang_ct_choice"
-                        >
-                          <option selected class="text-center" value="">
-                            ----------
-                          </option>
-                          <option value="2024 ЦЭ" class="text-center">
-                            2024 ЦЭ
-                          </option>
-                          <option value="2024 ЦТ" class="text-center">
-                            2024 ЦТ
-                          </option>
-                        </select>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="text-center table-primary">Минимум 10</td>
-                      <td class="text-center table-primary">Минимум 10</td>
-                      <td class="text-center table-warning">Минимум 25</td>
-                      <td class="text-center table-success">Минимум 15</td>
-                    </tr>
+                      >
+                        <option selected class="text-center" value="">
+                          ----------
+                        </option>
+                        <option value="2024 ЦЭ" class="text-center">
+                          2024 ЦЭ
+                        </option>
+                        <option value="2024 ЦТ" class="text-center">
+                          2024 ЦТ
+                        </option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-center table-primary">Минимум 10</td>
+                    <td class="text-center table-primary">Минимум 10</td>
+                    <td class="text-center table-warning">Минимум 25</td>
+                    <td class="text-center table-success">Минимум 15</td>
+                  </tr>
                   </tbody>
                 </table>
                 <div class="border-bottom border-4 my-3"></div>
 
                 <div
-                  class="d-flex flex-row justify-content-between align-items-end"
+                    class="d-flex flex-row justify-content-between align-items-end"
                 >
                   <p class="fw-bold">Аттестат, 10 / 10 /100</p>
                 </div>
 
                 <table class="table">
                   <thead>
-                    <tr>
-                      <th class="text-center table-primary">Русский</th>
-                      <th class="text-center table-primary">Белорусский</th>
-                      <th class="text-center table-warning">Обществоведение</th>
-                      <th class="text-center table-success">
-                        Иностранный язык
-                      </th>
-                    </tr>
+                  <tr>
+                    <th class="text-center table-primary">Русский</th>
+                    <th class="text-center table-primary">Белорусский</th>
+                    <th class="text-center table-warning">Обществоведение</th>
+                    <th class="text-center table-success">
+                      Иностранный язык
+                    </th>
+                  </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td class="text-center table-primary">
-                        <input
+                  <tr>
+                    <td class="text-center table-primary">
+                      <input
                           name="rus_score_cert"
                           type="number"
                           class="form-control text-center"
                           v-model="currentCadetData.rus_score_cert"
                           @input="makeInputDefaultNullValueIfEmpty"
-                        />
-                      </td>
-                      <td class="text-center table-primary">
-                        <input
+                      />
+                    </td>
+                    <td class="text-center table-primary">
+                      <input
                           name="bel_score_cert"
                           type="number"
                           class="form-control text-center"
                           v-model="currentCadetData.bel_score_cert"
                           @input="makeInputDefaultNullValueIfEmpty"
-                        />
-                      </td>
-                      <td class="text-center table-warning">
-                        <input
+                      />
+                    </td>
+                    <td class="text-center table-warning">
+                      <input
                           name="social_science_score_cert"
                           type="number"
                           class="form-control text-center"
                           v-model="currentCadetData.social_science_score_cert"
                           @input="makeInputDefaultNullValueIfEmpty"
-                        />
-                      </td>
-                      <td class="text-center table-success">
-                        <input
+                      />
+                    </td>
+                    <td class="text-center table-success">
+                      <input
                           name="foreign_lang_score_cert"
                           type="number"
                           class="form-control text-center"
                           v-model="currentCadetData.foreign_lang_score_cert"
                           @input="makeInputDefaultNullValueIfEmpty"
-                        />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td colspan="2" class="text-center table-primary fw-bold">
-                        Средний балл (аттестата)
-                      </td>
-                      <td colspan="2" class="text-center table-primary fw-bold">
-                        Сумма (рус. + бел.)
-                      </td>
-                    </tr>
-                    <tr>
-                      <td colspan="2" class="text-center table-primary">
-                        <div class="d-flex flex-row">
-                          <button
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="text-center table-primary fw-bold">
+                      Средний балл (аттестата)
+                    </td>
+                    <td colspan="2" class="text-center table-primary fw-bold">
+                      Сумма (рус. + бел.)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="text-center table-primary">
+                      <div class="d-flex flex-row">
+                        <button
                             class="btn btn-warning me-2 text-nowrap"
                             @click="showAverageScoreCalculatingModal"
-                          >
-                            <font-awesome-icon
+                        >
+                          <font-awesome-icon
                               :icon="['fas', 'calculator']"
-                            />&nbsp;Рассчитать
-                          </button>
-                          <input
+                          />&nbsp;Рассчитать
+                        </button>
+                        <input
                             type="number"
                             class="form-control text-center"
                             v-model="currentCadetData.education_average_score"
                             disabled
-                          />
-                        </div>
-                      </td>
-                      <td colspan="2" class="text-center table-primary">
-                        <input
+                        />
+                      </div>
+                    </td>
+                    <td colspan="2" class="text-center table-primary">
+                      <input
                           type="number"
                           class="form-control text-center"
                           :value="getARussianAndBelorussianSumScore"
                           disabled
-                        />
-                      </td>
-                    </tr>
+                      />
+                    </td>
+                  </tr>
                   </tbody>
                 </table>
 
@@ -3022,39 +3026,46 @@
 
           <div>
             <button
-              v-if="currentCadetData.application_has_been_printed"
-              class="btn btn-primary my-3"
-              disabled
+                v-if="currentCadetData.application_has_been_printed"
+                class="btn btn-primary my-3"
+                disabled
             >
               <font-awesome-icon :icon="['fas', 'print']" />&nbsp;&nbsp;
               Заявление напечатано
             </button>
             <button
-              v-else
-              class="btn btn-primary my-3"
-              @click="printApplication(this.currentCadetData.id)"
+                v-else
+                class="btn btn-primary my-3"
+                @click="printApplication"
             >
               <font-awesome-icon :icon="['fas', 'print']" />&nbsp;&nbsp;
               <template v-if="isPrintingApplication"
-                >Формирование заявления ...</template
+              >Формирование заявления ...</template
               >
               <template v-else>Напечатать заявление</template>
             </button>
             <div class="form-check my-3" v-if="currentUser.is_superuser">
               <input
-                id="id_application_has_been_printed"
-                class="form-check-input"
-                type="checkbox"
-                v-model="currentCadetData.application_has_been_printed"
+                  id="id_application_has_been_printed"
+                  class="form-check-input"
+                  type="checkbox"
+                  v-model="currentCadetData.application_has_been_printed"
               />
               <label
-                class="form-check-label"
-                for="id_application_has_been_printed"
+                  class="form-check-label"
+                  for="id_application_has_been_printed"
               >
                 Заявление напечатано
               </label>
             </div>
           </div>
+
+
+
+
+
+
+
         </div>
       </div>
     </div>
@@ -3068,19 +3079,14 @@ import getActionHistoryAPIInstance from "@/api/cadet/actionHistoryAPI.js"
 import { isEqual } from "lodash"
 import { mapGetters } from "vuex"
 import useVuelidate from "@vuelidate/core"
-import {
-  helpers,
-  maxValue,
-  minValue,
-  required,
-  requiredIf,
-} from "@vuelidate/validators"
+import { required, requiredIf, helpers, minValue, maxValue } from "@vuelidate/validators"
 
 export default {
   name: "EntranceInputForm",
   components: { NavigationLayout },
   data() {
     return {
+      currentTime: new Date(),
       isLoading: true,
       isDataSaving: false,
       isPrintingApplication: false,
@@ -3258,7 +3264,6 @@ export default {
         certificate: [{ selectIndex: 0, selectValue: 0 }],
         diploma: [{ selectIndex: 0, selectValue: 0 }],
       },
-      video: null,
     }
   },
   setup() {
@@ -3275,114 +3280,114 @@ export default {
       currentCadetData: {
         last_name_rus: {
           required: helpers.withMessage(
-            "Поле 'Фамилия' не может быть пустым",
-            required,
+              "Поле 'Фамилия' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         date_of_birth: {
           required: helpers.withMessage(
-            "Поле 'Дата рождения' не может быть пустым",
-            required,
+              "Поле 'Дата рождения' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         education_graduating_end_year: {
           education_graduating_end_year_maxValueValue: helpers.withMessage(
-            "Некорректное значение поля 'Год окончания школы' - не может превышать 2025",
-            education_graduating_end_year_maxValueValue,
+              "Некорректное значение поля 'Год окончания школы' - не может превышать 2025",
+              education_graduating_end_year_maxValueValue,
           ),
           education_graduating_end_year_minValueValue: helpers.withMessage(
-            "Некорректное значение поля 'Год окончания школы'",
-            education_graduating_end_year_minValueValue,
+              "Некорректное значение поля 'Год окончания школы'",
+              education_graduating_end_year_minValueValue,
           ),
           $autoDirty: true,
         },
         rus_score_ct: {
           ct_maxValueValue: helpers.withMessage(
-            "Значение поля 'Русский язык - колличество баллов по сертификату' не может превышать 100",
-            ct_maxValueValue,
+              "Значение поля 'Русский язык - колличество баллов по сертификату' не может превышать 100",
+              ct_maxValueValue,
           ),
           ct_minValueValue: helpers.withMessage(
-            "Значение поля 'Русский язык - колличество баллов по сертификату' не может быть меньше 1",
-            ct_minValueValue,
+              "Значение поля 'Русский язык - колличество баллов по сертификату' не может быть меньше 1",
+              ct_minValueValue,
           ),
           $autoDirty: true,
         },
         bel_score_ct: {
           ct_maxValueValue: helpers.withMessage(
-            "Значение поля 'Белорусский язык - колличество баллов по сертификату' не может превышать 100",
-            ct_maxValueValue,
+              "Значение поля 'Белорусский язык - колличество баллов по сертификату' не может превышать 100",
+              ct_maxValueValue,
           ),
           ct_minValueValue: helpers.withMessage(
-            "Значение поля 'Белорусский язык - колличество баллов по сертификату' не может быть меньше 1",
-            ct_minValueValue,
+              "Значение поля 'Белорусский язык - колличество баллов по сертификату' не может быть меньше 1",
+              ct_minValueValue,
           ),
           $autoDirty: true,
         },
         social_science_score_ct: {
           ct_maxValueValue: helpers.withMessage(
-            "Значение поля 'Обществоведение - колличество баллов по сертификату' не может превышать 100",
-            ct_maxValueValue,
+              "Значение поля 'Обществоведение - колличество баллов по сертификату' не может превышать 100",
+              ct_maxValueValue,
           ),
           ct_minValueValue: helpers.withMessage(
-            "Значение поля 'Обществоведение - колличество баллов по сертификату' не может быть меньше 1",
-            ct_minValueValue,
+              "Значение поля 'Обществоведение - колличество баллов по сертификату' не может быть меньше 1",
+              ct_minValueValue,
           ),
           $autoDirty: true,
         },
         foreign_lang_score_ct: {
           ct_maxValueValue: helpers.withMessage(
-            "Значение поля 'Иностранный язык - колличество баллов по сертификату' не может превышать 100",
-            ct_maxValueValue,
+              "Значение поля 'Иностранный язык - колличество баллов по сертификату' не может превышать 100",
+              ct_maxValueValue,
           ),
           ct_minValueValue: helpers.withMessage(
-            "Значение поля 'Иностранный язык - колличество баллов по сертификату' не может быть меньше 1",
-            ct_minValueValue,
+              "Значение поля 'Иностранный язык - колличество баллов по сертификату' не может быть меньше 1",
+              ct_minValueValue,
           ),
           $autoDirty: true,
         },
         rus_score_cert: {
           cert_maxValueValue: helpers.withMessage(
-            "Значение поля 'Русский язык - колличество баллов в аттестате' не может превышать 10",
-            cert_maxValueValue,
+              "Значение поля 'Русский язык - колличество баллов в аттестате' не может превышать 10",
+              cert_maxValueValue,
           ),
           cert_minValueValue: helpers.withMessage(
-            "Значение поля 'Русский язык - колличество баллов в аттестате' не может быть меньше 1",
-            cert_minValueValue,
+              "Значение поля 'Русский язык - колличество баллов в аттестате' не может быть меньше 1",
+              cert_minValueValue,
           ),
           $autoDirty: true,
         },
         bel_score_cert: {
           cert_maxValueValue: helpers.withMessage(
-            "Значение поля 'Белорусский язык - колличество баллов в аттестате' не может превышать 10",
-            cert_maxValueValue,
+              "Значение поля 'Белорусский язык - колличество баллов в аттестате' не может превышать 10",
+              cert_maxValueValue,
           ),
           cert_minValueValue: helpers.withMessage(
-            "Значение поля 'Белорусский язык - колличество баллов в аттестате' не может быть меньше 1",
-            cert_minValueValue,
+              "Значение поля 'Белорусский язык - колличество баллов в аттестате' не может быть меньше 1",
+              cert_minValueValue,
           ),
           $autoDirty: true,
         },
         social_science_score_cert: {
           cert_maxValueValue: helpers.withMessage(
-            "Значение поля 'Обществоведение - колличество баллов в аттестате' не может превышать 10",
-            cert_maxValueValue,
+              "Значение поля 'Обществоведение - колличество баллов в аттестате' не может превышать 10",
+              cert_maxValueValue,
           ),
           cert_minValueValue: helpers.withMessage(
-            "Значение поля 'Обществоведение - колличество баллов в аттестате' не может быть меньше 1",
-            cert_minValueValue,
+              "Значение поля 'Обществоведение - колличество баллов в аттестате' не может быть меньше 1",
+              cert_minValueValue,
           ),
           $autoDirty: true,
         },
         foreign_lang_score_cert: {
           cert_maxValueValue: helpers.withMessage(
-            "Значение поля 'Иностранный язык - колличество баллов в аттестате' не может превышать 10",
-            cert_maxValueValue,
+              "Значение поля 'Иностранный язык - колличество баллов в аттестате' не может превышать 10",
+              cert_maxValueValue,
           ),
           cert_minValueValue: helpers.withMessage(
-            "Значение поля 'Иностранный язык - колличество баллов в аттестате' не может быть меньше 1",
-            cert_minValueValue,
+              "Значение поля 'Иностранный язык - колличество баллов в аттестате' не может быть меньше 1",
+              cert_minValueValue,
           ),
           $autoDirty: true,
         },
@@ -3390,232 +3395,232 @@ export default {
       applicationPrintData: {
         last_name_rus: {
           required: helpers.withMessage(
-            "Поле 'Фамилия' не может быть пустым",
-            required,
+              "Поле 'Фамилия' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         first_name_rus: {
           required: helpers.withMessage(
-            "Поле 'Имя' не может быть пустым",
-            required,
+              "Поле 'Имя' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         patronymic_rus: {
           required: helpers.withMessage(
-            "Поле 'Отчество' не может быть пустым",
-            required,
+              "Поле 'Отчество' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         address_residence: {
           required: helpers.withMessage(
-            "Поле 'Проживает по адресу' не может быть пустым",
-            required,
+              "Поле 'Проживает по адресу' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         education_graduating_end_year: {
           required: helpers.withMessage(
-            "Поле 'Год окончания учреждения образования' не может быть пустым",
-            required,
+              "Поле 'Год окончания учреждения образования' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         education_graduated: {
           required: helpers.withMessage(
-            "Поле 'Учреждение образования' не может быть пустым",
-            required,
+              "Поле 'Учреждение образования' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         component_organ: {
           required: helpers.withMessage(
-            "Поле 'Комплектующий орган' не может быть пустым",
-            required,
+              "Поле 'Комплектующий орган' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         foreign_language_was: {
           required: helpers.withMessage(
-            "Поле 'Иностранный язык, который изучал' не может быть пустым",
-            required,
+              "Поле 'Иностранный язык, который изучал' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         foreign_language_will_be: {
           required: helpers.withMessage(
-            "Поле 'Иностранный язык, который будет изучать' не может быть пустым",
-            required,
+              "Поле 'Иностранный язык, который будет изучать' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         date_of_birth: {
           required: helpers.withMessage(
-            "Поле 'Дата рождения' не может быть пустым",
-            required,
+              "Поле 'Дата рождения' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         phone_number: {
           required: helpers.withMessage(
-            "Поле 'Номер телефона' не может быть пустым",
-            required,
+              "Поле 'Номер телефона' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         mother_last_name: {
           required: helpers.withMessage(
-            "Поле 'Фамилия матери' не может быть пустым",
-            required,
+              "Поле 'Фамилия матери' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         mother_first_name: {
           required: helpers.withMessage(
-            "Поле 'Имя матери' не может быть пустым",
-            required,
+              "Поле 'Имя матери' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         mother_patronymic: {
           required: helpers.withMessage(
-            "Поле 'Отчество матери' не может быть пустым",
-            required,
+              "Поле 'Отчество матери' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         mother_address_residence: {
           required: helpers.withMessage(
-            "Поле 'Мать проживает по адресу' не может быть пустым",
-            required,
+              "Поле 'Мать проживает по адресу' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         mother_phone_number: {
           required: helpers.withMessage(
-            "Поле 'Мать - контактный телефон' не может быть пустым",
-            required,
+              "Поле 'Мать - контактный телефон' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         father_last_name: {
           required: helpers.withMessage(
-            "Поле 'Фамилия отца' не может быть пустым",
-            required,
+              "Поле 'Фамилия отца' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         father_first_name: {
           required: helpers.withMessage(
-            "Поле 'Имя отца' не может быть пустым",
-            required,
+              "Поле 'Имя отца' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         father_patronymic: {
           required: helpers.withMessage(
-            "Поле 'Отчество отца' не может быть пустым",
-            required,
+              "Поле 'Отчество отца' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         father_address_residence: {
           required: helpers.withMessage(
-            "Поле 'Отец проживает по адресу' не может быть пустым",
-            required,
+              "Поле 'Отец проживает по адресу' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         father_phone_number: {
           required: helpers.withMessage(
-            "Поле 'Отец - контактный телефон' не может быть пустым",
-            required,
+              "Поле 'Отец - контактный телефон' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         passport_document_type: {
           required: helpers.withMessage(
-            "Поле 'Вид документа удостоверяющего личность' не может быть пустым",
-            required,
+              "Поле 'Вид документа удостоверяющего личность' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         passport_issue_date: {
           required: helpers.withMessage(
-            "Поле 'Дата выдачи пасспорта' не может быть пустым",
-            required,
+              "Поле 'Дата выдачи пасспорта' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         passport_issue_authority_text: {
           required: helpers.withMessage(
-            "Поле 'Орган выдачи пасспорта' не может быть пустым",
-            required,
+              "Поле 'Орган выдачи пасспорта' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         identification_number: {
           required: helpers.withMessage(
-            "Поле 'Идентификационный номер' не может быть пустым",
-            required,
+              "Поле 'Идентификационный номер' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         rus_score_ct: {
           required: helpers.withMessage(
-            "Поле 'Русский язык - количество баллов по сертификату' не может быть пустым",
-            requiredIf(() => !this.applicationPrintData.bel_score_ct),
+              "Поле 'Русский язык - количество баллов по сертификату' не может быть пустым",
+              requiredIf(()=> !this.applicationPrintData.bel_score_ct),
           ),
           $autoDirty: true,
         },
         bel_score_ct: {
           required: helpers.withMessage(
-            "Поле 'Белорусский язык - количество баллов по сертификату' не может быть пустым",
-            requiredIf(() => !this.applicationPrintData.rus_score_ct),
+              "Поле 'Белорусский язык - количество баллов по сертификату' не может быть пустым",
+              requiredIf(()=> !this.applicationPrintData.rus_score_ct),
           ),
           $autoDirty: true,
         },
         social_science_score_ct: {
           required: helpers.withMessage(
-            "Поле 'Обществоведение - количество баллов по сертификату' не может быть пустым",
-            required,
+              "Поле 'Обществоведение - количество баллов по сертификату' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         foreign_lang_score_ct: {
           required: helpers.withMessage(
-            "Поле 'Иностранный язык - количество баллов по сертификату' не может быть пустым",
-            required,
+              "Поле 'Иностранный язык - количество баллов по сертификату' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         rus_score_cert: {
           required: helpers.withMessage(
-            "Поле 'Русский язык - количество баллов в аттестате' не может быть пустым",
-            required,
+              "Поле 'Русский язык - количество баллов в аттестате' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         bel_score_cert: {
           required: helpers.withMessage(
-            "Поле 'Белорусский язык - количество баллов в аттестате' не может быть пустым",
-            required,
+              "Поле 'Белорусский язык - количество баллов в аттестате' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         social_science_score_cert: {
           required: helpers.withMessage(
-            "Поле 'Обществоведение - количество баллов в аттестате' не может быть пустым",
-            required,
+              "Поле 'Обществоведение - количество баллов в аттестате' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         foreign_lang_score_cert: {
           required: helpers.withMessage(
-            "Поле 'Иностранный язык - количество баллов в аттестате' не может быть пустым",
-            required,
+              "Поле 'Иностранный язык - количество баллов в аттестате' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
@@ -3624,26 +3629,12 @@ export default {
   },
   async created() {
     await this.loadData(this.$route.params.id)
-    console.log(this.$refs.video)
   },
   methods: {
-    startCapture() {
-      navigator.mediaDevices
-        .getUserMedia({ video: true, audio: false })
-        .then((stream) => {
-          this.video.srcObject = stream
-          this.video.play()
-        })
-    },
     async loadData(applicantId) {
       try {
         const response = await this.cadetAPIInstance.getItemData(applicantId)
         this.currentCadetData = response.data
-        if (this.currentCadetData.education_average_score_calculation) {
-          this.average_score_calculation = JSON.parse(
-            this.currentCadetData.education_average_score_calculation,
-          )
-        }
         this.currentCadetDataFromServer = Object.assign(
           {},
           this.currentCadetData,
@@ -3691,13 +3682,12 @@ export default {
       } else {
         this.isDataSaving = true
         try {
-          const { photo, attached_documents, sign_image, ...rest } =
-            this.currentCadetData
+          const { photo, attached_documents, ...rest } = this.currentCadetData
           const updatedData = await this.cadetAPIInstance.updateItem(rest)
           this.currentCadetData = updatedData.data
           this.currentCadetDataFromServer = Object.assign(
-            {},
-            this.currentCadetData,
+              {},
+              this.currentCadetData,
           )
         } catch (e) {
         } finally {
@@ -3729,10 +3719,10 @@ export default {
       }
     },
     removeFileFieldsFromObj(obj) {
-      const { photo, attached_documents, sign_image, ...rest } = obj
+      const { photo, attached_documents, ...rest } = obj
       return rest
     },
-    async printApplication(entranceId) {
+    async printApplication() {
       if (!this.isDataFromServerEqualChangedData) {
         let hasToSaveDataModal = this.$refs.hasToSaveDataModal
         let myModal = new bootstrap.Modal(hasToSaveDataModal, {
@@ -3743,7 +3733,7 @@ export default {
       }
       if (this.v$.applicationPrintData.$invalid) {
         let applicationValidationErrorsModal =
-          this.$refs.application_validationErrorsModal
+            this.$refs.application_validationErrorsModal
         let myModal = new bootstrap.Modal(applicationValidationErrorsModal, {
           keyboard: false,
         })
@@ -3751,12 +3741,11 @@ export default {
         return
       } else {
         this.isPrintingApplication = true
-        await this.makePrinting(entranceId)
+        await this.makePrinting()
         this.isPrintingApplication = false
       }
     },
-    async makePrinting(entranceId) {
-      let queryString = `?application_id=${entranceId}`
+    async makePrinting() {
       let dataObj = {
         id: this.currentCadetData.id,
         application_has_been_printed: true,
@@ -3772,25 +3761,25 @@ export default {
       this.currentCadetDataFromServer = Object.assign({}, this.currentCadetData)
 
       this.cadetAPIInstance
-        .entrance_application_print(this.currentCadetData.id)
-        .then((response) => {
-          const url = window.URL.createObjectURL(new Blob([response.data]))
-          const link = document.createElement("a")
-          link.href = url
-          link.setAttribute(
-            "download",
-            `${this.currentCadetData.last_name_rus}.docx`,
-          )
-          document.body.appendChild(link)
-          link.click()
-        })
+          .entrance_application_print(this.currentCadetData.id)
+          .then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]))
+            const link = document.createElement("a")
+            link.href = url
+            link.setAttribute(
+                "download",
+                `${this.currentCadetData.last_name_rus}.docx`,
+            )
+            document.body.appendChild(link)
+            link.click()
+          })
       this.$refs.applicationValidationErrorsModalCloseButton.click()
     },
     averageScoreCertificateSelectChange(e) {
       const lastIndex =
-        this.average_score_calculation.certificate[
+          this.average_score_calculation.certificate[
           this.average_score_calculation.certificate.length - 1
-        ].selectIndex
+              ].selectIndex
       if (parseInt(e.target.name) === lastIndex) {
         this.average_score_calculation.certificate.push({
           selectIndex: lastIndex + 1,
@@ -3798,11 +3787,12 @@ export default {
         })
       }
     },
+
     averageScoreDiplomaSelectChange(e) {
       const lastIndex =
-        this.average_score_calculation.diploma[
+          this.average_score_calculation.diploma[
           this.average_score_calculation.diploma.length - 1
-        ].selectIndex
+              ].selectIndex
       if (parseInt(e.target.name) === lastIndex) {
         this.average_score_calculation.diploma.push({
           selectIndex: lastIndex + 1,
@@ -3810,16 +3800,18 @@ export default {
         })
       }
     },
+
     getAverageScoreCount() {
       return (
-        this.average_score_calculation.certificate.filter(
-          (item) => item.selectValue !== 0 && item.selectValue !== "",
-        ).length +
-        this.average_score_calculation.diploma.filter(
-          (item) => item.selectValue !== 0 && item.selectValue !== "",
-        ).length
+          this.average_score_calculation.certificate.filter(
+              (item) => item.selectValue !== 0 && item.selectValue !== "",
+          ).length +
+          this.average_score_calculation.diploma.filter(
+              (item) => item.selectValue !== 0 && item.selectValue !== "",
+          ).length
       )
     },
+
     average_score_calculation_select_change() {
       this.average_score_calculation.certificate = [
         { selectIndex: 0, selectValue: 0 },
@@ -3828,6 +3820,7 @@ export default {
         { selectIndex: 0, selectValue: 0 },
       ]
     },
+
     showAverageScoreCalculatingModal() {
       let validationErrorsModal = this.$refs.averageScoreCalculatingModal
       let myModal = new bootstrap.Modal(validationErrorsModal, {
@@ -3835,9 +3828,10 @@ export default {
       })
       myModal.show()
     },
+
     saveAverageScore() {
       this.currentCadetData.education_average_score_calculation =
-        JSON.stringify(this.average_score_calculation)
+          JSON.stringify(this.average_score_calculation)
       if (this.getAverageScore === 0) {
         this.currentCadetData.education_average_score = null
       } else
@@ -3851,129 +3845,132 @@ export default {
     },
     orderedSubdivisions() {
       return this.subdivisions.results.filter(
-        (subdivision) => subdivision.subdivision_category == "1",
+        (subdivision) => subdivision.subdivision_category === "1",
       )
     },
     orderedAdmissionQuotes_select_1() {
       return this.orderedAdmissionQuotes.filter(
-        (item) =>
-          item.id !== this.currentCadetData.speciality_2 &&
-          item.id !== this.currentCadetData.speciality_3 &&
-          item.id !== this.currentCadetData.speciality_4 &&
-          item.id !== this.currentCadetData.speciality_5 &&
-          item.id !== this.currentCadetData.speciality_6 &&
-          item.id !== this.currentCadetData.speciality_7 &&
-          item.id !== this.currentCadetData.speciality_8 &&
-          item.id !== this.currentCadetData.speciality_9,
+          (item) =>
+              item.id !== this.currentCadetData.speciality_2 &&
+              item.id !== this.currentCadetData.speciality_3 &&
+              item.id !== this.currentCadetData.speciality_4 &&
+              item.id !== this.currentCadetData.speciality_5 &&
+              item.id !== this.currentCadetData.speciality_6 &&
+              item.id !== this.currentCadetData.speciality_7 &&
+              item.id !== this.currentCadetData.speciality_8 &&
+              item.id !== this.currentCadetData.speciality_9,
       )
     },
     orderedAdmissionQuotes_select_2() {
-      return this.admissionQuota.results.filter(
-        (item) =>
-          item.id !== this.currentCadetData.speciality_1 &&
-          item.id !== this.currentCadetData.speciality_3 &&
-          item.id !== this.currentCadetData.speciality_4 &&
-          item.id !== this.currentCadetData.speciality_5 &&
-          item.id !== this.currentCadetData.speciality_6 &&
-          item.id !== this.currentCadetData.speciality_7 &&
-          item.id !== this.currentCadetData.speciality_8 &&
-          item.id !== this.currentCadetData.speciality_9,
+      return this.orderedAdmissionQuotes.filter(
+          (item) =>
+              item.id !== this.currentCadetData.speciality_1 &&
+              item.id !== this.currentCadetData.speciality_3 &&
+              item.id !== this.currentCadetData.speciality_4 &&
+              item.id !== this.currentCadetData.speciality_5 &&
+              item.id !== this.currentCadetData.speciality_6 &&
+              item.id !== this.currentCadetData.speciality_7 &&
+              item.id !== this.currentCadetData.speciality_8 &&
+              item.id !== this.currentCadetData.speciality_9,
       )
     },
     orderedAdmissionQuotes_select_3() {
-      return this.admissionQuota.results.filter(
-        (item) =>
-          item.id !== this.currentCadetData.speciality_1 &&
-          item.id !== this.currentCadetData.speciality_2 &&
-          item.id !== this.currentCadetData.speciality_4 &&
-          item.id !== this.currentCadetData.speciality_5 &&
-          item.id !== this.currentCadetData.speciality_6 &&
-          item.id !== this.currentCadetData.speciality_7 &&
-          item.id !== this.currentCadetData.speciality_8 &&
-          item.id !== this.currentCadetData.speciality_9,
+      return this.orderedAdmissionQuotes.filter(
+          (item) =>
+              item.id !== this.currentCadetData.speciality_1 &&
+              item.id !== this.currentCadetData.speciality_2 &&
+              item.id !== this.currentCadetData.speciality_4 &&
+              item.id !== this.currentCadetData.speciality_5 &&
+              item.id !== this.currentCadetData.speciality_6 &&
+              item.id !== this.currentCadetData.speciality_7 &&
+              item.id !== this.currentCadetData.speciality_8 &&
+              item.id !== this.currentCadetData.speciality_9,
       )
     },
     orderedAdmissionQuotes_select_4() {
-      return this.admissionQuota.results.filter(
-        (item) =>
-          item.id !== this.currentCadetData.speciality_1 &&
-          item.id !== this.currentCadetData.speciality_2 &&
-          item.id !== this.currentCadetData.speciality_3 &&
-          item.id !== this.currentCadetData.speciality_5 &&
-          item.id !== this.currentCadetData.speciality_6 &&
-          item.id !== this.currentCadetData.speciality_7 &&
-          item.id !== this.currentCadetData.speciality_8 &&
-          item.id !== this.currentCadetData.speciality_9,
+      return this.orderedAdmissionQuotes.filter(
+          (item) =>
+              item.id !== this.currentCadetData.speciality_1 &&
+              item.id !== this.currentCadetData.speciality_2 &&
+              item.id !== this.currentCadetData.speciality_3 &&
+              item.id !== this.currentCadetData.speciality_5 &&
+              item.id !== this.currentCadetData.speciality_6 &&
+              item.id !== this.currentCadetData.speciality_7 &&
+              item.id !== this.currentCadetData.speciality_8 &&
+              item.id !== this.currentCadetData.speciality_9,
       )
     },
     orderedAdmissionQuotes_select_5() {
-      return this.admissionQuota.results.filter(
-        (item) =>
-          item.id !== this.currentCadetData.speciality_1 &&
-          item.id !== this.currentCadetData.speciality_2 &&
-          item.id !== this.currentCadetData.speciality_3 &&
-          item.id !== this.currentCadetData.speciality_4 &&
-          item.id !== this.currentCadetData.speciality_6 &&
-          item.id !== this.currentCadetData.speciality_7 &&
-          item.id !== this.currentCadetData.speciality_8 &&
-          item.id !== this.currentCadetData.speciality_9,
+      return this.orderedAdmissionQuotes.filter(
+          (item) =>
+              item.id !== this.currentCadetData.speciality_1 &&
+              item.id !== this.currentCadetData.speciality_2 &&
+              item.id !== this.currentCadetData.speciality_3 &&
+              item.id !== this.currentCadetData.speciality_4 &&
+              item.id !== this.currentCadetData.speciality_6 &&
+              item.id !== this.currentCadetData.speciality_7 &&
+              item.id !== this.currentCadetData.speciality_8 &&
+              item.id !== this.currentCadetData.speciality_9,
       )
     },
     orderedAdmissionQuotes_select_6() {
-      return this.admissionQuota.results.filter(
-        (item) =>
-          item.id !== this.currentCadetData.speciality_1 &&
-          item.id !== this.currentCadetData.speciality_2 &&
-          item.id !== this.currentCadetData.speciality_3 &&
-          item.id !== this.currentCadetData.speciality_4 &&
-          item.id !== this.currentCadetData.speciality_5 &&
-          item.id !== this.currentCadetData.speciality_7 &&
-          item.id !== this.currentCadetData.speciality_8 &&
-          item.id !== this.currentCadetData.speciality_9,
+      return this.orderedAdmissionQuotes.filter(
+          (item) =>
+              item.id !== this.currentCadetData.speciality_1 &&
+              item.id !== this.currentCadetData.speciality_2 &&
+              item.id !== this.currentCadetData.speciality_3 &&
+              item.id !== this.currentCadetData.speciality_4 &&
+              item.id !== this.currentCadetData.speciality_5 &&
+              item.id !== this.currentCadetData.speciality_7 &&
+              item.id !== this.currentCadetData.speciality_8 &&
+              item.id !== this.currentCadetData.speciality_9,
       )
     },
     orderedAdmissionQuotes_select_7() {
-      return this.admissionQuota.results.filter(
-        (item) =>
-          item.id !== this.currentCadetData.speciality_1 &&
-          item.id !== this.currentCadetData.speciality_2 &&
-          item.id !== this.currentCadetData.speciality_3 &&
-          item.id !== this.currentCadetData.speciality_4 &&
-          item.id !== this.currentCadetData.speciality_5 &&
-          item.id !== this.currentCadetData.speciality_6 &&
-          item.id !== this.currentCadetData.speciality_8 &&
-          item.id !== this.currentCadetData.speciality_9,
+      return this.orderedAdmissionQuotes.filter(
+          (item) =>
+              item.id !== this.currentCadetData.speciality_1 &&
+              item.id !== this.currentCadetData.speciality_2 &&
+              item.id !== this.currentCadetData.speciality_3 &&
+              item.id !== this.currentCadetData.speciality_4 &&
+              item.id !== this.currentCadetData.speciality_5 &&
+              item.id !== this.currentCadetData.speciality_6 &&
+              item.id !== this.currentCadetData.speciality_8 &&
+              item.id !== this.currentCadetData.speciality_9,
       )
     },
     orderedAdmissionQuotes_select_8() {
-      return this.admissionQuota.results.filter(
-        (item) =>
-          item.id !== this.currentCadetData.speciality_1 &&
-          item.id !== this.currentCadetData.speciality_2 &&
-          item.id !== this.currentCadetData.speciality_3 &&
-          item.id !== this.currentCadetData.speciality_4 &&
-          item.id !== this.currentCadetData.speciality_5 &&
-          item.id !== this.currentCadetData.speciality_6 &&
-          item.id !== this.currentCadetData.speciality_7 &&
-          item.id !== this.currentCadetData.speciality_9,
+      return this.orderedAdmissionQuotes.filter(
+          (item) =>
+              item.id !== this.currentCadetData.speciality_1 &&
+              item.id !== this.currentCadetData.speciality_2 &&
+              item.id !== this.currentCadetData.speciality_3 &&
+              item.id !== this.currentCadetData.speciality_4 &&
+              item.id !== this.currentCadetData.speciality_5 &&
+              item.id !== this.currentCadetData.speciality_6 &&
+              item.id !== this.currentCadetData.speciality_7 &&
+              item.id !== this.currentCadetData.speciality_9,
       )
     },
     orderedAdmissionQuotes_select_9() {
-      return this.admissionQuota.results.filter(
-        (item) =>
-          item.id !== this.currentCadetData.speciality_1 &&
-          item.id !== this.currentCadetData.speciality_2 &&
-          item.id !== this.currentCadetData.speciality_3 &&
-          item.id !== this.currentCadetData.speciality_4 &&
-          item.id !== this.currentCadetData.speciality_5 &&
-          item.id !== this.currentCadetData.speciality_6 &&
-          item.id !== this.currentCadetData.speciality_7 &&
-          item.id !== this.currentCadetData.speciality_8,
+      return this.orderedAdmissionQuotes.filter(
+          (item) =>
+              item.id !== this.currentCadetData.speciality_1 &&
+              item.id !== this.currentCadetData.speciality_2 &&
+              item.id !== this.currentCadetData.speciality_3 &&
+              item.id !== this.currentCadetData.speciality_4 &&
+              item.id !== this.currentCadetData.speciality_5 &&
+              item.id !== this.currentCadetData.speciality_6 &&
+              item.id !== this.currentCadetData.speciality_7 &&
+              item.id !== this.currentCadetData.speciality_8,
       )
     },
 
-    orderedAdmissionQuotes() {
-      return this.admissionQuota.results.sort((a, b) => {
+
+    orderedAdmissionQuotes(){
+      return this.admissionQuota.results.filter(
+          (quota) => quota.ownership_category === "1",
+      ).sort((a, b) => {
         const admission_codeA = a.admission_code
         const admission_codeB = b.admission_code
         if (admission_codeA < admission_codeB) {
@@ -4007,8 +4004,8 @@ export default {
     },
     orderedCountryRegions() {
       return this.countryRegions.results.sort((a, b) => {
-        const nameA = a.country_region.toUpperCase() // ignore upper and lowercase
-        const nameB = b.country_region.toUpperCase() // ignore upper and lowercase
+        const nameA = a.country_region.toUpperCase()
+        const nameB = b.country_region.toUpperCase()
         if (nameA < nameB) {
           return -1
         }
@@ -4020,8 +4017,8 @@ export default {
     },
     orderedGorovds() {
       return this.gorovds.results.sort((a, b) => {
-        const nameA = a.go_rovd_name.toUpperCase() // ignore upper and lowercase
-        const nameB = b.go_rovd_name.toUpperCase() // ignore upper and lowercase
+        const nameA = a.go_rovd_name.toUpperCase()
+        const nameB = b.go_rovd_name.toUpperCase()
         if (nameA < nameB) {
           return -1
         }
@@ -4057,7 +4054,9 @@ export default {
       return this.foreignLanguages.results
     },
     orderedPpflCategories() {
-      return this.ppflCategories.results
+      return this.ppflCategories.results.filter(
+          (ppfl) => ppfl.ownership_category === "1",
+      )
     },
     orderedVpkCategories() {
       return this.vpkCategories.results
@@ -4077,6 +4076,21 @@ export default {
     orderedInWhoseInterests() {
       return this.inWhoseInterests.results
     },
+    orderedHealthGroups() {
+      return this.healthGroups.results.filter(
+          (healthGroup) => healthGroup.ownership_category === "1",
+      ).sort((a, b) => {
+        const healthGroupA = a.health_group.toUpperCase()
+        const healthGroupB = b.health_group.toUpperCase()
+        if (healthGroupA < healthGroupB) {
+          return -1
+        }
+        if (healthGroupA > healthGroupB) {
+          return 1
+        }
+        return 0
+      })
+    },
     isDataFromServerEqualChangedData() {
       return isEqual(
         this.removeFileFieldsFromObj(this.currentCadetData),
@@ -4086,42 +4100,43 @@ export default {
     getARussianAndBelorussianSumScore() {
       let scoreSum = ""
       if (
-        isFinite(this.currentCadetData.rus_score_cert) &&
-        this.currentCadetData.rus_score_cert !== null &&
-        isFinite(this.currentCadetData.bel_score_cert)
+          isFinite(this.currentCadetData.rus_score_cert) &&
+          this.currentCadetData.rus_score_cert !== null &&
+          isFinite(this.currentCadetData.bel_score_cert)
       ) {
         scoreSum =
-          this.currentCadetData.rus_score_cert +
-          this.currentCadetData.bel_score_cert
+            this.currentCadetData.rus_score_cert +
+            this.currentCadetData.bel_score_cert
         return scoreSum
       }
       return scoreSum
     },
+
     get_score_sum() {
       let education_average_score = this.currentCadetData
-        .education_average_score
-        ? parseFloat(this.currentCadetData.education_average_score)
-        : 0
+          .education_average_score
+          ? parseFloat(this.currentCadetData.education_average_score)
+          : 0
       let rus_score_ct = this.currentCadetData.rus_score_ct
-        ? this.currentCadetData.rus_score_ct
-        : 0
+          ? this.currentCadetData.rus_score_ct
+          : 0
       let bel_score_ct = this.currentCadetData.bel_score_ct
-        ? this.currentCadetData.bel_score_ct
-        : 0
+          ? this.currentCadetData.bel_score_ct
+          : 0
       let social_science_score_ct = this.currentCadetData
-        .social_science_score_ct
-        ? this.currentCadetData.social_science_score_ct
-        : 0
+          .social_science_score_ct
+          ? this.currentCadetData.social_science_score_ct
+          : 0
       let foreign_lang_score_ct = this.currentCadetData.foreign_lang_score_ct
-        ? this.currentCadetData.foreign_lang_score_ct
-        : 0
+          ? this.currentCadetData.foreign_lang_score_ct
+          : 0
 
       let sum =
-        education_average_score +
-        rus_score_ct +
-        bel_score_ct +
-        social_science_score_ct +
-        foreign_lang_score_ct
+          education_average_score +
+          rus_score_ct +
+          bel_score_ct +
+          social_science_score_ct +
+          foreign_lang_score_ct
 
       return sum.toFixed(1)
     },
@@ -4142,6 +4157,7 @@ export default {
         return ((counter / this.getAverageScoreCount()) * 10).toFixed(1)
       } else return 0
     },
+
     ...mapGetters({
       groups: "groups/getList",
       ranks: "ranks/getList",
@@ -4169,6 +4185,7 @@ export default {
       educationLocalityKinds: "educationLocalityKind/getList",
       medals: "medals/getList",
       inWhoseInterests: "inWhoseInterests/getList",
+      healthGroups: "healthGroup/getList",
       admissionQuota: "admissionQuota/getList",
       currentUser: "auth/getUser",
     }),

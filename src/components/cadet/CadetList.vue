@@ -176,24 +176,6 @@
         />
       </div>
       <div class="mb-3">
-        <label for="category_search" class="form-label">Категория</label>
-        <select
-          id="category_search"
-          class="form-select"
-          aria-label="Default select example"
-          v-model="searchForm.category"
-        >
-          <option selected value="">--------</option>
-          <option
-            v-for="category in orderedCadetCategories"
-            :key="category.id"
-            :value="category.id"
-          >
-            {{ category.category }}
-          </option>
-        </select>
-      </div>
-      <div class="mb-3">
         <label for="gender_search" class="form-label">Пол</label>
         <select
           class="form-select"
@@ -349,14 +331,18 @@
 
 <script>
 import { globalCadetAPIInstance } from "@/api/cadet/cadetAPI"
+
 import BaseListLayout from "@/components/layouts/BaseListLayout.vue"
 import { PaginatorView } from "@/components/common"
 import { debounce } from "lodash/function"
+import BaseListLayoutForCadetUpdate from "@/components/layouts/BaseListLayoutForCadetUpdate.vue"
+
 import { mapGetters } from "vuex"
 
 export default {
   name: "CadetList",
   components: {
+    BaseListLayoutForCadetUpdate,
     BaseListLayout,
     PaginatorView,
   },
@@ -369,11 +355,7 @@ export default {
       BACKEND_HOST: import.meta.env.VITE_APP_BACKEND_HOST,
       BACKEND_PORT: import.meta.env.VITE_APP_BACKEND_PORT,
       cadetAPIInstance: globalCadetAPIInstance,
-      searchForm: Object.assign(
-        {},
-
-        globalCadetAPIInstance.searchObj,
-      ),
+      searchForm: Object.assign({}, globalCadetAPIInstance.searchObj),
       cadetNewForm: {
         last_name_rus: "",
         first_name_rus: "",
@@ -474,9 +456,6 @@ export default {
   },
 
   computed: {
-    orderedCadetCategories() {
-      return this.categories.results
-    },
     orderedCadets() {
       return this.cadetList.results
     },
@@ -505,8 +484,6 @@ export default {
       subdivisions: "subdivisions/getList",
       specialities: "specialities/getList",
       positions: "positions/getList",
-      categories: "personCategories/getList",
-      token: "auth/getToken",
     }),
   },
   watch: {
@@ -521,20 +498,5 @@ export default {
 </script>
 
 <style scoped>
->>> {
-  --vs-controls-color: #664cc3;
-  --vs-border-color: #664cc3;
 
-  --vs-dropdown-bg: #282c34;
-  --vs-dropdown-color: #cc99cd;
-  --vs-dropdown-option-color: #cc99cd;
-
-  --vs-selected-bg: #664cc3;
-  --vs-selected-color: #eeeeee;
-
-  --vs-search-input-color: #eeeeee;
-
-  --vs-dropdown-option--active-bg: #664cc3;
-  --vs-dropdown-option--active-color: #eeeeee;
-}
 </style>

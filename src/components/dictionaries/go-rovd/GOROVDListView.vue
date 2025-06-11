@@ -304,7 +304,7 @@
         <div class="col-12">
           <div class="mb-3">
             <label for="go_rovd_name__icontains" class="form-label"
-              >Военкомат</label
+              >ГО-РОВД</label
             >
             <input
               type="text"

@@ -38,6 +38,7 @@ import vpkCategories from "@/store/modules/vpkCategories"
 import errors from "@/store/modules/errors"
 import medals from "@/store/modules/medals"
 import inWhoseInterests from "@/store/modules/inWhoseInterests.js"
+import healthGroup from "@/store/modules/healthGroup.js"
 import profiling from "@/store/modules/profiling.js"
 import admissionQuota from "@/store/modules/admissionQuota.js"
 import culturalMassEvents from "@/store/modules/culturalMassEvents.js"
@@ -84,6 +85,7 @@ const store = createStore({
     errors,
     medals,
     inWhoseInterests,
+    healthGroup,
     profiling,
     admissionQuota,
     culturalMassEvents,
