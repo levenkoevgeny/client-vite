@@ -118,6 +118,7 @@
           <tr>
             <th scope="col" class="text-center">№п.п.</th>
             <th scope="col">Активный</th>
+            <th scope="col">Кто изучал дело</th>
             <th scope="col" class="text-center">
               <div class="d-flex flex-row align-items-center">
                 <span class="text-nowrap">Учреждение образования</span>
@@ -1030,6 +1031,22 @@
                 <option value="false" key="0">Нет</option>
               </select>
             </th>
+            <th>
+              <select
+                id="id_who_created"
+                class="form-select"
+                v-model="searchForm.who_created"
+              >
+                <option value="">-------</option>
+                <option
+                  v-for="user in usersList.results"
+                  :value="user.id"
+                  :key="user.id"
+                >
+                  {{ user.get_display_name }}
+                </option>
+              </select>
+            </th>
             <th style="min-width: 200px">
               <v-select
                 v-model="searchForm.educational_institution__in"
@@ -1476,6 +1493,7 @@
             <td v-else class="text-center">
               <font-awesome-icon :icon="['fas', 'lock']" />
             </td>
+            <td></td>
             <td>{{ cadet.get_educational_institution }}</td>
             <td>{{ cadet.get_component_organ }}</td>
             <td>{{ cadet.get_arrived_from_go_rovd }}</td>
@@ -1543,6 +1561,7 @@
 import { globalCadetAPIForEntranceInstance } from "@/api/cadet/cadetAPI.js"
 import { debounce } from "lodash/function"
 import { mapGetters } from "vuex"
+import getUsersAPIInstance from "@/api/auth/usersAPI.js"
 
 export default {
   name: "EntranceCadetTableView",
@@ -1878,6 +1897,8 @@ export default {
       ),
       cadetList: { count: 0, results: [], previous: null, next: null },
       cadetAPIInstance: globalCadetAPIForEntranceInstance,
+      usersAPIInstance: getUsersAPIInstance(),
+      usersList: { count: 0, results: [], previous: null, next: null },
     }
   },
   async created() {
@@ -1888,6 +1909,9 @@ export default {
       this.isLoading = true
       const response = await this.cadetAPIInstance.getItemsList()
       this.cadetList = await response.data
+      const responseUser = await this.usersAPIInstance.getItemsList()
+      this.usersList = await responseUser.data
+
       this.isLoading = false
       this.setSerialNumbers()
     },

@@ -155,10 +155,7 @@
               </p>
             </div>
             <div>
-              <button
-                class="btn btn-primary my-3"
-                @click="makePrinting(this.currentCadetData.id)"
-              >
+              <button class="btn btn-primary my-3" @click="makePrinting">
                 <font-awesome-icon :icon="['fas', 'print']" />&nbsp;&nbsp; Все
                 равно напечатать заявление
               </button>
@@ -3693,7 +3690,8 @@ export default {
       } else {
         this.isDataSaving = true
         try {
-          const { photo, attached_documents, ...rest } = this.currentCadetData
+          const { photo, attached_documents, sign_image, ...rest } =
+            this.currentCadetData
           const updatedData = await this.cadetAPIInstance.updateItem(rest)
           this.currentCadetData = updatedData.data
           this.currentCadetDataFromServer = Object.assign(
@@ -3730,7 +3728,7 @@ export default {
       }
     },
     removeFileFieldsFromObj(obj) {
-      const { photo, attached_documents, ...rest } = obj
+      const { photo, attached_documents, sign_image, ...rest } = obj
       return rest
     },
     async printApplication() {
@@ -3786,6 +3784,7 @@ export default {
         })
       this.$refs.applicationValidationErrorsModalCloseButton.click()
     },
+
     averageScoreCertificateSelectChange(e) {
       const lastIndex =
         this.average_score_calculation.certificate[

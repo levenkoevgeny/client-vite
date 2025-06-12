@@ -123,6 +123,57 @@
       </div>
     </div>
 
+    <!--    Application print Validation modal-->
+
+    <div
+      class="modal fade"
+      id="id_application_validationErrorsModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      ref="application_validationErrorsModal"
+    >
+      <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Для печати заявления исправте следующие ошибки:
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <div style="max-height: 400px; overflow-y: auto">
+              <p v-for="error of v$.applicationPrintData.$errors">
+                {{ error.$message }}
+              </p>
+            </div>
+            <div>
+              <button class="btn btn-primary my-3" @click="makePrinting">
+                <font-awesome-icon :icon="['fas', 'print']" />&nbsp;&nbsp; Все
+                равно напечатать заявление
+              </button>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              ref="applicationValidationErrorsModalCloseButton"
+            >
+              Закрыть
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!--Has to save data before printing-->
     <div
       class="modal fade"
@@ -165,6 +216,128 @@
       </div>
     </div>
 
+    <!--Average score calculating-->
+    <div
+      class="modal fade"
+      id="id_averageScoreCalculatingModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      ref="averageScoreCalculatingModal"
+    >
+      <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Калькулятор среднего балла
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              ref="averageScoreCalculatingModalCloseButton"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <div class="d-flex flex-row alert alert-warning">
+              <h5 class="me-3 my-0">
+                Количество записей - {{ getAverageScoreCount() }}
+              </h5>
+              <h5 class="my-0">Средний балл - {{ getAverageScore }}</h5>
+            </div>
+
+            <div class="mt-3">
+              <div class="form-floating">
+                <select
+                  class="form-select"
+                  v-model="average_score_calculation.choice"
+                  @change="average_score_calculation_select_change"
+                >
+                  <option value="">-------</option>
+                  <option value="cert">Школа (11 классов)</option>
+                  <option value="cert,dipl">
+                    Школа (11 классов) + проф.тех
+                  </option>
+                  <option value="cert,dipl">
+                    Школа (11 классов) + ср. спец.
+                  </option>
+                  <option value="cert">Проф.тех</option>
+                  <option value="dipl">Ср. спец.</option>
+                </select>
+                <label for="id_privilege">Что окончил</label>
+              </div>
+              <div
+                class="d-flex flex-row py-2 my-3"
+                style="max-height: 400px; overflow-y: auto"
+              >
+                <div
+                  style="width: 50%"
+                  class="me-2"
+                  v-if="this.average_score_calculation.choice.includes('cert')"
+                >
+                  <h5 class="ms-2">Школьный аттестат</h5>
+                  <select
+                    class="form-select"
+                    :name="select.selectIndex"
+                    v-for="select in average_score_calculation.certificate"
+                    v-model="select.selectValue"
+                    @change="averageScoreCertificateSelectChange"
+                  >
+                    <option value=""></option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                  </select>
+                </div>
+                <div v-else style="width: 50%"></div>
+                <div
+                  style="width: 50%"
+                  v-if="this.average_score_calculation.choice.includes('dipl')"
+                >
+                  <h5 class="ms-2">Диплом</h5>
+                  <select
+                    class="form-select"
+                    :name="select.selectIndex"
+                    v-for="select in average_score_calculation.diploma"
+                    v-model="select.selectValue"
+                    @change="averageScoreDiplomaSelectChange"
+                  >
+                    <option value=""></option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                  </select>
+                </div>
+                <div v-else style="width: 50%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-success"
+              @click="saveAverageScore"
+            >
+              Готово
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div
       v-if="isLoading || isCommonLoading"
       style="height: calc(100vh - 170px)"
@@ -439,7 +612,28 @@
                 >
                   <div>
                     <div class="my-3">
+                      <div class="row"></div>
                       <div class="row">
+                        <div class="col-xl-3">
+                          <div class="form-floating mb-3">
+                            <select
+                              id="id_component_organ"
+                              class="form-select"
+                              v-model="currentFPKPRKData.in_whose_interests"
+                            >
+                              <option :value="null">---------</option>
+                              <option
+                                :value="in_whose_interests.id"
+                                v-for="in_whose_interests in orderedInWhoseInterests"
+                              >
+                                {{ in_whose_interests.in_whose_interests }}
+                              </option>
+                            </select>
+                            <label for="id_component_organ"
+                              >В чьих интересах</label
+                            >
+                          </div>
+                        </div>
                         <div class="col-xl-3">
                           <div class="form-floating mb-3">
                             <select
@@ -478,9 +672,6 @@
                             <label for="id_entrance_category">Категория</label>
                           </div>
                         </div>
-                      </div>
-
-                      <div class="row">
                         <div class="col-lg-3">
                           <div class="form-floating mb-3">
                             <select
@@ -1615,347 +1806,363 @@
           <div class="border-bottom border-4 my-3"></div>
 
           <h3 class="fw-bold">Заявление</h3>
-          <h5 class="fw-bold">Выбор специальностей</h5>
+
           <div class="row">
-            <!--            <div class="col-xl-6">-->
-            <!--              <div class="form-floating mb-3">-->
-            <!--                <select-->
-            <!--                  id="id_s1"-->
-            <!--                  class="form-select"-->
-            <!--                  v-model="currentFPKPRKData.speciality_1"-->
-            <!--                >-->
-            <!--                  <option :value="null">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
-            <!--                  <option-->
-            <!--                    :value="speciality.id"-->
-            <!--                    v-for="speciality in orderedSpecialities_select_1"-->
-            <!--                  >-->
-            <!--                    {{ speciality.speciality_name }}-->
-            <!--                  </option>-->
-            <!--                </select>-->
-            <!--                <label for="id_s1">Специальность 1</label>-->
-            <!--              </div>-->
-            <!--              <div class="form-floating mb-3">-->
-            <!--                <select-->
-            <!--                  id="id_s2"-->
-            <!--                  class="form-select"-->
-            <!--                  v-model="currentFPKPRKData.speciality_2"-->
-            <!--                >-->
-            <!--                  <option :value="null">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
-            <!--                  <option-->
-            <!--                    :value="speciality.id"-->
-            <!--                    v-for="speciality in orderedSpecialities_select_2"-->
-            <!--                  >-->
-            <!--                    {{ speciality.speciality_name }}-->
-            <!--                  </option>-->
-            <!--                </select>-->
-            <!--                <label for="id_s2">Специальность 2</label>-->
-            <!--              </div>-->
-            <!--              <div class="form-floating mb-3">-->
-            <!--                <select-->
-            <!--                  id="id_s3"-->
-            <!--                  class="form-select"-->
-            <!--                  v-model="currentFPKPRKData.speciality_3"-->
-            <!--                >-->
-            <!--                  <option :value="null">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
-            <!--                  <option-->
-            <!--                    :value="speciality.id"-->
-            <!--                    v-for="speciality in orderedSpecialities_select_3"-->
-            <!--                  >-->
-            <!--                    {{ speciality.speciality_name }}-->
-            <!--                  </option>-->
-            <!--                </select>-->
-            <!--                <label for="id_s3">Специальность 3</label>-->
-            <!--              </div>-->
-            <!--              <div class="form-floating mb-3">-->
-            <!--                <select-->
-            <!--                  id="id_s4"-->
-            <!--                  class="form-select"-->
-            <!--                  v-model="currentFPKPRKData.speciality_4"-->
-            <!--                >-->
-            <!--                  <option :value="null">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
-            <!--                  <option-->
-            <!--                    :value="speciality.id"-->
-            <!--                    v-for="speciality in orderedSpecialities_select_4"-->
-            <!--                  >-->
-            <!--                    {{ speciality.speciality_name }}-->
-            <!--                  </option>-->
-            <!--                </select>-->
-            <!--                <label for="id_s4">Специальность 4</label>-->
-            <!--              </div>-->
-            <!--              <div class="form-floating mb-3">-->
-            <!--                <select-->
-            <!--                  id="id_s5"-->
-            <!--                  class="form-select"-->
-            <!--                  v-model="currentFPKPRKData.speciality_5"-->
-            <!--                >-->
-            <!--                  <option :value="null">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
-            <!--                  <option-->
-            <!--                    :value="speciality.id"-->
-            <!--                    v-for="speciality in orderedSpecialities_select_5"-->
-            <!--                  >-->
-            <!--                    {{ speciality.speciality_name }}-->
-            <!--                  </option>-->
-            <!--                </select>-->
-            <!--                <label for="id_s5">Специальность 5</label>-->
-            <!--              </div>-->
-            <!--              <div class="form-floating mb-3">-->
-            <!--                <select-->
-            <!--                  id="id_s6"-->
-            <!--                  class="form-select"-->
-            <!--                  v-model="currentFPKPRKData.speciality_6"-->
-            <!--                >-->
-            <!--                  <option :value="null">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
-            <!--                  <option-->
-            <!--                    :value="speciality.id"-->
-            <!--                    v-for="speciality in orderedSpecialities_select_6"-->
-            <!--                  >-->
-            <!--                    {{ speciality.speciality_name }}-->
-            <!--                  </option>-->
-            <!--                </select>-->
-            <!--                <label for="id_s6">Специальность 6</label>-->
-            <!--              </div>-->
-            <!--              <div class="form-floating mb-3">-->
-            <!--                <select-->
-            <!--                  id="id_s7"-->
-            <!--                  class="form-select"-->
-            <!--                  v-model="currentFPKPRKData.speciality_7"-->
-            <!--                >-->
-            <!--                  <option :value="null">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
-            <!--                  <option-->
-            <!--                    :value="speciality.id"-->
-            <!--                    v-for="speciality in orderedSpecialities_select_7"-->
-            <!--                  >-->
-            <!--                    {{ speciality.speciality_name }}-->
-            <!--                  </option>-->
-            <!--                </select>-->
-            <!--                <label for="id_s7">Специальность 7</label>-->
-            <!--              </div>-->
-            <!--            </div>-->
-            <!--            <div class="col-xl-6">-->
-            <!--              <h5>Набранные баллы</h5>-->
-            <!--              <div>-->
-            <!--                <p class="fw-bold">-->
-            <!--                  Сертификаты централизованного тестирования-->
-            <!--                </p>-->
-            <!--                {{ currentFPKPRKDataFromServer.rus_score_ct }}-->
-            <!--                {{ currentFPKPRKData.rus_score_ct }}-->
-            <!--                <table class="table">-->
-            <!--                  <thead>-->
-            <!--                    <tr>-->
-            <!--                      <th class="text-center table-primary">Русский</th>-->
-            <!--                      <th class="text-center table-primary">Белорусский</th>-->
-            <!--                      <th class="text-center table-warning">Обществоведение</th>-->
-            <!--                      <th class="text-center table-success">-->
-            <!--                        Иностранный язык-->
-            <!--                      </th>-->
-            <!--                    </tr>-->
-            <!--                  </thead>-->
-            <!--                  <tbody>-->
-            <!--                    <tr>-->
-            <!--                      <td colspan="2" class="text-center table-primary">-->
-            <!--                        <input-->
-            <!--                          type="number"-->
-            <!--                          class="form-control text-center"-->
-            <!--                          value="123"-->
-            <!--                        />-->
-            <!--                      </td>-->
-            <!--                      <td class="text-center table-warning">-->
-            <!--                        <input-->
-            <!--                          type="number"-->
-            <!--                          class="form-control text-center"-->
-            <!--                          value="456"-->
-            <!--                        />-->
-            <!--                      </td>-->
-            <!--                      <td class="text-center table-success">-->
-            <!--                        <input-->
-            <!--                          type="number"-->
-            <!--                          class="form-control text-center"-->
-            <!--                          value="789"-->
-            <!--                        />-->
-            <!--                      </td>-->
-            <!--                    </tr>-->
-            <!--                    <tr>-->
-            <!--                      <td class="text-center table-primary">-->
-            <!--                        <input-->
-            <!--                          name="rus_score_ct"-->
-            <!--                          type="number"-->
-            <!--                          class="form-control text-center"-->
-            <!--                          v-model="currentFPKPRKData.rus_score_ct"-->
-            <!--                          @input="makeInputDefaultNullValueIfEmpty"-->
-            <!--                        />-->
-            <!--                      </td>-->
-            <!--                      <td class="text-center table-primary">-->
-            <!--                        <input-->
-            <!--                          name="bel_score_ct"-->
-            <!--                          type="number"-->
-            <!--                          class="form-control text-center"-->
-            <!--                          v-model="currentFPKPRKData.bel_score_ct"-->
-            <!--                          @input="makeInputDefaultNullValueIfEmpty"-->
-            <!--                        />-->
-            <!--                      </td>-->
-            <!--                      <td class="text-center table-warning">-->
-            <!--                        <input-->
-            <!--                          name="social_science_ct"-->
-            <!--                          type="number"-->
-            <!--                          class="form-control text-center"-->
-            <!--                          v-model="currentFPKPRKData.social_science_ct"-->
-            <!--                          @input="makeInputDefaultNullValueIfEmpty"-->
-            <!--                        />-->
-            <!--                      </td>-->
-            <!--                      <td class="text-center table-success">-->
-            <!--                        <input-->
-            <!--                          name="foreign_lang_ct"-->
-            <!--                          type="number"-->
-            <!--                          class="form-control text-center"-->
-            <!--                          v-model="currentFPKPRKData.foreign_lang_ct"-->
-            <!--                          @input="makeInputDefaultNullValueIfEmpty"-->
-            <!--                        />-->
-            <!--                      </td>-->
-            <!--                    </tr>-->
-            <!--                    <tr>-->
-            <!--                      <td class="text-center table-primary">-->
-            <!--                        <select class="form-select">-->
-            <!--                          <option selected class="text-center">-->
-            <!--                            &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
-            <!--                          </option>-->
-            <!--                          <option value="2024 ЦЭ" class="text-center">-->
-            <!--                            2024 ЦЭ-->
-            <!--                          </option>-->
-            <!--                          <option value="2024 ЦТ" class="text-center">-->
-            <!--                            2024 ЦТ-->
-            <!--                          </option>-->
-            <!--                        </select>-->
-            <!--                      </td>-->
-            <!--                      <td class="text-center table-primary">-->
-            <!--                        <select class="form-select">-->
-            <!--                          <option selected class="text-center">-->
-            <!--                            &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
-            <!--                          </option>-->
-            <!--                          <option value="2024 ЦЭ" class="text-center">-->
-            <!--                            2024 ЦЭ-->
-            <!--                          </option>-->
-            <!--                          <option value="2024 ЦТ" class="text-center">-->
-            <!--                            2024 ЦТ-->
-            <!--                          </option>-->
-            <!--                        </select>-->
-            <!--                      </td>-->
-            <!--                      <td class="text-center table-warning">-->
-            <!--                        <select class="form-select">-->
-            <!--                          <option selected class="text-center">-->
-            <!--                            &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
-            <!--                          </option>-->
-            <!--                          <option value="2024 ЦЭ" class="text-center">-->
-            <!--                            2024 ЦЭ-->
-            <!--                          </option>-->
-            <!--                          <option value="2024 ЦТ" class="text-center">-->
-            <!--                            2024 ЦТ-->
-            <!--                          </option>-->
-            <!--                        </select>-->
-            <!--                      </td>-->
-            <!--                      <td class="text-center table-success">-->
-            <!--                        <select class="form-select">-->
-            <!--                          <option selected class="text-center">-->
-            <!--                            &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
-            <!--                          </option>-->
-            <!--                          <option value="2024 ЦЭ" class="text-center">-->
-            <!--                            2024 ЦЭ-->
-            <!--                          </option>-->
-            <!--                          <option value="2024 ЦТ" class="text-center">-->
-            <!--                            2024 ЦТ-->
-            <!--                          </option>-->
-            <!--                        </select>-->
-            <!--                      </td>-->
-            <!--                    </tr>-->
-            <!--                    <tr>-->
-            <!--                      <td class="text-center table-primary">Минимум 10</td>-->
-            <!--                      <td class="text-center table-primary">Минимум 10</td>-->
-            <!--                      <td class="text-center table-warning">Минимум 25</td>-->
-            <!--                      <td class="text-center table-success">Минимум 15</td>-->
-            <!--                    </tr>-->
-            <!--                  </tbody>-->
-            <!--                </table>-->
-            <!--                <div class="border-bottom border-4 my-3"></div>-->
-            <!--                <p class="fw-bold">Аттестат, 10 / 10 /100</p>-->
-            <!--                <table class="table">-->
-            <!--                  <thead>-->
-            <!--                    <tr>-->
-            <!--                      <th class="text-center table-primary">Русский</th>-->
-            <!--                      <th class="text-center table-primary">Белорусский</th>-->
-            <!--                      <th class="text-center table-warning">Обществоведение</th>-->
-            <!--                      <th class="text-center table-success">-->
-            <!--                        Иностранный язык-->
-            <!--                      </th>-->
-            <!--                    </tr>-->
-            <!--                  </thead>-->
-            <!--                  <tbody>-->
-            <!--                    <tr>-->
-            <!--                      <td class="text-center table-primary">-->
-            <!--                        <input-->
-            <!--                          name="rus_score_cert"-->
-            <!--                          type="number"-->
-            <!--                          class="form-control text-center"-->
-            <!--                          v-model="currentFPKPRKData.rus_score_cert"-->
-            <!--                          @input="makeInputDefaultNullValueIfEmpty"-->
-            <!--                        />-->
-            <!--                      </td>-->
-            <!--                      <td class="text-center table-primary">-->
-            <!--                        <input-->
-            <!--                          name="bel_score_cert"-->
-            <!--                          type="number"-->
-            <!--                          class="form-control text-center"-->
-            <!--                          v-model="currentFPKPRKData.bel_score_cert"-->
-            <!--                          @input="makeInputDefaultNullValueIfEmpty"-->
-            <!--                        />-->
-            <!--                      </td>-->
-            <!--                      <td class="text-center table-warning">-->
-            <!--                        <input-->
-            <!--                          name="social_science_cert"-->
-            <!--                          type="number"-->
-            <!--                          class="form-control text-center"-->
-            <!--                          v-model="currentFPKPRKData.social_science_cert"-->
-            <!--                          @input="makeInputDefaultNullValueIfEmpty"-->
-            <!--                        />-->
-            <!--                      </td>-->
-            <!--                      <td class="text-center table-success">-->
-            <!--                        <input-->
-            <!--                          name="foreign_lang_cert"-->
-            <!--                          type="number"-->
-            <!--                          class="form-control text-center"-->
-            <!--                          v-model="currentFPKPRKData.foreign_lang_cert"-->
-            <!--                          @input="makeInputDefaultNullValueIfEmpty"-->
-            <!--                        />-->
-            <!--                      </td>-->
-            <!--                    </tr>-->
-            <!--                    <tr>-->
-            <!--                      <td colspan="2" class="text-center table-primary fw-bold">-->
-            <!--                        Средний балл (аттестата)-->
-            <!--                      </td>-->
-            <!--                      <td colspan="2" class="text-center table-primary fw-bold">-->
-            <!--                        Сумма (рус. + бел.)-->
-            <!--                      </td>-->
-            <!--                    </tr>-->
-            <!--                    <tr>-->
-            <!--                      <td colspan="2" class="text-center table-primary">-->
-            <!--                        <input-->
-            <!--                          type="number"-->
-            <!--                          class="form-control text-center"-->
-            <!--                          :value="getAverageCertificateScore"-->
-            <!--                          disabled-->
-            <!--                        />-->
-            <!--                      </td>-->
-            <!--                      <td colspan="2" class="text-center table-primary">-->
-            <!--                        <input-->
-            <!--                          type="number"-->
-            <!--                          class="form-control text-center"-->
-            <!--                          :value="getARussianAndBelorussianSumScore"-->
-            <!--                          disabled-->
-            <!--                        />-->
-            <!--                      </td>-->
-            <!--                    </tr>-->
-            <!--                  </tbody>-->
-            <!--                </table>-->
-            <!--              </div>-->
-            <!--            </div>-->
+            <div class="col-xxl-6">
+              <div class="mb-4">
+                <h5 class="fw-bold">Выбор специальностей</h5>
+                <div class="row">
+                  <div class="col-5">
+                    <!--                  <div class="form-floating mb-3">-->
+                    <!--                    <select-->
+                    <!--                      id="id_s1"-->
+                    <!--                      class="form-select"-->
+                    <!--                      v-model="currentFPKPRKData.speciality_1"-->
+                    <!--                    >-->
+                    <!--                      <option :value="null">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
+                    <!--                      <option-->
+                    <!--                        :value="quota.id"-->
+                    <!--                        v-for="quota in orderedAdmissionQuotes_select_1"-->
+                    <!--                      >-->
+                    <!--                        {{ quota.quota_verbose_name }}-->
+                    <!--                      </option>-->
+                    <!--                    </select>-->
+                    <!--                    <label for="id_s1">Специальность</label>-->
+                    <!--                  </div>-->
+
+                    <div class="form-floating mb-3">
+                      <select
+                        id="id_s1"
+                        class="form-select"
+                        v-model="currentFPKPRKData.current_speciality"
+                      >
+                        <option :value="null">---------</option>
+                        <option
+                          :value="speciality.id"
+                          v-for="speciality in orderedSpecialities"
+                        >
+                          {{ speciality.speciality_name }}
+                        </option>
+                      </select>
+                      <label for="id_s1">Специальность</label>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <div class="form-floating mb-3">
+                      <select
+                        id="id_privilege"
+                        class="form-select"
+                        v-model="currentFPKPRKData.privilege"
+                      >
+                        <option :value="null">---------</option>
+                        <option
+                          :value="privilege.id"
+                          v-for="privilege in orderedPrivileges"
+                        >
+                          {{ privilege.privilege }}
+                        </option>
+                      </select>
+                      <label for="id_privilege">Льгота</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h5>Набранные баллы</h5>
+                <div>
+                  <p class="fw-bold">
+                    Сертификаты централизованного тестирования
+                  </p>
+                  <h3>Сумма баллов - {{ get_score_sum }}</h3>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th class="text-center table-primary">Русский</th>
+                        <th class="text-center table-primary">Белорусский</th>
+                        <th class="text-center table-warning">
+                          Обществоведение
+                        </th>
+                        <th class="text-center table-success">
+                          Иностранный язык
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td colspan="2" class="text-center table-primary">
+                          <label for="id_rus_bel_cert_number"
+                            >№ сертификата</label
+                          >
+                          <input
+                            id="id_rus_bel_cert_number"
+                            type="text"
+                            class="form-control text-center"
+                            v-model="currentFPKPRKData.rus_bel_ct_number"
+                          />
+                        </td>
+                        <td class="text-center table-warning">
+                          <label for="id_social_science_cert_number"
+                            >№ сертификата</label
+                          >
+                          <input
+                            id="id_social_science_cert_number"
+                            type="text"
+                            class="form-control text-center"
+                            v-model="currentFPKPRKData.social_science_ct_number"
+                          />
+                        </td>
+                        <td class="text-center table-success">
+                          <label for="id_foreign_lang_cert_number"
+                            >№ сертификата</label
+                          >
+                          <input
+                            id="id_foreign_lang_cert_number"
+                            type="text"
+                            class="form-control text-center"
+                            v-model="currentFPKPRKData.foreign_lang_ct_number"
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="text-center table-primary">
+                          <label for="id_rus_score_ct"
+                            >Количество баллов по сертификату</label
+                          >
+                          <input
+                            id="id_rus_score_ct"
+                            name="rus_score_ct"
+                            type="number"
+                            class="form-control text-center"
+                            v-model="currentFPKPRKData.rus_score_ct"
+                            @input="makeInputDefaultNullValueIfEmpty"
+                          />
+                        </td>
+                        <td class="text-center table-primary">
+                          <label for="id_bel_score_ct"
+                            >Количество баллов по сертификату</label
+                          >
+                          <input
+                            id="id_bel_score_ct"
+                            name="bel_score_ct"
+                            type="number"
+                            class="form-control text-center"
+                            v-model="currentFPKPRKData.bel_score_ct"
+                            @input="makeInputDefaultNullValueIfEmpty"
+                          />
+                        </td>
+                        <td class="text-center table-warning">
+                          <label for="id_social_science_ct"
+                            >Количество баллов по сертификату</label
+                          >
+                          <input
+                            id="id_social_science_ct"
+                            name="social_science_score_ct"
+                            type="number"
+                            class="form-control text-center"
+                            v-model="currentFPKPRKData.social_science_score_ct"
+                            @input="makeInputDefaultNullValueIfEmpty"
+                          />
+                        </td>
+                        <td class="text-center table-success">
+                          <label for="id_foreign_lang_ct"
+                            >Количество баллов по сертификату</label
+                          >
+                          <input
+                            id="id_foreign_lang_ct"
+                            name="foreign_lang_score_ct"
+                            type="number"
+                            class="form-control text-center"
+                            v-model="currentFPKPRKData.foreign_lang_score_ct"
+                            @input="makeInputDefaultNullValueIfEmpty"
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="text-center table-primary">
+                          <select
+                            class="form-select"
+                            v-model="currentFPKPRKData.rus_ct_choice"
+                          >
+                            <option selected class="text-center" value="">
+                              ----------
+                            </option>
+                            <option value="2024 ЦЭ" class="text-center">
+                              2024 ЦЭ
+                            </option>
+                            <option value="2024 ЦТ" class="text-center">
+                              2024 ЦТ
+                            </option>
+                          </select>
+                        </td>
+                        <td class="text-center table-primary">
+                          <select
+                            class="form-select"
+                            v-model="currentFPKPRKData.bel_ct_choice"
+                          >
+                            <option selected class="text-center" value="">
+                              ----------
+                            </option>
+                            <option value="2024 ЦЭ" class="text-center">
+                              2024 ЦЭ
+                            </option>
+                            <option value="2024 ЦТ" class="text-center">
+                              2024 ЦТ
+                            </option>
+                          </select>
+                        </td>
+                        <td class="text-center table-warning">
+                          <select
+                            class="form-select"
+                            v-model="currentFPKPRKData.social_science_ct_choice"
+                          >
+                            <option selected class="text-center" value="">
+                              ----------
+                            </option>
+                            <option value="2024 ЦЭ" class="text-center">
+                              2024 ЦЭ
+                            </option>
+                            <option value="2024 ЦТ" class="text-center">
+                              2024 ЦТ
+                            </option>
+                          </select>
+                        </td>
+                        <td class="text-center table-success">
+                          <select
+                            class="form-select"
+                            v-model="currentFPKPRKData.foreign_lang_ct_choice"
+                          >
+                            <option selected class="text-center" value="">
+                              ----------
+                            </option>
+                            <option value="2024 ЦЭ" class="text-center">
+                              2024 ЦЭ
+                            </option>
+                            <option value="2024 ЦТ" class="text-center">
+                              2024 ЦТ
+                            </option>
+                          </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="text-center table-primary">Минимум 10</td>
+                        <td class="text-center table-primary">Минимум 10</td>
+                        <td class="text-center table-warning">Минимум 25</td>
+                        <td class="text-center table-success">Минимум 15</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="border-bottom border-4 my-3"></div>
+
+                  <div
+                    class="d-flex flex-row justify-content-between align-items-end"
+                  >
+                    <p class="fw-bold">Аттестат, 10 / 10 /100</p>
+                  </div>
+
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th class="text-center table-primary">Русский</th>
+                        <th class="text-center table-primary">Белорусский</th>
+                        <th class="text-center table-warning">
+                          Обществоведение
+                        </th>
+                        <th class="text-center table-success">
+                          Иностранный язык
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="text-center table-primary">
+                          <input
+                            name="rus_score_cert"
+                            type="number"
+                            class="form-control text-center"
+                            v-model="currentFPKPRKData.rus_score_cert"
+                            @input="makeInputDefaultNullValueIfEmpty"
+                          />
+                        </td>
+                        <td class="text-center table-primary">
+                          <input
+                            name="bel_score_cert"
+                            type="number"
+                            class="form-control text-center"
+                            v-model="currentFPKPRKData.bel_score_cert"
+                            @input="makeInputDefaultNullValueIfEmpty"
+                          />
+                        </td>
+                        <td class="text-center table-warning">
+                          <input
+                            name="social_science_score_cert"
+                            type="number"
+                            class="form-control text-center"
+                            v-model="
+                              currentFPKPRKData.social_science_score_cert
+                            "
+                            @input="makeInputDefaultNullValueIfEmpty"
+                          />
+                        </td>
+                        <td class="text-center table-success">
+                          <input
+                            name="foreign_lang_score_cert"
+                            type="number"
+                            class="form-control text-center"
+                            v-model="currentFPKPRKData.foreign_lang_score_cert"
+                            @input="makeInputDefaultNullValueIfEmpty"
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          colspan="2"
+                          class="text-center table-primary fw-bold"
+                        >
+                          Средний балл (аттестата)
+                        </td>
+                        <td
+                          colspan="2"
+                          class="text-center table-primary fw-bold"
+                        >
+                          Сумма (рус. + бел.)
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2" class="text-center table-primary">
+                          <div class="d-flex flex-row">
+                            <button
+                              class="btn btn-warning me-2 text-nowrap"
+                              @click="showAverageScoreCalculatingModal"
+                            >
+                              <font-awesome-icon
+                                :icon="['fas', 'calculator']"
+                              />&nbsp;Рассчитать
+                            </button>
+                            <input
+                              type="number"
+                              class="form-control text-center"
+                              v-model="
+                                currentFPKPRKData.education_average_score
+                              "
+                            />
+                          </div>
+                        </td>
+                        <td colspan="2" class="text-center table-primary">
+                          <input
+                            type="number"
+                            class="form-control text-center"
+                            :value="getARussianAndBelorussianSumScore"
+                            disabled
+                          />
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <div class="my-3"></div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="border-bottom border-4 my-3"></div>
@@ -1969,15 +2176,11 @@
               <font-awesome-icon :icon="['fas', 'print']" />&nbsp;&nbsp;
               Заявление отпечатано
             </button>
-            <button
-              v-else
-              class="btn btn-primary"
-              @click="printApplication(this.currentFPKPRKData.id)"
-            >
+            <button v-else class="btn btn-primary" @click="printApplication">
               <font-awesome-icon :icon="['fas', 'print']" />&nbsp;&nbsp;
               Отпечатать заявление
             </button>
-            <div class="form-check mb-3">
+            <div class="form-check my-3">
               <input
                 id="id_application_has_been_printed"
                 class="form-check-input"
@@ -1999,13 +2202,19 @@
 </template>
 
 <script>
-import NavigationLayout from "@/components/layouts/NavigationLayout.vue";
-import { globalFPKPRKStudentAPIForEntranceInstance } from "@/api/fpkprk/fpk_prk_studentAPI.js";
-import getActionHistoryAPIInstance from "@/api/cadet/actionHistoryAPI.js";
-import { mapGetters } from "vuex";
-import useVuelidate from "@vuelidate/core";
-import { required, helpers, minValue, maxValue } from "@vuelidate/validators";
-import { isEqual } from "lodash";
+import NavigationLayout from "@/components/layouts/NavigationLayout.vue"
+import { globalFPKPRKStudentAPIForEntranceInstance } from "@/api/fpkprk/fpk_prk_studentAPI.js"
+import getActionHistoryAPIInstance from "@/api/cadet/actionHistoryAPI.js"
+import { mapGetters } from "vuex"
+import useVuelidate from "@vuelidate/core"
+import {
+  required,
+  helpers,
+  minValue,
+  maxValue,
+  requiredIf,
+} from "@vuelidate/validators"
+import { isEqual } from "lodash"
 
 export default {
   name: "FPKPRKInputForm",
@@ -2019,23 +2228,97 @@ export default {
       currentFPKPRKData: {
         id: "",
         is_active: "",
+        access_data: "",
         category: "",
         gender: "",
         last_name_rus: "",
         first_name_rus: "",
         patronymic_rus: "",
+        last_name_bel: "",
+        first_name_bel: "",
+        patronymic_bel: "",
+        last_name_en: "",
+        first_name_en: "",
+        patronymic_en: "",
         date_of_birth: "",
         place_of_birth: "",
         photo: "",
+        sign_image: "",
         address_residence: "",
         address_registration: "",
         phone_number: "",
-        mother_address_residence: "",
-        mother_address_registration: "",
-        father_address_residence: "",
-        father_address_registration: "",
+        personal_number_mvd: "",
+        marital_status: "",
+        passport_document_type: "",
+        passport_number: "",
+        passport_issue_date: "",
+        passport_validity_period: "",
+        passport_issue_authority: "",
+        passport_issue_authority_text: "",
+        identification_number: "",
+        subdivision: "",
+        current_rank: "",
+        current_position: "",
+        date_time_created: "",
+        date_time_updated: "",
         fpk_mag_choice: "",
+        place_of_work_position: "",
+        student_record_book_number: "",
+        foreign_language: "",
+        group: "",
+        academy_start_date: "",
+        academy_end_date: "",
+        graduation_reason: "",
+        graduation_reason_article: "",
+        graduation_extra_data: "",
+        profiling: "",
+        current_speciality: "",
+        current_specialization: "",
+        direction_service_activity: "",
+        year: "",
+        year_litera: "",
+        entrance_year: "",
+        entrance_category: "",
+        arrived_from_go_rovd: "",
+        component_organ: "",
+        extra_data: "",
+        comments_on_personal_file: "",
+        document_type: "",
+        privilege: "",
+        attached_documents: "",
+        education_kind: "",
+        education_level: "",
+        education_graduated: "",
+        education_graduating_start_year: "",
+        education_graduating_end_year: "",
+        education_average_score: "",
+        education_average_score_calculation: "",
+        education_location_kind: "",
+        is_located_in_Minsk: "",
+        medal: "",
+        rus_bel_ct_number: "",
+        rus_score_ct: "",
+        rus_ct_choice: "",
+        bel_score_ct: "",
+        bel_ct_choice: "",
+        social_science_ct_number: "",
+        social_science_score_ct: "",
+        social_science_ct_choice: "",
+        foreign_lang_ct_number: "",
+        foreign_lang_score_ct: "",
+        foreign_lang_ct_choice: "",
+        rus_score_cert: "",
+        bel_score_cert: "",
+        social_science_score_cert: "",
+        foreign_lang_score_cert: "",
+        application_has_been_printed: "",
+        application_has_been_printed_date: "",
+        is_reserve: "",
+        took_documents: "",
+        speciality_1: "",
+        in_whose_interests: "",
       },
+      applicationPrintData: {},
       currentFPKPRKDataFromServer: {},
       fpk_prkAPIInstance: globalFPKPRKStudentAPIForEntranceInstance,
       actionHistoryAPIInstance: getActionHistoryAPIInstance(),
@@ -2043,14 +2326,19 @@ export default {
       BACKEND_HOST: import.meta.env.VITE_APP_BACKEND_HOST,
       BACKEND_PORT: import.meta.env.VITE_APP_BACKEND_PORT,
       fpk_prkHistoryList: { count: 0, results: [], previous: null, next: null },
-    };
+      average_score_calculation: {
+        choice: "",
+        certificate: [{ selectIndex: 0, selectValue: 0 }],
+        diploma: [{ selectIndex: 0, selectValue: 0 }],
+      },
+    }
   },
   setup() {
-    return { v$: useVuelidate() };
+    return { v$: useVuelidate() }
   },
   validations() {
-    const education_graduating_end_year_minValueValue = minValue(2000);
-    const education_graduating_end_year_maxValueValue = maxValue(2025);
+    const education_graduating_end_year_minValueValue = minValue(2000)
+    const education_graduating_end_year_maxValueValue = maxValue(2025)
     return {
       currentFPKPRKData: {
         last_name_rus: {
@@ -2072,261 +2360,567 @@ export default {
           $autoDirty: true,
         },
       },
-    };
+      applicationPrintData: {
+        last_name_rus: {
+          required: helpers.withMessage(
+            "Поле 'Фамилия' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        first_name_rus: {
+          required: helpers.withMessage(
+            "Поле 'Имя' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        patronymic_rus: {
+          required: helpers.withMessage(
+            "Поле 'Отчество' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        address_residence: {
+          required: helpers.withMessage(
+            "Поле 'Проживает по адресу' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        education_graduating_end_year: {
+          required: helpers.withMessage(
+            "Поле 'Год окончания учреждения образования' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        education_graduated: {
+          required: helpers.withMessage(
+            "Поле 'Учреждение образования' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        component_organ: {
+          required: helpers.withMessage(
+            "Поле 'Комплектующий орган' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        foreign_language_was: {
+          required: helpers.withMessage(
+            "Поле 'Иностранный язык, который изучал' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        foreign_language_will_be: {
+          required: helpers.withMessage(
+            "Поле 'Иностранный язык, который будет изучать' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        date_of_birth: {
+          required: helpers.withMessage(
+            "Поле 'Дата рождения' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        phone_number: {
+          required: helpers.withMessage(
+            "Поле 'Номер телефона' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        mother_last_name: {
+          required: helpers.withMessage(
+            "Поле 'Фамилия матери' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        mother_first_name: {
+          required: helpers.withMessage(
+            "Поле 'Имя матери' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        mother_patronymic: {
+          required: helpers.withMessage(
+            "Поле 'Отчество матери' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        mother_address_residence: {
+          required: helpers.withMessage(
+            "Поле 'Мать проживает по адресу' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        mother_phone_number: {
+          required: helpers.withMessage(
+            "Поле 'Мать - контактный телефон' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        father_last_name: {
+          required: helpers.withMessage(
+            "Поле 'Фамилия отца' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        father_first_name: {
+          required: helpers.withMessage(
+            "Поле 'Имя отца' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        father_patronymic: {
+          required: helpers.withMessage(
+            "Поле 'Отчество отца' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        father_address_residence: {
+          required: helpers.withMessage(
+            "Поле 'Отец проживает по адресу' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        father_phone_number: {
+          required: helpers.withMessage(
+            "Поле 'Отец - контактный телефон' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        passport_document_type: {
+          required: helpers.withMessage(
+            "Поле 'Вид документа удостоверяющего личность' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        passport_issue_date: {
+          required: helpers.withMessage(
+            "Поле 'Дата выдачи пасспорта' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        passport_issue_authority_text: {
+          required: helpers.withMessage(
+            "Поле 'Орган выдачи пасспорта' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        identification_number: {
+          required: helpers.withMessage(
+            "Поле 'Идентификационный номер' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        rus_score_ct: {
+          required: helpers.withMessage(
+            "Поле 'Русский язык - количество баллов по сертификату' не может быть пустым",
+            requiredIf(() => !this.applicationPrintData.bel_score_ct),
+          ),
+          $autoDirty: true,
+        },
+        bel_score_ct: {
+          required: helpers.withMessage(
+            "Поле 'Белорусский язык - количество баллов по сертификату' не может быть пустым",
+            requiredIf(() => !this.applicationPrintData.rus_score_ct),
+          ),
+          $autoDirty: true,
+        },
+        social_science_score_ct: {
+          required: helpers.withMessage(
+            "Поле 'Обществоведение - количество баллов по сертификату' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        foreign_lang_score_ct: {
+          required: helpers.withMessage(
+            "Поле 'Иностранный язык - количество баллов по сертификату' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        rus_score_cert: {
+          required: helpers.withMessage(
+            "Поле 'Русский язык - количество баллов в аттестате' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        bel_score_cert: {
+          required: helpers.withMessage(
+            "Поле 'Белорусский язык - количество баллов в аттестате' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        social_science_score_cert: {
+          required: helpers.withMessage(
+            "Поле 'Обществоведение - количество баллов в аттестате' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        foreign_lang_score_cert: {
+          required: helpers.withMessage(
+            "Поле 'Иностранный язык - количество баллов в аттестате' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+      },
+    }
   },
   async created() {
-    await this.loadData(this.$route.params.id);
+    await this.loadData(this.$route.params.id)
   },
   methods: {
     async loadData(applicantId) {
       try {
-        const response = await this.fpk_prkAPIInstance.getItemData(applicantId);
-        this.currentFPKPRKData = response.data;
+        const response = await this.fpk_prkAPIInstance.getItemData(applicantId)
+        this.currentFPKPRKData = response.data
         this.currentFPKPRKDataFromServer = Object.assign(
           {},
           this.currentFPKPRKData,
-        );
+        )
       } catch (error) {
       } finally {
-        this.isLoading = false;
+        this.isLoading = false
       }
     },
     async uploadDocument() {
-      let formData = new FormData();
+      let formData = new FormData()
       formData.append(
         "attached_documents",
         this.$refs.uploadedDocument.files[0],
-      );
+      )
 
       const response = await this.fpk_prkAPIInstance.updatePhotoOrAnyFile(
         this.currentFPKPRKData.id,
         formData,
-      );
+      )
 
       this.currentFPKPRKData = {
         ...this.currentFPKPRKData,
         attached_documents: response.data.attached_documents,
-      };
+      }
     },
     async deleteDocument() {
       const response = await this.fpk_prkAPIInstance.updatePhotoOrAnyFile(
         this.currentFPKPRKData.id,
         { attached_documents: null },
-      );
+      )
 
       this.currentFPKPRKData = {
         ...this.currentFPKPRKData,
         attached_documents: response.data.attached_documents,
-      };
+      }
     },
     async saveEntranceForm() {
-      if (this.v$.$invalid) {
-        let validationErrorsModal = this.$refs.validationErrorsModal;
+      if (this.v$.currentFPKPRKData.$invalid) {
+        let validationErrorsModal = this.$refs.validationErrorsModal
         let myModal = new bootstrap.Modal(validationErrorsModal, {
           keyboard: false,
-        });
-        myModal.show();
+        })
+        myModal.show()
       } else {
-        this.isDataSaving = true;
+        this.isDataSaving = true
         try {
           const { photo, attached_documents, sign_image, ...rest } =
-            this.currentFPKPRKData;
-          const updatedData = await this.fpk_prkAPIInstance.updateItem(rest);
-          this.currentFPKPRKData = updatedData.data;
+            this.currentFPKPRKData
+          const updatedData = await this.fpk_prkAPIInstance.updateItem(rest)
+          this.currentFPKPRKData = updatedData.data
           this.currentFPKPRKDataFromServer = Object.assign(
             {},
             this.currentFPKPRKData,
-          );
+          )
         } catch (e) {
         } finally {
-          this.isDataSaving = false;
+          this.isDataSaving = false
         }
       }
     },
     async showHistory() {
       try {
-        this.actionHistoryAPIInstance.searchObj.app_label = "kis_inheritance";
-        this.actionHistoryAPIInstance.searchObj.model_name = "FPKPRKMAGStudent";
+        this.actionHistoryAPIInstance.searchObj.app_label = "kis_inheritance"
+        this.actionHistoryAPIInstance.searchObj.model_name = "FPKPRKMAGStudent"
         this.actionHistoryAPIInstance.searchObj.record_id =
-          this.currentFPKPRKData.id;
-        const response = await this.actionHistoryAPIInstance.getItemsList();
-        this.fpk_prkHistoryList = response.data;
-        let historyModal = this.$refs.cadetHistoryModal;
+          this.currentFPKPRKData.id
+        const response = await this.actionHistoryAPIInstance.getItemsList()
+        this.fpk_prkHistoryList = response.data
+        let historyModal = this.$refs.cadetHistoryModal
         let myModal = new bootstrap.Modal(historyModal, {
           keyboard: false,
-        });
-        myModal.show();
+        })
+        myModal.show()
       } catch (error) {
       } finally {
       }
     },
     makeInputDefaultNullValueIfEmpty(event) {
       if (event.target.value.trim().length === 0) {
-        this.currentFPKPRKData[event.target.name] = null;
+        this.currentFPKPRKData[event.target.name] = null
       }
     },
     removeFileFieldsFromObj(obj) {
-      const { photo, attached_documents, sign_image, ...rest } = obj;
-      return rest;
+      const { photo, attached_documents, sign_image, ...rest } = obj
+      return rest
     },
-    printApplication(entranceId) {
+    async printApplication() {
       if (!this.isDataFromServerEqualChangedData) {
-        let hasToSaveDataModal = this.$refs.hasToSaveDataModal;
+        let hasToSaveDataModal = this.$refs.hasToSaveDataModal
         let myModal = new bootstrap.Modal(hasToSaveDataModal, {
           keyboard: false,
-        });
-        myModal.show();
-      } else {
-        let queryString = `?application_id=${entranceId}`;
-        this.$axios
-          .get(
-            `${this.BACKEND_PROTOCOL}://${this.BACKEND_HOST}:${this.BACKEND_PORT}/api/application-print/${queryString}`,
-            { responseType: "blob" },
-          )
-          .then((response) => {
-            const url = window.URL.createObjectURL(new Blob([response.data]));
-            const link = document.createElement("a");
-            link.href = url;
-            link.setAttribute(
-              "download",
-              `${this.currentFPKPRKData.last_name_rus}.docx`,
-            );
-            document.body.appendChild(link);
-            link.click();
-          });
+        })
+        myModal.show()
+        return
       }
+      if (this.v$.applicationPrintData.$invalid) {
+        let applicationValidationErrorsModal =
+          this.$refs.application_validationErrorsModal
+        let myModal = new bootstrap.Modal(applicationValidationErrorsModal, {
+          keyboard: false,
+        })
+        myModal.show()
+        return
+      } else {
+        this.isPrintingApplication = true
+        await this.makePrinting()
+        this.isPrintingApplication = false
+      }
+    },
+    async makePrinting() {
+      let dataObj = {
+        id: this.currentFPKPRKData.id,
+        application_has_been_printed: true,
+      }
+      if (!this.currentFPKPRKData.application_has_been_printed_date) {
+        dataObj = {
+          ...dataObj,
+          application_has_been_printed_date: new Date().toISOString(),
+        }
+      }
+      const resp = await this.fpk_prkAPIInstance.updateItemPartly(dataObj)
+      this.currentFPKPRKData = { ...this.currentFPKPRKData, ...resp.data }
+      this.currentFPKPRKDataFromServer = Object.assign(
+        {},
+        this.currentFPKPRKData,
+      )
+
+      this.fpk_prkAPIInstance
+        .entrance_application_print(this.currentFPKPRKData.id)
+        .then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]))
+          const link = document.createElement("a")
+          link.href = url
+          link.setAttribute(
+            "download",
+            `${this.currentFPKPRKData.last_name_rus}.docx`,
+          )
+          document.body.appendChild(link)
+          link.click()
+        })
+      this.$refs.applicationValidationErrorsModalCloseButton.click()
+    },
+    averageScoreCertificateSelectChange(e) {
+      const lastIndex =
+        this.average_score_calculation.certificate[
+          this.average_score_calculation.certificate.length - 1
+        ].selectIndex
+      if (parseInt(e.target.name) === lastIndex) {
+        this.average_score_calculation.certificate.push({
+          selectIndex: lastIndex + 1,
+          selectValue: 0,
+        })
+      }
+    },
+
+    averageScoreDiplomaSelectChange(e) {
+      const lastIndex =
+        this.average_score_calculation.diploma[
+          this.average_score_calculation.diploma.length - 1
+        ].selectIndex
+      if (parseInt(e.target.name) === lastIndex) {
+        this.average_score_calculation.diploma.push({
+          selectIndex: lastIndex + 1,
+          selectValue: 0,
+        })
+      }
+    },
+
+    getAverageScoreCount() {
+      return (
+        this.average_score_calculation.certificate.filter(
+          (item) => item.selectValue !== 0 && item.selectValue !== "",
+        ).length +
+        this.average_score_calculation.diploma.filter(
+          (item) => item.selectValue !== 0 && item.selectValue !== "",
+        ).length
+      )
+    },
+
+    average_score_calculation_select_change() {
+      this.average_score_calculation.certificate = [
+        { selectIndex: 0, selectValue: 0 },
+      ]
+      this.average_score_calculation.diploma = [
+        { selectIndex: 0, selectValue: 0 },
+      ]
+    },
+
+    showAverageScoreCalculatingModal() {
+      let validationErrorsModal = this.$refs.averageScoreCalculatingModal
+      let myModal = new bootstrap.Modal(validationErrorsModal, {
+        keyboard: false,
+      })
+      myModal.show()
+    },
+
+    saveAverageScore() {
+      this.currentFPKPRKData.education_average_score_calculation =
+        JSON.stringify(this.average_score_calculation)
+      if (this.getAverageScore === 0) {
+        this.currentFPKPRKData.education_average_score = null
+      } else
+        this.currentFPKPRKData.education_average_score = this.getAverageScore
+      this.$refs.averageScoreCalculatingModalCloseButton.click()
     },
   },
   computed: {
     orderedRanks() {
-      return this.ranks.results;
+      return this.ranks.results
     },
     orderedSubdivisions() {
       return this.subdivisions.results.filter(
         (subdivision) => subdivision.subdivision_category == "1",
-      );
+      )
     },
     orderedComponentOrgans() {
       return this.componentOrgans.results.sort((a, b) => {
-        const nameA = a.component_name.toUpperCase(); // ignore upper and lowercase
-        const nameB = b.component_name.toUpperCase(); // ignore upper and lowercase
+        const nameA = a.component_name.toUpperCase() // ignore upper and lowercase
+        const nameB = b.component_name.toUpperCase() // ignore upper and lowercase
         if (nameA < nameB) {
-          return -1;
+          return -1
         }
         if (nameA > nameB) {
-          return 1;
+          return 1
         }
-        return 0;
-      });
+        return 0
+      })
     },
     orderedEntranceCategories() {
-      return this.entranceCategories.results;
+      return this.entranceCategories.results
     },
     orderedSocialStatuses() {
-      return this.socialStatuses.results;
+      return this.socialStatuses.results
     },
     orderedCountryRegions() {
       return this.countryRegions.results.sort((a, b) => {
-        const nameA = a.country_region.toUpperCase(); // ignore upper and lowercase
-        const nameB = b.country_region.toUpperCase(); // ignore upper and lowercase
+        const nameA = a.country_region.toUpperCase() // ignore upper and lowercase
+        const nameB = b.country_region.toUpperCase() // ignore upper and lowercase
         if (nameA < nameB) {
-          return -1;
+          return -1
         }
         if (nameA > nameB) {
-          return 1;
+          return 1
         }
-        return 0;
-      });
+        return 0
+      })
     },
     orderedGorovds() {
       return this.gorovds.results.sort((a, b) => {
-        const nameA = a.go_rovd_name.toUpperCase(); // ignore upper and lowercase
-        const nameB = b.go_rovd_name.toUpperCase(); // ignore upper and lowercase
+        const nameA = a.go_rovd_name.toUpperCase() // ignore upper and lowercase
+        const nameB = b.go_rovd_name.toUpperCase() // ignore upper and lowercase
         if (nameA < nameB) {
-          return -1;
+          return -1
         }
         if (nameA > nameB) {
-          return 1;
+          return 1
         }
-        return 0;
-      });
+        return 0
+      })
     },
     orderedMilitaryOffices() {
       return this.militaryOffices.results.sort((a, b) => {
-        const nameA = a.military_office.toUpperCase(); // ignore upper and lowercase
-        const nameB = b.military_office.toUpperCase(); // ignore upper and lowercase
+        const nameA = a.military_office.toUpperCase() // ignore upper and lowercase
+        const nameB = b.military_office.toUpperCase() // ignore upper and lowercase
         if (nameA < nameB) {
-          return -1;
+          return -1
         }
         if (nameA > nameB) {
-          return 1;
+          return 1
         }
-        return 0;
-      });
+        return 0
+      })
     },
     orderedEducationalInstitutions() {
-      return this.educationalInstitutions.results;
+      return this.educationalInstitutions.results
     },
     orderedDocumentTypes() {
-      return this.documentTypes.results;
+      return this.documentTypes.results
     },
     orderedPrivileges() {
-      return this.privileges.results;
+      return this.privileges.results
     },
     orderedForeignLanguages() {
-      return this.foreignLanguages.results;
+      return this.foreignLanguages.results
     },
     orderedPpflCategories() {
-      return this.ppflCategories.results;
+      return this.ppflCategories.results
     },
     orderedVpkCategories() {
-      return this.vpkCategories.results;
+      return this.vpkCategories.results
     },
     orderedEducationKinds() {
-      return this.educationKinds.results;
+      return this.educationKinds.results
     },
     orderedEducationLevels() {
-      return this.educationLevels.results;
+      return this.educationLevels.results
     },
     orderedEducationLocalityKinds() {
-      return this.educationLocalityKinds.results;
+      return this.educationLocalityKinds.results
     },
     orderedMedals() {
-      return this.medals.results;
+      return this.medals.results
     },
     orderedInWhoseInterests() {
-      return this.inWhoseInterests.results;
+      return this.inWhoseInterests.results
+    },
+    orderedSpecialities() {
+      return this.specialities.results
     },
     isDataFromServerEqualChangedData() {
       return isEqual(
         this.removeFileFieldsFromObj(this.currentFPKPRKData),
         this.removeFileFieldsFromObj(this.currentFPKPRKDataFromServer),
-      );
-    },
-    getAverageCertificateScore() {
-      let averageCertificateScore = "";
-      if (
-        isFinite(this.currentFPKPRKData.rus_score_cert) &&
-        this.currentFPKPRKData.rus_score_cert !== null &&
-        isFinite(this.currentFPKPRKData.bel_score_cert) &&
-        this.currentFPKPRKData.bel_score_cert !== null &&
-        isFinite(this.currentFPKPRKData.social_science_cert) &&
-        this.currentFPKPRKData.social_science_cert !== null &&
-        isFinite(this.currentFPKPRKData.foreign_lang_cert) &&
-        this.currentFPKPRKData.foreign_lang_cert !== null
-      ) {
-        averageCertificateScore =
-          (this.currentFPKPRKData.rus_score_cert +
-            this.currentFPKPRKData.bel_score_cert +
-            this.currentFPKPRKData.social_science_cert +
-            this.currentFPKPRKData.foreign_lang_cert) /
-          4;
-        return averageCertificateScore.toFixed(1);
-      }
-      return averageCertificateScore;
+      )
     },
     getARussianAndBelorussianSumScore() {
-      let scoreSum = "";
+      let scoreSum = ""
       if (
         isFinite(this.currentFPKPRKData.rus_score_cert) &&
         this.currentFPKPRKData.rus_score_cert !== null &&
@@ -2334,11 +2928,56 @@ export default {
       ) {
         scoreSum =
           this.currentFPKPRKData.rus_score_cert +
-          this.currentFPKPRKData.bel_score_cert;
-        return scoreSum;
+          this.currentFPKPRKData.bel_score_cert
+        return scoreSum
       }
-      return scoreSum;
+      return scoreSum
     },
+    get_score_sum() {
+      let education_average_score = this.currentFPKPRKData
+        .education_average_score
+        ? parseFloat(this.currentFPKPRKData.education_average_score)
+        : 0
+      let rus_score_ct = this.currentFPKPRKData.rus_score_ct
+        ? this.currentFPKPRKData.rus_score_ct
+        : 0
+      let bel_score_ct = this.currentFPKPRKData.bel_score_ct
+        ? this.currentFPKPRKData.bel_score_ct
+        : 0
+      let social_science_score_ct = this.currentFPKPRKData
+        .social_science_score_ct
+        ? this.currentFPKPRKData.social_science_score_ct
+        : 0
+      let foreign_lang_score_ct = this.currentFPKPRKData.foreign_lang_score_ct
+        ? this.currentFPKPRKData.foreign_lang_score_ct
+        : 0
+
+      let sum =
+        education_average_score +
+        rus_score_ct +
+        bel_score_ct +
+        social_science_score_ct +
+        foreign_lang_score_ct
+
+      return sum.toFixed(1)
+    },
+    getAverageScore() {
+      let counter = 0
+      this.average_score_calculation.certificate.forEach((item) => {
+        if (item.selectValue !== 0 && item.selectValue !== "") {
+          counter = counter + parseInt(item.selectValue)
+        }
+      })
+      this.average_score_calculation.diploma.forEach((item) => {
+        if (item.selectValue !== 0 && item.selectValue !== "") {
+          counter = counter + parseInt(item.selectValue)
+        }
+      })
+      if (this.getAverageScoreCount() > 0) {
+        return ((counter / this.getAverageScoreCount()) * 10).toFixed(1)
+      } else return 0
+    },
+
     ...mapGetters({
       groups: "groups/getList",
       ranks: "ranks/getList",
@@ -2368,5 +3007,13 @@ export default {
       inWhoseInterests: "inWhoseInterests/getList",
     }),
   },
-};
+  watch: {
+    currentFPKPRKData: {
+      handler(newValue, oldValue) {
+        this.applicationPrintData = Object.assign({}, this.currentFPKPRKData)
+      },
+      deep: true,
+    },
+  },
+}
 </script>
