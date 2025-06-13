@@ -25,9 +25,9 @@
           </slot>
         </div>
         <div></div>
-        <div v-if="isLoading || isCommonLoading">Загрузка данных ...</div>
-        <div v-else>
-          <div v-if="mainListLength">
+        <div v-show="isLoading || isCommonLoading">Загрузка данных ...</div>
+        <div v-show="!(isLoading || isCommonLoading)">
+          <div v-show="mainListLength">
             <div class="mb-3 d-flex align-items-center justify-content-between">
               <div>
                 <span>Всего записей - </span>
@@ -41,9 +41,7 @@
             <div
               class="table-responsive"
               style="max-height: calc(100vh - 400px); overflow-y: auto"
-              @scroll="loadMoreData"
-              id="infinite_list"
-              ref="infinite_list_div"
+              ref="infinite_list"
             >
               <table class="table table-hover">
                 <thead style="position: sticky; top: 0">
@@ -53,9 +51,10 @@
                   <slot name="tbody"></slot>
                 </tbody>
               </table>
+              <div ref="observer" style="height: 10px"></div>
             </div>
           </div>
-          <div v-else>Записей нет</div>
+          <div v-show="!mainListLength">Записей нет</div>
           <div class="my-3"></div>
           <slot name="paginator"></slot>
         </div>
@@ -103,12 +102,16 @@ export default {
     title: { type: String, required: false, default: "Заголовок" },
     loadMoreData: { type: Function, required: false, default: () => {} },
   },
-  components: {},
-  data() {
-    return {}
+  mounted() {
+    const options = {
+      root: this.$refs.infinite_list,
+      rootMargin: "0px",
+      threshold: 0.5,
+    }
+
+    const observer = new IntersectionObserver(this.loadMoreData, options)
+    observer.observe(this.$refs.observer)
   },
-  async created() {},
-  methods: {},
   computed: {
     ...mapGetters({
       isCommonLoading: "common/getIsCommonLoading",
@@ -134,5 +137,4 @@ td {
 .filter-icon-color {
   color: var(--bs-body-color);
 }
-
 </style>

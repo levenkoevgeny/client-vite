@@ -1,9 +1,9 @@
 <template>
   <base-list-layout
-      :is-loading="isLoading"
-      :main-list-length="mainItemList.count"
-      title="Действия пользователей"
-      :load-more-data="loadMoreData"
+    :is-loading="isLoading"
+    :main-list-length="mainItemList.count"
+    title="Действия пользователей"
+    :load-more-data="loadMoreData"
   >
     <template v-slot:modals>
       <!-- add modal-->
@@ -45,12 +45,12 @@
         <div class="col-12">
           <div class="mb-3">
             <label for="id_action_type_search" class="form-label"
-            >Вид действия</label
+              >Вид действия</label
             >
             <select
-                id="id_action_type_search"
-                class="form-select"
-                v-model="searchForm.action_type"
+              id="id_action_type_search"
+              class="form-select"
+              v-model="searchForm.action_type"
             >
               <option value="">-----</option>
               <option value="0" key="0">Создание записи</option>
@@ -61,15 +61,15 @@
           <div class="mb-3">
             <label for="id_user_search" class="form-label">Пользователь</label>
             <select
-                id="id_user_search"
-                class="form-select"
-                v-model="searchForm.user"
+              id="id_user_search"
+              class="form-select"
+              v-model="searchForm.user"
             >
               <option value="">-----</option>
               <option
-                  :value="user.id"
-                  :key="user.id"
-                  v-for="user in orderedUsersList"
+                :value="user.id"
+                :key="user.id"
+                v-for="user in orderedUsersList"
               >
                 {{ user.get_display_name }}
               </option>
@@ -79,15 +79,15 @@
           <div class="mb-3">
             <label for="id_model_search" class="form-label">Таблица</label>
             <select
-                id="id_model_search"
-                class="form-select"
-                v-model="searchForm.model_name"
+              id="id_model_search"
+              class="form-select"
+              v-model="searchForm.model_name"
             >
               <option value="">-----</option>
               <option
-                  :value="model.model_name"
-                  :key="model.model_name"
-                  v-for="model in orderedModelsList"
+                :value="model.model_name"
+                :key="model.model_name"
+                v-for="model in orderedModelsList"
               >
                 {{ model.model_name_verbose }}
               </option>
@@ -97,24 +97,24 @@
             <div class="row">
               <div class="col-6">
                 <label for="id_date_time_created_gte_search" class="form-label"
-                >Дата (с)</label
+                  >Дата (с)</label
                 >
                 <input
-                    type="date"
-                    id="id_date_time_created_gte_search"
-                    class="form-control"
-                    v-model="searchForm.date_time_created__gte"
+                  type="date"
+                  id="id_date_time_created_gte_search"
+                  class="form-control"
+                  v-model="searchForm.date_time_created__gte"
                 />
               </div>
               <div class="col-6">
                 <label for="id_date_time_created_lte_search" class="form-label"
-                >Дата (по)</label
+                  >Дата (по)</label
                 >
                 <input
-                    type="date"
-                    id="id_date_time_created_lte_search"
-                    class="form-control"
-                    v-model="searchForm.date_time_created__lte"
+                  type="date"
+                  id="id_date_time_created_lte_search"
+                  class="form-control"
+                  v-model="searchForm.date_time_created__lte"
                 />
               </div>
             </div>
@@ -157,7 +157,6 @@ export default {
   async created() {
     await this.loadData()
   },
-
   methods: {
     async loadData() {
       this.isLoading = true
@@ -181,12 +180,12 @@ export default {
 
       if (this.searchForm.date_time_created__gte !== "") {
         correctedDateTimeCreatedGTE =
-            this.searchForm.date_time_created__gte + " 00:00:00"
+          this.searchForm.date_time_created__gte + " 00:00:00"
       }
 
       if (this.searchForm.date_time_created__lte !== "") {
         correctedDateTimeCreatedLTE =
-            this.searchForm.date_time_created__lte + " 23:59:59.59"
+          this.searchForm.date_time_created__lte + " 23:59:59.59"
       }
 
       this.mainItemAPIInstance.searchObj = {
@@ -204,20 +203,17 @@ export default {
     }, 500),
     clearFilter() {
       this.searchForm = Object.assign(
-          {},
-          this.mainItemAPIInstance.searchObjDefault,
+        {},
+        this.mainItemAPIInstance.searchObjDefault,
       )
     },
-    async loadMoreData() {
-      const listElem = document.getElementById("infinite_list")
-      if (
-          listElem.scrollTop + listElem.clientHeight >=
-          listElem.scrollHeight - 1
-      ) {
+
+    async loadMoreData(entries, observer) {
+      if (entries[0].isIntersecting) {
         if (this.mainItemList.next) {
           try {
             const response = await this.mainItemAPIInstance.updateList(
-                this.mainItemList.next,
+              this.mainItemList.next,
             )
 
             const newData = await response.data
@@ -244,7 +240,7 @@ export default {
     },
     orderedModelsList() {
       return this.modelsList.sort((a, b) =>
-          a.model_name_verbose.localeCompare(b.model_name_verbose),
+        a.model_name_verbose.localeCompare(b.model_name_verbose),
       )
     },
     ...mapGetters({

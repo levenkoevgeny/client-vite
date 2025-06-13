@@ -896,32 +896,32 @@ export default {
         this.mainItemAPIInstance.searchObjDefault,
       )
     },
-    async loadMoreData() {
-      const listElem = document.getElementById("infinite_list")
-      if (
-        listElem.scrollTop + listElem.clientHeight >=
-        listElem.scrollHeight - 1
-      ) {
-        if (this.mainItemList.next) {
-          try {
-            const response = await this.mainItemAPIInstance.updateList(
-              this.mainItemList.next,
-            )
 
-            const newData = await response.data
-            this.mainItemList.results = [
-              ...this.mainItemList.results,
-              ...newData.results,
-            ]
-            this.mainItemList.next = newData.next
-            this.mainItemList.previous = newData.previous
-          } catch (error) {
-            this.isError = true
-          } finally {
+    async loadMoreData(entries, observer) {
+      if (entries[0].isIntersecting) {
+        if (this.mainItemList) {
+          if (this.mainItemList.next) {
+            try {
+              const response = await this.mainItemAPIInstance.updateList(
+                this.mainItemList.next,
+              )
+
+              const newData = await response.data
+              this.mainItemList.results = [
+                ...this.mainItemList.results,
+                ...newData.results,
+              ]
+              this.mainItemList.next = newData.next
+              this.mainItemList.previous = newData.previous
+            } catch (error) {
+              this.isError = true
+            } finally {
+            }
           }
         }
       }
     },
+
     async changePassword() {
       try {
         await this.mainItemAPIInstance.updatePassword(

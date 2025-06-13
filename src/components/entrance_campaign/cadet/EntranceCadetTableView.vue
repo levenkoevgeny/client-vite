@@ -1,4 +1,6 @@
 <template>
+  <!-- export modal-->
+
   <div
     class="modal fade"
     id="exportDataModal"
@@ -10,7 +12,10 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5">Экспорт данных</h1>
+          <h1 class="modal-title fs-5" v-if="isExporting">
+            Идет экспорт данных ...
+          </h1>
+          <h1 class="modal-title fs-5" v-else>Экспорт данных</h1>
           <button
             type="button"
             class="btn-close"
@@ -26,6 +31,7 @@
                 style="font-size: inherit"
                 title="Экспорт в Word"
                 @click="exportData('docx')"
+                :disabled="isExporting"
               >
                 <font-awesome-icon :icon="['far', 'file-word']" />
               </button>
@@ -34,6 +40,7 @@
                 style="font-size: inherit; color: inherit"
                 title="Экспорт в Excel"
                 @click="exportData('xlsx')"
+                :disabled="isExporting"
               >
                 <font-awesome-icon :icon="['far', 'file-excel']" />
               </button>
@@ -74,6 +81,54 @@
     </div>
   </div>
 
+  <!--  documents modal-->
+
+  <div
+    class="modal fade"
+    id="documentsModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+    ref="documentsModal"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" v-if="isDocumentProcessing">
+            Идет формирование документа ...
+          </h1>
+          <h1 class="modal-title fs-5" v-else>Выходные документы</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <div class="d-flex flex-column">
+              <button
+                class="btn btn-secondary mb-3"
+                @click="notifyExport"
+                :disabled="isDocumentProcessing"
+              >
+                <font-awesome-icon
+                  :icon="['fas', 'envelope']"
+                />&nbsp;&nbsp;Измещения
+              </button>
+              <button class="btn btn-secondary mb-3">
+                <font-awesome-icon :icon="['fas', 'book']" />&nbsp;&nbsp;Журнал
+                регистрации
+              </button>
+            </div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="container-fluid">
     <div class="my-3"></div>
     <ul class="nav nav-links my-3 mb-lg-2 mx-n3">
@@ -91,6 +146,12 @@
     >
       <div class="m-0 p-0"></div>
       <div class="d-flex flex-row">
+        <button class="btn btn-secondary me-3" @click="showDocumentsModal">
+          Выходные документы&nbsp;&nbsp;<font-awesome-icon
+            :icon="['fas', 'print']"
+          />
+        </button>
+
         <button class="btn btn-secondary me-3" @click="showExportDataModal">
           Экспорт&nbsp;&nbsp;<font-awesome-icon
             :icon="['fas', 'file-export']"
@@ -105,13 +166,11 @@
 
     <div
       style="
-        min-height: calc(100vh - 260px);
-        max-height: calc(100vh - 260px);
+        min-height: calc(100vh - 270px);
+        max-height: calc(100vh - 270px);
         overflow: auto;
       "
-      @scroll="loadMoreData"
       ref="infinite_list"
-      id="infinite_list"
     >
       <table class="table table-hover table-responsive" style="overflow: auto">
         <thead ref="thead">
@@ -255,6 +314,48 @@
                 </div>
               </div>
             </th>
+
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <span class="text-nowrap">Специальность 1</span>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <span class="text-nowrap">Образование</span>
+              </div>
+            </th>
+
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <span class="text-nowrap"
+                  >Категория профессионального соответствия</span
+                >
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <span class="text-nowrap">Группа предназначения</span>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <span class="text-nowrap">Медико-возрастная группа</span>
+              </div>
+            </th>
+
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <span class="text-nowrap">Группа риска</span>
+              </div>
+            </th>
+
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <span class="text-nowrap">Проверка ГУСБ</span>
+              </div>
+            </th>
+
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
                 <span class="text-nowrap">Фамилия</span>
@@ -492,7 +593,7 @@
             </th>
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
-                <nobr>Номер зачетной книжки</nobr>
+                <span class="text-nowrap">Номер зачетной книжки</span>
                 <div class="dropdown">
                   <button
                     class="btn dropdown-toggle"
@@ -523,7 +624,9 @@
             </th>
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
-                <nobr>Номер сертификата по рус./ бел.</nobr>
+                <span class="text-nowrap"
+                  >Номер сертификата по рус./ бел.
+                </span>
                 <div class="dropdown">
                   <button
                     class="btn dropdown-toggle"
@@ -554,7 +657,9 @@
             </th>
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
-                <nobr>Колличество баллов по русскому языку (сертификат)</nobr>
+                <span class="text-nowrap"
+                  >Колличество баллов по русскому языку (сертификат)
+                </span>
                 <div class="dropdown">
                   <button
                     class="btn dropdown-toggle"
@@ -585,7 +690,7 @@
             </th>
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
-                <nobr>Что сдавал по русскому языку</nobr>
+                <span class="text-nowrap">Что сдавал по русскому языку </span>
                 <div class="dropdown">
                   <button
                     class="btn dropdown-toggle"
@@ -649,7 +754,9 @@
             </th>
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
-                <nobr>Что сдавал по белорусскому языку</nobr>
+                <span class="text-nowrap"
+                  >Что сдавал по белорусскому языку
+                </span>
                 <div class="dropdown">
                   <button
                     class="btn dropdown-toggle"
@@ -680,7 +787,9 @@
             </th>
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
-                <nobr>Номер сертификата по обществоведению</nobr>
+                <span class="text-nowrap"
+                  >Номер сертификата по обществоведению
+                </span>
                 <div class="dropdown">
                   <button
                     class="btn dropdown-toggle"
@@ -711,7 +820,9 @@
             </th>
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
-                <nobr>Колличество баллов по обществоведению (сертификат)</nobr>
+                <span class="text-nowrap"
+                  >Колличество баллов по обществоведению (сертификат)
+                </span>
                 <div class="dropdown">
                   <button
                     class="btn dropdown-toggle"
@@ -742,7 +853,7 @@
             </th>
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
-                <nobr>Что сдавал по обществоведению</nobr>
+                <span class="text-nowrap">Что сдавал по обществоведению </span>
                 <div class="dropdown">
                   <button
                     class="btn dropdown-toggle"
@@ -773,7 +884,9 @@
             </th>
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
-                <nobr>Номер сертификата по иностранному языку</nobr>
+                <span class="text-nowrap"
+                  >Номер сертификата по иностранному языку
+                </span>
                 <div class="dropdown">
                   <button
                     class="btn dropdown-toggle"
@@ -837,7 +950,9 @@
             </th>
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
-                <nobr>Что сдавал по иностранному языку</nobr>
+                <span class="text-nowrap"
+                  >Что сдавал по иностранному языку
+                </span>
                 <div class="dropdown">
                   <button
                     class="btn dropdown-toggle"
@@ -868,7 +983,9 @@
             </th>
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
-                <nobr>Колличество баллов по русскому языку (аттестат)</nobr>
+                <span class="text-nowrap"
+                  >Колличество баллов по русскому языку (аттестат)
+                </span>
                 <div class="dropdown">
                   <button
                     class="btn dropdown-toggle"
@@ -899,7 +1016,9 @@
             </th>
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
-                <nobr>Колличество баллов по белорусскому языку (аттестат)</nobr>
+                <span class="text-nowrap"
+                  >Колличество баллов по белорусскому языку (аттестат)
+                </span>
                 <div class="dropdown">
                   <button
                     class="btn dropdown-toggle"
@@ -930,7 +1049,9 @@
             </th>
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
-                <nobr>Колличество баллов по обществоведению (аттестат)</nobr>
+                <span class="text-nowrap"
+                  >Колличество баллов по обществоведению (аттестат)
+                </span>
                 <div class="dropdown">
                   <button
                     class="btn dropdown-toggle"
@@ -961,7 +1082,9 @@
             </th>
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
-                <nobr>Колличество баллов по иностранному языку (аттестат)</nobr>
+                <span class="text-nowrap"
+                  >Колличество баллов по иностранному языку (аттестат)
+                </span>
                 <div class="dropdown">
                   <button
                     class="btn dropdown-toggle"
@@ -992,7 +1115,7 @@
             </th>
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
-                <nobr>Средний балл (аттестат)</nobr>
+                <span class="text-nowrap">Средний балл (аттестат) </span>
                 <div class="dropdown">
                   <button
                     class="btn dropdown-toggle"
@@ -1081,6 +1204,79 @@
                 <option value="0" key="0">Женский</option>
               </select>
             </th>
+
+            <th>
+              <v-select
+                v-model="searchForm.speciality_1__in"
+                :options="orderedAdmissionQuotas"
+                label="quota_verbose_name"
+                :reduce="(quota) => quota.id"
+                multiple
+              />
+            </th>
+
+            <th>
+              <v-select
+                v-model="searchForm.education_kind__in"
+                :options="orderedEducationKinds"
+                label="education"
+                :reduce="(education) => education.id"
+                multiple
+              />
+            </th>
+            <th>
+              <v-select
+                v-model="searchForm.ppfl_test__in"
+                :options="orderedPpflCategories"
+                label="category"
+                :reduce="(ppfl) => ppfl.id"
+                multiple
+              />
+            </th>
+
+            <th>
+              <select class="form-select" v-model="searchForm.health_group">
+                <option value="">-----</option>
+                <option
+                  v-for="item in orderedHealthGroups"
+                  :value="item.id"
+                  :key="item.id"
+                >
+                  {{ item.health_group }}
+                </option>
+              </select>
+            </th>
+
+            <th>
+              <select
+                class="form-select"
+                v-model="searchForm.medical_age_group"
+              >
+                <option value="">-----</option>
+                <option value="1" key="1">1</option>
+                <option value="2" key="2">2</option>
+                <option value="3" key="3">3</option>
+                <option value="4" key="4">4</option>
+                <option value="5" key="5">5</option>
+              </select>
+            </th>
+
+            <th>
+              <select class="form-select" v-model="searchForm.is_risk_group">
+                <option selected value="">-------</option>
+                <option value="true" key="1">Да</option>
+                <option value="false" key="0">Нет</option>
+              </select>
+            </th>
+
+            <th>
+              <select class="form-select" v-model="searchForm.has_gusb_check">
+                <option selected value="">-------</option>
+                <option value="true" key="1">Да</option>
+                <option value="false" key="0">Нет</option>
+              </select>
+            </th>
+
             <th>
               <input
                 type="text"
@@ -1498,6 +1694,55 @@
             <td>{{ cadet.get_component_organ }}</td>
             <td>{{ cadet.get_arrived_from_go_rovd }}</td>
             <td>{{ cadet.get_gender }}</td>
+            <template v-if="Object.keys(normalizedAdmissionQuota).length === 0">
+              <td></td>
+            </template>
+            <template v-else>
+              <td v-if="cadet.speciality_1">
+                {{
+                  normalizedAdmissionQuota[cadet.speciality_1]
+                    .quota_verbose_name
+                }}
+              </td>
+              <td v-else></td>
+            </template>
+
+            <template v-if="Object.keys(normalizedEducationKinds).length === 0">
+              <td></td>
+            </template>
+            <template v-else>
+              <td v-if="cadet.education_kind">
+                {{ normalizedEducationKinds[cadet.education_kind].education }}
+              </td>
+              <td v-else></td>
+            </template>
+
+            <template v-if="Object.keys(normalizedPpflCategories).length === 0">
+              <td></td>
+            </template>
+            <template v-else>
+              <td v-if="cadet.ppfl_test">
+                {{ normalizedPpflCategories[cadet.ppfl_test].category }}
+              </td>
+              <td v-else></td>
+            </template>
+
+            <template v-if="Object.keys(normalizedHealthGroups).length === 0">
+              <td></td>
+            </template>
+            <template v-else>
+              <td v-if="cadet.health_group">
+                {{ normalizedHealthGroups[cadet.health_group].health_group }}
+              </td>
+              <td v-else></td>
+            </template>
+
+            <td>{{ cadet.medical_age_group }}</td>
+            <td v-if="cadet.is_risk_group">Да</td>
+            <td v-else>Нет</td>
+            <td v-if="cadet.has_gusb_check">Да</td>
+            <td v-else>Нет</td>
+
             <td>{{ cadet.last_name_rus }}</td>
             <td>{{ cadet.first_name_rus }}</td>
             <td>{{ cadet.patronymic_rus }}</td>
@@ -1552,6 +1797,7 @@
           </tr>
         </tbody>
       </table>
+      <div ref="observer" style="height: 10px"></div>
     </div>
     <div class="my-3"></div>
   </div>
@@ -1562,6 +1808,7 @@ import { globalCadetAPIForEntranceInstance } from "@/api/cadet/cadetAPI.js"
 import { debounce } from "lodash/function"
 import { mapGetters } from "vuex"
 import getUsersAPIInstance from "@/api/auth/usersAPI.js"
+import { getQueryStringFromSearchForm } from "../../../../utils.js"
 
 export default {
   name: "EntranceCadetTableView",
@@ -1569,6 +1816,8 @@ export default {
     return {
       isLoading: true,
       isError: false,
+      isExporting: false,
+      isDocumentProcessing: false,
       fieldsForDataExport: [
         {
           fieldName: "Статус записи (активна/ неактивна)",
@@ -1904,6 +2153,11 @@ export default {
   async created() {
     await this.loadData()
   },
+
+  mounted() {
+    this.loadMoreData()
+  },
+
   methods: {
     async loadData() {
       this.isLoading = true
@@ -1915,34 +2169,40 @@ export default {
       this.isLoading = false
       this.setSerialNumbers()
     },
-    async loadMoreData() {
-      const listElem = this.$refs["infinite_list"]
-      if (
-        listElem.scrollTop + listElem.clientHeight >=
-        listElem.scrollHeight - 1
-      ) {
-        if (this.cadetList.next) {
-          this.isLoading = true
-          try {
-            const response = await this.cadetAPIInstance.updateList(
-              this.cadetList.next,
-            )
+    loadMoreData() {
+      const options = {
+        root: this.$refs.infinite_list,
+        rootMargin: "0px",
+        threshold: 0.5,
+      }
 
-            const newData = await response.data
-            this.cadetList.results = [
-              ...this.cadetList.results,
-              ...newData.results,
-            ]
-            this.cadetList.next = newData.next
-            this.cadetList.previous = newData.previous
-            this.setSerialNumbers()
-          } catch (error) {
-            this.isError = true
-          } finally {
-            this.isLoading = false
+      const callback = async (entries, observer) => {
+        if (entries[0].isIntersecting) {
+          if (this.cadetList.next) {
+            this.isLoading = true
+            try {
+              const response = await this.cadetAPIInstance.updateList(
+                this.cadetList.next,
+              )
+              const newData = await response.data
+              this.cadetList.results = [
+                ...this.cadetList.results,
+                ...newData.results,
+              ]
+              this.cadetList.next = newData.next
+              this.cadetList.previous = newData.previous
+              this.setSerialNumbers()
+            } catch (error) {
+              this.isError = true
+            } finally {
+              this.isLoading = false
+            }
           }
         }
       }
+
+      const observer = new IntersectionObserver(callback, options)
+      observer.observe(this.$refs.observer)
     },
     setSerialNumbers() {
       let i = 1
@@ -1971,6 +2231,13 @@ export default {
       })
       myModal.show()
     },
+    showDocumentsModal() {
+      let addModal = this.$refs.documentsModal
+      let myModal = new bootstrap.Modal(addModal, {
+        keyboard: false,
+      })
+      myModal.show()
+    },
     checkAllFieldsForExport() {
       this.selectedFieldsForDataExport = []
       this.fieldsForDataExport.map((item) => {
@@ -1984,24 +2251,10 @@ export default {
       if (this.selectedFieldsForDataExport.length === 0) {
         alert("Выберите хотя бы одно поле для экспорта!")
       } else {
+        this.isExporting = true
         let export_data = {}
-        let queryString = "?"
-        for (let key in this.searchForm) {
-          if (key.includes("__in")) {
-            if (typeof this.searchForm[key] === "object") {
-              const valArray = this.searchForm[key]
-              let keyVal = ""
-              valArray.forEach((val) => {
-                keyVal = keyVal + `${key}=${val}&`
-              })
-              queryString = queryString + keyVal
-            }
-          } else {
-            queryString = queryString + `${key}=${this.searchForm[key]}&`
-          }
-        }
 
-        export_data.query_string = queryString
+        export_data.query_string = getQueryStringFromSearchForm(this.searchForm)
         export_data.fields_for_export =
           this.selectedFieldsForDataExport.toString()
         export_data.destination = destination
@@ -2013,8 +2266,24 @@ export default {
           link.setAttribute("download", `file.${destination}`)
           document.body.appendChild(link)
           link.click()
+          this.isExporting = false
         })
       }
+    },
+
+    async notifyExport() {
+      this.isDocumentProcessing = true
+      let export_data = {}
+      export_data.query_string = getQueryStringFromSearchForm(this.searchForm)
+      this.cadetAPIInstance.notify_export(export_data).then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]))
+        const link = document.createElement("a")
+        link.href = url
+        link.setAttribute("download", `notify.docx`)
+        document.body.appendChild(link)
+        link.click()
+        this.isDocumentProcessing = false
+      })
     },
     clearFilter() {
       this.searchForm = Object.assign(
@@ -2027,8 +2296,50 @@ export default {
     },
   },
   computed: {
+    normalizedAdmissionQuota() {
+      let normObj = {}
+      this.admissionQuotas.results.map((item) => (normObj[item.id] = item))
+      return normObj
+    },
+
+    normalizedEducationKinds() {
+      let normObj = {}
+      this.educationKinds.results.map((item) => (normObj[item.id] = item))
+      return normObj
+    },
+
+    normalizedPpflCategories() {
+      let normObj = {}
+      this.ppflCategories.results.map((item) => (normObj[item.id] = item))
+      return normObj
+    },
+
+    normalizedHealthGroups() {
+      let normObj = {}
+      this.healthGroups.results.map((item) => (normObj[item.id] = item))
+      return normObj
+    },
+
     orderedMainList() {
       return this.cadetList.results
+    },
+    orderedAdmissionQuotas() {
+      return this.admissionQuotas.results
+        .filter((quota) => quota.ownership_category === "1")
+        .sort((a, b) => {
+          const admission_codeA = a.admission_code
+          const admission_codeB = b.admission_code
+          if (admission_codeA < admission_codeB) {
+            return -1
+          }
+          if (admission_codeA > admission_codeB) {
+            return 1
+          }
+          return 0
+        })
+    },
+    orderedEducationKinds() {
+      return this.educationKinds.results
     },
     orderedComponentOrgans() {
       return this.componentOrgans.results
@@ -2051,6 +2362,16 @@ export default {
     orderedGorovds() {
       return this.gorovds.results
     },
+    orderedPpflCategories() {
+      return this.ppflCategories.results.filter(
+        (category) => category.ownership_category === "1",
+      )
+    },
+    orderedHealthGroups() {
+      return this.healthGroups.results.filter(
+        (group) => group.ownership_category === "1",
+      )
+    },
     ...mapGetters({
       componentOrgans: "componentOrgans/getList",
       passportIssueAuthorities: "passportAuthorities/getList",
@@ -2059,6 +2380,10 @@ export default {
       graduationReasons: "graduationReasons/getList",
       educationalInstitutions: "educationalInstitutions/getList",
       gorovds: "gorovds/getList",
+      admissionQuotas: "admissionQuota/getList",
+      educationKinds: "educationKind/getList",
+      ppflCategories: "ppflCategories/getList",
+      healthGroups: "healthGroup/getList",
     }),
   },
   watch: {

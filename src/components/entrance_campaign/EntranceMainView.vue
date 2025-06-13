@@ -13,15 +13,19 @@ export default {
   data() {
     return {
       currentTime: new Date(),
+      timeInterval: null,
     }
   },
   async created() {
-    setInterval(() => {
+    this.timeInterval = setInterval(() => {
       this.currentTime = new Date()
     }, 1000)
   },
   methods: {},
   computed: {},
+  unmounted() {
+    clearInterval(this.timeInterval)
+  },
 }
 </script>
 

@@ -365,29 +365,28 @@ export default {
         this.isLoading = false
       }
     },
-    async loadMoreData() {
-      const listElem = document.getElementById("infinite_list")
-      if (
-        listElem.scrollTop + listElem.clientHeight >=
-        listElem.scrollHeight - 1
-      ) {
-        if (this.fpk_mag_List.next) {
-          try {
-            const response = await this.fpk_mag_APIInstance.updateList(
-              this.fpk_mag_List.next,
-            )
 
-            const newData = await response.data
-            this.fpk_mag_List.results = [
-              ...this.fpk_mag_List.results,
-              ...newData.results,
-            ]
-            this.fpk_mag_List.next = newData.next
-            this.fpk_mag_List.previous = newData.previous
-            this.setSerialNumbers()
-          } catch (error) {
-            this.isError = true
-          } finally {
+    async loadMoreData(entries, observer) {
+      if (entries[0].isIntersecting) {
+        if (this.fpk_mag_List) {
+          if (this.fpk_mag_List.next) {
+            try {
+              const response = await this.fpk_mag_APIInstance.updateList(
+                this.fpk_mag_List.next,
+              )
+
+              const newData = await response.data
+              this.fpk_mag_List.results = [
+                ...this.fpk_mag_List.results,
+                ...newData.results,
+              ]
+              this.fpk_mag_List.next = newData.next
+              this.fpk_mag_List.previous = newData.previous
+              this.setSerialNumbers()
+            } catch (error) {
+              this.isError = true
+            } finally {
+            }
           }
         }
       }
@@ -429,6 +428,4 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

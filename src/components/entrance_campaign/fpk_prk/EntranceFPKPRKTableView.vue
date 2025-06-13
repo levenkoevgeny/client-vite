@@ -26,6 +26,7 @@
                 style="font-size: inherit"
                 title="Экспорт в Word"
                 @click="exportData('docx')"
+                :disabled="isExporting"
               >
                 <font-awesome-icon :icon="['far', 'file-word']" />
               </button>
@@ -34,6 +35,7 @@
                 style="font-size: inherit; color: inherit"
                 title="Экспорт в Excel"
                 @click="exportData('xlsx')"
+                :disabled="isExporting"
               >
                 <font-awesome-icon :icon="['far', 'file-excel']" />
               </button>
@@ -109,7 +111,6 @@
         max-height: calc(100vh - 270px);
         overflow: auto;
       "
-      @scroll="loadMoreData"
       ref="infinite_list"
       id="infinite_list"
     >
@@ -1335,6 +1336,7 @@
           </tr>
         </tbody>
       </table>
+      <div ref="observer" style="height: 10px"></div>
     </div>
     <div class="my-3"></div>
   </div>
@@ -1344,6 +1346,7 @@
 import { globalFPKPRKStudentAPIForEntranceInstance } from "@/api/fpkprk/fpk_prk_studentAPI.js"
 import { debounce } from "lodash/function"
 import { mapGetters } from "vuex"
+import { getQueryStringFromSearchForm } from "../../../../utils.js"
 
 export default {
   name: "EntranceFPKPRKTableView",
@@ -1351,6 +1354,7 @@ export default {
     return {
       isLoading: true,
       isError: false,
+      isExporting: false,
       fieldsForDataExport: [
         {
           fieldName: "Статус записи (активна/ неактивна)",
@@ -1553,6 +1557,9 @@ export default {
   async created() {
     await this.loadData()
   },
+  mounted() {
+    this.loadMoreData()
+  },
   methods: {
     async loadData() {
       this.isLoading = true
@@ -1601,24 +1608,10 @@ export default {
       if (this.selectedFieldsForDataExport.length === 0) {
         alert("Выберите хотя бы одно поле для экспорта!")
       } else {
+        this.isExporting = true
         let export_data = {}
-        let queryString = "?"
-        for (let key in this.searchForm) {
-          if (key.includes("__in")) {
-            if (typeof this.searchForm[key] === "object") {
-              const valArray = this.searchForm[key]
-              let keyVal = ""
-              valArray.forEach((val) => {
-                keyVal = keyVal + `${key}=${val}&`
-              })
-              queryString = queryString + keyVal
-            }
-          } else {
-            queryString = queryString + `${key}=${this.searchForm[key]}&`
-          }
-        }
 
-        export_data.query_string = queryString
+        export_data.query_string = getQueryStringFromSearchForm(this.searchForm)
         export_data.fields_for_export =
           this.selectedFieldsForDataExport.toString()
         export_data.destination = destination
@@ -1630,38 +1623,50 @@ export default {
           link.setAttribute("download", `file.${destination}`)
           document.body.appendChild(link)
           link.click()
+          this.isExporting = true
         })
       }
     },
-    async loadMoreData() {
-      const listElem = this.$refs["infinite_list"]
-      if (
-        listElem.scrollTop + listElem.clientHeight >=
-        listElem.scrollHeight - 1
-      ) {
-        if (this.fpkprkList.next) {
-          this.isLoading = true
-          try {
-            const response = await this.fpkprkAPIInstance.updateList(
-              this.fpkprkList.next,
-            )
 
-            const newData = await response.data
-            this.fpkprkList.results = [
-              ...this.fpkprkList.results,
-              ...newData.results,
-            ]
-            this.fpkprkList.next = newData.next
-            this.fpkprkList.previous = newData.previous
-            this.setSerialNumbers()
-          } catch (error) {
-            this.isError = true
-          } finally {
-            this.isLoading = false
+    loadMoreData() {
+      const options = {
+        root: this.$refs.infinite_list,
+        rootMargin: "0px",
+        threshold: 0.5,
+      }
+
+      const callback = async (entries, observer) => {
+        if (entries[0].isIntersecting) {
+          if (this.fpkprkList) {
+            if (this.fpkprkList.next) {
+              this.isLoading = true
+              try {
+                const response = await this.fpkprkAPIInstance.updateList(
+                  this.fpkprkList.next,
+                )
+
+                const newData = await response.data
+                this.fpkprkList.results = [
+                  ...this.fpkprkList.results,
+                  ...newData.results,
+                ]
+                this.fpkprkList.next = newData.next
+                this.fpkprkList.previous = newData.previous
+                this.setSerialNumbers()
+              } catch (error) {
+                this.isError = true
+              } finally {
+                this.isLoading = false
+              }
+            }
           }
         }
       }
+
+      const observer = new IntersectionObserver(callback, options)
+      observer.observe(this.$refs.observer)
     },
+
     clearFilter() {
       this.searchForm = Object.assign(
         {},

@@ -1,9 +1,9 @@
 <template>
   <base-list-layout
-      :is-loading="isLoading"
-      :main-list-length="fpk_prk_mag_List.count"
-      title="Личные дела"
-      :load-more-data="null"
+    :is-loading="isLoading"
+    :main-list-length="fpk_prk_mag_List.count"
+    title="Личные дела"
+    :load-more-data="loadMoreData"
   >
     <template v-slot:add-button>
       <button class="btn btn-warning" @click="showFPKAddModal">
@@ -13,22 +13,22 @@
 
     <template v-slot:table-mode-button>
       <router-link
-          :to="{ name: 'entrance-fpk-prk-table-view' }"
-          class="fs-3 fw-light link-secondary"
-          title="Табличный режим"
+        :to="{ name: 'entrance-fpk-prk-table-view' }"
+        class="fs-3 fw-light link-secondary"
+        title="Табличный режим"
       >
-        <font-awesome-icon :icon="['fas', 'table']"/>
+        <font-awesome-icon :icon="['fas', 'table']" />
       </router-link>
     </template>
 
     <template v-slot:modals>
       <div
-          class="modal fade"
-          id="fpkAddModal"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-          ref="fpkAddModal"
+        class="modal fade"
+        id="fpkAddModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+        ref="fpkAddModal"
       >
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
@@ -37,10 +37,10 @@
                 Добавление личного дела
               </h1>
               <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
               ></button>
             </div>
 
@@ -48,14 +48,14 @@
               <div class="modal-body">
                 <div class="mb-3">
                   <label for="id_last_name_rus" class="form-label"
-                  >Категория</label
+                    >Категория</label
                   >
 
                   <select
-                      class="form-select"
-                      id="id_fpk_mag_choice"
-                      v-model="fpkNewForm.fpk_mag_choice"
-                      required
+                    class="form-select"
+                    id="id_fpk_mag_choice"
+                    v-model="fpkNewForm.fpk_mag_choice"
+                    required
                   >
                     <option value="">-----</option>
                     <option value="1">ФПК ПРК</option>
@@ -64,57 +64,57 @@
                 </div>
                 <div class="mb-3">
                   <label for="id_last_name_rus" class="form-label"
-                  >Фамилия</label
+                    >Фамилия</label
                   >
                   <input
-                      type="text"
-                      class="form-control"
-                      id="id_last_name_rus"
-                      v-model="fpkNewForm.last_name_rus"
-                      required
+                    type="text"
+                    class="form-control"
+                    id="id_last_name_rus"
+                    v-model="fpkNewForm.last_name_rus"
+                    required
                   />
                 </div>
                 <div class="mb-3">
                   <label for="id_first_name_rus" class="form-label">Имя</label>
                   <input
-                      type="text"
-                      class="form-control"
-                      id="id_first_name_rus"
-                      v-model="fpkNewForm.first_name_rus"
-                      required
+                    type="text"
+                    class="form-control"
+                    id="id_first_name_rus"
+                    v-model="fpkNewForm.first_name_rus"
+                    required
                   />
                 </div>
                 <div class="mb-3">
                   <label for="id_patronymic_rus" class="form-label"
-                  >Отчество</label
+                    >Отчество</label
                   >
                   <input
-                      type="text"
-                      class="form-control"
-                      id="id_patronymic_rus"
-                      v-model="fpkNewForm.patronymic_rus"
-                      required
+                    type="text"
+                    class="form-control"
+                    id="id_patronymic_rus"
+                    v-model="fpkNewForm.patronymic_rus"
+                    required
                   />
                 </div>
                 <div class="mb-3">
                   <label for="id_date_of_birth" class="form-label"
-                  >Дата рождения</label
+                    >Дата рождения</label
                   >
                   <input
-                      type="date"
-                      class="form-control"
-                      id="id_date_of_birth"
-                      v-model="fpkNewForm.date_of_birth"
-                      required
+                    type="date"
+                    class="form-control"
+                    id="id_date_of_birth"
+                    v-model="fpkNewForm.date_of_birth"
+                    required
                   />
                 </div>
               </div>
               <div class="modal-footer">
                 <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                    ref="fpkAddModalCloseButton"
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                  ref="fpkAddModalCloseButton"
                 >
                   Закрыть без сохранения
                 </button>
@@ -136,10 +136,10 @@
     </template>
     <template v-slot:tbody>
       <tr
-          class="align-middle"
-          v-for="fpk in orderedFPKPRK"
-          :key="fpk.id"
-          @dblclick="
+        class="align-middle"
+        v-for="fpk in orderedFPKPRK"
+        :key="fpk.id"
+        @dblclick="
           $router.push({
             name: 'entrance-fpk-prk-mag-input-form',
             params: { id: fpk.id },
@@ -164,9 +164,9 @@
       <div class="mb-3">
         <label for="id_fpk_mag_choice" class="form-label">ФПКиПРК / МАГ</label>
         <select
-            class="form-select"
-            id="id_fpk_mag_choice"
-            v-model="searchForm.fpk_mag_choice"
+          class="form-select"
+          id="id_fpk_mag_choice"
+          v-model="searchForm.fpk_mag_choice"
         >
           <option value="">-----</option>
           <option value="1">ФПК и ПРК</option>
@@ -176,28 +176,28 @@
       <div class="mb-3">
         <label for="last_name_rus" class="form-label">Фамилия</label>
         <input
-            type="text"
-            id="last_name_rus"
-            class="form-control"
-            v-model="searchForm.last_name_rus__icontains"
+          type="text"
+          id="last_name_rus"
+          class="form-control"
+          v-model="searchForm.last_name_rus__icontains"
         />
       </div>
       <div class="mb-3">
         <label class="form-label">Комплектующий орган</label>
         <v-select
-            v-model="searchForm.component_organ__in"
-            :options="orderedComponentOrgans"
-            label="component_name"
-            :reduce="(orderedComponentOrgan) => orderedComponentOrgan.id"
-            multiple
+          v-model="searchForm.component_organ__in"
+          :options="orderedComponentOrgans"
+          label="component_name"
+          :reduce="(orderedComponentOrgan) => orderedComponentOrgan.id"
+          multiple
         />
       </div>
       <div class="mb-3">
         <label class="form-label">Пол</label>
         <select
-            class="form-select"
-            aria-label="Default select example"
-            v-model="searchForm.gender"
+          class="form-select"
+          aria-label="Default select example"
+          v-model="searchForm.gender"
         >
           <option selected value="">--------</option>
           <option value="1">Мужской</option>
@@ -209,26 +209,26 @@
         <div class="col-6">
           <div class="mb-3">
             <label for="date_of_birth__gte" class="form-label"
-            >Дата рождения (с)</label
+              >Дата рождения (с)</label
             >
             <input
-                type="date"
-                class="form-control"
-                id="date_of_birth__gte"
-                v-model="searchForm.date_of_birth__gte"
+              type="date"
+              class="form-control"
+              id="date_of_birth__gte"
+              v-model="searchForm.date_of_birth__gte"
             />
           </div>
         </div>
         <div class="col-6">
           <div class="mb-3">
             <label for="date_of_birth__lte" class="form-label"
-            >Дата рождения (по)</label
+              >Дата рождения (по)</label
             >
             <input
-                type="date"
-                class="form-control"
-                id="date_of_birth__lte"
-                v-model="searchForm.date_of_birth__lte"
+              type="date"
+              class="form-control"
+              id="date_of_birth__lte"
+              v-model="searchForm.date_of_birth__lte"
             />
           </div>
         </div>
@@ -238,10 +238,10 @@
           <div class="mb-3">
             <label for="age_gte" class="form-label">Возраст (с)</label>
             <input
-                type="number"
-                class="form-control"
-                id="age_gte"
-                v-model="searchForm.age_gte"
+              type="number"
+              class="form-control"
+              id="age_gte"
+              v-model="searchForm.age_gte"
             />
           </div>
         </div>
@@ -249,10 +249,10 @@
           <div class="mb-3">
             <label for="age_lte" class="form-label">Возраст (по)</label>
             <input
-                type="number"
-                class="form-control"
-                id="age_lte"
-                v-model="searchForm.age_lte"
+              type="number"
+              class="form-control"
+              id="age_lte"
+              v-model="searchForm.age_lte"
             />
           </div>
         </div>
@@ -268,14 +268,14 @@
 
 <script>
 import NavigationLayout from "@/components/layouts/NavigationLayout.vue"
-import {globalFPKPRKStudentAPIForEntranceInstance} from "@/api/fpkprk/fpk_prk_studentAPI.js"
-import {debounce} from "lodash/function"
-import {mapGetters} from "vuex"
+import { globalFPKPRKStudentAPIForEntranceInstance } from "@/api/fpkprk/fpk_prk_studentAPI.js"
+import { debounce } from "lodash/function"
+import { mapGetters } from "vuex"
 import BaseListLayout from "@/components/layouts/BaseListLayout.vue"
 
 export default {
   name: "EntranceFPKPRKListView",
-  components: {NavigationLayout, BaseListLayout},
+  components: { NavigationLayout, BaseListLayout },
   data() {
     return {
       isLoading: true,
@@ -284,11 +284,11 @@ export default {
       BACKEND_PROTOCOL: import.meta.env.VITE_APP_BACKEND_PROTOCOL,
       BACKEND_HOST: import.meta.env.VITE_APP_BACKEND_HOST,
       BACKEND_PORT: import.meta.env.VITE__APP_BACKEND_PORT,
-      fpk_prk_mag_List: {count: 0, results: [], previous: null, next: null},
+      fpk_prk_mag_List: { count: 0, results: [], previous: null, next: null },
       fpk_prk_studentAPIInstance: globalFPKPRKStudentAPIForEntranceInstance,
       searchForm: Object.assign(
-          {},
-          globalFPKPRKStudentAPIForEntranceInstance.searchObj,
+        {},
+        globalFPKPRKStudentAPIForEntranceInstance.searchObj,
       ),
       fpkNewForm: {
         category: 3,
@@ -311,6 +311,35 @@ export default {
       this.fpk_prk_mag_List = await response.data
       this.isLoading = false
     },
+
+    async loadMoreData(entries, observer) {
+      if (entries[0].isIntersecting) {
+        if (this.fpkprkList) {
+          if (this.fpkprkList.next) {
+            this.isLoading = true
+            try {
+              const response = await this.fpk_prk_studentAPIInstance.updateList(
+                this.fpkprkList.next,
+              )
+
+              const newData = await response.data
+              this.fpkprkList.results = [
+                ...this.fpkprkList.results,
+                ...newData.results,
+              ]
+              this.fpkprkList.next = newData.next
+              this.fpkprkList.previous = newData.previous
+              this.setSerialNumbers()
+            } catch (error) {
+              this.isError = true
+            } finally {
+              this.isLoading = false
+            }
+          }
+        }
+      }
+    },
+
     showFPKAddModal() {
       let addModal = this.$refs.fpkAddModal
       let myModal = new bootstrap.Modal(addModal, {
@@ -321,7 +350,7 @@ export default {
     async addNewFPKPRKForEntrance() {
       this.isLoading = true
       const response = await this.fpk_prk_studentAPIInstance.addItem(
-          this.fpkNewForm,
+        this.fpkNewForm,
       )
       const newItem = response.data
       this.fpk_prk_mag_List.results.unshift(newItem)
@@ -347,8 +376,8 @@ export default {
     }, 500),
     clearFilter() {
       this.searchForm = Object.assign(
-          {},
-          this.fpk_prk_studentAPIInstance.searchObjDefault,
+        {},
+        this.fpk_prk_studentAPIInstance.searchObjDefault,
       )
     },
   },

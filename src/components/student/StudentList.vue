@@ -402,33 +402,33 @@ export default {
         this.studentAPIInstance.searchObjDefault,
       )
     },
-    async loadMoreData() {
-      const listElem = document.getElementById("infinite_list")
-      if (
-        listElem.scrollTop + listElem.clientHeight >=
-        listElem.scrollHeight - 1
-      ) {
-        if (this.studentList.next) {
-          try {
-            const response = await this.studentAPIInstance.updateList(
-              this.studentList.next,
-            )
 
-            const newData = await response.data
-            this.studentList.results = [
-              ...this.studentList.results,
-              ...newData.results,
-            ]
-            this.studentList.next = newData.next
-            this.studentList.previous = newData.previous
-            this.setSerialNumbers()
-          } catch (error) {
-            this.isError = true
-          } finally {
+    async loadMoreData(entries, observer) {
+      if (entries[0].isIntersecting) {
+        if (this.studentList) {
+          if (this.studentList.next) {
+            try {
+              const response = await this.studentAPIInstance.updateList(
+                this.studentList.next,
+              )
+
+              const newData = await response.data
+              this.studentList.results = [
+                ...this.studentList.results,
+                ...newData.results,
+              ]
+              this.studentList.next = newData.next
+              this.studentList.previous = newData.previous
+              this.setSerialNumbers()
+            } catch (error) {
+              this.isError = true
+            } finally {
+            }
           }
         }
       }
     },
+
     get_examination_reports(destination) {
       let queryString = "?"
       for (let key in this.searchForm) {

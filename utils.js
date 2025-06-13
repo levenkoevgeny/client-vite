@@ -253,3 +253,22 @@ export const SUBDIVISION_CATEGORY_CHOICES = [
     category: "Студенты",
   },
 ]
+
+export function getQueryStringFromSearchForm(searchForm) {
+  let queryString = "?"
+  for (let key in searchForm) {
+    if (key.includes("__in")) {
+      if (typeof searchForm[key] === "object") {
+        const valArray = searchForm[key]
+        let keyVal = ""
+        valArray.forEach((val) => {
+          keyVal = keyVal + `${key}=${val}&`
+        })
+        queryString = queryString + keyVal
+      }
+    } else {
+      queryString = queryString + `${key}=${searchForm[key]}&`
+    }
+  }
+  return queryString
+}

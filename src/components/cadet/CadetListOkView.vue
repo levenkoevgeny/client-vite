@@ -26,6 +26,7 @@
                 style="font-size: inherit"
                 title="Экспорт в Word"
                 @click="exportData('docx')"
+                :disabled="isExporting"
               >
                 <font-awesome-icon :icon="['far', 'file-word']" />
               </button>
@@ -34,6 +35,7 @@
                 style="font-size: inherit; color: inherit"
                 title="Экспорт в Excel"
                 @click="exportData('xlsx')"
+                :disabled="isExporting"
               >
                 <font-awesome-icon :icon="['far', 'file-excel']" />
               </button>
@@ -182,9 +184,7 @@
         max-height: calc(100vh - 270px);
         overflow: auto;
       "
-      @scroll="loadMoreData"
       ref="infinite_list"
-      id="infinite_list"
     >
       <table class="table table-hover table-responsive" style="overflow: auto">
         <thead ref="thead">
@@ -1894,6 +1894,7 @@
           </tr>
         </tbody>
       </table>
+      <div ref="observer" style="height: 10px"></div>
     </div>
     <div class="my-3"></div>
   </div>
@@ -1903,7 +1904,10 @@
 import getCadetAPIInstance from "@/api/cadet/cadetAPI"
 import { globalCadetAPIInstance } from "@/api/cadet/cadetAPI"
 
-import { getLoadListFunction } from "../../../utils"
+import {
+  getLoadListFunction,
+  getQueryStringFromSearchForm,
+} from "../../../utils"
 import { debounce } from "lodash/function"
 import { PaginatorView } from "@/components/common"
 import { mapGetters } from "vuex"
@@ -1915,6 +1919,7 @@ export default {
     return {
       isLoading: true,
       isError: false,
+      isExporting: false,
       fieldsForDataExport: [
         {
           fieldName: "Статус записи (активна/ неактивна)",
@@ -2254,6 +2259,9 @@ export default {
   async created() {
     await this.loadData()
   },
+  mounted() {
+    this.loadMoreData()
+  },
   methods: {
     async loadData() {
       const listFunction = getLoadListFunction.bind(this)
@@ -2289,24 +2297,10 @@ export default {
       if (this.selectedFieldsForDataExport.length === 0) {
         alert("Выберите хотя бы одно поле для экспорта!")
       } else {
+        this.isExporting = true
         let export_data = {}
-        let queryString = "?"
-        for (let key in this.searchForm) {
-          if (key.includes("__in")) {
-            if (typeof this.searchForm[key] === "object") {
-              const valArray = this.searchForm[key]
-              let keyVal = ""
-              valArray.forEach((val) => {
-                keyVal = keyVal + `${key}=${val}&`
-              })
-              queryString = queryString + keyVal
-            }
-          } else {
-            queryString = queryString + `${key}=${this.searchForm[key]}&`
-          }
-        }
 
-        export_data.query_string = queryString
+        export_data.query_string = getQueryStringFromSearchForm(this.searchForm)
         export_data.fields_for_export =
           this.selectedFieldsForDataExport.toString()
         export_data.destination = destination
@@ -2318,6 +2312,7 @@ export default {
           link.setAttribute("download", `file.${destination}`)
           document.body.appendChild(link)
           link.click()
+          this.isExporting = false
         })
       }
     },
@@ -2359,34 +2354,40 @@ export default {
       // this.searchForm.ordering = orderingArrayWithoutFieldName.toString()
       // console.log("searchForm.ordering", this.searchForm.ordering)
     },
-    async loadMoreData() {
-      const listElem = this.$refs["infinite_list"]
-      if (
-        listElem.scrollTop + listElem.clientHeight >=
-        listElem.scrollHeight - 1
-      ) {
-        if (this.cadetList.next) {
-          this.isLoading = true
-          try {
-            const response = await this.cadetAPIInstance.updateList(
-              this.cadetList.next,
-            )
+    loadMoreData() {
+      const options = {
+        root: this.$refs.infinite_list,
+        rootMargin: "0px",
+        threshold: 0.5,
+      }
 
-            const newData = await response.data
-            this.cadetList.results = [
-              ...this.cadetList.results,
-              ...newData.results,
-            ]
-            this.cadetList.next = newData.next
-            this.cadetList.previous = newData.previous
-            this.setSerialNumbers()
-          } catch (error) {
-            this.isError = true
-          } finally {
-            this.isLoading = false
+      const callback = async (entries, observer) => {
+        if (entries[0].isIntersecting) {
+          if (this.cadetList.next) {
+            this.isLoading = true
+            try {
+              const response = await this.cadetAPIInstance.updateList(
+                this.cadetList.next,
+              )
+              const newData = await response.data
+              this.cadetList.results = [
+                ...this.cadetList.results,
+                ...newData.results,
+              ]
+              this.cadetList.next = newData.next
+              this.cadetList.previous = newData.previous
+              this.setSerialNumbers()
+            } catch (error) {
+              this.isError = true
+            } finally {
+              this.isLoading = false
+            }
           }
         }
       }
+
+      const observer = new IntersectionObserver(callback, options)
+      observer.observe(this.$refs.observer)
     },
     setSerialNumbers() {
       let i = 1

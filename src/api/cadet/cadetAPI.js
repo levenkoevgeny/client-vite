@@ -34,6 +34,14 @@ class CadetAPI extends BaseAPI {
       { responseType: "blob" },
     )
   }
+
+  async notify_export(export_data) {
+    return axios.post(
+      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/notify_export/`,
+      export_data,
+      { responseType: "blob" },
+    )
+  }
 }
 
 const searchObj = {
@@ -139,6 +147,14 @@ const searchObj = {
   education_average_score__gte: "",
   education_average_score__lte: "",
   who_created: "",
+  speciality_1__in: "",
+  education_kind__in: "",
+  education_kind__inppfl_test__in: "",
+  ppfl_test__in: "",
+  health_group: "",
+  medical_age_group: "",
+  is_risk_group: "",
+  has_gusb_check: "",
   ordering: null,
 }
 

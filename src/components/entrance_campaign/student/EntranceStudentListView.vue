@@ -1,9 +1,9 @@
 <template>
   <base-list-layout
-      :is-loading="isLoading"
-      :main-list-length="studentList.count"
-      title="Личные дела"
-      :load-more-data="null"
+    :is-loading="isLoading"
+    :main-list-length="studentList.count"
+    title="Личные дела"
+    :load-more-data="loadMoreData"
   >
     <template v-slot:add-button>
       <button class="btn btn-warning" @click="showStudentAddModal">
@@ -13,12 +13,12 @@
 
     <template v-slot:modals>
       <div
-          class="modal fade"
-          id="studentAddModal"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-          ref="studentAddModal"
+        class="modal fade"
+        id="studentAddModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+        ref="studentAddModal"
       >
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
@@ -27,10 +27,10 @@
                 Добавление личного дела
               </h1>
               <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
               ></button>
             </div>
 
@@ -38,57 +38,57 @@
               <div class="modal-body">
                 <div class="mb-3">
                   <label for="id_last_name_rus" class="form-label"
-                  >Фамилия</label
+                    >Фамилия</label
                   >
                   <input
-                      type="text"
-                      class="form-control"
-                      id="id_last_name_rus"
-                      v-model="studentNewForm.last_name_rus"
-                      required
+                    type="text"
+                    class="form-control"
+                    id="id_last_name_rus"
+                    v-model="studentNewForm.last_name_rus"
+                    required
                   />
                 </div>
                 <div class="mb-3">
                   <label for="id_first_name_rus" class="form-label">Имя</label>
                   <input
-                      type="text"
-                      class="form-control"
-                      id="id_first_name_rus"
-                      v-model="studentNewForm.first_name_rus"
-                      required
+                    type="text"
+                    class="form-control"
+                    id="id_first_name_rus"
+                    v-model="studentNewForm.first_name_rus"
+                    required
                   />
                 </div>
                 <div class="mb-3">
                   <label for="id_patronymic_rus" class="form-label"
-                  >Отчество</label
+                    >Отчество</label
                   >
                   <input
-                      type="text"
-                      class="form-control"
-                      id="id_patronymic_rus"
-                      v-model="studentNewForm.patronymic_rus"
-                      required
+                    type="text"
+                    class="form-control"
+                    id="id_patronymic_rus"
+                    v-model="studentNewForm.patronymic_rus"
+                    required
                   />
                 </div>
                 <div class="mb-3">
                   <label for="id_date_of_birth" class="form-label"
-                  >Дата рождения</label
+                    >Дата рождения</label
                   >
                   <input
-                      type="date"
-                      class="form-control"
-                      id="id_date_of_birth"
-                      v-model="studentNewForm.date_of_birth"
-                      required
+                    type="date"
+                    class="form-control"
+                    id="id_date_of_birth"
+                    v-model="studentNewForm.date_of_birth"
+                    required
                   />
                 </div>
               </div>
               <div class="modal-footer">
                 <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                    ref="studentAddModalCloseButton"
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                  ref="studentAddModalCloseButton"
                 >
                   Закрыть без сохранения
                 </button>
@@ -110,10 +110,10 @@
     </template>
     <template v-slot:tbody>
       <tr
-          class="align-middle"
-          v-for="student in orderedStudents"
-          :key="student.id"
-          @dblclick="
+        class="align-middle"
+        v-for="student in orderedStudents"
+        :key="student.id"
+        @dblclick="
           $router.push({
             name: 'entrance-student-input-form',
             params: { id: student.id },
@@ -137,18 +137,18 @@
       <div class="mb-3">
         <label for="last_name_rus" class="form-label">Фамилия</label>
         <input
-            type="text"
-            id="last_name_rus"
-            class="form-control"
-            v-model="searchForm.last_name_rus__icontains"
+          type="text"
+          id="last_name_rus"
+          class="form-control"
+          v-model="searchForm.last_name_rus__icontains"
         />
       </div>
       <div class="mb-3">
         <label for="gender" class="form-label">Пол</label>
         <select
-            class="form-select"
-            aria-label="Default select example"
-            v-model="searchForm.gender"
+          class="form-select"
+          aria-label="Default select example"
+          v-model="searchForm.gender"
         >
           <option selected value="">--------</option>
           <option value="1">Мужской</option>
@@ -160,26 +160,26 @@
         <div class="col-6">
           <div class="mb-3">
             <label for="date_of_birth__gte" class="form-label"
-            >Дата рождения (с)</label
+              >Дата рождения (с)</label
             >
             <input
-                type="date"
-                class="form-control"
-                id="date_of_birth__gte"
-                v-model="searchForm.date_of_birth__gte"
+              type="date"
+              class="form-control"
+              id="date_of_birth__gte"
+              v-model="searchForm.date_of_birth__gte"
             />
           </div>
         </div>
         <div class="col-6">
           <div class="mb-3">
             <label for="date_of_birth__lte" class="form-label"
-            >Дата рождения (по)</label
+              >Дата рождения (по)</label
             >
             <input
-                type="date"
-                class="form-control"
-                id="date_of_birth__lte"
-                v-model="searchForm.date_of_birth__lte"
+              type="date"
+              class="form-control"
+              id="date_of_birth__lte"
+              v-model="searchForm.date_of_birth__lte"
             />
           </div>
         </div>
@@ -189,10 +189,10 @@
           <div class="mb-3">
             <label for="age_gte" class="form-label">Возраст (с)</label>
             <input
-                type="number"
-                class="form-control"
-                id="age_gte"
-                v-model="searchForm.age_gte"
+              type="number"
+              class="form-control"
+              id="age_gte"
+              v-model="searchForm.age_gte"
             />
           </div>
         </div>
@@ -200,10 +200,10 @@
           <div class="mb-3">
             <label for="age_lte" class="form-label">Возраст (по)</label>
             <input
-                type="number"
-                class="form-control"
-                id="age_lte"
-                v-model="searchForm.age_lte"
+              type="number"
+              class="form-control"
+              id="age_lte"
+              v-model="searchForm.age_lte"
             />
           </div>
         </div>
@@ -218,11 +218,11 @@
 </template>
 
 <script>
-import NavigationLayout from "@/components/layouts/NavigationLayout.vue";
-import { globalStudentAPIForEntranceInstance } from "@/api/student/studentAPI.js";
-import { debounce } from "lodash/function";
-import { mapGetters } from "vuex";
-import BaseListLayout from "@/components/layouts/BaseListLayout.vue";
+import NavigationLayout from "@/components/layouts/NavigationLayout.vue"
+import { globalStudentAPIForEntranceInstance } from "@/api/student/studentAPI.js"
+import { debounce } from "lodash/function"
+import { mapGetters } from "vuex"
+import BaseListLayout from "@/components/layouts/BaseListLayout.vue"
 export default {
   name: "EntranceStudentListView",
   components: { NavigationLayout, BaseListLayout },
@@ -233,8 +233,8 @@ export default {
       studentList: { count: 0, results: [], previous: null, next: null },
       studentAPIInstance: globalStudentAPIForEntranceInstance,
       searchForm: Object.assign(
-          {},
-          globalStudentAPIForEntranceInstance.searchObj,
+        {},
+        globalStudentAPIForEntranceInstance.searchObj,
       ),
       studentNewForm: {
         category: 3,
@@ -245,34 +245,63 @@ export default {
         date_of_birth: null,
         entrance_year: new Date().getFullYear(),
       },
-    };
+    }
   },
   async created() {
-    await this.loadData();
+    await this.loadData()
   },
   methods: {
     async loadData() {
-      this.isLoading = true;
-      const response = await this.studentAPIInstance.getItemsList();
-      this.studentList = await response.data;
-      this.isLoading = false;
+      this.isLoading = true
+      const response = await this.studentAPIInstance.getItemsList()
+      this.studentList = await response.data
+      this.isLoading = false
     },
+
+    async loadMoreData(entries, observer) {
+      if (entries[0].isIntersecting) {
+        if (this.studentList) {
+          if (this.studentList.next) {
+            this.isLoading = true
+            try {
+              const response = await this.studentAPIInstance.updateList(
+                this.studentList.next,
+              )
+
+              const newData = await response.data
+              this.studentList.results = [
+                ...this.studentList.results,
+                ...newData.results,
+              ]
+              this.studentList.next = newData.next
+              this.studentList.previous = newData.previous
+              this.setSerialNumbers()
+            } catch (error) {
+              this.isError = true
+            } finally {
+              this.isLoading = false
+            }
+          }
+        }
+      }
+    },
+
     showStudentAddModal() {
-      let addModal = this.$refs.studentAddModal;
+      let addModal = this.$refs.studentAddModal
       let myModal = new bootstrap.Modal(addModal, {
         keyboard: false,
-      });
-      myModal.show();
+      })
+      myModal.show()
     },
     async addNewStudentForEntrance() {
-      this.isLoading = true;
+      this.isLoading = true
       const response = await this.studentAPIInstance.addItem(
-          this.studentNewForm,
-      );
-      const newItem = response.data;
-      this.studentList.results.unshift(newItem);
-      this.studentList.count = this.studentList.count + 1;
-      this.$refs.studentAddModalCloseButton.click();
+        this.studentNewForm,
+      )
+      const newItem = response.data
+      this.studentList.results.unshift(newItem)
+      this.studentList.count = this.studentList.count + 1
+      this.$refs.studentAddModalCloseButton.click()
       this.studentNewForm = {
         category: 3,
         last_name_rus: "",
@@ -280,31 +309,31 @@ export default {
         patronymic_rus: "",
         date_of_birth: null,
         entrance_year: new Date().getFullYear(),
-      };
-      this.isLoading = false;
+      }
+      this.isLoading = false
     },
     debouncedSearch: debounce(async function () {
-      this.isLoading = true;
-      this.studentAPIInstance.searchObj = this.searchForm;
-      const studentAResponse = await this.studentAPIInstance.getItemsList();
-      this.studentList = await studentAResponse.data;
-      this.isLoading = false;
+      this.isLoading = true
+      this.studentAPIInstance.searchObj = this.searchForm
+      const studentAResponse = await this.studentAPIInstance.getItemsList()
+      this.studentList = await studentAResponse.data
+      this.isLoading = false
     }, 500),
     clearFilter() {
       this.searchForm = Object.assign(
-          {},
-          this.studentAPIInstance.searchObjDefault,
-      );
+        {},
+        this.studentAPIInstance.searchObjDefault,
+      )
     },
   },
   computed: {
     orderedStudents() {
-      return this.studentList.results;
+      return this.studentList.results
     },
     orderedSubdivisions() {
       return this.subdivisions.results.filter(
-          (subdivision) => subdivision.subdivision_category == "1",
-      );
+        (subdivision) => subdivision.subdivision_category == "1",
+      )
     },
     ...mapGetters({
       subdivisions: "subdivisions/getList",
@@ -313,12 +342,12 @@ export default {
   watch: {
     searchForm: {
       handler(newValue, oldValue) {
-        this.debouncedSearch();
+        this.debouncedSearch()
       },
       deep: true,
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

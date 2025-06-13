@@ -36,7 +36,10 @@
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5">Экспорт данных</h1>
+              <h1 class="modal-title fs-5" v-if="isExporting">
+                Идет экспорт данных ...
+              </h1>
+              <h1 class="modal-title fs-5" v-else>Экспорт данных</h1>
               <button
                 type="button"
                 class="btn-close"
@@ -52,6 +55,7 @@
                     style="font-size: inherit"
                     title="Экспорт в Word"
                     @click="exportData('docx')"
+                    :disabled="isExporting"
                   >
                     <font-awesome-icon :icon="['far', 'file-word']" />
                   </button>
@@ -60,6 +64,7 @@
                     style="font-size: inherit; color: inherit"
                     title="Экспорт в Excel"
                     @click="exportData('xlsx')"
+                    :disabled="isExporting"
                   >
                     <font-awesome-icon :icon="['far', 'file-excel']" />
                   </button>
@@ -262,6 +267,7 @@ import { globalCadetAPIForEntranceInstance } from "@/api/cadet/cadetAPI.js"
 import { debounce } from "lodash/function"
 import { mapGetters } from "vuex"
 import BaseListLayout from "@/components/layouts/BaseListLayout.vue"
+import { getQueryStringFromSearchForm } from "../../../../utils.js"
 
 export default {
   name: "EntranceListView",
@@ -270,6 +276,7 @@ export default {
     return {
       isLoading: true,
       isError: false,
+      isExporting: false,
       currentTime: new Date(),
       cadetList: { count: 0, results: [], previous: null, next: null },
       cadetAPIInstance: globalCadetAPIForEntranceInstance,
@@ -627,32 +634,33 @@ export default {
       this.isLoading = false
     },
 
-    async loadMoreData() {
-      const listElem = document.getElementById("infinite_list")
-      if (
-        listElem.scrollTop + listElem.clientHeight >=
-        listElem.scrollHeight - 1
-      ) {
-        if (this.cadetList.next) {
-          try {
-            const response = await this.cadetAPIInstance.updateList(
-              this.cadetList.next,
-            )
-
-            const newData = await response.data
-            this.cadetList.results = [
-              ...this.cadetList.results,
-              ...newData.results,
-            ]
-            this.cadetList.next = newData.next
-            this.cadetList.previous = newData.previous
-          } catch (error) {
-            this.isError = true
-          } finally {
+    async loadMoreData(entries, observer) {
+      if (entries[0].isIntersecting) {
+        if (this.cadetList) {
+          if (this.cadetList.next) {
+            this.isLoading = true
+            try {
+              const response = await this.cadetAPIInstance.updateList(
+                this.cadetList.next,
+              )
+              const newData = await response.data
+              this.cadetList.results = [
+                ...this.cadetList.results,
+                ...newData.results,
+              ]
+              this.cadetList.next = newData.next
+              this.cadetList.previous = newData.previous
+              this.setSerialNumbers()
+            } catch (error) {
+              this.isError = true
+            } finally {
+              this.isLoading = false
+            }
           }
         }
       }
     },
+
     showCadetAddModal() {
       let addModal = this.$refs.cadetAddModal
       let myModal = new bootstrap.Modal(addModal, {
@@ -710,24 +718,10 @@ export default {
       if (this.selectedFieldsForDataExport.length === 0) {
         alert("Выберите хотя бы одно поле для экспорта!")
       } else {
+        this.isExporting = true
         let export_data = {}
-        let queryString = "?"
-        for (let key in this.searchForm) {
-          if (key.includes("__in")) {
-            if (typeof this.searchForm[key] === "object") {
-              const valArray = this.searchForm[key]
-              let keyVal = ""
-              valArray.forEach((val) => {
-                keyVal = keyVal + `${key}=${val}&`
-              })
-              queryString = queryString + keyVal
-            }
-          } else {
-            queryString = queryString + `${key}=${this.searchForm[key]}&`
-          }
-        }
 
-        export_data.query_string = queryString
+        export_data.query_string = getQueryStringFromSearchForm(this.searchForm)
         export_data.fields_for_export =
           this.selectedFieldsForDataExport.toString()
         export_data.destination = destination
@@ -739,6 +733,7 @@ export default {
           link.setAttribute("download", `file.${destination}`)
           document.body.appendChild(link)
           link.click()
+          this.isExporting = false
         })
       }
     },

@@ -191,29 +191,28 @@ export default {
         photo: response.data.photo,
       }
     },
-    async loadMoreData() {
-      const listElem = document.getElementById("infinite_list")
-      if (
-        listElem.scrollTop + listElem.clientHeight >=
-        listElem.scrollHeight - 1
-      ) {
-        if (this.cadetList.next) {
-          try {
-            const response = await this.cadetAPIInstance.updateList(
-              this.cadetList.next,
-            )
 
-            const newData = await response.data
-            this.cadetList.results = [
-              ...this.cadetList.results,
-              ...newData.results,
-            ]
-            this.cadetList.next = newData.next
-            this.cadetList.previous = newData.previous
-            this.setSerialNumbers()
-          } catch (error) {
-            this.isError = true
-          } finally {
+    async loadMoreData(entries, observer) {
+      if (entries[0].isIntersecting) {
+        if (this.cadetList) {
+          if (this.cadetList.next) {
+            try {
+              const response = await this.cadetAPIInstance.updateList(
+                this.cadetList.next,
+              )
+
+              const newData = await response.data
+              this.cadetList.results = [
+                ...this.cadetList.results,
+                ...newData.results,
+              ]
+              this.cadetList.next = newData.next
+              this.cadetList.previous = newData.previous
+              this.setSerialNumbers()
+            } catch (error) {
+              this.isError = true
+            } finally {
+            }
           }
         }
       }
