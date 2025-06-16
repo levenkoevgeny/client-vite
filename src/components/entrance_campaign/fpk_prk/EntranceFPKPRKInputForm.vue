@@ -1020,6 +1020,21 @@
                           </div>
                         </div>
                       </div>
+                      <div class="row">
+                        <div class="col-12">
+                          <div class="form-floating mb-3">
+                            <textarea
+                              class="form-control"
+                              rows="1"
+                              id="id_place_of_work_position"
+                              v-model="currentFPKPRKData.place_of_work_position"
+                            />
+                            <label for="id_place_of_work_position"
+                              >Место работы и должность</label
+                            >
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1812,24 +1827,26 @@
               <div class="mb-4">
                 <h5 class="fw-bold">Выбор специальностей</h5>
                 <div class="row">
-                  <div class="col-5">
-                    <!--                  <div class="form-floating mb-3">-->
-                    <!--                    <select-->
-                    <!--                      id="id_s1"-->
-                    <!--                      class="form-select"-->
-                    <!--                      v-model="currentFPKPRKData.speciality_1"-->
-                    <!--                    >-->
-                    <!--                      <option :value="null">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
-                    <!--                      <option-->
-                    <!--                        :value="quota.id"-->
-                    <!--                        v-for="quota in orderedAdmissionQuotes_select_1"-->
-                    <!--                      >-->
-                    <!--                        {{ quota.quota_verbose_name }}-->
-                    <!--                      </option>-->
-                    <!--                    </select>-->
-                    <!--                    <label for="id_s1">Специальность</label>-->
-                    <!--                  </div>-->
+                  <div class="col-4">
+                    <div class="form-floating mb-3">
+                      <select
+                        id="id_s1"
+                        class="form-select"
+                        v-model="currentFPKPRKData.speciality"
+                      >
+                        <option :value="null">---------</option>
+                        <option
+                          :value="quota.id"
+                          v-for="quota in orderedAdmissionQuotes_select_1"
+                        >
+                          {{ quota.quota_verbose_name }}
+                        </option>
+                      </select>
+                      <label for="id_s1">Специальность - квота</label>
+                    </div>
+                  </div>
 
+                  <div class="col-4">
                     <div class="form-floating mb-3">
                       <select
                         id="id_s1"
@@ -1847,7 +1864,7 @@
                       <label for="id_s1">Специальность</label>
                     </div>
                   </div>
-                  <div class="col-5">
+                  <div class="col-4">
                     <div class="form-floating mb-3">
                       <select
                         id="id_privilege"
@@ -2913,6 +2930,27 @@ export default {
     orderedSpecialities() {
       return this.specialities.results
     },
+
+    orderedAdmissionQuotes_select_1() {
+      return this.orderedAdmissionQuotes
+    },
+
+    orderedAdmissionQuotes() {
+      return this.admissionQuota.results
+        .filter((quota) => quota.ownership_category === "4")
+        .sort((a, b) => {
+          const admission_codeA = a.admission_code
+          const admission_codeB = b.admission_code
+          if (admission_codeA < admission_codeB) {
+            return -1
+          }
+          if (admission_codeA > admission_codeB) {
+            return 1
+          }
+          return 0
+        })
+    },
+
     isDataFromServerEqualChangedData() {
       return isEqual(
         this.removeFileFieldsFromObj(this.currentFPKPRKData),
@@ -3005,6 +3043,7 @@ export default {
       educationLocalityKinds: "educationLocalityKind/getList",
       medals: "medals/getList",
       inWhoseInterests: "inWhoseInterests/getList",
+      admissionQuota: "admissionQuota/getList",
     }),
   },
   watch: {

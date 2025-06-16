@@ -10,7 +10,10 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5">Экспорт данных</h1>
+          <h1 class="modal-title fs-5" v-if="isExporting">
+            Идет экспорт данных ...
+          </h1>
+          <h1 class="modal-title fs-5" v-else>Экспорт данных</h1>
           <button
             type="button"
             class="btn-close"
@@ -1430,6 +1433,10 @@ export default {
           fieldName: "Специальность (обучается)",
           fieldValue: "get_speciality",
         },
+        {
+          fieldName: "Специальность (на которую поступает)",
+          fieldValue: "get_speciality_1",
+        },
         { fieldName: "Специализация", fieldValue: "get_specialization" },
         {
           fieldName: "Направление служебной деятельности",
@@ -1605,6 +1612,7 @@ export default {
       this.selectedFieldsForDataExport = []
     },
     async exportData(destination) {
+      console.log(destination)
       if (this.selectedFieldsForDataExport.length === 0) {
         alert("Выберите хотя бы одно поле для экспорта!")
       } else {
@@ -1623,7 +1631,7 @@ export default {
           link.setAttribute("download", `file.${destination}`)
           document.body.appendChild(link)
           link.click()
-          this.isExporting = true
+          this.isExporting = false
         })
       }
     },

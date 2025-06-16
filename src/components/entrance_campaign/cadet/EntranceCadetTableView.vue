@@ -178,6 +178,7 @@
             <th scope="col" class="text-center">№п.п.</th>
             <th scope="col">Активный</th>
             <th scope="col">Кто изучал дело</th>
+            <th scope="col">Заявление отпечатано</th>
             <th scope="col" class="text-center">
               <div class="d-flex flex-row align-items-center">
                 <span class="text-nowrap">Учреждение образования</span>
@@ -1170,6 +1171,22 @@
                 </option>
               </select>
             </th>
+
+            <th>
+              <div class="d-flex justify-content-center align-items-center">
+                <input
+                  type="date"
+                  class="form-control me-2"
+                  v-model="searchForm.application_has_been_printed_date__gte"
+                />
+                <input
+                  type="date"
+                  class="form-control"
+                  v-model="searchForm.application_has_been_printed_date__lte"
+                />
+              </div>
+            </th>
+
             <th style="min-width: 200px">
               <v-select
                 v-model="searchForm.educational_institution__in"
@@ -1690,6 +1707,21 @@
               <font-awesome-icon :icon="['fas', 'lock']" />
             </td>
             <td></td>
+            <td v-if="cadet.application_has_been_printed_date">
+              {{
+                new Date(
+                  cadet.application_has_been_printed_date,
+                ).toLocaleString("ru-RU", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                  second: "numeric",
+                })
+              }}
+            </td>
+            <td v-else></td>
             <td>{{ cadet.get_educational_institution }}</td>
             <td>{{ cadet.get_component_organ }}</td>
             <td>{{ cadet.get_arrived_from_go_rovd }}</td>
