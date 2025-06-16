@@ -728,7 +728,7 @@
                           <select
                             id="id_education_level"
                             class="form-select"
-                            v-model="currentFPKPRKData.education_kind"
+                            v-model="currentFPKPRKData.education_level"
                           >
                             <option :value="null">---------</option>
                             <option

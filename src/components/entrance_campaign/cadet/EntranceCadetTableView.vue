@@ -178,7 +178,43 @@
             <th scope="col" class="text-center">№п.п.</th>
             <th scope="col">Активный</th>
             <th scope="col">Кто изучал дело</th>
-            <th scope="col">Заявление отпечатано</th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <span class="text-nowrap">Заявление отпечатано</span>
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="
+                          setOrdering('application_has_been_printed_date__date')
+                        "
+                      >
+                        А -> Я
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="
+                          setOrdering(
+                            '-application_has_been_printed_date__date',
+                          )
+                        "
+                      >
+                        Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
             <th scope="col" class="text-center">
               <div class="d-flex flex-row align-items-center">
                 <span class="text-nowrap">Учреждение образования</span>
