@@ -1832,7 +1832,7 @@
                       <select
                         id="id_s1"
                         class="form-select"
-                        v-model="currentFPKPRKData.speciality"
+                        v-model="currentFPKPRKData.speciality_1"
                       >
                         <option :value="null">---------</option>
                         <option
@@ -1869,7 +1869,7 @@
                       <select
                         id="id_privilege"
                         class="form-select"
-                        v-model="currentFPKPRKData.privilege"
+                        v-model="currentFPKPRKData.privilege_1"
                       >
                         <option :value="null">---------</option>
                         <option

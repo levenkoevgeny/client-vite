@@ -193,7 +193,7 @@
                       <button
                         class="dropdown-item"
                         @click="
-                          setOrdering('application_has_been_printed_date__date')
+                          setOrdering('application_has_been_printed_date')
                         "
                       >
                         А -> Я
@@ -203,9 +203,7 @@
                       <button
                         class="dropdown-item"
                         @click="
-                          setOrdering(
-                            '-application_has_been_printed_date__date',
-                          )
+                          setOrdering('-application_has_been_printed_date')
                         "
                       >
                         Я -> А
@@ -215,7 +213,7 @@
                 </div>
               </div>
             </th>
-            <th scope="col" class="text-center">
+            <th scope="col" class="text-center" style="min-width: 450px">
               <div class="d-flex flex-row align-items-center">
                 <span class="text-nowrap">Учреждение образования</span>
                 <div class="dropdown">
@@ -254,7 +252,7 @@
                 </div>
               </div>
             </th>
-            <th scope="col">
+            <th scope="col" style="min-width: 450px">
               <div class="d-flex flex-row align-items-center">
                 <span class="text-nowrap">Комплектующий орган</span>
                 <div class="dropdown">
@@ -285,7 +283,7 @@
                 </div>
               </div>
             </th>
-            <th scope="col">
+            <th scope="col" style="min-width: 450px">
               <div class="d-flex flex-row align-items-center">
                 <span class="text-nowrap">Прибыл из ГО-РОВД</span>
                 <div class="dropdown">
@@ -352,7 +350,7 @@
               </div>
             </th>
 
-            <th scope="col">
+            <th scope="col" style="min-width: 450px">
               <div class="d-flex flex-row align-items-center">
                 <span class="text-nowrap">Специальность 1</span>
               </div>
