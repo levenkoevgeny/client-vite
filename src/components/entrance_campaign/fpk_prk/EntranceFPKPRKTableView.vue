@@ -122,7 +122,7 @@
           <tr>
             <th scope="col" class="text-center">№п.п.</th>
             <th scope="col" class="text-center">ФПК / МАГ</th>
-            <th scope="col">
+            <th scope="col" style="min-width: 450px">
               <div class="d-flex flex-row align-items-center">
                 <span class="text-nowrap">Комплектующий орган</span>
                 <div class="dropdown">
@@ -153,7 +153,48 @@
                 </div>
               </div>
             </th>
-            <th scope="col">
+            <th scope="col" style="min-width: 450px">
+              <div class="d-flex flex-row align-items-center">
+                <span class="text-nowrap"
+                  >Специальность на которую поступает</span
+                >
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="
+                          setOrdering(
+                            'speciality_1__speciality__speciality_name',
+                          )
+                        "
+                      >
+                        А -> Я
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="
+                          setOrdering(
+                            '-speciality_1__speciality__speciality_name',
+                          )
+                        "
+                      >
+                        Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
+            <th scope="col" style="min-width: 450px">
               <div class="d-flex flex-row align-items-center">
                 <span class="text-nowrap">Прибыл из ГО-РОВД</span>
                 <div class="dropdown">
@@ -182,6 +223,41 @@
                         "
                       >
                         Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <span class="text-nowrap">Заявление отпечатано</span>
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="
+                          setOrdering('application_has_been_printed_date')
+                        "
+                      >
+                        меньш. -> больш.
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="
+                          setOrdering('-application_has_been_printed_date')
+                        "
+                      >
+                        больш. -> меньш.
                       </button>
                     </li>
                   </ul>
@@ -219,6 +295,19 @@
                 </div>
               </div>
             </th>
+
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <span class="text-nowrap">Примечания для отдела кадров</span>
+              </div>
+            </th>
+
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <span class="text-nowrap">Замечания по личному делу</span>
+              </div>
+            </th>
+
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
                 <span class="text-nowrap">Фамилия</span>
@@ -508,8 +597,8 @@
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
                 <nobr
-                  >Колличество баллов по белорусскому языку (сертификат)</nobr
-                >
+                  >Колличество баллов по белорусскому языку (сертификат)
+                </nobr>
                 <div class="dropdown">
                   <button
                     class="btn dropdown-toggle"
@@ -696,8 +785,8 @@
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
                 <nobr
-                  >Колличество баллов по иностранному языку (сертификат)</nobr
-                >
+                  >Колличество баллов по иностранному языку (сертификат)
+                </nobr>
                 <div class="dropdown">
                   <button
                     class="btn dropdown-toggle"
@@ -918,10 +1007,11 @@
             <th style="min-width: 200px">
               <select class="form-select" v-model="searchForm.fpk_mag_choice">
                 <option selected value="">-------</option>
-                <option value="1" key="1">ФПКиПРК</option>
-                <option value="0" key="2">Маг</option>
+                <option :value="1" key="1">ФПКиПРК</option>
+                <option :value="2" key="2">Маг</option>
               </select>
             </th>
+
             <th>
               <v-select
                 v-model="searchForm.component_organ__in"
@@ -931,6 +1021,17 @@
                 multiple
               />
             </th>
+
+            <th>
+              <v-select
+                v-model="searchForm.speciality_1__in"
+                :options="orderedAdmissionQuotas"
+                label="quota_verbose_name"
+                :reduce="(quota) => quota.id"
+                multiple
+              />
+            </th>
+
             <th>
               <v-select
                 v-model="searchForm.arrived_from_go_rovd__in"
@@ -940,6 +1041,22 @@
                 multiple
               />
             </th>
+
+            <th>
+              <div class="d-flex justify-content-center align-items-center">
+                <input
+                  type="date"
+                  class="form-control me-2"
+                  v-model="searchForm.application_has_been_printed_date__gte"
+                />
+                <input
+                  type="date"
+                  class="form-control"
+                  v-model="searchForm.application_has_been_printed_date__lte"
+                />
+              </div>
+            </th>
+
             <th>
               <select class="form-select" v-model="searchForm.gender">
                 <option selected value="">-------</option>
@@ -947,6 +1064,23 @@
                 <option value="0" key="0">Женский</option>
               </select>
             </th>
+
+            <th>
+              <input
+                type="text"
+                class="form-control"
+                v-model="searchForm.extra_data__icontains"
+              />
+            </th>
+
+            <th>
+              <input
+                type="text"
+                class="form-control"
+                v-model="searchForm.comments_on_personal_file__icontains"
+              />
+            </th>
+
             <th>
               <input
                 type="text"
@@ -961,6 +1095,7 @@
                 v-model="searchForm.first_name_rus__icontains"
               />
             </th>
+
             <th>
               <input
                 type="text"
@@ -1300,8 +1435,37 @@
             <td class="text-center">{{ fpkprk.serial_number }}</td>
             <td>{{ fpkprk.get_fpk_mag_choice }}</td>
             <td>{{ fpkprk.get_component_organ }}</td>
+            <template v-if="Object.keys(normalizedAdmissionQuota).length === 0">
+              <td></td>
+            </template>
+            <template v-else>
+              <td v-if="fpkprk.speciality_1">
+                {{
+                  normalizedAdmissionQuota[fpkprk.speciality_1]
+                    .quota_verbose_name
+                }}
+              </td>
+              <td v-else></td>
+            </template>
             <td>{{ fpkprk.get_arrived_from_go_rovd }}</td>
+            <td v-if="fpkprk.application_has_been_printed_date">
+              {{
+                new Date(
+                  fpkprk.application_has_been_printed_date,
+                ).toLocaleString("ru-RU", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                  second: "numeric",
+                })
+              }}
+            </td>
+            <td v-else></td>
             <td>{{ fpkprk.get_gender }}</td>
+            <td>{{ fpkprk.extra_data }}</td>
+            <td>{{ fpkprk.comments_on_personal_file }}</td>
             <td>{{ fpkprk.last_name_rus }}</td>
             <td>{{ fpkprk.first_name_rus }}</td>
             <td>{{ fpkprk.patronymic_rus }}</td>
@@ -1451,8 +1615,12 @@ export default {
         },
         { fieldName: "Комплектующий орган", fieldValue: "get_component_organ" },
         {
-          fieldName: "Замечания по личному делу",
+          fieldName: "Примечание для отдела кадров",
           fieldValue: "comments_on_personal_file",
+        },
+        {
+          fieldName: "Замечания по личному делу",
+          fieldValue: "extra_data",
         },
         {
           fieldName: "Вид учреждения образования",
@@ -1710,6 +1878,26 @@ export default {
     orderedGorovds() {
       return this.gorovds.results
     },
+    orderedAdmissionQuotas() {
+      return this.admissionQuotas.results
+        .filter((quota) => quota.ownership_category === "4")
+        .sort((a, b) => {
+          const admission_codeA = a.admission_code
+          const admission_codeB = b.admission_code
+          if (admission_codeA < admission_codeB) {
+            return -1
+          }
+          if (admission_codeA > admission_codeB) {
+            return 1
+          }
+          return 0
+        })
+    },
+    normalizedAdmissionQuota() {
+      let normObj = {}
+      this.admissionQuotas.results.map((item) => (normObj[item.id] = item))
+      return normObj
+    },
     ...mapGetters({
       componentOrgans: "componentOrgans/getList",
       passportIssueAuthorities: "passportAuthorities/getList",
@@ -1718,6 +1906,7 @@ export default {
       graduationReasons: "graduationReasons/getList",
       educationalInstitutions: "educationalInstitutions/getList",
       gorovds: "gorovds/getList",
+      admissionQuotas: "admissionQuota/getList",
     }),
   },
   watch: {

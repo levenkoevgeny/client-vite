@@ -85,12 +85,18 @@ const searchObj = {
   academy_end_date__lte: "",
   current_speciality: "",
   current_speciality__in: "",
+  privilege_1: "",
+  privilege_1__in: "",
+  speciality_1: "",
+  speciality_1__in: "",
   component_organ: "",
   component_organ__in: "",
   entrance_category: "",
   entrance_category__in: "",
   arrived_from_go_rovd: "",
   arrived_from_go_rovd__in: "",
+  extra_data__icontains: "",
+  comments_on_personal_file__icontains: "",
   ordering: null,
 }
 

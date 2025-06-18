@@ -219,10 +219,6 @@ export default {
           itemTitle: "В чьих интересах",
           itemUrl: "dictionaries-in-whose-interests",
         },
-        {
-          itemTitle: "Группы предназначения",
-          itemUrl: "dictionaries-health-groups",
-        },
       ],
     }
   },

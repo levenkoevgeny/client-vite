@@ -1772,7 +1772,6 @@
               </td>
               <td v-else></td>
             </template>
-
             <template v-if="Object.keys(normalizedEducationKinds).length === 0">
               <td></td>
             </template>

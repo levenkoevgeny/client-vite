@@ -297,6 +297,7 @@ export default {
         last_name_rus: "",
         first_name_rus: "",
         date_of_birth: null,
+        category: 4,
       },
     }
   },
@@ -358,6 +359,7 @@ export default {
           last_name_rus: "",
           first_name_rus: "",
           date_of_birth: null,
+          category: 4,
         }
       } catch (e) {
         this.isError = true

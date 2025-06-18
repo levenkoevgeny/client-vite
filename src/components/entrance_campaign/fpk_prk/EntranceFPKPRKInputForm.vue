@@ -418,8 +418,8 @@
                       id="id_fpk_mag_choice"
                       v-model="currentFPKPRKData.fpk_mag_choice"
                     >
-                      <option value="1">ФПК ПРК</option>
-                      <option value="2">Маг</option>
+                      <option :value="1">ФПК ПРК</option>
+                      <option :value="2">Маг</option>
                     </select>
                     <label for="id_last_name_rus">Выберите категорию</label>
                   </div>
@@ -519,24 +519,24 @@
             <div class="card-body">
               <h5 class="card-title">Блок по Академии</h5>
               <div class="row mt-3">
-                <div class="col-xl-3">
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_privilege"
-                      class="form-select"
-                      v-model="currentFPKPRKData.privilege"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="privilege.id"
-                        v-for="privilege in orderedPrivileges"
-                      >
-                        {{ privilege.privilege }}
-                      </option>
-                    </select>
-                    <label for="id_privilege">Льгота</label>
-                  </div>
-                </div>
+                <!--                <div class="col-xl-3">-->
+                <!--                  <div class="form-floating mb-3">-->
+                <!--                    <select-->
+                <!--                      id="id_privilege"-->
+                <!--                      class="form-select"-->
+                <!--                      v-model="currentFPKPRKData.privilege"-->
+                <!--                    >-->
+                <!--                      <option :value="null">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
+                <!--                      <option-->
+                <!--                        :value="privilege.id"-->
+                <!--                        v-for="privilege in orderedPrivileges"-->
+                <!--                      >-->
+                <!--                        {{ privilege.privilege }}-->
+                <!--                      </option>-->
+                <!--                    </select>-->
+                <!--                    <label for="id_privilege">Льгота</label>-->
+                <!--                  </div>-->
+                <!--                </div>-->
 
                 <div class="col-xl-3">
                   <div class="form-floating mb-3">
@@ -1884,7 +1884,8 @@
                   </div>
                 </div>
               </div>
-              <div>
+
+              <div v-if="currentFPKPRKData.fpk_mag_choice === 1">
                 <h5>Набранные баллы</h5>
                 <div>
                   <p class="fw-bold">
@@ -2829,7 +2830,17 @@ export default {
   },
   computed: {
     orderedRanks() {
-      return this.ranks.results
+      return this.ranks.results.sort((a, b) => {
+        const rankA = a.rank.toUpperCase()
+        const rankB = b.rank.toUpperCase()
+        if (rankA < rankB) {
+          return -1
+        }
+        if (rankA > rankB) {
+          return 1
+        }
+        return 0
+      })
     },
     orderedSubdivisions() {
       return this.subdivisions.results.filter(
