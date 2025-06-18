@@ -2428,16 +2428,9 @@ export default {
           ),
           $autoDirty: true,
         },
-        foreign_language_was: {
+        foreign_language: {
           required: helpers.withMessage(
-            "Поле 'Иностранный язык, который изучал' не может быть пустым",
-            required,
-          ),
-          $autoDirty: true,
-        },
-        foreign_language_will_be: {
-          required: helpers.withMessage(
-            "Поле 'Иностранный язык, который будет изучать' не может быть пустым",
+            "Поле 'Иностранный язык' не может быть пустым",
             required,
           ),
           $autoDirty: true,
@@ -2452,76 +2445,6 @@ export default {
         phone_number: {
           required: helpers.withMessage(
             "Поле 'Номер телефона' не может быть пустым",
-            required,
-          ),
-          $autoDirty: true,
-        },
-        mother_last_name: {
-          required: helpers.withMessage(
-            "Поле 'Фамилия матери' не может быть пустым",
-            required,
-          ),
-          $autoDirty: true,
-        },
-        mother_first_name: {
-          required: helpers.withMessage(
-            "Поле 'Имя матери' не может быть пустым",
-            required,
-          ),
-          $autoDirty: true,
-        },
-        mother_patronymic: {
-          required: helpers.withMessage(
-            "Поле 'Отчество матери' не может быть пустым",
-            required,
-          ),
-          $autoDirty: true,
-        },
-        mother_address_residence: {
-          required: helpers.withMessage(
-            "Поле 'Мать проживает по адресу' не может быть пустым",
-            required,
-          ),
-          $autoDirty: true,
-        },
-        mother_phone_number: {
-          required: helpers.withMessage(
-            "Поле 'Мать - контактный телефон' не может быть пустым",
-            required,
-          ),
-          $autoDirty: true,
-        },
-        father_last_name: {
-          required: helpers.withMessage(
-            "Поле 'Фамилия отца' не может быть пустым",
-            required,
-          ),
-          $autoDirty: true,
-        },
-        father_first_name: {
-          required: helpers.withMessage(
-            "Поле 'Имя отца' не может быть пустым",
-            required,
-          ),
-          $autoDirty: true,
-        },
-        father_patronymic: {
-          required: helpers.withMessage(
-            "Поле 'Отчество отца' не может быть пустым",
-            required,
-          ),
-          $autoDirty: true,
-        },
-        father_address_residence: {
-          required: helpers.withMessage(
-            "Поле 'Отец проживает по адресу' не может быть пустым",
-            required,
-          ),
-          $autoDirty: true,
-        },
-        father_phone_number: {
-          required: helpers.withMessage(
-            "Поле 'Отец - контактный телефон' не может быть пустым",
             required,
           ),
           $autoDirty: true,
@@ -2557,56 +2480,64 @@ export default {
         rus_score_ct: {
           required: helpers.withMessage(
             "Поле 'Русский язык - количество баллов по сертификату' не может быть пустым",
-            requiredIf(() => !this.applicationPrintData.bel_score_ct),
+            requiredIf(
+              () =>
+                !this.applicationPrintData.bel_score_ct &&
+                this.currentFPKPRKData.fpk_mag_choice === 1,
+            ),
           ),
           $autoDirty: true,
         },
         bel_score_ct: {
           required: helpers.withMessage(
             "Поле 'Белорусский язык - количество баллов по сертификату' не может быть пустым",
-            requiredIf(() => !this.applicationPrintData.rus_score_ct),
+            requiredIf(
+              () =>
+                !this.applicationPrintData.rus_score_ct &&
+                this.currentFPKPRKData.fpk_mag_choice === 1,
+            ),
           ),
           $autoDirty: true,
         },
         social_science_score_ct: {
           required: helpers.withMessage(
             "Поле 'Обществоведение - количество баллов по сертификату' не может быть пустым",
-            required,
+            requiredIf(() => this.currentFPKPRKData.fpk_mag_choice === 1),
           ),
           $autoDirty: true,
         },
         foreign_lang_score_ct: {
           required: helpers.withMessage(
             "Поле 'Иностранный язык - количество баллов по сертификату' не может быть пустым",
-            required,
+            requiredIf(() => this.currentFPKPRKData.fpk_mag_choice === 1),
           ),
           $autoDirty: true,
         },
         rus_score_cert: {
           required: helpers.withMessage(
             "Поле 'Русский язык - количество баллов в аттестате' не может быть пустым",
-            required,
+            requiredIf(() => this.currentFPKPRKData.fpk_mag_choice === 1),
           ),
           $autoDirty: true,
         },
         bel_score_cert: {
           required: helpers.withMessage(
             "Поле 'Белорусский язык - количество баллов в аттестате' не может быть пустым",
-            required,
+            requiredIf(() => this.currentFPKPRKData.fpk_mag_choice === 1),
           ),
           $autoDirty: true,
         },
         social_science_score_cert: {
           required: helpers.withMessage(
             "Поле 'Обществоведение - количество баллов в аттестате' не может быть пустым",
-            required,
+            requiredIf(() => this.currentFPKPRKData.fpk_mag_choice === 1),
           ),
           $autoDirty: true,
         },
         foreign_lang_score_cert: {
           required: helpers.withMessage(
             "Поле 'Иностранный язык - количество баллов в аттестате' не может быть пустым",
-            required,
+            requiredIf(() => this.currentFPKPRKData.fpk_mag_choice === 1),
           ),
           $autoDirty: true,
         },
