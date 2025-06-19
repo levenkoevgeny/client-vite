@@ -46,6 +46,7 @@ import { faImage } from "@fortawesome/free-solid-svg-icons"
 import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons"
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons"
 import { faBook } from "@fortawesome/free-solid-svg-icons"
+import { faFile } from "@fortawesome/free-solid-svg-icons"
 import axios from "axios"
 import "../public/vue-select.css"
 export const axiosInstance = axios.create()
@@ -90,6 +91,7 @@ library.add(faImage)
 library.add(faFloppyDisk)
 library.add(faEnvelope)
 library.add(faBook)
+library.add(faFile)
 
 axiosInstance.interceptors.request.use(
   (config) => {

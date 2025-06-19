@@ -34,6 +34,41 @@ class FPKPRKStudentAPI extends BaseAPI {
       { responseType: "blob" },
     )
   }
+
+  async get_notifies() {
+    return axios.get(
+      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/get_notifies/`,
+      { responseType: "blob" },
+    )
+  }
+
+  async get_exam_sheet_gu() {
+    return axios.get(
+      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/get_exam_sheet_gu/`,
+      { responseType: "blob" },
+    )
+  }
+
+  async get_exam_sheet_yur() {
+    return axios.get(
+      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/get_exam_sheet_yur/`,
+      { responseType: "blob" },
+    )
+  }
+
+  async get_title_pages_gu() {
+    return axios.get(
+      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/get_title_pages_gu/`,
+      { responseType: "blob" },
+    )
+  }
+
+  async get_title_pages_yur() {
+    return axios.get(
+      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/get_title_pages_yur/`,
+      { responseType: "blob" },
+    )
+  }
 }
 
 const searchObj = {

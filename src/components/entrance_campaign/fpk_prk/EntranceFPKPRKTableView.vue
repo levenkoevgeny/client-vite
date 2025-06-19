@@ -1,4 +1,6 @@
 <template>
+  <!-- export modal-->
+
   <div
     class="modal fade"
     id="exportDataModal"
@@ -79,6 +81,91 @@
     </div>
   </div>
 
+  <!--  documents modal-->
+
+  <div
+    class="modal fade"
+    id="documentsModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+    ref="documentsModal"
+  >
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" v-if="isDocumentProcessing">
+            Идет формирование документа ...
+          </h1>
+          <h1 class="modal-title fs-5" v-else>Выходные документы</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-6">
+              <h3>Магистратура</h3>
+              <div class="d-flex flex-column">
+                <button
+                  class="btn btn-secondary mb-3 text-start"
+                  @click="notifyExport"
+                  :disabled="isDocumentProcessing"
+                >
+                  <font-awesome-icon
+                    :icon="['fas', 'envelope']"
+                  />&nbsp;&nbsp;Измещения (МАГ)
+                </button>
+                <button
+                  class="btn btn-secondary mb-3 text-start"
+                  @click="examSheetGU"
+                  :disabled="isDocumentProcessing"
+                >
+                  <font-awesome-icon
+                    :icon="['fas', 'file']"
+                  />&nbsp;&nbsp;Экзаменационная ведомость (МАГ ГУ)
+                </button>
+                <button
+                  class="btn btn-secondary mb-3 text-start"
+                  @click="examSheetYUR"
+                  :disabled="isDocumentProcessing"
+                >
+                  <font-awesome-icon
+                    :icon="['fas', 'file']"
+                  />&nbsp;&nbsp;Экзаменационная ведомость (МАГ ЮР)
+                </button>
+                <button
+                  class="btn btn-secondary mb-3 text-start"
+                  @click="titlePagesGU"
+                  :disabled="isDocumentProcessing"
+                >
+                  <font-awesome-icon
+                    :icon="['fas', 'file']"
+                  />&nbsp;&nbsp;Титульные листы (МАГ ГУ)
+                </button>
+                <button
+                  class="btn btn-secondary mb-3 text-start"
+                  @click="titlePagesYUR"
+                  :disabled="isDocumentProcessing"
+                >
+                  <font-awesome-icon
+                    :icon="['fas', 'file']"
+                  />&nbsp;&nbsp;Титульные листы (МАГ ЮР)
+                </button>
+              </div>
+            </div>
+            <div class="col-6">
+              <h3>ФПКиПРК</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="container-fluid">
     <div class="my-3"></div>
     <ul class="nav nav-links my-3 mb-lg-2 mx-n3">
@@ -96,6 +183,12 @@
     >
       <div class="m-0 p-0"></div>
       <div class="d-flex flex-row">
+        <button class="btn btn-secondary me-3" @click="showDocumentsModal">
+          Выходные документы&nbsp;&nbsp;<font-awesome-icon
+            :icon="['fas', 'print']"
+          />
+        </button>
+
         <button class="btn btn-secondary me-3" @click="showExportDataModal">
           Экспорт&nbsp;&nbsp;<font-awesome-icon
             :icon="['fas', 'file-export']"
@@ -1522,6 +1615,7 @@ export default {
       isLoading: true,
       isError: false,
       isExporting: false,
+      isDocumentProcessing: false,
       fieldsForDataExport: [
         {
           fieldName: "Статус записи (активна/ неактивна)",
@@ -1802,6 +1896,79 @@ export default {
           this.isExporting = false
         })
       }
+    },
+
+    async notifyExport() {
+      this.isDocumentProcessing = true
+      this.fpkprkAPIInstance.get_notifies().then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]))
+        const link = document.createElement("a")
+        link.href = url
+        link.setAttribute("download", `notify.docx`)
+        document.body.appendChild(link)
+        link.click()
+        this.isDocumentProcessing = false
+      })
+    },
+
+    async examSheetGU() {
+      this.isDocumentProcessing = true
+      this.fpkprkAPIInstance.get_exam_sheet_gu().then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]))
+        const link = document.createElement("a")
+        link.href = url
+        link.setAttribute("download", `exam_sheet_gu.docx`)
+        document.body.appendChild(link)
+        link.click()
+        this.isDocumentProcessing = false
+      })
+    },
+
+    async examSheetYUR() {
+      this.isDocumentProcessing = true
+      this.fpkprkAPIInstance.get_exam_sheet_yur().then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]))
+        const link = document.createElement("a")
+        link.href = url
+        link.setAttribute("download", `exam_sheet_yur.docx`)
+        document.body.appendChild(link)
+        link.click()
+        this.isDocumentProcessing = false
+      })
+    },
+
+    async titlePagesGU() {
+      this.isDocumentProcessing = true
+      this.fpkprkAPIInstance.get_title_pages_gu().then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]))
+        const link = document.createElement("a")
+        link.href = url
+        link.setAttribute("download", `title_pages.docx`)
+        document.body.appendChild(link)
+        link.click()
+        this.isDocumentProcessing = false
+      })
+    },
+
+    async titlePagesYUR() {
+      this.isDocumentProcessing = true
+      this.fpkprkAPIInstance.get_title_pages_yur().then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]))
+        const link = document.createElement("a")
+        link.href = url
+        link.setAttribute("download", `title_pages.docx`)
+        document.body.appendChild(link)
+        link.click()
+        this.isDocumentProcessing = false
+      })
+    },
+
+    showDocumentsModal() {
+      let addModal = this.$refs.documentsModal
+      let myModal = new bootstrap.Modal(addModal, {
+        keyboard: false,
+      })
+      myModal.show()
     },
 
     loadMoreData() {
