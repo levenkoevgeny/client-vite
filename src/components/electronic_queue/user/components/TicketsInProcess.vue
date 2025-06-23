@@ -1,5 +1,5 @@
 <template>
-  <div style="max-height: calc(100vh - 700px); overflow-y: auto">
+  <div style="max-height: calc(100vh - 600px); overflow-y: auto">
     <table class="table">
       <thead>
         <tr>

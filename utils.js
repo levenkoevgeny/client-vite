@@ -255,7 +255,7 @@ export const SUBDIVISION_CATEGORY_CHOICES = [
 ]
 
 export function getQueryStringFromSearchForm(searchForm) {
-  let queryString = "?"
+  let queryString = ""
   for (let key in searchForm) {
     if (key.includes("__in")) {
       if (typeof searchForm[key] === "object") {

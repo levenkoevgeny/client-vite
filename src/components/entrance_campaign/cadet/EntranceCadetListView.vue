@@ -638,7 +638,6 @@ export default {
       if (entries[0].isIntersecting) {
         if (this.cadetList) {
           if (this.cadetList.next) {
-            this.isLoading = true
             try {
               const response = await this.cadetAPIInstance.updateList(
                 this.cadetList.next,
@@ -654,7 +653,6 @@ export default {
             } catch (error) {
               this.isError = true
             } finally {
-              this.isLoading = false
             }
           }
         }

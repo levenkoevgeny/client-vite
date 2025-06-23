@@ -314,26 +314,24 @@ export default {
 
     async loadMoreData(entries, observer) {
       if (entries[0].isIntersecting) {
-        if (this.fpkprkList) {
-          if (this.fpkprkList.next) {
-            this.isLoading = true
+        if (this.fpk_prk_mag_List) {
+          if (this.fpk_prk_mag_List.next) {
             try {
               const response = await this.fpk_prk_studentAPIInstance.updateList(
-                this.fpkprkList.next,
+                this.fpk_prk_mag_List.next,
               )
 
               const newData = await response.data
-              this.fpkprkList.results = [
-                ...this.fpkprkList.results,
+              this.fpk_prk_mag_List.results = [
+                ...this.fpk_prk_mag_List.results,
                 ...newData.results,
               ]
-              this.fpkprkList.next = newData.next
-              this.fpkprkList.previous = newData.previous
+              this.fpk_prk_mag_List.next = newData.next
+              this.fpk_prk_mag_List.previous = newData.previous
               this.setSerialNumbers()
             } catch (error) {
               this.isError = true
             } finally {
-              this.isLoading = false
             }
           }
         }

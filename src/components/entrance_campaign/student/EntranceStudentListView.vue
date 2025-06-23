@@ -262,7 +262,6 @@ export default {
       if (entries[0].isIntersecting) {
         if (this.studentList) {
           if (this.studentList.next) {
-            this.isLoading = true
             try {
               const response = await this.studentAPIInstance.updateList(
                 this.studentList.next,
@@ -279,7 +278,6 @@ export default {
             } catch (error) {
               this.isError = true
             } finally {
-              this.isLoading = false
             }
           }
         }
