@@ -157,6 +157,13 @@ const searchObj = {
   has_gusb_check: "",
   application_has_been_printed_date__gte: "",
   application_has_been_printed_date__lte: "",
+  vpk__in: "",
+  aims_to_graduate_with_honors: "",
+  is_class_vpn: "",
+  is_class_pn: "",
+  has_achievements_in_sports: "",
+  is_class_other: "",
+  is_olympiad_winner: "",
   ordering: null,
 }
 

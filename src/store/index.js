@@ -41,8 +41,6 @@ import inWhoseInterests from "@/store/modules/inWhoseInterests.js"
 import healthGroup from "@/store/modules/healthGroup.js"
 import profiling from "@/store/modules/profiling.js"
 import admissionQuota from "@/store/modules/admissionQuota.js"
-import culturalMassEvents from "@/store/modules/culturalMassEvents.js"
-import publicOrganizations from "@/store/modules/publicOrganizations.js"
 
 const store = createStore({
   modules: {
@@ -88,8 +86,6 @@ const store = createStore({
     healthGroup,
     profiling,
     admissionQuota,
-    culturalMassEvents,
-    publicOrganizations,
   },
 })
 

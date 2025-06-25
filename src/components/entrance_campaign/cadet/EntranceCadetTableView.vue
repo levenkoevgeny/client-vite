@@ -168,7 +168,9 @@
       style="
         min-height: calc(100vh - 270px);
         max-height: calc(100vh - 270px);
-        overflow: auto;
+        overflow-x: auto;
+        max-width: 100%;
+        width: 30000px;
       "
       ref="infinite_list"
     >
@@ -1179,6 +1181,73 @@
                 </div>
               </div>
             </th>
+            <th scope="col" class="text-center" style="min-width: 450px">
+              <div class="d-flex flex-row align-items-center">
+                <span class="text-nowrap">ВПК</span>
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('vpk__category')"
+                      >
+                        А -> Я
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('-vpk__category')"
+                      >
+                        Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <span class="text-nowrap">Претендует на диплом с отличием</span>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <span class="text-nowrap"
+                  >Класс военно-патриотической направленности</span
+                >
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <span class="text-nowrap"
+                  >Победитель республиканских или региональных олимпиад</span
+                >
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <span class="text-nowrap">Класс правовой направленности</span>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <span class="text-nowrap">Достижения в спорте</span>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <span class="text-nowrap"
+                  >Профильный класс иной направленности</span
+                >
+              </div>
+            </th>
           </tr>
           <tr>
             <th></th>
@@ -1722,8 +1791,70 @@
                 />
               </div>
             </th>
+            <th style="min-width: 200px">
+              <v-select
+                v-model="searchForm.vpk__in"
+                :options="orderedVpkCategories"
+                label="category"
+                :reduce="(vpk) => vpk.id"
+                multiple
+              />
+            </th>
+            <th>
+              <select
+                class="form-select"
+                v-model="searchForm.aims_to_graduate_with_honors"
+              >
+                <option selected value="">-------</option>
+                <option value="true" key="1">Да</option>
+                <option value="false" key="0">Нет</option>
+              </select>
+            </th>
+            <th>
+              <select class="form-select" v-model="searchForm.is_class_vpn">
+                <option selected value="">-------</option>
+                <option value="true" key="1">Да</option>
+                <option value="false" key="0">Нет</option>
+              </select>
+            </th>
+            <th>
+              <select
+                class="form-select"
+                v-model="searchForm.is_olympiad_winner"
+              >
+                <option selected value="">-------</option>
+                <option value="true" key="1">Да</option>
+                <option value="false" key="0">Нет</option>
+              </select>
+            </th>
+
+            <th>
+              <select class="form-select" v-model="searchForm.is_class_pn">
+                <option selected value="">-------</option>
+                <option value="true" key="1">Да</option>
+                <option value="false" key="0">Нет</option>
+              </select>
+            </th>
+            <th>
+              <select
+                class="form-select"
+                v-model="searchForm.has_achievements_in_sports"
+              >
+                <option selected value="">-------</option>
+                <option value="true" key="1">Да</option>
+                <option value="false" key="0">Нет</option>
+              </select>
+            </th>
+            <th>
+              <select class="form-select" v-model="searchForm.is_class_other">
+                <option selected value="">-------</option>
+                <option value="true" key="1">Да</option>
+                <option value="false" key="0">Нет</option>
+              </select>
+            </th>
           </tr>
         </thead>
+
         <tbody>
           <tr
             v-for="cadet in orderedMainList"
@@ -1859,10 +1990,38 @@
             <td class="text-center">{{ cadet.social_science_score_cert }}</td>
             <td class="text-center">{{ cadet.foreign_lang_score_cert }}</td>
             <td class="text-center">{{ cadet.education_average_score }}</td>
+            <td class="text-center">{{ cadet.get_vpk }}</td>
+            <td v-if="cadet.aims_to_graduate_with_honors" class="text-center">
+              <font-awesome-icon :icon="['fa', 'check']" />
+            </td>
+            <td v-else class="text-center"></td>
+            <td v-if="cadet.is_class_vpn" class="text-center">
+              <font-awesome-icon :icon="['fa', 'check']" />
+            </td>
+            <td v-else class="text-center"></td>
+            <td v-if="cadet.is_olympiad_winner" class="text-center">
+              <font-awesome-icon :icon="['fa', 'check']" />
+            </td>
+            <td v-else class="text-center"></td>
+            <td v-if="cadet.is_class_pn" class="text-center">
+              <font-awesome-icon :icon="['fa', 'check']" />
+            </td>
+            <td v-else class="text-center"></td>
+            <td v-if="cadet.has_achievements_in_sports" class="text-center">
+              <font-awesome-icon :icon="['fa', 'check']" />
+            </td>
+            <td v-else class="text-center"></td>
+            <td v-if="cadet.is_class_other" class="text-center">
+              <font-awesome-icon :icon="['fa', 'check']" />
+            </td>
+            <td v-else class="text-center"></td>
           </tr>
         </tbody>
       </table>
-      <div ref="observer" style="height: 10px"></div>
+      <div
+        ref="observer"
+        style="height: 10px; background-color: red; width: 30000px"
+      ></div>
     </div>
     <div class="my-3"></div>
   </div>
@@ -2437,6 +2596,9 @@ export default {
         (group) => group.ownership_category === "1",
       )
     },
+    orderedVpkCategories() {
+      return this.vpkCategories.results
+    },
     ...mapGetters({
       componentOrgans: "componentOrgans/getList",
       passportIssueAuthorities: "passportAuthorities/getList",
@@ -2449,6 +2611,7 @@ export default {
       educationKinds: "educationKind/getList",
       ppflCategories: "ppflCategories/getList",
       healthGroups: "healthGroup/getList",
+      vpkCategories: "vpkCategories/getList",
     }),
   },
   watch: {

@@ -2601,7 +2601,10 @@ export default {
         try {
           const { photo, attached_documents, sign_image, ...rest } =
             this.currentFPKPRKData
-          const updatedData = await this.fpk_prkAPIInstance.updateItem(rest)
+          const updatedData = await this.fpk_prkAPIInstance.updateItem({
+            ...rest,
+            score_sum: this.get_score_sum,
+          })
           this.currentFPKPRKData = updatedData.data
           this.currentFPKPRKDataFromServer = Object.assign(
             {},

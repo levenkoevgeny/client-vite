@@ -132,6 +132,8 @@ const searchObj = {
   arrived_from_go_rovd__in: "",
   extra_data__icontains: "",
   comments_on_personal_file__icontains: "",
+  score_sum__gte: "",
+  score_sum__lte: "",
   ordering: null,
 }
 

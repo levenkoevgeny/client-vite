@@ -17,6 +17,7 @@ import {
   EntranceStudentMainView,
   EntranceStudentListView,
   EntranceStudentInputForm,
+  EntranceStudentTableView,
   EntranceFPKPRKTableView,
 } from "@/components/entrance_campaign"
 import { SpecialityHistoryView } from "@/components/cadet/speciality"
@@ -108,6 +109,8 @@ import {
   PassOfficeFPKPRKListView,
   PassOfficeCadetItemView,
 } from "@/components/passOffice/index.js"
+
+import { OOITView } from "@/components/entrance_campaign"
 
 const routes = [
   { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFoundView },
@@ -494,6 +497,11 @@ const routes = [
                 component: EntranceCadetTableView,
                 name: "entrance-cadet-table-view",
               },
+              {
+                path: "ooit",
+                component: OOITView,
+                name: "entrance-cadet-ooit",
+              },
             ],
           },
           {
@@ -532,6 +540,11 @@ const routes = [
                 path: ":id/update",
                 component: EntranceStudentInputForm,
                 name: "entrance-student-input-form",
+              },
+              {
+                path: "table-view",
+                component: EntranceStudentTableView,
+                name: "entrance-student-table-view",
               },
             ],
           },

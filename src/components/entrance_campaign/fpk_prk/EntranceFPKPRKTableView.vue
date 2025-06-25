@@ -206,6 +206,7 @@
         min-height: calc(100vh - 270px);
         max-height: calc(100vh - 270px);
         overflow: auto;
+        width: 20000px;
       "
       ref="infinite_list"
       id="infinite_list"
@@ -531,69 +532,69 @@
                 <span class="text-nowrap">Возраст</span>
               </div>
             </th>
-            <th scope="col">
-              <span class="text-nowrap">Место рождения</span>
-            </th>
-            <th scope="col">
-              <span class="text-nowrap">Адрес регистрации</span>
-            </th>
-            <th scope="col">
-              <span class="text-nowrap">Адрес места жительства</span>
-            </th>
-            <th scope="col">
-              <span class="text-nowrap">Номер телефона</span>
-            </th>
-            <th scope="col">
-              <span class="text-nowrap">Номер паспорта</span>
-            </th>
-            <th scope="col">
-              <span class="text-nowrap">Паспорт (дата выдачи)</span>
-            </th>
-            <th scope="col">
-              <span class="text-nowrap">Паспорт (срок действия)</span>
-            </th>
-            <th scope="col">
-              <span class="text-nowrap">Паспорт (орган выдачи)</span>
-            </th>
-            <th scope="col">
-              <span class="text-nowrap">Идентификационный номер</span>
-            </th>
+            <!--            <th scope="col">-->
+            <!--              <span class="text-nowrap">Место рождения</span>-->
+            <!--            </th>-->
+            <!--            <th scope="col">-->
+            <!--              <span class="text-nowrap">Адрес регистрации</span>-->
+            <!--            </th>-->
+            <!--            <th scope="col">-->
+            <!--              <span class="text-nowrap">Адрес места жительства</span>-->
+            <!--            </th>-->
+            <!--            <th scope="col">-->
+            <!--              <span class="text-nowrap">Номер телефона</span>-->
+            <!--            </th>-->
+            <!--            <th scope="col">-->
+            <!--              <span class="text-nowrap">Номер паспорта</span>-->
+            <!--            </th>-->
+            <!--            <th scope="col">-->
+            <!--              <span class="text-nowrap">Паспорт (дата выдачи)</span>-->
+            <!--            </th>-->
+            <!--            <th scope="col">-->
+            <!--              <span class="text-nowrap">Паспорт (срок действия)</span>-->
+            <!--            </th>-->
+            <!--            <th scope="col">-->
+            <!--              <span class="text-nowrap">Паспорт (орган выдачи)</span>-->
+            <!--            </th>-->
+            <!--            <th scope="col">-->
+            <!--              <span class="text-nowrap">Идентификационный номер</span>-->
+            <!--            </th>-->
 
             <th scope="col">
               <span class="text-nowrap">Иностранный язык </span>
             </th>
 
-            <th scope="col">
-              <div class="d-flex flex-row align-items-center">
-                <nobr>Номер зачетной книжки</nobr>
-                <div class="dropdown">
-                  <button
-                    class="btn dropdown-toggle"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  ></button>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <button
-                        class="dropdown-item"
-                        @click="setOrdering('student_record_book_number')"
-                      >
-                        А -> Я
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        class="dropdown-item"
-                        @click="setOrdering('-student_record_book_number')"
-                      >
-                        Я -> А
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </th>
+            <!--            <th scope="col">-->
+            <!--              <div class="d-flex flex-row align-items-center">-->
+            <!--                <nobr>Номер зачетной книжки</nobr>-->
+            <!--                <div class="dropdown">-->
+            <!--                  <button-->
+            <!--                    class="btn dropdown-toggle"-->
+            <!--                    type="button"-->
+            <!--                    data-bs-toggle="dropdown"-->
+            <!--                    aria-expanded="false"-->
+            <!--                  ></button>-->
+            <!--                  <ul class="dropdown-menu">-->
+            <!--                    <li>-->
+            <!--                      <button-->
+            <!--                        class="dropdown-item"-->
+            <!--                        @click="setOrdering('student_record_book_number')"-->
+            <!--                      >-->
+            <!--                        А -> Я-->
+            <!--                      </button>-->
+            <!--                    </li>-->
+            <!--                    <li>-->
+            <!--                      <button-->
+            <!--                        class="dropdown-item"-->
+            <!--                        @click="setOrdering('-student_record_book_number')"-->
+            <!--                      >-->
+            <!--                        Я -> А-->
+            <!--                      </button>-->
+            <!--                    </li>-->
+            <!--                  </ul>-->
+            <!--                </div>-->
+            <!--              </div>-->
+            <!--            </th>-->
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
                 <nobr>Номер сертификата по рус./ бел.</nobr>
@@ -1094,6 +1095,37 @@
                 </div>
               </div>
             </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <nobr>Сумма балов</nobr>
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('score_sum')"
+                      >
+                        меньш. -> больш.
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('-score_sum')"
+                      >
+                        больш. -> меньш.
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
           </tr>
           <tr>
             <th></th>
@@ -1225,84 +1257,84 @@
                 />
               </div>
             </th>
-            <th>
-              <input
-                type="text"
-                class="form-control me-2"
-                v-model="searchForm.place_of_birth__icontains"
-              />
-            </th>
-            <th>
-              <input
-                type="text"
-                class="form-control me-2"
-                v-model="searchForm.address_registration__icontains"
-              />
-            </th>
-            <th>
-              <input
-                type="text"
-                class="form-control me-2"
-                v-model="searchForm.address_residence__icontains"
-              />
-            </th>
-            <th>
-              <input
-                type="text"
-                class="form-control me-2"
-                v-model="searchForm.phone_number__icontains"
-              />
-            </th>
+            <!--            <th>-->
+            <!--              <input-->
+            <!--                type="text"-->
+            <!--                class="form-control me-2"-->
+            <!--                v-model="searchForm.place_of_birth__icontains"-->
+            <!--              />-->
+            <!--            </th>-->
+            <!--            <th>-->
+            <!--              <input-->
+            <!--                type="text"-->
+            <!--                class="form-control me-2"-->
+            <!--                v-model="searchForm.address_registration__icontains"-->
+            <!--              />-->
+            <!--            </th>-->
+            <!--            <th>-->
+            <!--              <input-->
+            <!--                type="text"-->
+            <!--                class="form-control me-2"-->
+            <!--                v-model="searchForm.address_residence__icontains"-->
+            <!--              />-->
+            <!--            </th>-->
+            <!--            <th>-->
+            <!--              <input-->
+            <!--                type="text"-->
+            <!--                class="form-control me-2"-->
+            <!--                v-model="searchForm.phone_number__icontains"-->
+            <!--              />-->
+            <!--            </th>-->
 
-            <th>
-              <input
-                type="text"
-                class="form-control me-2"
-                v-model="searchForm.passport_number__icontains"
-              />
-            </th>
-            <th>
-              <div class="d-flex justify-content-center align-items-center">
-                <input
-                  type="date"
-                  class="form-control me-2"
-                  v-model="searchForm.passport_issue_date__gte"
-                />
-                <input
-                  type="date"
-                  class="form-control"
-                  v-model="searchForm.passport_issue_date__lte"
-                />
-              </div>
-            </th>
-            <th>
-              <div class="d-flex justify-content-center align-items-center">
-                <input
-                  type="date"
-                  class="form-control me-2"
-                  v-model="searchForm.passport_validity_period__gte"
-                />
-                <input
-                  type="date"
-                  class="form-control"
-                  v-model="searchForm.passport_validity_period__lte"
-                />
-              </div>
-            </th>
-            <th>
-              <input
-                type="text"
-                class="form-control me-2"
-                v-model="searchForm.passport_number__icontains"
-              />
-            </th>
-            <th>
-              <input
-                type="text"
-                class="form-control me-2"
-                v-model="searchForm.passport_issue_authority_text__icontains"
-              />
-            </th>
+            <!--            <th>-->
+            <!--              <input-->
+            <!--                type="text"-->
+            <!--                class="form-control me-2"-->
+            <!--                v-model="searchForm.passport_number__icontains"-->
+            <!--              />-->
+            <!--            </th>-->
+            <!--            <th>-->
+            <!--              <div class="d-flex justify-content-center align-items-center">-->
+            <!--                <input-->
+            <!--                  type="date"-->
+            <!--                  class="form-control me-2"-->
+            <!--                  v-model="searchForm.passport_issue_date__gte"-->
+            <!--                />-->
+            <!--                <input-->
+            <!--                  type="date"-->
+            <!--                  class="form-control"-->
+            <!--                  v-model="searchForm.passport_issue_date__lte"-->
+            <!--                />-->
+            <!--              </div>-->
+            <!--            </th>-->
+            <!--            <th>-->
+            <!--              <div class="d-flex justify-content-center align-items-center">-->
+            <!--                <input-->
+            <!--                  type="date"-->
+            <!--                  class="form-control me-2"-->
+            <!--                  v-model="searchForm.passport_validity_period__gte"-->
+            <!--                />-->
+            <!--                <input-->
+            <!--                  type="date"-->
+            <!--                  class="form-control"-->
+            <!--                  v-model="searchForm.passport_validity_period__lte"-->
+            <!--                />-->
+            <!--              </div>-->
+            <!--            </th>-->
+            <!--            <th>-->
+            <!--              <input-->
+            <!--                type="text"-->
+            <!--                class="form-control me-2"-->
+            <!--                v-model="searchForm.passport_number__icontains"-->
+            <!--              />-->
+            <!--            </th>-->
+            <!--            <th>-->
+            <!--              <input-->
+            <!--                type="text"-->
+            <!--                class="form-control me-2"-->
+            <!--                v-model="searchForm.passport_issue_authority_text__icontains"-->
+            <!--              />-->
+            <!--            </th>-->
             <th>
               <select class="form-select" v-model="searchForm.foreign_language">
                 <option selected value="">-------</option>
@@ -1316,13 +1348,13 @@
               </select>
             </th>
 
-            <th>
-              <input
-                type="text"
-                class="form-control"
-                v-model="searchForm.student_record_book_number__icontains"
-              />
-            </th>
+            <!--            <th>-->
+            <!--              <input-->
+            <!--                type="text"-->
+            <!--                class="form-control"-->
+            <!--                v-model="searchForm.student_record_book_number__icontains"-->
+            <!--              />-->
+            <!--            </th>-->
             <th>
               <input
                 type="text"
@@ -1512,6 +1544,20 @@
                 />
               </div>
             </th>
+            <th>
+              <div class="d-flex justify-content-center align-items-center">
+                <input
+                  type="text"
+                  class="form-control me-2"
+                  v-model="searchForm.score_sum__gte"
+                />
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="searchForm.score_sum__lte"
+                />
+              </div>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -1564,19 +1610,19 @@
             <td>{{ fpkprk.patronymic_rus }}</td>
             <td class="text-center">{{ fpkprk.date_of_birth }}</td>
             <td class="text-center">{{ fpkprk.get_age }}</td>
-            <td>{{ fpkprk.place_of_birth }}</td>
-            <td>{{ fpkprk.address_registration }}</td>
-            <td>{{ fpkprk.address_residence }}</td>
-            <td>{{ fpkprk.phone_number }}</td>
-            <td>{{ fpkprk.passport_number }}</td>
-            <td class="text-center">{{ fpkprk.passport_issue_date }}</td>
-            <td class="text-center">{{ fpkprk.passport_validity_period }}</td>
-            <td>{{ fpkprk.passport_issue_authority }}</td>
-            <td>{{ fpkprk.identification_number }}</td>
+            <!--            <td>{{ fpkprk.place_of_birth }}</td>-->
+            <!--            <td>{{ fpkprk.address_registration }}</td>-->
+            <!--            <td>{{ fpkprk.address_residence }}</td>-->
+            <!--            <td>{{ fpkprk.phone_number }}</td>-->
+            <!--            <td>{{ fpkprk.passport_number }}</td>-->
+            <!--            <td class="text-center">{{ fpkprk.passport_issue_date }}</td>-->
+            <!--            <td class="text-center">{{ fpkprk.passport_validity_period }}</td>-->
+            <!--            <td>{{ fpkprk.passport_issue_authority }}</td>-->
+            <!--            <td>{{ fpkprk.identification_number }}</td>-->
 
             <td>{{ fpkprk.get_foreign_language }}</td>
 
-            <td class="text-center">{{ fpkprk.student_record_book_number }}</td>
+            <!--            <td class="text-center">{{ fpkprk.student_record_book_number }}</td>-->
             <td class="text-center">{{ fpkprk.rus_bel_ct_number }}</td>
             <td class="text-center">{{ fpkprk.rus_score_ct }}</td>
             <td class="text-center">{{ fpkprk.rus_ct_choice }}</td>
@@ -1593,6 +1639,7 @@
             <td class="text-center">{{ fpkprk.social_science_score_cert }}</td>
             <td class="text-center">{{ fpkprk.foreign_lang_score_cert }}</td>
             <td class="text-center">{{ fpkprk.education_average_score }}</td>
+            <td class="text-center">{{ fpkprk.score_sum }}</td>
           </tr>
         </tbody>
       </table>

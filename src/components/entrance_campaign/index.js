@@ -11,3 +11,5 @@ export { default as EntranceStudentMainView } from "./student/EntranceStudentMai
 export { default as EntranceStudentListView } from "./student/EntranceStudentListView.vue"
 export { default as EntranceCadetTableView } from "./cadet/EntranceCadetTableView.vue"
 export { default as EntranceStudentInputForm } from "./student/EntranceStudentInputForm.vue"
+export { default as EntranceStudentTableView } from "./student/EntranceStudentTableView.vue"
+export { default as OOITView } from "./ooit/OOITView.vue"

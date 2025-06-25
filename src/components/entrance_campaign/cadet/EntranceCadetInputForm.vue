@@ -2577,10 +2577,10 @@
                         :value="quota.id"
                         v-for="quota in orderedAdmissionQuotes_select_8"
                       >
-                        {{ quota.quota_verbose_name }}
+                        {{ quota.admission_code }}
                       </option>
                     </select>
-                    <label for="id_s7">Специальность 8</label>
+                    <label for="id_s7">Код 8</label>
                   </div>
                   <div class="form-floating mb-3">
                     <select
@@ -2593,10 +2593,10 @@
                         :value="quota.id"
                         v-for="quota in orderedAdmissionQuotes_select_9"
                       >
-                        {{ quota.quota_verbose_name }}
+                        {{ quota.admission_code }}
                       </option>
                     </select>
-                    <label for="id_s7">Специальность 9</label>
+                    <label for="id_s7">Код 9</label>
                   </div>
                 </div>
                 <div class="col-5">
@@ -3009,7 +3009,9 @@
                           <input
                             type="number"
                             class="form-control text-center"
+                            name="education_average_score"
                             v-model="currentCadetData.education_average_score"
+                            @input="makeInputDefaultNullValueIfEmpty"
                             disabled
                           />
                         </div>
@@ -3692,7 +3694,10 @@ export default {
         try {
           const { photo, attached_documents, sign_image, ...rest } =
             this.currentCadetData
-          const updatedData = await this.cadetAPIInstance.updateItem(rest)
+          const updatedData = await this.cadetAPIInstance.updateItem({
+            ...rest,
+            score_sum: this.get_score_sum,
+          })
           this.currentCadetData = updatedData.data
           this.currentCadetDataFromServer = Object.assign(
             {},
