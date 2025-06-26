@@ -2989,6 +2989,14 @@
           <div class="border-bottom border-4 my-3"></div>
 
           <div>
+            <button class="btn btn-secondary my-3 me-3" @click="printTitlePage">
+              <font-awesome-icon :icon="['fas', 'print']" />&nbsp;&nbsp;
+              <template v-if="isTitlePagePrinting"
+                >Формирование титульного листа ...
+              </template>
+              <template v-else>Напечатать титульный лист</template>
+            </button>
+
             <button
               v-if="currentStudentData.application_has_been_printed"
               class="btn btn-primary my-3 me-3"
@@ -3007,14 +3015,6 @@
                 >Формирование заявления ...
               </template>
               <template v-else>Напечатать заявление</template>
-            </button>
-
-            <button class="btn btn-secondary my-3" @click="printTitlePage">
-              <font-awesome-icon :icon="['fas', 'print']" />&nbsp;&nbsp;
-              <template v-if="isTitlePagePrinting"
-                >Формирование титульного листа ...
-              </template>
-              <template v-else>Напечатать титульный лист</template>
             </button>
 
             <div class="form-check my-3" v-if="currentUser.is_superuser">
@@ -3753,6 +3753,10 @@ export default {
         })
         myModal.show()
         return
+      } else {
+        this.isTitlePagePrinting = true
+        await this.makeTitlePagePrinting()
+        this.isTitlePagePrinting = false
       }
     },
 
@@ -3788,6 +3792,22 @@ export default {
           link.click()
         })
       this.$refs.applicationValidationErrorsModalCloseButton.click()
+    },
+
+    async makeTitlePagePrinting() {
+      this.studentAPIInstance
+        .title_page_print(this.currentStudentData.id)
+        .then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]))
+          const link = document.createElement("a")
+          link.href = url
+          link.setAttribute(
+            "download",
+            `${this.currentStudentData.last_name_rus}.docx`,
+          )
+          document.body.appendChild(link)
+          link.click()
+        })
     },
 
     averageScoreCertificateSelectChange(e) {

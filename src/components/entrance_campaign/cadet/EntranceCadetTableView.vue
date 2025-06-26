@@ -110,12 +110,22 @@
             <div class="d-flex flex-column">
               <button
                 class="btn btn-secondary mb-3"
+                @click="notifyExportAll"
+                :disabled="isDocumentProcessing"
+              >
+                <font-awesome-icon
+                  :icon="['fas', 'envelope']"
+                />&nbsp;&nbsp;Извещения (все активные записи !!! уточнить по
+                БГМУ и т.д.)
+              </button>
+              <button
+                class="btn btn-secondary mb-3"
                 @click="notifyExport"
                 :disabled="isDocumentProcessing"
               >
                 <font-awesome-icon
                   :icon="['fas', 'envelope']"
-                />&nbsp;&nbsp;Измещения
+                />&nbsp;&nbsp;Извещения (только отфильтрованные записи)
               </button>
               <button class="btn btn-secondary mb-3">
                 <font-awesome-icon :icon="['fas', 'book']" />&nbsp;&nbsp;Журнал
@@ -173,12 +183,111 @@
         width: 30000px;
       "
       ref="infinite_list"
+      @scroll="handleScroll"
     >
-      <table class="table table-hover table-responsive" style="overflow: auto">
+      <table
+        ref="mainTable"
+        class="table table-hover table-responsive"
+        style="overflow: auto"
+      >
         <thead ref="thead">
           <tr>
             <th scope="col" class="text-center">№п.п.</th>
             <th scope="col">Активный</th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <span class="text-nowrap">Фамилия</span>
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('last_name_rus')"
+                      >
+                        А -> Я
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('-last_name_rus')"
+                      >
+                        Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <span class="text-nowrap">Имя</span>
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('first_name_rus')"
+                      >
+                        А -> Я
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('-first_name_rus')"
+                      >
+                        Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <span class="text-nowrap">Отчество</span>
+
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('patronymic_rus')"
+                      >
+                        А -> Я
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('-patronymic_rus')"
+                      >
+                        Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
             <th scope="col">Кто изучал дело</th>
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
@@ -393,100 +502,6 @@
               </div>
             </th>
 
-            <th scope="col">
-              <div class="d-flex flex-row align-items-center">
-                <span class="text-nowrap">Фамилия</span>
-                <div class="dropdown">
-                  <button
-                    class="btn dropdown-toggle"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  ></button>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <button
-                        class="dropdown-item"
-                        @click="setOrdering('last_name_rus')"
-                      >
-                        А -> Я
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        class="dropdown-item"
-                        @click="setOrdering('-last_name_rus')"
-                      >
-                        Я -> А
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </th>
-            <th scope="col">
-              <div class="d-flex flex-row align-items-center">
-                <span class="text-nowrap">Имя</span>
-                <div class="dropdown">
-                  <button
-                    class="btn dropdown-toggle"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  ></button>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <button
-                        class="dropdown-item"
-                        @click="setOrdering('first_name_rus')"
-                      >
-                        А -> Я
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        class="dropdown-item"
-                        @click="setOrdering('-first_name_rus')"
-                      >
-                        Я -> А
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </th>
-            <th scope="col">
-              <div class="d-flex flex-row align-items-center">
-                <span class="text-nowrap">Отчество</span>
-
-                <div class="dropdown">
-                  <button
-                    class="btn dropdown-toggle"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  ></button>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <button
-                        class="dropdown-item"
-                        @click="setOrdering('patronymic_rus')"
-                      >
-                        А -> Я
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        class="dropdown-item"
-                        @click="setOrdering('-patronymic_rus')"
-                      >
-                        Я -> А
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </th>
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
                 <span class="text-nowrap">Дата рождения</span>
@@ -1258,6 +1273,29 @@
                 <option value="false" key="0">Нет</option>
               </select>
             </th>
+
+            <th>
+              <input
+                type="text"
+                class="form-control"
+                v-model="searchForm.last_name_rus__icontains"
+              />
+            </th>
+            <th>
+              <input
+                type="text"
+                class="form-control"
+                v-model="searchForm.first_name_rus__icontains"
+              />
+            </th>
+            <th>
+              <input
+                type="text"
+                class="form-control"
+                v-model="searchForm.patronymic_rus__icontains"
+              />
+            </th>
+
             <th>
               <select
                 id="id_who_created"
@@ -1324,7 +1362,6 @@
                 <option value="0" key="0">Женский</option>
               </select>
             </th>
-
             <th>
               <v-select
                 v-model="searchForm.speciality_1__in"
@@ -1334,7 +1371,6 @@
                 multiple
               />
             </th>
-
             <th>
               <v-select
                 v-model="searchForm.education_kind__in"
@@ -1353,7 +1389,6 @@
                 multiple
               />
             </th>
-
             <th>
               <select class="form-select" v-model="searchForm.health_group">
                 <option value="">-----</option>
@@ -1366,7 +1401,6 @@
                 </option>
               </select>
             </th>
-
             <th>
               <select
                 class="form-select"
@@ -1380,7 +1414,6 @@
                 <option value="5" key="5">5</option>
               </select>
             </th>
-
             <th>
               <select class="form-select" v-model="searchForm.is_risk_group">
                 <option selected value="">-------</option>
@@ -1388,35 +1421,12 @@
                 <option value="false" key="0">Нет</option>
               </select>
             </th>
-
             <th>
               <select class="form-select" v-model="searchForm.has_gusb_check">
                 <option selected value="">-------</option>
                 <option value="true" key="1">Да</option>
                 <option value="false" key="0">Нет</option>
               </select>
-            </th>
-
-            <th>
-              <input
-                type="text"
-                class="form-control"
-                v-model="searchForm.last_name_rus__icontains"
-              />
-            </th>
-            <th>
-              <input
-                type="text"
-                class="form-control"
-                v-model="searchForm.first_name_rus__icontains"
-              />
-            </th>
-            <th>
-              <input
-                type="text"
-                class="form-control"
-                v-model="searchForm.patronymic_rus__icontains"
-              />
             </th>
 
             <th>
@@ -1868,9 +1878,14 @@
           >
             <td class="text-center">{{ cadet.serial_number }}</td>
             <td v-if="cadet.is_active"></td>
+
             <td v-else class="text-center">
               <font-awesome-icon :icon="['fas', 'lock']" />
             </td>
+
+            <td>{{ cadet.last_name_rus }}</td>
+            <td>{{ cadet.first_name_rus }}</td>
+            <td>{{ cadet.patronymic_rus }}</td>
             <td></td>
             <td v-if="cadet.application_has_been_printed_date">
               {{
@@ -1934,14 +1949,15 @@
             </template>
 
             <td>{{ cadet.medical_age_group }}</td>
-            <td v-if="cadet.is_risk_group">Да</td>
-            <td v-else>Нет</td>
-            <td v-if="cadet.has_gusb_check">Да</td>
-            <td v-else>Нет</td>
 
-            <td>{{ cadet.last_name_rus }}</td>
-            <td>{{ cadet.first_name_rus }}</td>
-            <td>{{ cadet.patronymic_rus }}</td>
+            <td v-if="cadet.is_risk_group" class="text-center">
+              <font-awesome-icon :icon="['fa', 'check']" />
+            </td>
+            <td v-else class="text-center"></td>
+            <td v-if="cadet.has_gusb_check" class="text-center">
+              <font-awesome-icon :icon="['fa', 'check']" />
+            </td>
+            <td v-else class="text-center"></td>
             <td class="text-center">{{ cadet.date_of_birth }}</td>
             <td class="text-center">{{ cadet.get_age }}</td>
             <td>{{ cadet.place_of_birth }}</td>
@@ -2018,10 +2034,6 @@
           </tr>
         </tbody>
       </table>
-      <div
-        ref="observer"
-        style="height: 10px; background-color: red; width: 30000px"
-      ></div>
     </div>
     <div class="my-3"></div>
   </div>
@@ -2393,41 +2405,69 @@ export default {
       this.isLoading = false
       this.setSerialNumbers()
     },
-    loadMoreData() {
-      const options = {
-        root: this.$refs.infinite_list,
-        rootMargin: "0px",
-        threshold: 0.5,
-      }
-
-      const callback = async (entries, observer) => {
-        if (entries[0].isIntersecting) {
-          if (this.cadetList.next) {
-            this.isLoading = true
-            try {
-              const response = await this.cadetAPIInstance.updateList(
-                this.cadetList.next,
-              )
-              const newData = await response.data
-              this.cadetList.results = [
-                ...this.cadetList.results,
-                ...newData.results,
-              ]
-              this.cadetList.next = newData.next
-              this.cadetList.previous = newData.previous
-              this.setSerialNumbers()
-            } catch (error) {
-              this.isError = true
-            } finally {
-              this.isLoading = false
-            }
+    async handleScroll() {
+      const container = this.$refs.infinite_list
+      if (
+        Math.round(container.scrollTop + container.clientHeight) ===
+        container.scrollHeight
+      ) {
+        if (this.cadetList.next) {
+          this.isLoading = true
+          try {
+            const response = await this.cadetAPIInstance.updateList(
+              this.cadetList.next,
+            )
+            const newData = await response.data
+            this.cadetList.results = [
+              ...this.cadetList.results,
+              ...newData.results,
+            ]
+            this.cadetList.next = newData.next
+            this.cadetList.previous = newData.previous
+            this.setSerialNumbers()
+          } catch (error) {
+            this.isError = true
+          } finally {
+            this.isLoading = false
           }
         }
       }
-
-      const observer = new IntersectionObserver(callback, options)
-      observer.observe(this.$refs.observer)
     },
+    // loadMoreData() {
+    //   const options = {
+    //     root: this.$refs.infinite_list,
+    //     rootMargin: "0px",
+    //     threshold: 0.5,
+    //   }
+    //
+    //   const callback = async (entries, observer) => {
+    //     if (entries[0].isIntersecting) {
+    //       if (this.cadetList.next) {
+    //         this.isLoading = true
+    //         try {
+    //           const response = await this.cadetAPIInstance.updateList(
+    //             this.cadetList.next,
+    //           )
+    //           const newData = await response.data
+    //           this.cadetList.results = [
+    //             ...this.cadetList.results,
+    //             ...newData.results,
+    //           ]
+    //           this.cadetList.next = newData.next
+    //           this.cadetList.previous = newData.previous
+    //           this.setSerialNumbers()
+    //         } catch (error) {
+    //           this.isError = true
+    //         } finally {
+    //           this.isLoading = false
+    //         }
+    //       }
+    //     }
+    //   }
+    //
+    //   const observer = new IntersectionObserver(callback, options)
+    //   observer.observe(this.$refs.observer)
+    // },
     setSerialNumbers() {
       let i = 1
       this.cadetList.results.forEach((item) => {
@@ -2509,6 +2549,20 @@ export default {
         this.isDocumentProcessing = false
       })
     },
+
+    async notifyExportAll() {
+      this.isDocumentProcessing = true
+      this.cadetAPIInstance.notify_export_all().then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]))
+        const link = document.createElement("a")
+        link.href = url
+        link.setAttribute("download", `notify.docx`)
+        document.body.appendChild(link)
+        link.click()
+        this.isDocumentProcessing = false
+      })
+    },
+
     clearFilter() {
       this.searchForm = Object.assign(
         {},

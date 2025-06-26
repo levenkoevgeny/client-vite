@@ -42,6 +42,13 @@ class CadetAPI extends BaseAPI {
       { responseType: "blob" },
     )
   }
+
+  async notify_export_all() {
+    return axios.get(
+      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/notify_export_all/`,
+      { responseType: "blob" },
+    )
+  }
 }
 
 const searchObj = {

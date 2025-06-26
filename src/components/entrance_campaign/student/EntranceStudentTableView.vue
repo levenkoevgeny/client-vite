@@ -126,6 +126,7 @@
           width: 30000px;
         "
         ref="infinite_list"
+        @scroll="handleScroll"
       >
         <table
           class="table table-hover table-responsive"
@@ -1572,7 +1573,6 @@
             </tr>
           </tbody>
         </table>
-        <div ref="observer" style="height: 10px"></div>
       </div>
       <div class="my-3"></div>
     </div>
@@ -1636,13 +1636,24 @@ export default {
           fieldName: "Идентификационный номер",
           fieldValue: "identification_number",
         },
-        { fieldName: "Отец - фамилия", fieldValue: "father_last_name" },
-        { fieldName: "Отец - имя", fieldValue: "father_first_name" },
-        { fieldName: "Отец - отчество", fieldValue: "father_patronymic" },
+        {
+          fieldName: "Отец - фамилия",
+          fieldValue: "father_last_name",
+        },
+
+        {
+          fieldName: "Отец - имя",
+          fieldValue: "father_first_name",
+        },
+        {
+          fieldName: "Отец - отчество",
+          fieldValue: "father_patronymic",
+        },
         {
           fieldName: "Отец - дата рождения",
           fieldValue: "get_father_date_of_birth",
         },
+
         {
           fieldName: "Отец - место работы",
           fieldValue: "father_place_of_work",
@@ -1656,12 +1667,21 @@ export default {
           fieldValue: "father_address_residence",
         },
         {
-          fieldName: "Отец - место регистрации",
-          fieldValue: "father_address_registration",
+          fieldName: "Отец - является сотрудником",
+          fieldValue: "father_is_employee",
         },
-        { fieldName: "Мать - фамилия", fieldValue: "mother_last_name" },
-        { fieldName: "Мать - имя", fieldValue: "mother_first_name" },
-        { fieldName: "Мать - отчество", fieldValue: "mother_patronymic" },
+        {
+          fieldName: "Мать - фамилия",
+          fieldValue: "mother_last_name",
+        },
+        {
+          fieldName: "Мать - имя",
+          fieldValue: "mother_first_name",
+        },
+        {
+          fieldName: "Мать - отчество",
+          fieldValue: "mother_patronymic",
+        },
         {
           fieldName: "Мать - дата рождения",
           fieldValue: "get_mother_date_of_birth",
@@ -1671,25 +1691,18 @@ export default {
           fieldValue: "mother_place_of_work",
         },
         {
-          fieldName: "Мать - номер телефона",
-          fieldValue: "mother_phone_number",
-        },
-        {
           fieldName: "Мать - место жительства",
           fieldValue: "mother_address_residence",
         },
         {
-          fieldName: "Мать - место регистрации",
-          fieldValue: "mother_address_registration",
+          fieldName: "Мать - номер телефона",
+          fieldValue: "mother_phone_number",
         },
         {
-          fieldName: "Родители в разводе",
-          fieldValue: "parents_is_in_divorce",
+          fieldName: "Мать - является сотрудником",
+          fieldValue: "mother_is_employee",
         },
-        {
-          fieldName: "Снят с воинского учета",
-          fieldValue: "get_removed_from_military_registration",
-        },
+
         {
           fieldName: "Иностранный язык (изучаемый в школе)",
           fieldValue: "get_foreign_language_was",
@@ -1699,27 +1712,74 @@ export default {
           fieldValue: "get_foreign_language_will_be",
         },
         {
-          fieldName: "Дата и время отпечатки заявления",
-          fieldValue: "get_application_has_been_printed_date",
-        },
-        { fieldName: "Социальный статус", fieldValue: "get_social_status" },
-        {
-          fieldName: "Замечания по личному делу",
-          fieldValue: "comments_on_personal_file",
+          fieldName: "Форма обучения",
+          fieldValue: "get_education_form",
         },
         {
-          fieldName: "Наименование учебного заведения",
+          fieldName: "Группа здоровья",
+          fieldValue: "get_health_group",
+        },
+        {
+          fieldName: "Категория профессионального соответствия",
+          fieldValue: "get_ppfl_test",
+        },
+        {
+          fieldName: "Дополнительные данные (вкладка - образование)",
+          fieldValue: "education_tab_extra_data",
+        },
+        {
+          fieldName: "Дополнительные данные (вкладка - личная информация)",
+          fieldValue: "personal_information_tab_extra_data",
+        },
+        {
+          fieldName: "Дополнительные данные (вкладка - представители)",
+          fieldValue: "parents_tab_extra_data",
+        },
+        {
+          fieldName: "Дополнительные данные (вкладка - анкета)",
+          fieldValue: "questionary_tab_extra_data",
+        },
+        {
+          fieldName: "Область (проживания)",
+          fieldValue: "get_residence_region",
+        },
+        {
+          fieldName: "Вид населенного пункта (проживание)",
+          fieldValue: "get_residence_location_kind",
+        },
+        {
+          fieldName: "Социальный статус",
+          fieldValue: "get_social_status",
+        },
+
+        {
+          fieldName: "Вид учреждения образования",
+          fieldValue: "get_education_kind",
+        },
+        {
+          fieldName: "Уровень образования",
+          fieldValue: "get_education_level",
+        },
+        {
+          fieldName: "Наименование учебного заведения, которое окончил",
           fieldValue: "education_graduated",
-        },
-        {
-          fieldName: "Год поступления в учебное заведение",
-          fieldValue: "education_graduating_start_year",
         },
         {
           fieldName: "Год окончания учебного заведения",
           fieldValue: "education_graduating_end_year",
         },
-        { fieldName: "Средний бал", fieldValue: "education_average_score" },
+        {
+          fieldName: "Средний бал",
+          fieldValue: "education_average_score",
+        },
+        {
+          fieldName: "Сумма балов",
+          fieldValue: "score_sum",
+        },
+        {
+          fieldName: "Вид населенного пункта",
+          fieldValue: "get_education_location_kind",
+        },
         {
           fieldName: "Номер сертификата по русскому / белорусскому языку",
           fieldValue: "rus_bel_ct_number",
@@ -1781,15 +1841,17 @@ export default {
           fieldValue: "foreign_lang_score_cert",
         },
         {
-          fieldName: "Специальность на которую поступает",
+          fieldName: "Специальность, на которую поступает",
           fieldValue: "get_speciality_1",
         },
-        { fieldName: "Группа здоровья", fieldValue: "get_health_group" },
         {
-          fieldName: "Категория профессионального соответствия",
-          fieldValue: "get_ppfl_test",
+          fieldName: "Льгота",
+          fieldValue: "get_privilege_1",
         },
-        { fieldName: "Возраст", fieldValue: "get_age" },
+        {
+          fieldName: "Дата и время отпечатки заявления",
+          fieldValue: "get_application_has_been_printed_date",
+        },
       ],
       selectedFieldsForDataExport: ["last_name_rus", "first_name_rus"],
       searchForm: Object.assign(
@@ -1820,40 +1882,33 @@ export default {
       this.isLoading = false
       this.setSerialNumbers()
     },
-    loadMoreData() {
-      const options = {
-        root: this.$refs.infinite_list,
-        rootMargin: "0px",
-        threshold: 0.5,
-      }
-
-      const callback = async (entries, observer) => {
-        if (entries[0].isIntersecting) {
-          if (this.studentList.next) {
-            this.isLoading = true
-            try {
-              const response = await this.studentAPIInstance.updateList(
-                this.studentList.next,
-              )
-              const newData = await response.data
-              this.studentList.results = [
-                ...this.studentList.results,
-                ...newData.results,
-              ]
-              this.studentList.next = newData.next
-              this.studentList.previous = newData.previous
-              this.setSerialNumbers()
-            } catch (error) {
-              this.isError = true
-            } finally {
-              this.isLoading = false
-            }
+    async handleScroll() {
+      const container = this.$refs.infinite_list
+      if (
+        Math.round(container.scrollTop + container.clientHeight) ===
+        container.scrollHeight
+      ) {
+        if (this.studentList.next) {
+          this.isLoading = true
+          try {
+            const response = await this.studentAPIInstance.updateList(
+              this.studentList.next,
+            )
+            const newData = await response.data
+            this.studentList.results = [
+              ...this.studentList.results,
+              ...newData.results,
+            ]
+            this.studentList.next = newData.next
+            this.studentList.previous = newData.previous
+            this.setSerialNumbers()
+          } catch (error) {
+            this.isError = true
+          } finally {
+            this.isLoading = false
           }
         }
       }
-
-      const observer = new IntersectionObserver(callback, options)
-      observer.observe(this.$refs.observer)
     },
     setSerialNumbers() {
       let i = 1
@@ -1890,6 +1945,12 @@ export default {
         keyboard: false,
       })
       myModal.show()
+    },
+    checkAllFieldsForExport() {
+      this.selectedFieldsForDataExport = []
+      this.fieldsForDataExport.map((item) => {
+        this.selectedFieldsForDataExport.push(item.fieldValue)
+      })
     },
     async exportData(destination) {
       if (this.selectedFieldsForDataExport.length === 0) {

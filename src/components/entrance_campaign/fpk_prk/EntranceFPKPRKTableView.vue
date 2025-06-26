@@ -210,6 +210,7 @@
       "
       ref="infinite_list"
       id="infinite_list"
+      @scroll="handleScroll"
     >
       <table class="table table-hover table-responsive" style="overflow: auto">
         <thead ref="thead">
@@ -1643,7 +1644,6 @@
           </tr>
         </tbody>
       </table>
-      <div ref="observer" style="height: 10px"></div>
     </div>
     <div class="my-3"></div>
   </div>
@@ -1873,9 +1873,6 @@ export default {
   async created() {
     await this.loadData()
   },
-  mounted() {
-    this.loadMoreData()
-  },
   methods: {
     async loadData() {
       this.isLoading = true
@@ -1883,6 +1880,37 @@ export default {
       this.fpkprkList = await response.data
       this.isLoading = false
       this.setSerialNumbers()
+    },
+    async handleScroll() {
+      const container = this.$refs.infinite_list
+      if (
+        Math.round(container.scrollTop + container.clientHeight) ===
+        container.scrollHeight
+      ) {
+        if (this.fpkprkList) {
+          if (this.fpkprkList.next) {
+            this.isLoading = true
+            try {
+              const response = await this.fpkprkAPIInstance.updateList(
+                this.fpkprkList.next,
+              )
+
+              const newData = await response.data
+              this.fpkprkList.results = [
+                ...this.fpkprkList.results,
+                ...newData.results,
+              ]
+              this.fpkprkList.next = newData.next
+              this.fpkprkList.previous = newData.previous
+              this.setSerialNumbers()
+            } catch (error) {
+              this.isError = true
+            } finally {
+              this.isLoading = false
+            }
+          }
+        }
+      }
     },
     setSerialNumbers() {
       let i = 1
@@ -2017,46 +2045,6 @@ export default {
       })
       myModal.show()
     },
-
-    loadMoreData() {
-      const options = {
-        root: this.$refs.infinite_list,
-        rootMargin: "0px",
-        threshold: 0.5,
-      }
-
-      const callback = async (entries, observer) => {
-        if (entries[0].isIntersecting) {
-          if (this.fpkprkList) {
-            if (this.fpkprkList.next) {
-              this.isLoading = true
-              try {
-                const response = await this.fpkprkAPIInstance.updateList(
-                  this.fpkprkList.next,
-                )
-
-                const newData = await response.data
-                this.fpkprkList.results = [
-                  ...this.fpkprkList.results,
-                  ...newData.results,
-                ]
-                this.fpkprkList.next = newData.next
-                this.fpkprkList.previous = newData.previous
-                this.setSerialNumbers()
-              } catch (error) {
-                this.isError = true
-              } finally {
-                this.isLoading = false
-              }
-            }
-          }
-        }
-      }
-
-      const observer = new IntersectionObserver(callback, options)
-      observer.observe(this.$refs.observer)
-    },
-
     clearFilter() {
       this.searchForm = Object.assign(
         {},

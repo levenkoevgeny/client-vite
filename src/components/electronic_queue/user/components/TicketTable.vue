@@ -24,8 +24,17 @@
               })
             }}
           </td>
-          <td>{{ states[ticket.ticket_state] }}</td>
-          <td v-if="ticket.operator">{{ ticket.operator }}</td>
+          <td>
+            <div class="d-flex flex-row align-items-center">
+              <div
+                class="rounded-circle me-4"
+                :style="{ backgroundColor: states[ticket.ticket_state].color }"
+                style="width: 10px; height: 10px"
+              ></div>
+              <div>{{ states[ticket.ticket_state].text }}</div>
+            </div>
+          </td>
+          <td v-if="ticket.operator">{{ ticket.get_operator_name }}</td>
           <td v-else></td>
         </tr>
       </tbody>
@@ -41,7 +50,13 @@ export default {
     ticketList: { type: Array, required: true },
   },
   data() {
-    return { states: { 0: "В ожидании", 1: "В обработке", 2: "Обработан" } }
+    return {
+      states: {
+        0: { text: "В ожидании", color: "#2b2f32" },
+        1: { text: "В обработке", color: "#75b798" },
+        2: { text: "Обработан", color: "#052c65" },
+      },
+    }
   },
   async created() {},
   methods: {},

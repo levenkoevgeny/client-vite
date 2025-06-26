@@ -3,7 +3,7 @@
     :is-loading="isLoading"
     :main-list-length="employeeList.count"
     title="Главная"
-    :load-more-data="null"
+    :load-more-data="loadMoreData"
   >
     <template v-slot:modals>
       <div
@@ -241,6 +241,31 @@ export default {
         this.isLoading = false
       }
     },
+    async loadMoreData(entries, observer) {
+      if (entries[0].isIntersecting) {
+        if (this.employeeList) {
+          if (this.employeeList.next) {
+            try {
+              const response = await this.employeeAPIInstance.updateList(
+                this.employeeList.next,
+              )
+
+              const newData = await response.data
+              this.employeeList.results = [
+                ...this.employeeList.results,
+                ...newData.results,
+              ]
+              this.employeeList.next = newData.next
+              this.employeeList.previous = newData.previous
+              this.setSerialNumbers()
+            } catch (error) {
+              this.isError = true
+            } finally {
+            }
+          }
+        }
+      }
+    },
     debouncedSearch: debounce(async function () {
       this.isLoading = true
       this.employeeAPIInstance.searchObj = this.searchForm
@@ -253,7 +278,6 @@ export default {
         this.isLoading = false
       }
     }, 500),
-
     clearFilter() {
       this.searchForm = Object.assign(
         {},

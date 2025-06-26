@@ -183,10 +183,16 @@
         min-height: calc(100vh - 270px);
         max-height: calc(100vh - 270px);
         overflow: auto;
+        position: relative;
       "
       ref="infinite_list"
+      @scroll="handleScroll"
     >
-      <table class="table table-hover table-responsive" style="overflow: auto">
+      <table
+        ref="mainTable"
+        class="table table-hover table-responsive"
+        style="overflow: auto"
+      >
         <thead ref="thead">
           <tr>
             <th scope="col" class="text-center">№п.п.</th>
@@ -1894,7 +1900,6 @@
           </tr>
         </tbody>
       </table>
-      <div ref="observer" style="height: 10px"></div>
     </div>
     <div class="my-3"></div>
   </div>
@@ -2259,10 +2264,35 @@ export default {
   async created() {
     await this.loadData()
   },
-  mounted() {
-    this.loadMoreData()
-  },
   methods: {
+    async handleScroll() {
+      const container = this.$refs.infinite_list
+      if (
+        Math.round(container.scrollTop + container.clientHeight) ===
+        container.scrollHeight
+      ) {
+        if (this.cadetList.next) {
+          this.isLoading = true
+          try {
+            const response = await this.cadetAPIInstance.updateList(
+              this.cadetList.next,
+            )
+            const newData = await response.data
+            this.cadetList.results = [
+              ...this.cadetList.results,
+              ...newData.results,
+            ]
+            this.cadetList.next = newData.next
+            this.cadetList.previous = newData.previous
+            this.setSerialNumbers()
+          } catch (error) {
+            this.isError = true
+          } finally {
+            this.isLoading = false
+          }
+        }
+      }
+    },
     async loadData() {
       const listFunction = getLoadListFunction.bind(this)
       this.isLoading = true
@@ -2353,41 +2383,6 @@ export default {
       // orderingArrayWithoutFieldName.unshift(fieldName)
       // this.searchForm.ordering = orderingArrayWithoutFieldName.toString()
       // console.log("searchForm.ordering", this.searchForm.ordering)
-    },
-    loadMoreData() {
-      const options = {
-        root: this.$refs.infinite_list,
-        rootMargin: "0px",
-        threshold: 0.5,
-      }
-
-      const callback = async (entries, observer) => {
-        if (entries[0].isIntersecting) {
-          if (this.cadetList.next) {
-            this.isLoading = true
-            try {
-              const response = await this.cadetAPIInstance.updateList(
-                this.cadetList.next,
-              )
-              const newData = await response.data
-              this.cadetList.results = [
-                ...this.cadetList.results,
-                ...newData.results,
-              ]
-              this.cadetList.next = newData.next
-              this.cadetList.previous = newData.previous
-              this.setSerialNumbers()
-            } catch (error) {
-              this.isError = true
-            } finally {
-              this.isLoading = false
-            }
-          }
-        }
-      }
-
-      const observer = new IntersectionObserver(callback, options)
-      observer.observe(this.$refs.observer)
     },
     setSerialNumbers() {
       let i = 1
