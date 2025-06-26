@@ -1867,9 +1867,6 @@ export default {
   async created() {
     await this.loadData()
   },
-  mounted() {
-    this.loadMoreData()
-  },
   methods: {
     async loadData() {
       this.isLoading = true
@@ -1885,8 +1882,9 @@ export default {
     async handleScroll() {
       const container = this.$refs.infinite_list
       if (
-        Math.round(container.scrollTop + container.clientHeight) ===
-        container.scrollHeight
+        Math.round(container.scrollTop + container.clientHeight) >=
+          container.scrollHeight &&
+        !this.isLoading
       ) {
         if (this.studentList.next) {
           this.isLoading = true
