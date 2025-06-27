@@ -123,7 +123,6 @@
           min-height: calc(100vh - 270px);
           max-height: calc(100vh - 270px);
           overflow: auto;
-          width: 30000px;
         "
         ref="infinite_list"
         @scroll="handleScroll"

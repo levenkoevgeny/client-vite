@@ -179,8 +179,6 @@
         min-height: calc(100vh - 270px);
         max-height: calc(100vh - 270px);
         overflow-x: auto;
-        max-width: 100%;
-        width: 30000px;
       "
       ref="infinite_list"
       @scroll="handleScroll"
@@ -421,6 +419,68 @@
                         @click="
                           setOrdering('-arrived_from_go_rovd__go_rovd_name')
                         "
+                      >
+                        Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
+            <th scope="col" style="min-width: 450px">
+              <div class="d-flex flex-row align-items-center">
+                <span class="text-nowrap">Примечание для отдела кадров</span>
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('extra_data')"
+                      >
+                        А -> Я
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('-extra_data')"
+                      >
+                        Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
+            <th scope="col" style="min-width: 450px">
+              <div class="d-flex flex-row align-items-center">
+                <span class="text-nowrap">Замечания по личному делу</span>
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('comments_on_personal_file')"
+                      >
+                        А -> Я
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('-comments_on_personal_file')"
                       >
                         Я -> А
                       </button>
@@ -1355,6 +1415,22 @@
                 multiple
               />
             </th>
+
+            <th>
+              <input
+                type="text"
+                class="form-control"
+                v-model="searchForm.extra_data__icontains"
+              />
+            </th>
+            <th>
+              <input
+                type="text"
+                class="form-control"
+                v-model="searchForm.comments_on_personal_file__icontains"
+              />
+            </th>
+
             <th>
               <select class="form-select" v-model="searchForm.gender">
                 <option selected value="">-------</option>
@@ -1362,6 +1438,7 @@
                 <option value="0" key="0">Женский</option>
               </select>
             </th>
+
             <th>
               <v-select
                 v-model="searchForm.speciality_1__in"
@@ -1905,6 +1982,8 @@
             <td>{{ cadet.get_educational_institution }}</td>
             <td>{{ cadet.get_component_organ }}</td>
             <td>{{ cadet.get_arrived_from_go_rovd }}</td>
+            <td>{{ cadet.extra_data }}</td>
+            <td>{{ cadet.comments_on_personal_file }}</td>
             <td>{{ cadet.get_gender }}</td>
             <template v-if="Object.keys(normalizedAdmissionQuota).length === 0">
               <td></td>
@@ -2403,8 +2482,9 @@ export default {
     async handleScroll() {
       const container = this.$refs.infinite_list
       if (
-        Math.round(container.scrollTop + container.clientHeight) ===
-        container.scrollHeight
+        Math.round(container.scrollTop + container.clientHeight) >=
+          container.scrollHeight &&
+        !this.isLoading
       ) {
         if (this.cadetList.next) {
           this.isLoading = true
