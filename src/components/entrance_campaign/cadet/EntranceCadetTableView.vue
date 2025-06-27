@@ -2389,11 +2389,6 @@ export default {
   async created() {
     await this.loadData()
   },
-
-  mounted() {
-    this.loadMoreData()
-  },
-
   methods: {
     async loadData() {
       this.isLoading = true
@@ -2433,41 +2428,6 @@ export default {
         }
       }
     },
-    // loadMoreData() {
-    //   const options = {
-    //     root: this.$refs.infinite_list,
-    //     rootMargin: "0px",
-    //     threshold: 0.5,
-    //   }
-    //
-    //   const callback = async (entries, observer) => {
-    //     if (entries[0].isIntersecting) {
-    //       if (this.cadetList.next) {
-    //         this.isLoading = true
-    //         try {
-    //           const response = await this.cadetAPIInstance.updateList(
-    //             this.cadetList.next,
-    //           )
-    //           const newData = await response.data
-    //           this.cadetList.results = [
-    //             ...this.cadetList.results,
-    //             ...newData.results,
-    //           ]
-    //           this.cadetList.next = newData.next
-    //           this.cadetList.previous = newData.previous
-    //           this.setSerialNumbers()
-    //         } catch (error) {
-    //           this.isError = true
-    //         } finally {
-    //           this.isLoading = false
-    //         }
-    //       }
-    //     }
-    //   }
-    //
-    //   const observer = new IntersectionObserver(callback, options)
-    //   observer.observe(this.$refs.observer)
-    // },
     setSerialNumbers() {
       let i = 1
       this.cadetList.results.forEach((item) => {
