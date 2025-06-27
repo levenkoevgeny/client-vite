@@ -115,8 +115,7 @@
               >
                 <font-awesome-icon
                   :icon="['fas', 'envelope']"
-                />&nbsp;&nbsp;Извещения (все активные записи !!! уточнить по
-                БГМУ и т.д.)
+                />&nbsp;&nbsp;Извещения (только активные записи)
               </button>
               <button
                 class="btn btn-secondary mb-3"
@@ -2482,9 +2481,8 @@ export default {
     async handleScroll() {
       const container = this.$refs.infinite_list
       if (
-        Math.round(container.scrollTop + container.clientHeight) >=
-          container.scrollHeight &&
-        !this.isLoading
+          container.scrollTop + container.clientHeight >=
+          (container.scrollHeight - 50) && !this.isLoading
       ) {
         if (this.cadetList.next) {
           this.isLoading = true

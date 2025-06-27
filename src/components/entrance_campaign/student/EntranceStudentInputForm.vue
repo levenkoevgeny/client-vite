@@ -1138,12 +1138,12 @@
                             <textarea
                               id="id_department"
                               class="form-control"
-                              placeholder="Ведомство"
+                              placeholder="Наименование ведомства (для сотрудников)"
                               rows="2"
                               v-model="currentStudentData.department"
                             ></textarea>
                             <label for="id_department"
-                              >Наименование ведомства</label
+                              >Наименование ведомства (для сотрудников)</label
                             >
                           </div>
                         </div>
@@ -1559,6 +1559,260 @@
 
                       <div class="row">
                         <div class="col-xl-6">
+
+                          <div class="row d-flex flex-row align-items-center">
+                            <div class="col-xl-3">
+                              <div class="form-check mb-3">
+                                <input
+                                    id="id_is_class_vpn"
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    v-model="currentStudentData.is_class_vpn"
+                                />
+                                <label
+                                    class="form-check-label"
+                                    for="id_is_class_vpn"
+                                >
+                                  Класс военно-патриотической направленности
+                                </label>
+                              </div>
+                            </div>
+                            <div class="col-xl-9">
+                              <div class="form-floating mb-3">
+                                <input
+                                    id="id_class_vpn_extra_data"
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Претендует на аттестат с отличием (доп.)"
+                                    v-model="
+                                    currentStudentData.class_vpn_extra_data
+                                  "
+                                />
+                                <label for="id_class_vpn_extra_data"
+                                >Класс военно-патриотической направленности
+                                  (доп.)</label
+                                >
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row d-flex flex-row align-items-center">
+                            <div class="col-xl-3">
+                              <div class="form-check mb-3">
+                                <input
+                                    id="id_is_class_pn"
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    v-model="currentStudentData.is_class_pn"
+                                />
+                                <label
+                                    class="form-check-label"
+                                    for="id_is_class_pn"
+                                >
+                                  Класс правовой направленности
+                                </label>
+                              </div>
+                            </div>
+                            <div class="col-xl-9">
+                              <div class="form-floating mb-3">
+                                <input
+                                    id="id_class_pn_extra_data"
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Претендует на аттестат с отличием (доп.)"
+                                    v-model="
+                                    currentStudentData.class_pn_extra_data
+                                  "
+                                />
+                                <label for="id_class_pn_extra_data"
+                                >Класс правовой направленности (доп.)</label
+                                >
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row d-flex flex-row align-items-center">
+                            <div class="col-xl-3">
+                              <div class="form-check mb-3">
+                                <input
+                                    id="id_is_class_other"
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    v-model="currentStudentData.is_class_other"
+                                />
+                                <label
+                                    class="form-check-label"
+                                    for="id_is_class_other"
+                                >
+                                  Профильный класс иной направленности
+                                </label>
+                              </div>
+                            </div>
+                            <div class="col-xl-9">
+                              <div class="form-floating mb-3">
+                                <input
+                                    id="id_class_other_extra_data"
+                                    type="text"
+                                    class="form-control form-control-sm"
+                                    placeholder="Профильный класс иной направленности
+                              (доп.)"
+                                    v-model="
+                                    currentStudentData.class_other_extra_data
+                                  "
+                                />
+                                <label for="id_class_other_extra_data"
+                                >Профильный класс иной направленности
+                                  (доп.)</label
+                                >
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row d-flex flex-row align-items-center">
+                            <div class="col-xl-3">
+                              <div class="form-check mb-3">
+                                <input
+                                    id="id_victims_of_the_Chernobyl_disaster"
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    v-model="
+                                    currentStudentData.victims_of_the_Chernobyl_disaster
+                                  "
+                                />
+                                <label
+                                    class="form-check-label"
+                                    for="id_victims_of_the_Chernobyl_disaster"
+                                >
+                                  Пострадавшие от катастрофы на ЧАЭС
+                                </label>
+                              </div>
+                            </div>
+                            <div class="col-xl-9">
+                              <div class="form-floating mb-3">
+                                <input
+                                    id="id_victims_of_the_Chernobyl_disaster_extra_data"
+                                    type="text"
+                                    class="form-control form-control-sm"
+                                    placeholder="Пострадавшие от катастрофы на ЧАЭС (доп.)"
+                                    v-model="
+                                    currentStudentData.victims_of_the_Chernobyl_disaster_extra_data
+                                  "
+                                />
+                                <label
+                                    for="id_victims_of_the_Chernobyl_disaster_extra_data"
+                                >Пострадавшие от катастрофы на ЧАЭС
+                                  (доп.)</label
+                                >
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row d-flex flex-row align-items-center">
+                            <div class="col-xl-3">
+                              <div class="form-check mb-3">
+                                <input
+                                    id="id_is_brsm_member"
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    v-model="currentStudentData.is_brsm_member"
+                                />
+                                <label
+                                    class="form-check-label"
+                                    for="id_is_brsm_member"
+                                >
+                                  Является членом БРСМ
+                                </label>
+                              </div>
+                            </div>
+                            <div class="col-xl-9">
+                              <div class="form-floating mb-3">
+                                <input
+                                    id="id_is_brsm_member_extra_data"
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Является членом БРСМ (доп.)"
+                                    v-model="
+                                    currentStudentData.is_brsm_member_extra_data
+                                  "
+                                />
+                                <label for="id_is_brsm_member_extra_data"
+                                >Является членом БРСМ (доп.)</label
+                                >
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row d-flex flex-row align-items-center">
+                            <div class="col-xl-3">
+                              <div class="form-check mb-3">
+                                <input
+                                    id="id_is_member_of_other_public_organizations"
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    v-model="
+                                    currentStudentData.is_member_of_other_public_organizations
+                                  "
+                                />
+                                <label
+                                    class="form-check-label"
+                                    for="id_is_member_of_other_public_organizations"
+                                >
+                                  Является членом иных общественных организаций
+                                </label>
+                              </div>
+                            </div>
+                            <div class="col-xl-9">
+                              <div class="form-floating mb-3">
+                                <input
+                                    id="id_is_member_of_other_public_organizations_extra_data"
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Является членом БРСМ (доп.)"
+                                    v-model="
+                                    currentStudentData.is_member_of_other_public_organizations_extra_data
+                                  "
+                                />
+                                <label
+                                    for="id_is_member_of_other_public_organizations_extra_data"
+                                >Является членом иных общественных организаций
+                                  (доп.)</label
+                                >
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row d-flex flex-row align-items-center">
+                            <div class="col-xl-3">
+                              <div class="form-check mb-3">
+                                <input
+                                    id="id_is_from_large_family"
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    v-model="
+                                    currentStudentData.is_from_large_family
+                                  "
+                                />
+                                <label
+                                    class="form-check-label"
+                                    for="id_is_from_large_family"
+                                >
+                                  Из многодетной семьи
+                                </label>
+                              </div>
+                            </div>
+                            <div class="col-xl-9">
+                              <div class="form-floating mb-3">
+                                <input
+                                    id="id_from_large_family_extra_data"
+                                    type="text"
+                                    class="form-control form-control-sm"
+                                    placeholder="Из многодетной семьи (доп.)"
+                                    v-model="
+                                    currentStudentData.from_large_family_extra_data
+                                  "
+                                />
+                                <label for="id_from_large_family_extra_data"
+                                >Из многодетной семьи (доп.)</label
+                                >
+                              </div>
+                            </div>
+                          </div>
+
+
                           <div class="row d-flex flex-row align-items-center">
                             <div class="col-xl-3">
                               <div class="form-check mb-3">
@@ -1597,148 +1851,7 @@
                               </div>
                             </div>
                           </div>
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_has_achievements_in_sports"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="
-                                    currentStudentData.has_achievements_in_sports
-                                  "
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_has_achievements_in_sports"
-                                >
-                                  Достижения в спорте
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_has_achievements_in_sports_extra_data"
-                                  type="text"
-                                  class="form-control"
-                                  placeholder="Претендует на аттестат с отличием (доп.)"
-                                  v-model="
-                                    currentStudentData.has_achievements_in_sports_extra_data
-                                  "
-                                />
-                                <label
-                                  for="id_has_achievements_in_sports_extra_data"
-                                  >Достижения в спорте (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_is_class_vpn"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="currentStudentData.is_class_vpn"
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_is_class_vpn"
-                                >
-                                  Класс военно-патриотической направленности
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_class_vpn_extra_data"
-                                  type="text"
-                                  class="form-control"
-                                  placeholder="Претендует на аттестат с отличием (доп.)"
-                                  v-model="
-                                    currentStudentData.class_vpn_extra_data
-                                  "
-                                />
-                                <label for="id_class_vpn_extra_data"
-                                  >Класс военно-патриотической направленности
-                                  (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_is_class_pn"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="currentStudentData.is_class_pn"
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_is_class_pn"
-                                >
-                                  Класс правовой направленности
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_class_pn_extra_data"
-                                  type="text"
-                                  class="form-control"
-                                  placeholder="Претендует на аттестат с отличием (доп.)"
-                                  v-model="
-                                    currentStudentData.class_pn_extra_data
-                                  "
-                                />
-                                <label for="id_class_pn_extra_data"
-                                  >Класс правовой направленности (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_is_class_other"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="currentStudentData.is_class_other"
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_is_class_other"
-                                >
-                                  Профильный класс иной направленности
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_class_other_extra_data"
-                                  type="text"
-                                  class="form-control form-control-sm"
-                                  placeholder="Профильный класс иной направленности
-                              (доп.)"
-                                  v-model="
-                                    currentStudentData.class_other_extra_data
-                                  "
-                                />
-                                <label for="id_class_other_extra_data"
-                                  >Профильный класс иной направленности
-                                  (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
+
                           <div class="row d-flex flex-row align-items-center">
                             <div class="col-xl-3">
                               <div class="form-check mb-3">
@@ -1766,7 +1879,7 @@
                                   type="text"
                                   class="form-control form-control-sm"
                                   placeholder="Мероприятия интелектуального и
-                              научно-исследовательского характера (доп.)"
+                                  научю-исслед. хар-ра (доп.)"
                                   v-model="
                                     currentStudentData.has_intellectual_and_scientific_research_events_extra_data
                                   "
@@ -1774,44 +1887,8 @@
                                 <label
                                   for="id_has_intellectual_and_scientific_research_events_extra_data"
                                   >Мероприятия интелектуального и
-                                  научно-исследовательского характера
+                                  науч.-исслед. хар-ра
                                   (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_is_from_large_family"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="
-                                    currentStudentData.is_from_large_family
-                                  "
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_is_from_large_family"
-                                >
-                                  Из многодетной семьи
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_from_large_family_extra_data"
-                                  type="text"
-                                  class="form-control form-control-sm"
-                                  placeholder="Из многодетной семьи (доп.)"
-                                  v-model="
-                                    currentStudentData.from_large_family_extra_data
-                                  "
-                                />
-                                <label for="id_from_large_family_extra_data"
-                                  >Из многодетной семьи (доп.)</label
                                 >
                               </div>
                             </div>
@@ -1853,20 +1930,25 @@
                               </div>
                             </div>
                           </div>
+
+                        </div>
+
+
+                        <div class="col-xl-6">
                           <div class="row d-flex flex-row align-items-center">
                             <div class="col-xl-3">
                               <div class="form-check mb-3">
                                 <input
-                                  id="id_have_dependent_children_parents"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="
+                                    id="id_have_dependent_children_parents"
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    v-model="
                                     currentStudentData.have_dependent_children_parents
                                   "
                                 />
                                 <label
-                                  class="form-check-label"
-                                  for="id_have_dependent_children_parents"
+                                    class="form-check-label"
+                                    for="id_have_dependent_children_parents"
                                 >
                                   Имеют на иждивении детей и / или родителей
                                 </label>
@@ -1875,17 +1957,17 @@
                             <div class="col-xl-9">
                               <div class="form-floating mb-3">
                                 <input
-                                  id="id_have_dependent_children_parents_extra_data"
-                                  type="text"
-                                  class="form-control form-control-sm"
-                                  placeholder="Имеют на иждевении детей и / или родителей (доп.)"
-                                  v-model="
+                                    id="id_have_dependent_children_parents_extra_data"
+                                    type="text"
+                                    class="form-control form-control-sm"
+                                    placeholder="Имеют на иждевении детей и / или родителей (доп.)"
+                                    v-model="
                                     currentStudentData.have_dependent_children_parents_extra_data
                                   "
                                 />
                                 <label
-                                  for="id_have_dependent_children_parents_extra_data"
-                                  >Имеют на иждевении детей и / или родителей
+                                    for="id_have_dependent_children_parents_extra_data"
+                                >Имеют на иждевении детей и / или родителей
                                   (доп.)</label
                                 >
                               </div>
@@ -1895,42 +1977,39 @@
                             <div class="col-xl-3">
                               <div class="form-check mb-3">
                                 <input
-                                  id="id_victims_of_the_Chernobyl_disaster"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="
-                                    currentStudentData.victims_of_the_Chernobyl_disaster
+                                    id="id_has_achievements_in_sports"
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    v-model="
+                                    currentStudentData.has_achievements_in_sports
                                   "
                                 />
                                 <label
-                                  class="form-check-label"
-                                  for="id_victims_of_the_Chernobyl_disaster"
+                                    class="form-check-label"
+                                    for="id_has_achievements_in_sports"
                                 >
-                                  Пострадавшие от катастрофы на ЧАЭС
+                                  Достижения в спорте
                                 </label>
                               </div>
                             </div>
                             <div class="col-xl-9">
                               <div class="form-floating mb-3">
                                 <input
-                                  id="id_victims_of_the_Chernobyl_disaster_extra_data"
-                                  type="text"
-                                  class="form-control form-control-sm"
-                                  placeholder="Пострадавшие от катастрофы на ЧАЭС (доп.)"
-                                  v-model="
-                                    currentStudentData.victims_of_the_Chernobyl_disaster_extra_data
+                                    id="id_has_achievements_in_sports_extra_data"
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Претендует на аттестат с отличием (доп.)"
+                                    v-model="
+                                    currentStudentData.has_achievements_in_sports_extra_data
                                   "
                                 />
                                 <label
-                                  for="id_victims_of_the_Chernobyl_disaster_extra_data"
-                                  >Пострадавшие от катастрофы на ЧАЭС
-                                  (доп.)</label
+                                    for="id_has_achievements_in_sports_extra_data"
+                                >Достижения в спорте (доп.)</label
                                 >
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div class="col-xl-6">
                           <div class="row d-flex flex-row align-items-center">
                             <div class="col-xl-3">
                               <div class="form-check mb-3">
@@ -2116,78 +2195,7 @@
                               </div>
                             </div>
                           </div>
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_is_brsm_member"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="currentStudentData.is_brsm_member"
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_is_brsm_member"
-                                >
-                                  Является членом БРСМ
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_is_brsm_member_extra_data"
-                                  type="text"
-                                  class="form-control"
-                                  placeholder="Является членом БРСМ (доп.)"
-                                  v-model="
-                                    currentStudentData.is_brsm_member_extra_data
-                                  "
-                                />
-                                <label for="id_is_brsm_member_extra_data"
-                                  >Является членом БРСМ (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_is_member_of_other_public_organizations"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="
-                                    currentStudentData.is_member_of_other_public_organizations
-                                  "
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_is_member_of_other_public_organizations"
-                                >
-                                  Является членом иных общественных организаций
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_is_member_of_other_public_organizations_extra_data"
-                                  type="text"
-                                  class="form-control"
-                                  placeholder="Является членом БРСМ (доп.)"
-                                  v-model="
-                                    currentStudentData.is_member_of_other_public_organizations_extra_data
-                                  "
-                                />
-                                <label
-                                  for="id_is_member_of_other_public_organizations_extra_data"
-                                  >Является членом иных общественных организаций
-                                  (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
+
                           <div class="row d-flex flex-row align-items-center">
                             <div class="col-xl-3">
                               <div class="form-check mb-3">
