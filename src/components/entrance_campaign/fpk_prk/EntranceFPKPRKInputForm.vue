@@ -2919,7 +2919,7 @@ export default {
     get_score_sum() {
       let education_average_score = this.currentFPKPRKData
         .education_average_score
-        ? parseFloat(this.currentFPKPRKData.education_average_score)
+        ? parseInt(this.currentFPKPRKData.education_average_score)
         : 0
       let rus_score_ct = this.currentFPKPRKData.rus_score_ct
         ? this.currentFPKPRKData.rus_score_ct
@@ -2935,14 +2935,13 @@ export default {
         ? this.currentFPKPRKData.foreign_lang_score_ct
         : 0
 
-      let sum =
+      return (
         education_average_score +
         rus_score_ct +
         bel_score_ct +
         social_science_score_ct +
         foreign_lang_score_ct
-
-      return sum.toFixed(1)
+      )
     },
     getAverageScore() {
       let counter = 0
@@ -2957,7 +2956,7 @@ export default {
         }
       })
       if (this.getAverageScoreCount() > 0) {
-        return ((counter / this.getAverageScoreCount()) * 10).toFixed(1)
+        return ((counter / this.getAverageScoreCount()) * 10).toFixed()
       } else return 0
     },
 

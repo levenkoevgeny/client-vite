@@ -3578,6 +3578,27 @@ export default {
           ),
           $autoDirty: true,
         },
+        rus_bel_ct_number: {
+          required: helpers.withMessage(
+            "Поле 'Русский / белорусский язык - номер сертификата' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        social_science_ct_number: {
+          required: helpers.withMessage(
+            "Поле 'Обществоведение - номер сертификата' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
+        foreign_lang_ct_number: {
+          required: helpers.withMessage(
+            "Поле 'Иностранный язык - номер сертификата' не может быть пустым",
+            required,
+          ),
+          $autoDirty: true,
+        },
         rus_score_ct: {
           required: helpers.withMessage(
             "Поле 'Русский язык - количество баллов по сертификату' не может быть пустым",
@@ -3645,6 +3666,11 @@ export default {
       try {
         const response = await this.cadetAPIInstance.getItemData(applicantId)
         this.currentCadetData = response.data
+        if (this.currentCadetData.education_average_score_calculation) {
+          this.average_score_calculation = JSON.parse(
+            this.currentCadetData.education_average_score_calculation,
+          )
+        }
         this.currentCadetDataFromServer = Object.assign(
           {},
           this.currentCadetData,
@@ -4129,7 +4155,7 @@ export default {
     get_score_sum() {
       let education_average_score = this.currentCadetData
         .education_average_score
-        ? parseFloat(this.currentCadetData.education_average_score)
+        ? parseInt(this.currentCadetData.education_average_score)
         : 0
       let rus_score_ct = this.currentCadetData.rus_score_ct
         ? this.currentCadetData.rus_score_ct
@@ -4145,14 +4171,13 @@ export default {
         ? this.currentCadetData.foreign_lang_score_ct
         : 0
 
-      let sum =
+      return (
         education_average_score +
         rus_score_ct +
         bel_score_ct +
         social_science_score_ct +
         foreign_lang_score_ct
-
-      return sum.toFixed(1)
+      )
     },
 
     getAverageScore() {
@@ -4168,7 +4193,7 @@ export default {
         }
       })
       if (this.getAverageScoreCount() > 0) {
-        return ((counter / this.getAverageScoreCount()) * 10).toFixed(1)
+        return ((counter / this.getAverageScoreCount()) * 10).toFixed()
       } else return 0
     },
 

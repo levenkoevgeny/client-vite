@@ -14,7 +14,10 @@
         aria-hidden="true"
         ref="itemUpdateModal"
       >
-        <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div
+          class="modal-dialog modal-dialog-centered"
+          style="--bs-modal-width: 100%"
+        >
           <div class="modal-content">
             <div class="modal-header">
               <h1 class="modal-title fs-3" id="exampleModalLabel">
@@ -29,12 +32,8 @@
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body">
-              <PassOfficeCadetItemView
-                :current-cadet="this.currentCadetForUpdate"
-                :update-photo-method="updatePhotoMethod"
-              />
-            </div>
+
+            <Camera />
           </div>
         </div>
       </div>
@@ -139,10 +138,11 @@ import { mapGetters } from "vuex"
 import { debounce } from "lodash/function.js"
 import BaseListLayoutForPassOffice from "@/components/layouts/BaseListLayoutForPassOffice.vue"
 import PassOfficeCadetItemView from "@/components/passOffice/cadet/PassOfficeCadetItemView.vue"
+import Camera from "@/components/passOffice/Camera.vue"
 
 export default {
   name: "PassOfficeCadetView",
-  components: { BaseListLayoutForPassOffice, PassOfficeCadetItemView },
+  components: { Camera, BaseListLayoutForPassOffice, PassOfficeCadetItemView },
   data() {
     return {
       cadetList: { count: 0, results: [], previous: null, next: null },

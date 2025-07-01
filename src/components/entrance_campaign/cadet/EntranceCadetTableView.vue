@@ -1877,7 +1877,7 @@
                 />
               </div>
             </th>
-            <th style="min-width: 200px">
+            <th>
               <v-select
                 v-model="searchForm.vpk__in"
                 :options="orderedVpkCategories"
@@ -2481,8 +2481,9 @@ export default {
     async handleScroll() {
       const container = this.$refs.infinite_list
       if (
-          container.scrollTop + container.clientHeight >=
-          (container.scrollHeight - 50) && !this.isLoading
+        container.scrollTop + container.clientHeight >=
+          container.scrollHeight - 50 &&
+        !this.isLoading
       ) {
         if (this.cadetList.next) {
           this.isLoading = true
@@ -2560,6 +2561,7 @@ export default {
         export_data.fields_for_export =
           this.selectedFieldsForDataExport.toString()
         export_data.destination = destination
+        export_data.ordering = this.searchForm.ordering
 
         this.cadetAPIInstance.list_export(export_data).then((response) => {
           const url = window.URL.createObjectURL(new Blob([response.data]))

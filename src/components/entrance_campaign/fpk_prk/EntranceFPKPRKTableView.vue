@@ -117,8 +117,18 @@
                 >
                   <font-awesome-icon
                     :icon="['fas', 'envelope']"
-                  />&nbsp;&nbsp;Измещения (МАГ)
+                  />&nbsp;&nbsp;Извещения (МАГ) - все записи
                 </button>
+                <button
+                  class="btn btn-secondary mb-3 text-start"
+                  @click="notifyExportFPK"
+                  :disabled="isDocumentProcessing"
+                >
+                  <font-awesome-icon
+                    :icon="['fas', 'envelope']"
+                  />&nbsp;&nbsp;Извещения (ФПК) - отфильтрованные
+                </button>
+
                 <button
                   class="btn btn-secondary mb-3 text-start"
                   @click="examSheetGU"
@@ -206,10 +216,8 @@
         min-height: calc(100vh - 270px);
         max-height: calc(100vh - 270px);
         overflow: auto;
-        width: 20000px;
       "
       ref="infinite_list"
-      id="infinite_list"
       @scroll="handleScroll"
     >
       <table class="table table-hover table-responsive" style="overflow: auto">
@@ -1961,6 +1969,7 @@ export default {
         export_data.fields_for_export =
           this.selectedFieldsForDataExport.toString()
         export_data.destination = destination
+        export_data.ordering = this.searchForm.ordering
 
         this.fpkprkAPIInstance.list_export(export_data).then((response) => {
           const url = window.URL.createObjectURL(new Blob([response.data]))
@@ -1976,7 +1985,7 @@ export default {
 
     async notifyExport() {
       this.isDocumentProcessing = true
-      this.fpkprkAPIInstance.get_notifies().then((response) => {
+      this.fpkprkAPIInstance.get_notifies_mag().then((response) => {
         const url = window.URL.createObjectURL(new Blob([response.data]))
         const link = document.createElement("a")
         link.href = url
@@ -1985,6 +1994,23 @@ export default {
         link.click()
         this.isDocumentProcessing = false
       })
+    },
+
+    async notifyExportFPK() {
+      this.isDocumentProcessing = true
+      let export_data = {}
+      export_data.query_string = getQueryStringFromSearchForm(this.searchForm)
+      this.fpkprkAPIInstance
+        .notify_export_fpk_filter(export_data)
+        .then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]))
+          const link = document.createElement("a")
+          link.href = url
+          link.setAttribute("download", `notify.docx`)
+          document.body.appendChild(link)
+          link.click()
+          this.isDocumentProcessing = false
+        })
     },
 
     async examSheetGU() {

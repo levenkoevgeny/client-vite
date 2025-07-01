@@ -723,6 +723,7 @@ export default {
         export_data.fields_for_export =
           this.selectedFieldsForDataExport.toString()
         export_data.destination = destination
+        export_data.ordering = this.searchForm.ordering
 
         this.cadetAPIInstance.list_export(export_data).then((response) => {
           const url = window.URL.createObjectURL(new Blob([response.data]))

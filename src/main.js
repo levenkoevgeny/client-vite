@@ -47,9 +47,38 @@ import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons"
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons"
 import { faBook } from "@fortawesome/free-solid-svg-icons"
 import { faFile } from "@fortawesome/free-solid-svg-icons"
+import { faSliders } from "@fortawesome/free-solid-svg-icons"
+import { faArrowUp } from "@fortawesome/free-solid-svg-icons"
+import { faArrowDown } from "@fortawesome/free-solid-svg-icons"
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons"
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons"
+import { faSearchPlus } from "@fortawesome/free-solid-svg-icons"
+import { faSearchMinus } from "@fortawesome/free-solid-svg-icons"
+import { faSun } from "@fortawesome/free-solid-svg-icons"
+import { faArrowsAlt } from "@fortawesome/free-solid-svg-icons"
+import { faRedo } from "@fortawesome/free-solid-svg-icons"
+import { faAdjust } from "@fortawesome/free-solid-svg-icons"
+import { faArrowsAltH } from "@fortawesome/free-solid-svg-icons"
+import { faArrowsAltV } from "@fortawesome/free-solid-svg-icons"
+import { faSearch } from "@fortawesome/free-solid-svg-icons"
 import axios from "axios"
 import "../public/vue-select.css"
 export const axiosInstance = axios.create()
+
+library.add(faSliders)
+library.add(faArrowUp)
+library.add(faArrowDown)
+library.add(faArrowLeft)
+library.add(faArrowRight)
+library.add(faSearchPlus)
+library.add(faSearchMinus)
+library.add(faSun)
+library.add(faArrowsAlt)
+library.add(faRedo)
+library.add(faAdjust)
+library.add(faArrowsAltH)
+library.add(faArrowsAltV)
+library.add(faSearch)
 
 library.add(faUserGraduate)
 library.add(faPersonBreastfeeding)

@@ -35,9 +35,17 @@ class FPKPRKStudentAPI extends BaseAPI {
     )
   }
 
-  async get_notifies() {
+  async get_notifies_mag() {
     return axios.get(
-      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/get_notifies/`,
+      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/get_notifies_mag/`,
+      { responseType: "blob" },
+    )
+  }
+
+  async notify_export_fpk_filter(export_data) {
+    return axios.post(
+      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/notify_export_fpk_filter/`,
+      export_data,
       { responseType: "blob" },
     )
   }

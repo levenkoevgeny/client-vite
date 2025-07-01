@@ -134,7 +134,7 @@
           <thead ref="thead">
             <tr>
               <th scope="col" class="text-center">№п.п.</th>
-              <th scope="col">Кто изучал дело</th>
+              <th scope="col" style="min-width: 400px">Кто изучал дело</th>
               <th scope="col">
                 <div class="d-flex flex-row align-items-center">
                   <span class="text-nowrap">Заявление отпечатано</span>
@@ -206,7 +206,12 @@
                   <span class="text-nowrap">Специальность</span>
                 </div>
               </th>
-              <th scope="col">
+              <th scope="col" style="min-width: 450px">
+                <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap">Льгота</span>
+                </div>
+              </th>
+              <th scope="col" style="min-width: 300px">
                 <div class="d-flex flex-row align-items-center">
                   <span class="text-nowrap">Образование</span>
                 </div>
@@ -317,37 +322,7 @@
                   </div>
                 </div>
               </th>
-              <th scope="col">
-                <div class="d-flex flex-row align-items-center">
-                  <span class="text-nowrap">Дата рождения</span>
-                  <div class="dropdown">
-                    <button
-                      class="btn dropdown-toggle"
-                      type="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    ></button>
-                    <ul class="dropdown-menu">
-                      <li>
-                        <button
-                          class="dropdown-item"
-                          @click="setOrdering('date_of_birth')"
-                        >
-                          меньш. -> больш.
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="dropdown-item"
-                          @click="setOrdering('-date_of_birth')"
-                        >
-                          больш. -> меньш.
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </th>
+
               <th scope="col">
                 <div class="d-flex flex-row align-items-center">
                   <span class="text-nowrap">Возраст</span>
@@ -426,11 +401,9 @@
                   >Иностранный язык (будет изучать)</span
                 >
               </th>
-              <th scope="col">
+              <th scope="col" class="text-center" style="min-width: 450px">
                 <div class="d-flex flex-row align-items-center">
-                  <span class="text-nowrap"
-                    >Номер сертификата по рус./ бел.
-                  </span>
+                  <span class="text-nowrap">ВПК</span>
                   <div class="dropdown">
                     <button
                       class="btn dropdown-toggle"
@@ -442,7 +415,7 @@
                       <li>
                         <button
                           class="dropdown-item"
-                          @click="setOrdering('rus_bel_ct_number')"
+                          @click="setOrdering('vpk__category')"
                         >
                           А -> Я
                         </button>
@@ -450,7 +423,7 @@
                       <li>
                         <button
                           class="dropdown-item"
-                          @click="setOrdering('-rus_bel_ct_number')"
+                          @click="setOrdering('-vpk__category')"
                         >
                           Я -> А
                         </button>
@@ -459,6 +432,211 @@
                   </div>
                 </div>
               </th>
+              <th scope="col" class="text-center" style="min-width: 450px">
+                <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap">ВПК (данные)</span>
+                  <div class="dropdown">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('vpk_data')"
+                        >
+                          А -> Я
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('-vpk_data')"
+                        >
+                          Я -> А
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
+
+              <th scope="col" class="text-center" style="min-width: 250px">
+                <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap">Образование (город/село)</span>
+                  <div class="dropdown">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="
+                            setOrdering(
+                              'education_location_kind__education_location_kind',
+                            )
+                          "
+                        >
+                          А -> Я
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="
+                            setOrdering(
+                              '-education_location_kind__education_location_kind',
+                            )
+                          "
+                        >
+                          Я -> А
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
+              <th scope="col" class="text-center" style="min-width: 250px">
+                <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap">Уровень образования</span>
+                  <div class="dropdown">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="
+                            setOrdering('education_level__education_level')
+                          "
+                        >
+                          А -> Я
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="
+                            setOrdering('-education_level__education_level')
+                          "
+                        >
+                          Я -> А
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap">Год окончания</span>
+                  <div class="dropdown">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('education_graduating_end_year')"
+                        >
+                          А -> Я
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('-education_graduating_end_year')"
+                        >
+                          Я -> А
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
+              <th scope="col" style="min-width: 350px">
+                <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap">Медаль</span>
+                  <div class="dropdown">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('medal__medal_kind')"
+                        >
+                          А -> Я
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('-medal__medal_kind')"
+                        >
+                          Я -> А
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
+
+              <th scope="col" style="min-width: 400px">
+                <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap">Область места проживания</span>
+                  <div class="dropdown">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="
+                            setOrdering('residence_region__country_region')
+                          "
+                        >
+                          А -> Я
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="
+                            setOrdering('-residence_region__country_region')
+                          "
+                        >
+                          Я -> А
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
+
               <th scope="col">
                 <div class="d-flex flex-row align-items-center">
                   <span class="text-nowrap"
@@ -589,39 +767,7 @@
                   </div>
                 </div>
               </th>
-              <th scope="col">
-                <div class="d-flex flex-row align-items-center">
-                  <span class="text-nowrap"
-                    >Номер сертификата по обществоведению
-                  </span>
-                  <div class="dropdown">
-                    <button
-                      class="btn dropdown-toggle"
-                      type="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    ></button>
-                    <ul class="dropdown-menu">
-                      <li>
-                        <button
-                          class="dropdown-item"
-                          @click="setOrdering('social_science_ct_number')"
-                        >
-                          А -> Я
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="dropdown-item"
-                          @click="setOrdering('-social_science_ct_number')"
-                        >
-                          Я -> А
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </th>
+
               <th scope="col">
                 <div class="d-flex flex-row align-items-center">
                   <span class="text-nowrap"
@@ -680,39 +826,6 @@
                         <button
                           class="dropdown-item"
                           @click="setOrdering('-social_science_ct_choice')"
-                        >
-                          Я -> А
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </th>
-              <th scope="col">
-                <div class="d-flex flex-row align-items-center">
-                  <span class="text-nowrap"
-                    >Номер сертификата по иностранному языку
-                  </span>
-                  <div class="dropdown">
-                    <button
-                      class="btn dropdown-toggle"
-                      type="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    ></button>
-                    <ul class="dropdown-menu">
-                      <li>
-                        <button
-                          class="dropdown-item"
-                          @click="setOrdering('foreign_lang_ct_number')"
-                        >
-                          А -> Я
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="dropdown-item"
-                          @click="setOrdering('-foreign_lang_ct_number')"
                         >
                           Я -> А
                         </button>
@@ -886,6 +999,7 @@
                   </div>
                 </div>
               </th>
+
               <th scope="col">
                 <div class="d-flex flex-row align-items-center">
                   <span class="text-nowrap"
@@ -1032,6 +1146,15 @@
               </th>
               <th>
                 <v-select
+                  v-model="searchForm.privilege_1__in"
+                  :options="orderedPrivileges"
+                  label="privilege"
+                  :reduce="(privilege) => privilege.id"
+                  multiple
+                />
+              </th>
+              <th>
+                <v-select
                   v-model="searchForm.education_kind__in"
                   :options="orderedEducationKinds"
                   label="education"
@@ -1081,20 +1204,7 @@
                   v-model="searchForm.patronymic_rus__icontains"
                 />
               </th>
-              <th>
-                <div class="d-flex justify-content-center align-items-center">
-                  <input
-                    type="date"
-                    class="form-control me-2"
-                    v-model="searchForm.date_of_birth__gte"
-                  />
-                  <input
-                    type="date"
-                    class="form-control"
-                    v-model="searchForm.date_of_birth__lte"
-                  />
-                </div>
-              </th>
+
               <th>
                 <div class="d-flex justify-content-center align-items-center">
                   <input
@@ -1232,14 +1342,72 @@
                   </option>
                 </select>
               </th>
+              <th>
+                <v-select
+                  v-model="searchForm.vpk__in"
+                  :options="orderedVpkCategories"
+                  label="category"
+                  :reduce="(vpk) => vpk.id"
+                  multiple
+                />
+              </th>
+              <th>
+                <div class="d-flex justify-content-center align-items-center">
+                  <input
+                    type="text"
+                    class="form-control me-2"
+                    v-model="searchForm.vpk_data__icontains"
+                  />
+                </div>
+              </th>
+
+              <th>
+                <v-select
+                  v-model="searchForm.education_location_kind__in"
+                  :options="orderedEducationLocalityKinds"
+                  label="education_location_kind"
+                  :reduce="(educationLocalityKind) => educationLocalityKind.id"
+                  multiple
+                />
+              </th>
+              <th>
+                <v-select
+                  v-model="searchForm.education_level__in"
+                  :options="orderedEducationLevels"
+                  label="education_level"
+                  :reduce="(educationLevel) => educationLevel.id"
+                  multiple
+                />
+              </th>
 
               <th>
                 <input
-                  type="text"
-                  class="form-control"
-                  v-model="searchForm.rus_bel_ct_number__icontains"
+                  type="number"
+                  class="form-control me-2"
+                  v-model="searchForm.education_graduating_end_year"
                 />
               </th>
+
+              <th>
+                <v-select
+                  v-model="searchForm.medal__in"
+                  :options="orderedMedals"
+                  label="medal_kind"
+                  :reduce="(medal) => medal.id"
+                  multiple
+                />
+              </th>
+
+              <th>
+                <v-select
+                  v-model="searchForm.residence_region__in"
+                  :options="orderedCountryRegions"
+                  label="country_region"
+                  :reduce="(region) => region.id"
+                  multiple
+                />
+              </th>
+
               <th>
                 <div class="d-flex justify-content-center align-items-center">
                   <input
@@ -1286,13 +1454,7 @@
                   <option value="2025 ЦТ" key="2025 ЦТ">2025 ЦТ</option>
                 </select>
               </th>
-              <th>
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="searchForm.social_science_ct_number__icontains"
-                />
-              </th>
+
               <th>
                 <div class="d-flex justify-content-center align-items-center">
                   <input
@@ -1318,13 +1480,6 @@
                   <option value="2025 ЦЭ" key="2025 ЦЭ">2025 ЦЭ</option>
                   <option value="2025 ЦТ" key="2025 ЦТ">2025 ЦТ</option>
                 </select>
-              </th>
-              <th>
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="searchForm.foreign_lang_ct_number__icontains"
-                />
               </th>
               <th>
                 <div class="d-flex justify-content-center align-items-center">
@@ -1481,6 +1636,15 @@
                 </td>
                 <td v-else></td>
               </template>
+              <template v-if="Object.keys(normalizedPrivilege).length === 0">
+                <td></td>
+              </template>
+              <template v-else>
+                <td v-if="student.privilege_1">
+                  {{ normalizedPrivilege[student.privilege_1].privilege }}
+                </td>
+                <td v-else></td>
+              </template>
               <template
                 v-if="Object.keys(normalizedEducationKinds).length === 0"
               >
@@ -1519,7 +1683,6 @@
               <td>{{ student.last_name_rus }}</td>
               <td>{{ student.first_name_rus }}</td>
               <td>{{ student.patronymic_rus }}</td>
-              <td class="text-center">{{ student.date_of_birth }}</td>
               <td class="text-center">{{ student.get_age }}</td>
               <!--              <td>{{ student.place_of_birth }}</td>-->
               <!--              <td>{{ student.address_registration }}</td>-->
@@ -1546,19 +1709,32 @@
               <!--              <td>{{ student.mother_phone_number }}</td>-->
               <td>{{ student.get_foreign_language_was }}</td>
               <td>{{ student.get_foreign_language_will_be }}</td>
-              <td class="text-center">{{ student.rus_bel_ct_number }}</td>
+              <td class="text-center">{{ student.get_vpk }}</td>
+              <td class="text-center">{{ student.vpk_data }}</td>
+              <td class="text-center">
+                {{ student.get_education_location_kind }}
+              </td>
+              <td class="text-center">
+                {{ student.get_education_level }}
+              </td>
+              <td class="text-center">
+                {{ student.education_graduating_end_year }}
+              </td>
+
+              <td class="text-center">
+                {{ student.get_medal }}
+              </td>
+              <td class="text-center">
+                {{ student.get_residence_region }}
+              </td>
               <td class="text-center">{{ student.rus_score_ct }}</td>
               <td class="text-center">{{ student.rus_ct_choice }}</td>
               <td class="text-center">{{ student.bel_score_ct }}</td>
               <td class="text-center">{{ student.bel_ct_choice }}</td>
-              <td class="text-center">
-                {{ student.social_science_ct_number }}
-              </td>
               <td class="text-center">{{ student.social_science_score_ct }}</td>
               <td class="text-center">
                 {{ student.social_science_ct_choice }}
               </td>
-              <td class="text-center">{{ student.foreign_lang_ct_number }}</td>
               <td class="text-center">{{ student.foreign_lang_score_ct }}</td>
               <td class="text-center">{{ student.foreign_lang_ct_choice }}</td>
               <td class="text-center">{{ student.rus_score_cert }}</td>
@@ -1960,6 +2136,7 @@ export default {
         export_data.fields_for_export =
           this.selectedFieldsForDataExport.toString()
         export_data.destination = destination
+        export_data.ordering = this.searchForm.ordering
 
         this.studentAPIInstance.list_export(export_data).then((response) => {
           const url = window.URL.createObjectURL(new Blob([response.data]))
@@ -1979,7 +2156,11 @@ export default {
       this.admissionQuotas.results.map((item) => (normObj[item.id] = item))
       return normObj
     },
-
+    normalizedPrivilege() {
+      let normObj = {}
+      this.privileges.results.map((item) => (normObj[item.id] = item))
+      return normObj
+    },
     normalizedEducationKinds() {
       let normObj = {}
       this.educationKinds.results.map((item) => (normObj[item.id] = item))
@@ -2018,6 +2199,9 @@ export default {
     orderedEducationKinds() {
       return this.educationKinds.results
     },
+    orderedPrivileges() {
+      return this.privileges.results
+    },
     orderedComponentOrgans() {
       return this.componentOrgans.results
     },
@@ -2030,15 +2214,6 @@ export default {
     orderedMilitaryOffices() {
       return this.militaryOffices.results
     },
-    orderedGraduationReasons() {
-      return this.graduationReasons.results
-    },
-    orderedEducationalInstitutions() {
-      return this.educationalInstitutions.results
-    },
-    orderedGorovds() {
-      return this.gorovds.results
-    },
     orderedPpflCategories() {
       return this.ppflCategories.results.filter(
         (category) => category.ownership_category === "1",
@@ -2049,6 +2224,22 @@ export default {
         (group) => group.ownership_category === "1",
       )
     },
+    orderedVpkCategories() {
+      return this.vpkCategories.results
+    },
+    orderedEducationLevels() {
+      return this.educationLevels.results
+    },
+    orderedMedals() {
+      return this.medals.results
+    },
+    orderedCountryRegions() {
+      return this.countryRegions.results
+    },
+    orderedEducationLocalityKinds() {
+      return this.educationLocalityKinds.results
+    },
+
     ...mapGetters({
       componentOrgans: "componentOrgans/getList",
       passportIssueAuthorities: "passportAuthorities/getList",
@@ -2058,9 +2249,15 @@ export default {
       educationalInstitutions: "educationalInstitutions/getList",
       gorovds: "gorovds/getList",
       admissionQuotas: "admissionQuota/getList",
+      privileges: "privileges/getList",
       educationKinds: "educationKind/getList",
       ppflCategories: "ppflCategories/getList",
       healthGroups: "healthGroup/getList",
+      vpkCategories: "vpkCategories/getList",
+      educationLevels: "educationLevel/getList",
+      medals: "medals/getList",
+      countryRegions: "countryRegion/getList",
+      educationLocalityKinds: "educationLocalityKind/getList",
     }),
   },
   watch: {

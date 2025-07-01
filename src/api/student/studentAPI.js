@@ -215,6 +215,10 @@ const searchObj = {
   is_children_left_without_parental_care_extra_data__icontains: "",
   has_own_family: "",
   has_own_family_extra_data__icontains: "",
+  vpk__in: "",
+  vpk_data__icontains: "",
+  education_graduating_end_year: "",
+  medal__in: "",
   ordering: null,
 }
 
