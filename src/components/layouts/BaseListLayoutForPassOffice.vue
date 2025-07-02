@@ -29,8 +29,8 @@
               </div>
             </div>
             <div
-              class="table-responsive"
-              style="max-height: calc(100vh - 400px); overflow-y: auto"
+              class="table-responsive border"
+              style="max-height: calc(100vh - 230px); overflow-y: auto"
               ref="infinite_list"
             >
               <table class="table table-hover">

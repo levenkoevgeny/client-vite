@@ -154,7 +154,7 @@
                 >
                   <font-awesome-icon
                     :icon="['fas', 'file']"
-                  />&nbsp;&nbsp;Титульные листы (МАГ ГУ)
+                  />&nbsp;&nbsp;Экзаменационные листы (МАГ ГУ)
                 </button>
                 <button
                   class="btn btn-secondary mb-3 text-start"
@@ -163,7 +163,7 @@
                 >
                   <font-awesome-icon
                     :icon="['fas', 'file']"
-                  />&nbsp;&nbsp;Титульные листы (МАГ ЮР)
+                  />&nbsp;&nbsp;Экзаменационные листы (МАГ ЮР)
                 </button>
               </div>
             </div>

@@ -4,3 +4,4 @@ export { default as PassOfficeCadetItemView } from "./cadet/PassOfficeCadetItemV
 export { default as PassOfficeStudentListView } from "./student/PassOfficeStudentListView.vue"
 export { default as PassOfficeEmployeeListView } from "./employee/PassOfficeEmployeeListView.vue"
 export { default as PassOfficeFPKPRKListView } from "./fpkprk/PassOfficeFPKPRKListView.vue"
+export { default as PassOfficeNavigation } from "./PassOfficeNavigation.vue"

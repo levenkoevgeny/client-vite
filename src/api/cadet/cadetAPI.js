@@ -164,6 +164,7 @@ const searchObj = {
   has_gusb_check: "",
   application_has_been_printed_date__gte: "",
   application_has_been_printed_date__lte: "",
+  application_has_been_printed: "",
   vpk__in: "",
   aims_to_graduate_with_honors: "",
   is_class_vpn: "",

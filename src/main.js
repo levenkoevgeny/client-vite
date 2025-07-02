@@ -141,10 +141,10 @@ axiosInstance.interceptors.response.use(
   },
   async function (error) {
     console.log("axios interceptor", error)
-    if (error.code === "ERR_NETWORK") {
-      window.location.href = "/network-error"
-      return Promise.reject(error)
-    }
+    // if (error.code === "ERR_NETWORK") {
+    //   window.location.href = "/network-error"
+    //   return Promise.reject(error)
+    // }
     switch (error.response.status) {
       case 401:
         if (error.response.data.code) {

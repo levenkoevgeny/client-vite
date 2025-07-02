@@ -133,8 +133,8 @@
             <h5 class="card-title">Бюро пропусков</h5>
             <p class="card-text">Изготовление пропусков, зачетных книжек</p>
             <router-link
-                class="btn btn-primary"
-                :to="{ name: 'pass-office-main' }"
+              class="btn btn-primary"
+              :to="{ name: 'pass-office-navigation' }"
             >
               Перейти
             </router-link>

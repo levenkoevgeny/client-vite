@@ -1,104 +1,137 @@
 <!--https://developer.mozilla.org/en-US/docs/Web/API/Media_Capture_and_Streams_API/Taking_still_photos-->
 
 <template>
-  <div class="container">
-    <div>
-      <button>up</button>
+  <div
+    class="modal fade"
+    id="itemUpdateModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+    ref="itemUpdateModal"
+  >
+    <div
+      class="modal-dialog modal-dialog-centered"
+      style="--bs-modal-width: 100%"
+    >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-3" id="exampleModalLabel"></h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            ref="cadetCameraModalCloseButton"
+          ></button>
+        </div>
+        <Camera @save-photo-event="savePhoto" />
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div style="height: 30px"></div>
+    <h3 class="my-4">
+      <router-link class="" :to="{ name: 'pass-office-cadet' }">
+        Вернуться к списку курсантов
+      </router-link>
+    </h3>
+    <div
+      v-if="isLoading || isCommonLoading"
+      class="d-flex justify-content-center align-items-center"
+    >
+      <div class="spinner-grow" style="width: 3rem; height: 3rem" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
     </div>
 
-    <input
-      type="range"
-      @change="setScale"
-      :min="minZoom"
-      :max="maxZoom"
-      :step="zoomStep"
-      :value="(maxZoom + minZoom) / 2"
-    />
-
-    <input
-      type="range"
-      @change="setPan"
-      :min="minPan"
-      :max="maxPan"
-      :step="panStep"
-      :value="(maxPan + minPan) / 2"
-    />
-    <div class="row">
-      <div class="col-12">
-        <div class="row">
-          <div class="col-6">
-            <div class="mb-3 border border-1 p-3 rounded-2">
-              <h3>Камера</h3>
-              <video ref="video" autoplay @canplay="playVideo"></video>
-              <br />
-              <br />
-              <br />
-              <button
-                id="start-button"
-                class="btn btn-secondary"
-                @click="takePicture"
-                v-if="streaming"
-              >
-                Сделать фото
-              </button>
-            </div>
-            <div class="mb-3 border border-1 p-3 rounded-2">
-              <h3>Снимок</h3>
-              <canvas ref="canvas" style="transform: rotate(90deg)"> </canvas>
-            </div>
-          </div>
-          <div class="col-6">
-            <h3>Текущее фото</h3>
-            <img
-              v-if="currentCadet.photo"
-              :src="currentCadet.photo"
-              class="rounded-2"
-              alt="..."
-              style="width: 100%"
-            />
-            <img
-              v-else
-              src="../../../assets/without_photo.jpg"
-              class="rounded-2"
-              alt="..."
-              style="width: 100%"
-            />
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-6">
-            <div class="d-flex flex-row">
-              <button class="btn btn-primary me-4" @click="startCapture">
-                <font-awesome-icon
-                  :icon="['fas', 'camera']"
-                />&nbsp;&nbsp;Включить камеру
-              </button>
-              <button class="btn btn-primary me-4">
-                <font-awesome-icon
-                  :icon="['fas', 'floppy-disk']"
-                />&nbsp;&nbsp;Сохранить фото
-              </button>
-            </div>
-          </div>
-          <div class="col-6">
-            <div class="d-flex flex-row">
-              <label for="uploadedPhoto" class="btn btn-primary"
-                ><font-awesome-icon
-                  :icon="['fas', 'image']"
-                />&nbsp;&nbsp;Загрузить фото с диска</label
-              >
+    <div v-else>
+      <div class="d-flex flex-row">
+        <div class="card d-flex flex-row me-3" style="width: 80rem">
+          <div>
+            <div class="text-center m-3" style="position: relative">
+              <img
+                v-if="currentCadetData.photo"
+                :src="currentCadetData.photo"
+                class="rounded-2"
+                alt="..."
+                style="width: 250px"
+              />
+              <img
+                v-else
+                src="../../../assets/without_photo.jpg"
+                class="rounded-2"
+                alt="..."
+                style="width: 250px"
+              />
               <input
                 type="file"
-                class="btn btn-primary"
                 v-on:change="uploadPhoto"
                 ref="uploadedPhoto"
-                id="uploadedPhoto"
                 name="photo_file"
-                accept="image/*"
-                style="display: none"
+                accept="image/png, image/jpeg"
+                style="position: absolute; bottom: 10px; left: 10px"
               />
             </div>
+            <div>
+              <button class="btn btn-primary m-3" @click="showItemModal">
+                Сделать фото (камера)
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <div class="text-center m-3 border" style="position: relative">
+              <img
+                v-if="currentCadetData.sign_image"
+                :src="currentCadetData.sign_image"
+                class="rounded-2"
+                alt="..."
+                style="width: 250px; background-color: #fff"
+              />
+              <img
+                v-else
+                src="../../../assets/without_photo.jpg"
+                class="rounded-2"
+                alt="..."
+                style="width: 250px"
+              />
+            </div>
+            <div>
+              <!--              <Signature-->
+              <!--                :cadet="currentCadetData"-->
+              <!--                :cadet-a-p-i="cadetAPIInstance"-->
+              <!--              />-->
+            </div>
+          </div>
+
+          <div class="card-body">
+            <h3 class="card-title fw-bold">
+              {{ currentCadetData.last_name_rus }}
+              {{ currentCadetData.first_name_rus }}
+              {{ currentCadetData.patronymic_rus }}
+            </h3>
+            <h3 class="card-title">
+              Факультет -
+              <span v-if="currentCadetData.subdivision">{{
+                currentCadetData.get_subdivision
+              }}</span
+              ><span v-else>Нет данных</span>
+            </h3>
+            <h3 class="card-title">
+              Группа -
+              <span v-if="currentCadetData.group">{{
+                currentCadetData.group
+              }}</span
+              ><span v-else>Нет данных</span>
+            </h3>
+            <h3 class="card-title">
+              Дата рождения -
+              <span v-if="currentCadetData.date_of_birth">{{
+                currentCadetData.date_of_birth
+              }}</span
+              ><span v-else>Нет данных</span>
+            </h3>
           </div>
         </div>
       </div>
@@ -108,152 +141,84 @@
 
 <script>
 import { globalCadetAPIInstanceForPassOffice } from "@/api/cadet/cadetAPI.js"
+import { mapGetters } from "vuex"
+import Camera from "@/components/passOffice/Camera.vue"
+import Signature from "@/components/passOffice/signature/Signature.vue"
 
 export default {
   name: "CadetPassOfficeItemView",
-  props: {
-    currentCadet: {
-      type: Object,
-      required: true,
-    },
-    updatePhotoMethod: {
-      type: Function,
-      required: true,
-    },
-  },
+  components: { Signature, Camera },
+
   data() {
     return {
+      isLoading: true,
+      isDataSaving: false,
       cadetAPIInstance: globalCadetAPIInstanceForPassOffice,
-      video: null,
-      canvas: null,
-      photo: null,
-      streaming: false,
-      width: 400,
-      camera: null,
-      videoTrack: [],
-      capabilities: null,
-      settings: null,
-
-      minZoom: 1,
-      maxZoom: 1,
-      zoomStep: 1,
-      minPan: 1,
-      maxPan: 1,
-      panStep: 1,
-      minTilt: 1,
-      maxTilt: 1,
-      tiltStep: 1,
-
-      panValue: 0,
+      currentCadetData: {
+        id: "",
+        is_active: "",
+        last_name_rus: "",
+        first_name_rus: "",
+        patronymic_rus: "",
+        photo: "",
+        sign_image: "",
+        group: "",
+        date_of_birth: "",
+      },
     }
   },
-  async mounted() {
-    this.video = this.$refs.video
-    this.canvas = this.$refs.canvas
-    this.photo = this.$refs.photo
-
-    this.camera = await navigator.mediaDevices.getUserMedia({
-      video: true,
-    })
-
-    const [videoTrack] = this.camera.getVideoTracks()
-    this.videoTrack = videoTrack
-    console.log(videoTrack)
-    console.log(this.videoTrack)
-    this.capabilities = this.videoTrack.getCapabilities()
-    console.log(this.capabilities)
-    this.settings = this.videoTrack.getSettings()
-    this.panValue = this.settings.pan
-    this.minZoom = this.capabilities.zoom.min
-    this.maxZoom = this.capabilities.zoom.max
-    this.zoomStep = this.capabilities.zoom.step
-    this.minPan = this.capabilities.pan.min
-    this.maxPan = this.capabilities.pan.max
-    this.panStep = this.capabilities.pan.step
-    this.video.srcObject = this.camera
-
-    this.camera = await navigator.mediaDevices.getUserMedia({
-      video: { pan: true, tilt: true, zoom: true },
-    })
-    this.video.srcObject = this.camera
-    this.video.play()
-
-    document.addEventListener("keydown", async function (event) {
-      if (event.key === "ArrowUp") {
-        console.log("Up arrow key pressed")
-        // Add your logic for up arrow action
-      } else if (event.key === "ArrowDown") {
-        console.log("Down arrow key pressed")
-        // Add your logic for down arrow action
-      } else if (event.key === "ArrowLeft") {
-        this.panValue = this.panValue - this.panStep
-        await this.videoTrack.applyConstraints({
-          advanced: [{ pan: this.panValue }],
-        })
-      } else if (event.key === "ArrowRight") {
-        console.log("Right arrow key pressed")
-        // Add your logic for right arrow action
-      }
-    })
+  async created() {
+    await this.loadData(this.$route.params.id)
   },
+
   methods: {
-    async setScale(e) {
-      await this.videoTrack.applyConstraints({
-        advanced: [{ zoom: e.target.value }],
-      })
-    },
-    async setPan(e) {
-      await this.videoTrack.applyConstraints({
-        advanced: [{ pan: e.target.value }],
-      })
-    },
-    startCapture() {
+    async loadData(cadetId) {
       try {
-        navigator.mediaDevices
-          .getUserMedia({
-            video: { pan: true, tilt: true, zoom: 270 },
-          })
-          .then((stream) => {
-            this.video.srcObject = stream
-            this.videoTrack = stream.getVideoTracks()
-            this.capabilities = this.videoTrack.getCapabilities()
-            this.video.play()
-          })
-          .catch(() => {
-            alert("Ошибка подключения камеры!")
-          })
+        const res = await this.cadetAPIInstance.getItemData(cadetId)
+        this.currentCadetData = await res.data
       } catch (error) {
-        alert(error)
+      } finally {
+        this.isLoading = false
       }
     },
-    playVideo() {
-      if (!this.streaming) {
-        const height =
-          (this.video.videoHeight / this.video.videoWidth) * this.width
-        this.video.setAttribute("width", this.width)
-        this.video.setAttribute("height", height)
-        this.canvas.setAttribute("width", this.width)
-        this.canvas.setAttribute("height", height)
-        this.streaming = true
+    async showItemModal(itemId) {
+      let itemModal = this.$refs.itemUpdateModal
+      let myModal = new bootstrap.Modal(itemModal, {
+        keyboard: false,
+      })
+      myModal.show()
+    },
+    async savePhoto(photoFile) {
+      let formData = new FormData()
+      formData.append("photo", photoFile)
+      const response = await this.cadetAPIInstance.updatePhotoOrAnyFile(
+        this.currentCadetData.id,
+        formData,
+      )
+      this.currentCadetData = {
+        ...this.currentCadetData,
+        photo: response.data.photo,
       }
+      this.$refs.cadetCameraModalCloseButton.click()
     },
-    takePicture() {
-      let height = (this.video.videoHeight / this.video.videoWidth) * this.width
-      const context = this.canvas.getContext("2d")
-      context.drawImage(this.video, 0, 0, this.width, height)
-      // const data = this.canvas.toDataURL("image/jpeg")
-      // this.photo.setAttribute("src", data)
-    },
+
     async uploadPhoto() {
       let formData = new FormData()
       formData.append("photo", this.$refs.uploadedPhoto.files[0])
-
       const response = await this.cadetAPIInstance.updatePhotoOrAnyFile(
-        this.currentCadet.id,
+        this.currentCadetData.id,
         formData,
       )
-      this.updatePhotoMethod(response)
+      this.currentCadetData = {
+        ...this.currentCadetData,
+        photo: response.data.photo,
+      }
     },
+  },
+  computed: {
+    ...mapGetters({
+      isCommonLoading: "common/getIsCommonLoading",
+    }),
   },
 }
 </script>

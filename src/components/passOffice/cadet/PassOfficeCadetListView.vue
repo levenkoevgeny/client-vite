@@ -56,7 +56,12 @@
         class="align-middle"
         v-for="cadet in orderedCadets"
         :key="cadet.id"
-        @dblclick="showItemModal(cadet.id)"
+        @dblclick="
+          $router.push({
+            name: 'pass-office-cadet-update',
+            params: { id: cadet.id },
+          })
+        "
       >
         <td>
           <div
@@ -193,6 +198,7 @@ export default {
     },
 
     async loadMoreData(entries, observer) {
+      console.log("loadMoreData")
       if (entries[0].isIntersecting) {
         if (this.cadetList) {
           if (this.cadetList.next) {

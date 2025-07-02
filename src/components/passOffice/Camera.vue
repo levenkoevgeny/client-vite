@@ -28,7 +28,6 @@ export default {
       },
     }
   },
-
   async mounted() {
     this.videoValues = [
       { pan: true },
@@ -51,6 +50,7 @@ export default {
     const [videoTracks] = this.camera.getVideoTracks()
     this.videoTracks = videoTracks
     this.videoCapabilities = videoTracks.getCapabilities()
+    console.log(this.videoCapabilities)
     this.settings = videoTracks.getSettings()
 
     this.setupParams(this.videoValues)
@@ -74,6 +74,7 @@ export default {
   beforeUnmount() {
     window.removeEventListener("keydown", this.handleArrowKeys)
   },
+
   methods: {
     handleArrowKeys(e) {
       switch (e.key) {
@@ -178,14 +179,14 @@ export default {
       )
     },
     makePhoto() {
-      if (this.$refs.gallery.children.length === 5) {
+      if (this.$refs.gallery.children.length === 3) {
         this.$refs.gallery.removeChild(this.$refs.gallery.lastChild)
         this.photoGalleryCount -= 1
       }
       this.photoGalleryCount += 1
       const canvas = document.createElement("canvas")
-      canvas.width = 150
-      canvas.height = 200
+      canvas.width = 262
+      canvas.height = 350
       const ctx = canvas.getContext("2d")
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       ctx.drawImage(
@@ -244,10 +245,11 @@ export default {
       this.borderImage.w = newW
       this.borderImage.h = newH
     },
-    uploadPhoto() {
+    photoInInput() {
       let item = this.$refs.gallery.querySelectorAll(".activePhotoItem")
       if (item.length === 0) {
         alert("Не выбрана фотография для загрузки")
+        return false
       } else {
         item = item[0].lastChild
         const base64Date = item.src.split(",")[1]
@@ -265,15 +267,19 @@ export default {
         dataTransfer.items.add(file)
 
         this.$refs.input.files = dataTransfer.files
-
-        // Отправка на сервер???
-        // const formData = new FormData();
-        // formData.append('image', file);
-        //
-        // fetch('/upload', {
-        // 	method: 'POST',
-        // 	body: formData
-        // });
+        return true
+      }
+    },
+    uploadPhoto() {
+      if (this.photoInInput()) {
+        this.$refs.aInput.href = URL.createObjectURL(this.$refs.input.files[0])
+        this.$refs.aInput.download = this.$refs.input.files[0].name
+        this.$refs.aInput.click()
+      }
+    },
+    async savePhoto() {
+      if (this.photoInInput()) {
+        this.$emit("save-photo-event", this.$refs.input.files[0])
       }
     },
   },
@@ -284,7 +290,8 @@ export default {
   <div class="mainContainer">
     <div class="cameraSection">
       <h2 class="sectionTitle">
-        <font-awesome-icon :icon="['fas', 'camera']" /> Предпросмотр камеры
+        <font-awesome-icon :icon="['fas', 'camera']" />
+        Предпросмотр камеры
       </h2>
       <div class="videoContainer">
         <video class="d-none" ref="video" autoplay></video>
@@ -301,17 +308,26 @@ export default {
           style="display: inline; margin-top: 15px"
         >
           <font-awesome-icon :icon="['fas', 'floppy-disk']" />
-          Сохранить выбранную фотографию
+          Сохранить на ПК
+        </button>
+        <button
+          @click="savePhoto"
+          class="mainBtn"
+          style="display: inline; margin-top: 15px"
+        >
+          <font-awesome-icon :icon="['fas', 'floppy-disk']" />
+          Сохранить в базу
         </button>
         <div>
-          <input type="file" ref="input" />
+          <input class="d-none" type="file" ref="input" />
+          <a class="d-none" ref="aInput" href=""></a>
         </div>
       </div>
     </div>
     <div class="controlsSection">
       <h2 class="sectionTitle">
-        <font-awesome-icon :icon="['fas', 'sliders']" /> Управление областью
-        фотографирования
+        <font-awesome-icon :icon="['fas', 'sliders']" />
+        Управление областью фотографирования
       </h2>
 
       <div class="ptzControls">
@@ -667,10 +683,12 @@ export default {
   gap: 10px;
   min-width: 220px;
 }
+
 .mainBtn:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
+
 #capture-btn {
   background: linear-gradient(to right, #66bb6a, #43a047);
 }
@@ -711,13 +729,16 @@ export default {
   height: 100%;
   object-fit: cover;
 }
+
 .activePhotoItem {
   border: 2px solid rgba(255, 0, 0, 0.4) !important;
 }
+
 .activePhotoItem:hover {
   transform: scale(1.05);
   border-color: rgb(250, 2, 2) !important;
 }
+
 .divSaveButton {
   width: 100%;
   text-align: center;

@@ -102,6 +102,7 @@ import {
 } from "@/components/errors"
 
 import {
+  PassOfficeNavigation,
   PassOfficeView,
   PassOfficeCadetListView,
   PassOfficeStudentListView,
@@ -139,6 +140,11 @@ const routes = [
         component: PassOfficeView,
         meta: { requiresAuth: true },
         children: [
+          {
+            path: "",
+            component: PassOfficeNavigation,
+            name: "pass-office-navigation",
+          },
           {
             path: "cadets",
             component: PassOfficeCadetListView,
