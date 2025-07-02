@@ -5,40 +5,6 @@
     title="Курсанты"
     :load-more-data="loadMoreData"
   >
-    <template v-slot:modals>
-      <div
-        class="modal fade"
-        id="itemUpdateModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-        ref="itemUpdateModal"
-      >
-        <div
-          class="modal-dialog modal-dialog-centered"
-          style="--bs-modal-width: 100%"
-        >
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-3" id="exampleModalLabel">
-                {{ currentCadetForUpdate.last_name_rus || "Нет данных" }}
-                {{ currentCadetForUpdate.first_name_rus || "Нет данных" }}
-                {{ currentCadetForUpdate.patronymic_rus || "Нет данных" }}
-              </h1>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-
-            <Camera />
-          </div>
-        </div>
-      </div>
-    </template>
-
     <template v-slot:thead>
       <tr ref="thead">
         <th scope="col"></th>
@@ -222,15 +188,6 @@ export default {
           }
         }
       }
-    },
-    async showItemModal(itemId) {
-      const response = await this.cadetAPIInstance.getItemData(itemId)
-      this.currentCadetForUpdate = response.data
-      let itemModal = this.$refs.itemUpdateModal
-      let myModal = new bootstrap.Modal(itemModal, {
-        keyboard: false,
-      })
-      myModal.show()
     },
   },
   computed: {

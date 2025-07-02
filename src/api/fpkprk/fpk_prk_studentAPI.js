@@ -153,6 +153,10 @@ export default function getFPKPRKStudentAPIInstance() {
 }
 
 export const globalFPKPRKStudentAPIInstance = getFPKPRKStudentAPIInstance()
+export const globalFPKPRKStudentAPIInstanceForPassOffice = new FPKPRKStudentAPI(
+  "fpk-mag-student",
+  searchObj,
+)
 export const globalFPKPRKStudentAPIForEntranceInstance = new FPKPRKStudentAPI(
   "fpk-mag-student",
   {
