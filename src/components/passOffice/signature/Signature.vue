@@ -32,10 +32,7 @@ export default {
       tablet: "",
     }
   },
-  props: {
-    cadet: { type: Object, required: true },
-    cadetAPI: { required: true },
-  },
+
   methods: {
     createModalWindow(width, height) {
       this.$refs.modal.style.display = "block"
@@ -488,20 +485,7 @@ export default {
 
       const dataTransfer = new DataTransfer()
       dataTransfer.items.add(file)
-      this.$refs.input.files = dataTransfer.files
-      this.savePhoto()
-    },
-    async savePhoto() {
-      let formData = new FormData()
-      formData.append("sign_image", this.$refs.input.files[0])
-      const response = await this.cadetAPI.updatePhotoOrAnyFile(
-        this.cadet.id,
-        formData,
-      )
-      this.cadet = {
-        ...this.cadet,
-        photo: response.data.photo,
-      }
+      this.$emit("save-signature-event", dataTransfer.files[0])
     },
     DCANotReady() {
       this.DCANotReady.prototype = new Error()

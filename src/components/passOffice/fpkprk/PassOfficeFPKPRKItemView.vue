@@ -118,7 +118,7 @@
               />
               <img
                 v-else
-                src="../../../assets/without_photo.jpg"
+                src="../../../assets/without_signature.jpg"
                 class="rounded-2"
                 alt="..."
                 style="width: 250px"
@@ -126,10 +126,7 @@
             </div>
 
             <div class="d-flex justify-content-end align-items-center">
-              <Signature
-                :cadet="currentCadetData"
-                :cadet-a-p-i="cadetAPIInstance"
-              />
+              <Signature @save-signature-event="saveSignature" />
             </div>
           </div>
         </div>
@@ -196,6 +193,19 @@ export default {
         photo: response.data.photo,
       }
       this.$refs.cadetCameraModalCloseButton.click()
+    },
+
+    async saveSignature(signFile) {
+      let formData = new FormData()
+      formData.append("sign_image", signFile)
+      const response = await this.cadetAPIInstance.updatePhotoOrAnyFile(
+        this.currentCadetData.id,
+        formData,
+      )
+      this.currentCadetData = {
+        ...this.currentCadetData,
+        sign_image: response.data.sign_image,
+      }
     },
 
     async uploadPhoto() {

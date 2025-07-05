@@ -15,7 +15,7 @@ export default {
       changePositionFlag: false,
       mousePoints: { x: 0, y: 0 },
       borderImage: { x: 0, y: 0, w: 150, h: 150 / 0.75 },
-      step: 10,
+      step: 5,
       rectColor: "#30ff00",
       fieldImage: {
         brightness: { name: "Яркость", img: "sun" },
@@ -50,7 +50,6 @@ export default {
     const [videoTracks] = this.camera.getVideoTracks()
     this.videoTracks = videoTracks
     this.videoCapabilities = videoTracks.getCapabilities()
-    console.log(this.videoCapabilities)
     this.settings = videoTracks.getSettings()
 
     this.setupParams(this.videoValues)
