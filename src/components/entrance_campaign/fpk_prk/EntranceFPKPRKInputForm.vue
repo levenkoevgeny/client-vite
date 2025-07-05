@@ -364,20 +364,34 @@
               }}&nbsp;{{ currentFPKPRKData.patronymic_rus }}</span
             >
           </h1>
-          <button class="mx-2 btn btn-warning" @click="showHistory">
+          <button class="my-3 btn btn-warning" @click="showHistory">
             История изменений&nbsp;&nbsp;<font-awesome-icon
               :icon="['fas', 'database']"
             />
           </button>
-          <div v-if="currentFPKPRKData.application_has_been_printed">
-            <p>
-              <font-awesome-icon :icon="['fas', 'print']" /> Заявление
-              отпечатано
+          <div
+            v-if="currentFPKPRKData.application_has_been_printed"
+            class="my-3"
+          >
+            <h3>
+              <font-awesome-icon :icon="['fas', 'print']" />
+              Заявление напечатано
               <span v-if="currentFPKPRKData.application_has_been_printed_date">
                 -
-                {{ currentFPKPRKData.application_has_been_printed_date }}</span
+                {{
+                  new Date(
+                    currentFPKPRKData.application_has_been_printed_date,
+                  ).toLocaleString("ru-RU", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
+                    second: "numeric",
+                  })
+                }}</span
               >
-            </p>
+            </h3>
           </div>
         </div>
         <div class="d-flex flex-row justify-content-end align-items-center">

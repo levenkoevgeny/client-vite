@@ -149,6 +149,37 @@
                       <li>
                         <button
                           class="dropdown-item"
+                          @click="setOrdering('application_has_been_printed')"
+                        >
+                          А -> Я
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('-application_has_been_printed')"
+                        >
+                          Я -> А
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap">Дата печати заявления</span>
+                  <div class="dropdown">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          class="dropdown-item"
                           @click="
                             setOrdering('application_has_been_printed_date')
                           "
@@ -1115,6 +1146,16 @@
                 </select>
               </th>
               <th>
+                <select
+                  class="form-select"
+                  v-model="searchForm.application_has_been_printed"
+                >
+                  <option selected value="">-------</option>
+                  <option value="true" key="1">Да</option>
+                  <option value="false" key="0">Нет</option>
+                </select>
+              </th>
+              <th>
                 <div class="d-flex justify-content-center align-items-center">
                   <input
                     type="date"
@@ -1606,7 +1647,19 @@
             >
               <td class="text-center">{{ student.serial_number }}</td>
               <td></td>
-              <td v-if="student.application_has_been_printed_date">
+
+              <td
+                v-if="student.application_has_been_printed"
+                class="text-center"
+              >
+                <font-awesome-icon :icon="['fa', 'check']" />
+              </td>
+              <td v-else class="text-center"></td>
+
+              <td
+                v-if="student.application_has_been_printed_date"
+                class="text-center"
+              >
                 {{
                   new Date(
                     student.application_has_been_printed_date,

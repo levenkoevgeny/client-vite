@@ -142,6 +142,9 @@ const searchObj = {
   comments_on_personal_file__icontains: "",
   score_sum__gte: "",
   score_sum__lte: "",
+  application_has_been_printed_date__gte: "",
+  application_has_been_printed_date__lte: "",
+  application_has_been_printed: "",
   ordering: null,
 }
 

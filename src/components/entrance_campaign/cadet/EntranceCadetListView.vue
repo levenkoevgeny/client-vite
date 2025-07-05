@@ -201,7 +201,11 @@
 
     <template v-slot:thead>
       <tr>
-        <th scope="col">Фамилия, имя, отчество</th>
+        <th
+          scope="col"
+          style="width: 50px; max-width: 50px; min-width: 50px"
+        ></th>
+        <th scope="col">Фамилия</th>
         <th scope="col">Имя</th>
         <th scope="col">Отчество</th>
         <th scope="col">Дата рождения</th>
@@ -220,6 +224,12 @@
           })
         "
       >
+        <td class="text-center">
+          <font-awesome-icon
+            :icon="['fas', 'print']"
+            v-if="cadet.application_has_been_printed"
+          />
+        </td>
         <td>
           {{ cadet.last_name_rus }}
         </td>

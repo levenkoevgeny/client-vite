@@ -2007,7 +2007,10 @@
               <font-awesome-icon :icon="['fa', 'check']" />
             </td>
             <td v-else class="text-center"></td>
-            <td v-if="cadet.application_has_been_printed_date">
+            <td
+              v-if="cadet.application_has_been_printed_date"
+              class="text-center"
+            >
               {{
                 new Date(
                   cadet.application_has_been_printed_date,

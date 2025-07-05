@@ -350,7 +350,7 @@
     </div>
     <div v-else>
       <div class="d-flex flex-row justify-content-between align-items-end pb-3">
-        <div>
+        <div class="mt-3">
           <div class="d-flex flex-row align-items-end">
             <h1
               class="fw-lighter"
@@ -372,7 +372,7 @@
             </h1>
           </div>
 
-          <button class="mx-2 btn btn-warning" @click="showHistory">
+          <button class="my-3 btn btn-warning" @click="showHistory">
             История изменений&nbsp;&nbsp;<font-awesome-icon
               :icon="['fas', 'database']"
             />
@@ -427,7 +427,7 @@
           </div>
         </div>
       </div>
-      <div style="max-height: calc(100vh - 300px); overflow-y: auto">
+      <div style="max-height: calc(100vh - 400px); overflow-y: auto">
         <div style="max-width: 99%">
           <div class="form-check form-switch mb-3" style="font-size: 20px">
             <input
@@ -2814,6 +2814,9 @@
                           v-model="currentCadetData.rus_score_ct"
                           @input="makeInputDefaultNullValueIfEmpty"
                         />
+                        <span class="text-center table-success"
+                          >Минимум 10</span
+                        >
                       </td>
                       <td class="text-center table-primary">
                         <label for="id_bel_score_ct"
@@ -2827,6 +2830,9 @@
                           v-model="currentCadetData.bel_score_ct"
                           @input="makeInputDefaultNullValueIfEmpty"
                         />
+                        <span class="text-center table-success"
+                          >Минимум 10</span
+                        >
                       </td>
                       <td class="text-center table-warning">
                         <label for="id_social_science_ct"
@@ -2840,6 +2846,9 @@
                           v-model="currentCadetData.social_science_score_ct"
                           @input="makeInputDefaultNullValueIfEmpty"
                         />
+                        <span class="text-center table-success"
+                          >Минимум 25</span
+                        >
                       </td>
                       <td class="text-center table-success">
                         <label for="id_foreign_lang_ct"
@@ -2853,6 +2862,9 @@
                           v-model="currentCadetData.foreign_lang_score_ct"
                           @input="makeInputDefaultNullValueIfEmpty"
                         />
+                        <span class="text-center table-success"
+                          >Минимум 15</span
+                        >
                       </td>
                     </tr>
                     <tr>
@@ -2861,7 +2873,7 @@
                           class="form-select"
                           v-model="currentCadetData.rus_ct_choice"
                         >
-                          <option selected class="text-center" value="">
+                          <option selected class="text-center" :value="null">
                             ----------
                           </option>
                           <option value="2024 ЦЭ" class="text-center">
@@ -2869,6 +2881,12 @@
                           </option>
                           <option value="2024 ЦТ" class="text-center">
                             2024 ЦТ
+                          </option>
+                          <option value="2025 ЦЭ" class="text-center">
+                            2025 ЦЭ
+                          </option>
+                          <option value="2025 ЦТ" class="text-center">
+                            2025 ЦТ
                           </option>
                         </select>
                       </td>
@@ -2877,7 +2895,7 @@
                           class="form-select"
                           v-model="currentCadetData.bel_ct_choice"
                         >
-                          <option selected class="text-center" value="">
+                          <option selected class="text-center" :value="null">
                             ----------
                           </option>
                           <option value="2024 ЦЭ" class="text-center">
@@ -2885,6 +2903,12 @@
                           </option>
                           <option value="2024 ЦТ" class="text-center">
                             2024 ЦТ
+                          </option>
+                          <option value="2025 ЦЭ" class="text-center">
+                            2025 ЦЭ
+                          </option>
+                          <option value="2025 ЦТ" class="text-center">
+                            2025 ЦТ
                           </option>
                         </select>
                       </td>
@@ -2893,7 +2917,7 @@
                           class="form-select"
                           v-model="currentCadetData.social_science_ct_choice"
                         >
-                          <option selected class="text-center" value="">
+                          <option selected class="text-center" :value="null">
                             ----------
                           </option>
                           <option value="2024 ЦЭ" class="text-center">
@@ -2901,6 +2925,12 @@
                           </option>
                           <option value="2024 ЦТ" class="text-center">
                             2024 ЦТ
+                          </option>
+                          <option value="2025 ЦЭ" class="text-center">
+                            2025 ЦЭ
+                          </option>
+                          <option value="2025 ЦТ" class="text-center">
+                            2025 ЦТ
                           </option>
                         </select>
                       </td>
@@ -2909,7 +2939,7 @@
                           class="form-select"
                           v-model="currentCadetData.foreign_lang_ct_choice"
                         >
-                          <option selected class="text-center" value="">
+                          <option selected class="text-center" :value="null">
                             ----------
                           </option>
                           <option value="2024 ЦЭ" class="text-center">
@@ -2918,14 +2948,14 @@
                           <option value="2024 ЦТ" class="text-center">
                             2024 ЦТ
                           </option>
+                          <option value="2025 ЦЭ" class="text-center">
+                            2025 ЦЭ
+                          </option>
+                          <option value="2025 ЦТ" class="text-center">
+                            2025 ЦТ
+                          </option>
                         </select>
                       </td>
-                    </tr>
-                    <tr>
-                      <td class="text-center table-primary">Минимум 10</td>
-                      <td class="text-center table-primary">Минимум 10</td>
-                      <td class="text-center table-warning">Минимум 25</td>
-                      <td class="text-center table-success">Минимум 15</td>
                     </tr>
                   </tbody>
                 </table>
@@ -3283,7 +3313,9 @@ export default {
     const education_graduating_end_year_minValueValue = minValue(1940)
     const education_graduating_end_year_maxValueValue = maxValue(2025)
     const ct_maxValueValue = maxValue(100)
-    const ct_minValueValue = minValue(1)
+    const ct_minValueValue_10 = minValue(10)
+    const ct_minValueValue_15 = minValue(15)
+    const ct_minValueValue_25 = minValue(25)
     const cert_maxValueValue = maxValue(10)
     const cert_minValueValue = minValue(1)
     return {
@@ -3319,8 +3351,8 @@ export default {
             ct_maxValueValue,
           ),
           ct_minValueValue: helpers.withMessage(
-            "Значение поля 'Русский язык - колличество баллов по сертификату' не может быть меньше 1",
-            ct_minValueValue,
+            "Значение поля 'Русский язык - колличество баллов по сертификату' не может быть меньше 10",
+            ct_minValueValue_10,
           ),
           $autoDirty: true,
         },
@@ -3330,8 +3362,8 @@ export default {
             ct_maxValueValue,
           ),
           ct_minValueValue: helpers.withMessage(
-            "Значение поля 'Белорусский язык - колличество баллов по сертификату' не может быть меньше 1",
-            ct_minValueValue,
+            "Значение поля 'Белорусский язык - колличество баллов по сертификату' не может быть меньше 10",
+            ct_minValueValue_10,
           ),
           $autoDirty: true,
         },
@@ -3341,8 +3373,8 @@ export default {
             ct_maxValueValue,
           ),
           ct_minValueValue: helpers.withMessage(
-            "Значение поля 'Обществоведение - колличество баллов по сертификату' не может быть меньше 1",
-            ct_minValueValue,
+            "Значение поля 'Обществоведение - колличество баллов по сертификату' не может быть меньше 25",
+            ct_minValueValue_25,
           ),
           $autoDirty: true,
         },
@@ -3352,8 +3384,8 @@ export default {
             ct_maxValueValue,
           ),
           ct_minValueValue: helpers.withMessage(
-            "Значение поля 'Иностранный язык - колличество баллов по сертификату' не может быть меньше 1",
-            ct_minValueValue,
+            "Значение поля 'Иностранный язык - колличество баллов по сертификату' не может быть меньше 15",
+            ct_minValueValue_15,
           ),
           $autoDirty: true,
         },
