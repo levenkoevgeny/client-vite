@@ -421,6 +421,19 @@
       </div>
       <div style="max-height: calc(100vh - 300px); overflow-y: auto">
         <div style="max-width: 99%">
+          <div class="form-check form-switch mb-3" style="font-size: 20px">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              role="switch"
+              id="id_is_active"
+              v-model="currentFPKPRKData.is_active"
+            />
+            <label class="form-check-label" for="id_is_active"
+              ><span v-if="currentFPKPRKData.is_active">Запись активна</span
+              ><span v-else>Запись в архиве</span></label
+            >
+          </div>
           <div class="card shadow mb-2 rounded border-0">
             <div class="card-body">
               <h5 class="card-title">Категория</h5>
@@ -1841,7 +1854,7 @@
               <div class="mb-4">
                 <h5 class="fw-bold">Выбор специальностей</h5>
                 <div class="row">
-                  <div class="col-4">
+                  <div class="col-6">
                     <div class="form-floating mb-3">
                       <select
                         id="id_s1"
@@ -1860,25 +1873,25 @@
                     </div>
                   </div>
 
-                  <div class="col-4">
-                    <div class="form-floating mb-3">
-                      <select
-                        id="id_s1"
-                        class="form-select"
-                        v-model="currentFPKPRKData.current_speciality"
-                      >
-                        <option :value="null">---------</option>
-                        <option
-                          :value="speciality.id"
-                          v-for="speciality in orderedSpecialities"
-                        >
-                          {{ speciality.speciality_name }}
-                        </option>
-                      </select>
-                      <label for="id_s1">Специальность</label>
-                    </div>
-                  </div>
-                  <div class="col-4">
+                  <!--                  <div class="col-4">-->
+                  <!--                    <div class="form-floating mb-3">-->
+                  <!--                      <select-->
+                  <!--                        id="id_s1"-->
+                  <!--                        class="form-select"-->
+                  <!--                        v-model="currentFPKPRKData.current_speciality"-->
+                  <!--                      >-->
+                  <!--                        <option :value="null">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
+                  <!--                        <option-->
+                  <!--                          :value="speciality.id"-->
+                  <!--                          v-for="speciality in orderedSpecialities"-->
+                  <!--                        >-->
+                  <!--                          {{ speciality.speciality_name }}-->
+                  <!--                        </option>-->
+                  <!--                      </select>-->
+                  <!--                      <label for="id_s1">Специальность</label>-->
+                  <!--                    </div>-->
+                  <!--                  </div>-->
+                  <div class="col-6">
                     <div class="form-floating mb-3">
                       <select
                         id="id_privilege"
@@ -2024,6 +2037,12 @@
                             <option value="2024 ЦТ" class="text-center">
                               2024 ЦТ
                             </option>
+                            <option value="2025 ЦЭ" class="text-center">
+                              2025 ЦЭ
+                            </option>
+                            <option value="2025 ЦТ" class="text-center">
+                              2025 ЦТ
+                            </option>
                           </select>
                         </td>
                         <td class="text-center table-primary">
@@ -2039,6 +2058,12 @@
                             </option>
                             <option value="2024 ЦТ" class="text-center">
                               2024 ЦТ
+                            </option>
+                            <option value="2025 ЦЭ" class="text-center">
+                              2025 ЦЭ
+                            </option>
+                            <option value="2025 ЦТ" class="text-center">
+                              2025 ЦТ
                             </option>
                           </select>
                         </td>
@@ -2056,6 +2081,12 @@
                             <option value="2024 ЦТ" class="text-center">
                               2024 ЦТ
                             </option>
+                            <option value="2025 ЦЭ" class="text-center">
+                              2025 ЦЭ
+                            </option>
+                            <option value="2025 ЦТ" class="text-center">
+                              2025 ЦТ
+                            </option>
                           </select>
                         </td>
                         <td class="text-center table-success">
@@ -2071,6 +2102,12 @@
                             </option>
                             <option value="2024 ЦТ" class="text-center">
                               2024 ЦТ
+                            </option>
+                            <option value="2025 ЦЭ" class="text-center">
+                              2025 ЦЭ
+                            </option>
+                            <option value="2025 ЦТ" class="text-center">
+                              2025 ЦТ
                             </option>
                           </select>
                         </td>

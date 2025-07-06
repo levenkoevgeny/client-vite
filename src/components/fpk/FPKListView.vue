@@ -10,6 +10,17 @@
         Добавить запись
       </button>
     </template>
+
+    <template v-slot:table-mode-button>
+      <router-link
+        :to="{ name: 'fpk-prk-table-view' }"
+        class="fs-3 fw-light link-secondary"
+        title="Табличный режим"
+      >
+        <font-awesome-icon :icon="['fas', 'table']" />
+      </router-link>
+    </template>
+
     <template v-slot:modals>
       <div
         class="modal fade"
@@ -89,7 +100,7 @@
       <tr ref="thead">
         <th scope="col"></th>
         <th scope="col">Фамилия, имя, отчество</th>
-        <th scope="col">Факультет</th>
+        <th scope="col">ФПК/Маг</th>
         <th scope="col">Группа</th>
         <th scope="col">Специальность</th>
         <th scope="col">Период обучения</th>
@@ -134,7 +145,9 @@
           <!--            {{ cadet.first_name_rus }}<br />{{ cadet.patronymic_rus }}-->
           <!--          </router-link>-->
         </td>
-        <td>{{ cadet.get_subdivision }}</td>
+        <td v-if="cadet.fpk_mag_choice === 1">ФПК</td>
+        <td v-else-if="cadet.fpk_mag_choice === 2">Маг</td>
+        <td v-else></td>
         <td>{{ cadet.get_group }}</td>
         <td>{{ cadet.get_speciality }}</td>
         <td>
@@ -210,34 +223,6 @@
           :reduce="(rank) => rank.id"
           multiple
         />
-      </div>
-      <div class="row">
-        <div class="col-6">
-          <div class="mb-3">
-            <label for="date_of_birth__gte" class="form-label"
-              >Дата рождения (с)</label
-            >
-            <input
-              type="date"
-              class="form-control"
-              id="date_of_birth__gte"
-              v-model="searchForm.date_of_birth__gte"
-            />
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="mb-3">
-            <label for="date_of_birth__lte" class="form-label"
-              >Дата рождения (по)</label
-            >
-            <input
-              type="date"
-              class="form-control"
-              id="date_of_birth__lte"
-              v-model="searchForm.date_of_birth__lte"
-            />
-          </div>
-        </div>
       </div>
       <div class="row">
         <div class="col-6">

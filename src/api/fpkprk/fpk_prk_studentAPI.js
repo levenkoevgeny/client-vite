@@ -145,6 +145,8 @@ const searchObj = {
   application_has_been_printed_date__gte: "",
   application_has_been_printed_date__lte: "",
   application_has_been_printed: "",
+  entrance_year__gte: "",
+  entrance_year__lte: "",
   ordering: null,
 }
 
@@ -164,6 +166,7 @@ export const globalFPKPRKStudentAPIForEntranceInstance = new FPKPRKStudentAPI(
   "fpk-mag-student",
   {
     ...searchObj,
+    is_active: "",
     category: 3,
   },
 )

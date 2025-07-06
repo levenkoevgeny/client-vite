@@ -67,7 +67,7 @@
                       </div>
                     </div>
                     <div class="col-lg-8">
-                      <h1>статус - {{ getCadetStatus }}</h1>
+                      <!--                      <h1>статус - {{ getCadetStatus }}</h1>-->
                       <div class="d-flex flex-row">
                         <h3 class="me-3" v-if="currentCadetData.get_age">
                           Возраст - {{ currentCadetData.get_age }} лет
@@ -652,6 +652,7 @@
                 </div>
               </div>
             </div>
+
             <div
               class="shadow p-3 mb-3 rounded"
               id="simple-list-military-office-data"
@@ -701,6 +702,7 @@
                 </div>
               </div>
             </div>
+
             <div class="shadow p-3 mb-3 rounded" id="simple-list-parents-data">
               <div class="card border-0">
                 <div class="card-body">
@@ -1236,7 +1238,8 @@ export default {
     },
     debouncedUpdate: debounce(async function () {
       try {
-        const { photo, attached_documents, ...rest } = this.currentCadetData
+        const { photo, attached_documents, sign_image, ...rest } =
+          this.currentCadetData
         await this.cadetAPIInstance.updateItem(rest)
       } catch (e) {
       } finally {

@@ -27,6 +27,7 @@ import {
   FPKMainView,
   FPKListView,
   FPKUpdateView,
+  FPKPRKTableView,
 } from "@/components/fpk/index.js"
 import store from "@/store"
 
@@ -620,6 +621,11 @@ const routes = [
             path: ":id/update",
             component: FPKUpdateView,
             name: "fpk-mag-update",
+          },
+          {
+            path: "table-view",
+            component: FPKPRKTableView,
+            name: "fpk-prk-table-view",
           },
         ],
       },

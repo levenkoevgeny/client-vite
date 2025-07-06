@@ -12,7 +12,7 @@
     </div>
 
     <div v-else>
-      <h1>Компонент находится в разработке!!!!</h1>
+      <!--      <h1>Компонент находится в разработке!!!!</h1>-->
       <h1 class="my-2 text-decoration-underline">
         Личное дело ({{ currentFPKData.last_name_rus }}
         {{ currentFPKData.first_name_rus }})
@@ -69,7 +69,6 @@
                       </div>
                     </div>
                     <div class="col-lg-8">
-                      <h1>статус - {{ getCadetStatus }}</h1>
                       <div class="d-flex flex-row">
                         <h3 class="me-3" v-if="currentFPKData.get_age">
                           Возраст - {{ currentFPKData.get_age }} лет
@@ -106,12 +105,26 @@
                             <input
                               type="text"
                               class="form-control"
-                              name="last_name_rus"
-                              maxlength="30"
-                              required
+                              name="id"
                               id="id_id"
                               disabled
                               v-model="currentFPKData.id"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-lg-4">
+                          <div class="mb-3">
+                            <label class="form-label" for="id_entrance_year"
+                              >Год набора</label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              name="entrance_year"
+                              required
+                              id="id_entrance_year"
+                              disabled
+                              v-model="currentFPKData.entrance_year"
                             />
                           </div>
                         </div>
@@ -166,71 +179,50 @@
                         </div>
                       </div>
                       <div class="row">
-                        <div class="col-lg-4"></div>
                         <div class="col-lg-4">
                           <div class="mb-3">
-                            <label
-                              class="form-label"
-                              for="id_personal_number_mvd"
-                              >Личный номер (жетон)</label
+                            <label class="form-label" for="id_last_name_bel"
+                              >Фамилия (бел):</label
                             >
                             <input
                               type="text"
                               class="form-control"
-                              name="personal_number_mvd"
-                              id="id_personal_number_mvd"
-                              v-model="currentFPKData.personal_number_mvd"
-                            />
-                          </div>
-                        </div>
-                        <div class="col-lg-4"></div>
-                      </div>
-                      <div class="row">
-                        <div class="col-lg-4">
-                          <div class="mb-3">
-                            <label class="form-label" for="id_category"
-                              >Группа</label
-                            >
-                            <select
-                              class="form-select"
-                              name="subdivision"
-                              id="id_subdivision"
-                              v-model="currentFPKData.group"
-                            >
-                              <option value="" selected>---------</option>
-                              <option
-                                v-for="group in orderedGroups"
-                                :value="group.id"
-                                :key="group.id"
-                              >
-                                {{ group.group_name }}
-                              </option>
-                            </select>
-                          </div>
-                        </div>
-                        <div class="col-lg-4">
-                          <div class="mb-3">
-                            <label class="form-label" for="id_category"
-                              >Звание</label
-                            >
-                            <input
-                              class="form-control"
-                              type="text"
-                              v-model="currentFPKData.get_rank"
-                              disabled
+                              name="last_name_bel"
+                              maxlength="100"
+                              required
+                              id="id_last_name_bel"
+                              v-model="currentFPKData.last_name_bel"
                             />
                           </div>
                         </div>
                         <div class="col-lg-4">
                           <div class="mb-3">
-                            <label class="form-label" for="id_category"
-                              >Должность</label
+                            <label class="form-label" for="id_first_name_bel"
+                              >Имя (бел):</label
                             >
                             <input
-                              class="form-control"
                               type="text"
-                              v-model="currentFPKData.get_position"
-                              disabled
+                              class="form-control"
+                              name="first_name_bel"
+                              maxlength="100"
+                              required
+                              id="id_first_name_bel"
+                              v-model="currentFPKData.first_name_bel"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-lg-4">
+                          <div class="mb-3">
+                            <label class="form-label" for="id_patronymic_bel"
+                              >Отчество (бел):</label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              name="patronymic_bel"
+                              maxlength="100"
+                              id="id_patronymic_bel"
+                              v-model="currentFPKData.patronymic_bel"
                             />
                           </div>
                         </div>
@@ -250,50 +242,41 @@
                             />
                           </div>
                         </div>
-                        <div class="col-lg-8">
+                        <div class="col-lg-4">
                           <div class="mb-3">
-                            <label class="form-label" for="id_place_of_birth"
-                              >Место рождения</label
+                            <label
+                              class="form-label"
+                              for="id_personal_number_mvd"
+                              >Личный номер (жетон)</label
                             >
                             <input
                               type="text"
                               class="form-control"
-                              name="place_of_birth"
-                              id="id_place_of_birth"
-                              v-model="currentFPKData.place_of_birth"
+                              name="personal_number_mvd"
+                              id="id_personal_number_mvd"
+                              v-model="currentFPKData.personal_number_mvd"
                             />
                           </div>
                         </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-4">
                           <div class="mb-3">
-                            <label class="form-label" for="id_place_of_birth"
-                              >Образование</label
+                            <label for="id_rank" class="form-label"
+                              >Звание</label
                             >
-                            <input type="text" class="form-control" disabled />
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-lg-12">
-                          <div class="mb-3">
-                            <label class="form-label" for="id_place_of_birth"
-                              >Действующее дисциплинарное взыскание</label
+                            <select
+                              id="id_rank"
+                              class="form-select"
+                              v-model="currentFPKData.current_rank"
                             >
-                            <input type="text" class="form-control" disabled />
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-lg-12">
-                          <div class="mb-3">
-                            <label class="form-label" for="id_place_of_birth"
-                              >Список поощрений</label
-                            >
-                            <input type="text" class="form-control" disabled />
+                              <option :value="null">-------</option>
+                              <option
+                                v-for="rank in orderedRanks"
+                                :value="rank.id"
+                                :key="rank.id"
+                              >
+                                {{ rank.rank }}
+                              </option>
+                            </select>
                           </div>
                         </div>
                       </div>
@@ -329,7 +312,6 @@
                           </div>
                         </div>
                       </div>
-
                       <div class="row">
                         <div class="col-lg-12">
                           <div class="mb-3">
@@ -347,6 +329,38 @@
                             />
                           </div>
                         </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="shadow p-3 mb-3" id="simple-list-academy-data">
+              <div class="card border-0">
+                <div class="card-body">
+                  <h5 class="card-title">Обучение в Академии МВД</h5>
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="mb-3">
+                        <label class="form-label" for="id_category"
+                          >Группа</label
+                        >
+                        <select
+                          class="form-select"
+                          name="subdivision"
+                          id="id_subdivision"
+                          v-model="currentFPKData.group"
+                        >
+                          <option :value="null">---------</option>
+                          <option
+                            v-for="group in orderedGroups"
+                            :value="group.id"
+                            :key="group.id"
+                          >
+                            {{ group.group_name }}
+                          </option>
+                        </select>
                       </div>
                     </div>
                   </div>
@@ -372,26 +386,26 @@
                       href="#simple-list-personal-data"
                       >Личные данные</a
                     >
-                    <a
-                      class="list-group-item list-group-item-action rounded-1"
-                      href="#simple-list-passport-data"
-                      >Паспортные данные</a
-                    >
+                    <!--                    <a-->
+                    <!--                      class="list-group-item list-group-item-action rounded-1"-->
+                    <!--                      href="#simple-list-passport-data"-->
+                    <!--                      >Паспортные данные</a-->
+                    <!--                    >-->
                     <a
                       class="list-group-item list-group-item-action rounded-1"
                       href="#simple-list-academy-data"
                       >Обучение в Академии МВД</a
                     >
-                    <a
-                      class="list-group-item list-group-item-action rounded-1"
-                      href="#simple-list-education-data"
-                      >Образование</a
-                    >
-                    <a
-                      class="list-group-item list-group-item-action rounded-1"
-                      href="#simple-list-foreign-language-data"
-                      >Иностранные языки</a
-                    >
+                    <!--                    <a-->
+                    <!--                      class="list-group-item list-group-item-action rounded-1"-->
+                    <!--                      href="#simple-list-education-data"-->
+                    <!--                      >Образование</a-->
+                    <!--                    >-->
+                    <!--                    <a-->
+                    <!--                      class="list-group-item list-group-item-action rounded-1"-->
+                    <!--                      href="#simple-list-foreign-language-data"-->
+                    <!--                      >Иностранные языки</a-->
+                    <!--                    >-->
                   </div>
                 </div>
               </div>
@@ -494,7 +508,8 @@ export default {
     },
     debouncedUpdate: debounce(async function () {
       try {
-        const { photo, attached_documents, ...rest } = this.currentFPKData
+        const { photo, attached_documents, sign_image, ...rest } =
+          this.currentFPKData
         await this.fpkAPIInstance.updateItem(rest)
       } catch (e) {
       } finally {
@@ -519,14 +534,8 @@ export default {
     orderedGroups() {
       return this.groups.results
     },
-    orderedPassportIssueAuthorities() {
-      return this.passportIssueAuthorities.results
-    },
-    orderedMilitaryOffices() {
-      return this.militaryOffices.results
-    },
-    orderedGraduationReasons() {
-      return this.graduationReasons.results
+    orderedRanks() {
+      return this.ranks.results
     },
     ...mapGetters({
       groups: "groups/getList",
@@ -536,14 +545,21 @@ export default {
       specializations: "specializations/getList",
       directionsORD: "directionsORD/getList",
       positions: "positions/getList",
-      orderOwners: "orderOwners/getList",
-      categories: "personCategories/getList",
-      militaryOffices: "militaryOffices/getList",
       graduationReasons: "graduationReasons/getList",
       passportIssueAuthorities: "passportAuthorities/getList",
       token: "auth/getToken",
       isCommonLoading: "common/getIsCommonLoading",
     }),
+  },
+  watch: {
+    currentFPKData: {
+      handler(newValue, oldValue) {
+        if (!oldValue.hasOwnProperty("is_preloaded_data")) {
+          this.debouncedUpdate()
+        }
+      },
+      deep: true,
+    },
   },
 }
 </script>

@@ -83,99 +83,6 @@
 
   <!--  documents modal-->
 
-  <div
-    class="modal fade"
-    id="documentsModal"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-    ref="documentsModal"
-  >
-    <div class="modal-dialog modal-dialog-centered modal-xl">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" v-if="isDocumentProcessing">
-            Идет формирование документа ...
-          </h1>
-          <h1 class="modal-title fs-5" v-else>Выходные документы</h1>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-6">
-              <h3>Магистратура</h3>
-              <div class="d-flex flex-column">
-                <button
-                  class="btn btn-secondary mb-3 text-start"
-                  @click="notifyExport"
-                  :disabled="isDocumentProcessing"
-                >
-                  <font-awesome-icon
-                    :icon="['fas', 'envelope']"
-                  />&nbsp;&nbsp;Извещения (МАГ) - все записи
-                </button>
-                <button
-                  class="btn btn-secondary mb-3 text-start"
-                  @click="notifyExportFPK"
-                  :disabled="isDocumentProcessing"
-                >
-                  <font-awesome-icon
-                    :icon="['fas', 'envelope']"
-                  />&nbsp;&nbsp;Извещения (ФПК) - отфильтрованные
-                </button>
-
-                <button
-                  class="btn btn-secondary mb-3 text-start"
-                  @click="examSheetGU"
-                  :disabled="isDocumentProcessing"
-                >
-                  <font-awesome-icon
-                    :icon="['fas', 'file']"
-                  />&nbsp;&nbsp;Экзаменационная ведомость (МАГ ГУ)
-                </button>
-                <button
-                  class="btn btn-secondary mb-3 text-start"
-                  @click="examSheetYUR"
-                  :disabled="isDocumentProcessing"
-                >
-                  <font-awesome-icon
-                    :icon="['fas', 'file']"
-                  />&nbsp;&nbsp;Экзаменационная ведомость (МАГ ЮР)
-                </button>
-                <button
-                  class="btn btn-secondary mb-3 text-start"
-                  @click="titlePagesGU"
-                  :disabled="isDocumentProcessing"
-                >
-                  <font-awesome-icon
-                    :icon="['fas', 'file']"
-                  />&nbsp;&nbsp;Экзаменационные листы (МАГ ГУ)
-                </button>
-                <button
-                  class="btn btn-secondary mb-3 text-start"
-                  @click="titlePagesYUR"
-                  :disabled="isDocumentProcessing"
-                >
-                  <font-awesome-icon
-                    :icon="['fas', 'file']"
-                  />&nbsp;&nbsp;Экзаменационные листы (МАГ ЮР)
-                </button>
-              </div>
-            </div>
-            <div class="col-6">
-              <h3>ФПКиПРК</h3>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <div class="container-fluid">
     <div class="my-3"></div>
     <ul class="nav nav-links my-3 mb-lg-2 mx-n3">
@@ -193,12 +100,6 @@
     >
       <div class="m-0 p-0"></div>
       <div class="d-flex flex-row">
-        <button class="btn btn-secondary me-3" @click="showDocumentsModal">
-          Выходные документы&nbsp;&nbsp;<font-awesome-icon
-            :icon="['fas', 'print']"
-          />
-        </button>
-
         <button class="btn btn-secondary me-3" @click="showExportDataModal">
           Экспорт&nbsp;&nbsp;<font-awesome-icon
             :icon="['fas', 'file-export']"
@@ -225,6 +126,39 @@
           <tr>
             <th scope="col" class="text-center">№п.п.</th>
             <th scope="col">Активный</th>
+            <th scope="col">
+              <div
+                class="d-flex flex-row align-items-center justify-content-center"
+              >
+                <span class="text-nowrap">Год набора</span>
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('entrance_year')"
+                      >
+                        меньш. -> больш.
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('-entrance_year')"
+                      >
+                        больш. -> меньш.
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
             <th scope="col" class="text-center">ФПК / МАГ</th>
             <th scope="col" style="min-width: 450px">
               <div class="d-flex flex-row align-items-center">
@@ -249,47 +183,6 @@
                       <button
                         class="dropdown-item"
                         @click="setOrdering('-component_organ__component_name')"
-                      >
-                        Я -> А
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </th>
-            <th scope="col" style="min-width: 450px">
-              <div class="d-flex flex-row align-items-center">
-                <span class="text-nowrap"
-                  >Специальность на которую поступает</span
-                >
-                <div class="dropdown">
-                  <button
-                    class="btn dropdown-toggle"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  ></button>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <button
-                        class="dropdown-item"
-                        @click="
-                          setOrdering(
-                            'speciality_1__speciality__speciality_name',
-                          )
-                        "
-                      >
-                        А -> Я
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        class="dropdown-item"
-                        @click="
-                          setOrdering(
-                            '-speciality_1__speciality__speciality_name',
-                          )
-                        "
                       >
                         Я -> А
                       </button>
@@ -327,74 +220,6 @@
                         "
                       >
                         Я -> А
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </th>
-
-            <th scope="col">
-              <div class="d-flex flex-row align-items-center">
-                <span class="text-nowrap">Заявление отпечатано</span>
-                <div class="dropdown">
-                  <button
-                    class="btn dropdown-toggle"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  ></button>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <button
-                        class="dropdown-item"
-                        @click="setOrdering('application_has_been_printed')"
-                      >
-                        А -> Я
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        class="dropdown-item"
-                        @click="setOrdering('-application_has_been_printed')"
-                      >
-                        Я -> А
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </th>
-
-            <th scope="col">
-              <div class="d-flex flex-row align-items-center">
-                <span class="text-nowrap">Дата печати заявления</span>
-                <div class="dropdown">
-                  <button
-                    class="btn dropdown-toggle"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  ></button>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <button
-                        class="dropdown-item"
-                        @click="
-                          setOrdering('application_has_been_printed_date')
-                        "
-                      >
-                        меньш. -> больш.
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        class="dropdown-item"
-                        @click="
-                          setOrdering('-application_has_been_printed_date')
-                        "
-                      >
-                        больш. -> меньш.
                       </button>
                     </li>
                   </ul>
@@ -1180,6 +1005,23 @@
                 <option value="false" key="0">Нет</option>
               </select>
             </th>
+            <th>
+              <div class="d-flex justify-content-center align-items-center">
+                <input
+                  type="number"
+                  class="form-control me-2"
+                  v-model="searchForm.entrance_year__gte"
+                  style="width: 120px"
+                />
+                <input
+                  type="number"
+                  class="form-control"
+                  v-model="searchForm.entrance_year__lte"
+                  style="width: 120px"
+                />
+              </div>
+            </th>
+
             <th style="min-width: 200px">
               <select class="form-select" v-model="searchForm.fpk_mag_choice">
                 <option selected value="">-------</option>
@@ -1200,16 +1042,6 @@
 
             <th>
               <v-select
-                v-model="searchForm.speciality_1__in"
-                :options="orderedAdmissionQuotas"
-                label="quota_verbose_name"
-                :reduce="(quota) => quota.id"
-                multiple
-              />
-            </th>
-
-            <th>
-              <v-select
                 v-model="searchForm.arrived_from_go_rovd__in"
                 :options="orderedGorovds"
                 label="go_rovd_name"
@@ -1221,31 +1053,9 @@
             <th>
               <select
                 class="form-select"
-                v-model="searchForm.application_has_been_printed"
+                v-model="searchForm.gender"
+                style="width: 200px"
               >
-                <option selected value="">-------</option>
-                <option value="true" key="1">Да</option>
-                <option value="false" key="0">Нет</option>
-              </select>
-            </th>
-
-            <th>
-              <div class="d-flex justify-content-center align-items-center">
-                <input
-                  type="date"
-                  class="form-control me-2"
-                  v-model="searchForm.application_has_been_printed_date__gte"
-                />
-                <input
-                  type="date"
-                  class="form-control"
-                  v-model="searchForm.application_has_been_printed_date__lte"
-                />
-              </div>
-            </th>
-
-            <th>
-              <select class="form-select" v-model="searchForm.gender">
                 <option selected value="">-------</option>
                 <option value="1" key="1">Мужской</option>
                 <option value="0" key="0">Женский</option>
@@ -1273,6 +1083,7 @@
                 type="text"
                 class="form-control"
                 v-model="searchForm.last_name_rus__icontains"
+                style="width: 200px"
               />
             </th>
             <th>
@@ -1280,6 +1091,7 @@
                 type="text"
                 class="form-control"
                 v-model="searchForm.first_name_rus__icontains"
+                style="width: 200px"
               />
             </th>
 
@@ -1288,6 +1100,7 @@
                 type="text"
                 class="form-control"
                 v-model="searchForm.patronymic_rus__icontains"
+                style="width: 200px"
               />
             </th>
 
@@ -1311,94 +1124,22 @@
                   type="text"
                   class="form-control me-2"
                   v-model="searchForm.age_gte"
+                  style="width: 150px"
                 />
                 <input
                   type="text"
                   class="form-control"
                   v-model="searchForm.age_lte"
+                  style="width: 150px"
                 />
               </div>
             </th>
-            <!--            <th>-->
-            <!--              <input-->
-            <!--                type="text"-->
-            <!--                class="form-control me-2"-->
-            <!--                v-model="searchForm.place_of_birth__icontains"-->
-            <!--              />-->
-            <!--            </th>-->
-            <!--            <th>-->
-            <!--              <input-->
-            <!--                type="text"-->
-            <!--                class="form-control me-2"-->
-            <!--                v-model="searchForm.address_registration__icontains"-->
-            <!--              />-->
-            <!--            </th>-->
-            <!--            <th>-->
-            <!--              <input-->
-            <!--                type="text"-->
-            <!--                class="form-control me-2"-->
-            <!--                v-model="searchForm.address_residence__icontains"-->
-            <!--              />-->
-            <!--            </th>-->
-            <!--            <th>-->
-            <!--              <input-->
-            <!--                type="text"-->
-            <!--                class="form-control me-2"-->
-            <!--                v-model="searchForm.phone_number__icontains"-->
-            <!--              />-->
-            <!--            </th>-->
-
-            <!--            <th>-->
-            <!--              <input-->
-            <!--                type="text"-->
-            <!--                class="form-control me-2"-->
-            <!--                v-model="searchForm.passport_number__icontains"-->
-            <!--              />-->
-            <!--            </th>-->
-            <!--            <th>-->
-            <!--              <div class="d-flex justify-content-center align-items-center">-->
-            <!--                <input-->
-            <!--                  type="date"-->
-            <!--                  class="form-control me-2"-->
-            <!--                  v-model="searchForm.passport_issue_date__gte"-->
-            <!--                />-->
-            <!--                <input-->
-            <!--                  type="date"-->
-            <!--                  class="form-control"-->
-            <!--                  v-model="searchForm.passport_issue_date__lte"-->
-            <!--                />-->
-            <!--              </div>-->
-            <!--            </th>-->
-            <!--            <th>-->
-            <!--              <div class="d-flex justify-content-center align-items-center">-->
-            <!--                <input-->
-            <!--                  type="date"-->
-            <!--                  class="form-control me-2"-->
-            <!--                  v-model="searchForm.passport_validity_period__gte"-->
-            <!--                />-->
-            <!--                <input-->
-            <!--                  type="date"-->
-            <!--                  class="form-control"-->
-            <!--                  v-model="searchForm.passport_validity_period__lte"-->
-            <!--                />-->
-            <!--              </div>-->
-            <!--            </th>-->
-            <!--            <th>-->
-            <!--              <input-->
-            <!--                type="text"-->
-            <!--                class="form-control me-2"-->
-            <!--                v-model="searchForm.passport_number__icontains"-->
-            <!--              />-->
-            <!--            </th>-->
-            <!--            <th>-->
-            <!--              <input-->
-            <!--                type="text"-->
-            <!--                class="form-control me-2"-->
-            <!--                v-model="searchForm.passport_issue_authority_text__icontains"-->
-            <!--              />-->
-            <!--            </th>-->
             <th>
-              <select class="form-select" v-model="searchForm.foreign_language">
+              <select
+                class="form-select"
+                v-model="searchForm.foreign_language"
+                style="width: 250px"
+              >
                 <option selected value="">-------</option>
                 <option
                   v-for="foreignLanguage in orderedForeignLanguages"
@@ -1628,7 +1369,7 @@
             :key="fpkprk.id"
             @dblclick="
               $router.push({
-                name: 'entrance-fpk-prk-mag-input-form',
+                name: 'fpk-mag-update',
                 params: { id: fpkprk.id },
               })
             "
@@ -1639,44 +1380,11 @@
             <td v-else class="text-center">
               <font-awesome-icon :icon="['fas', 'lock']" />
             </td>
+            <td class="text-center">{{ fpkprk.entrance_year }}</td>
             <td class="text-center">{{ fpkprk.get_fpk_mag_choice }}</td>
             <td>{{ fpkprk.get_component_organ }}</td>
-            <template v-if="Object.keys(normalizedAdmissionQuota).length === 0">
-              <td></td>
-            </template>
-            <template v-else>
-              <td v-if="fpkprk.speciality_1">
-                {{
-                  normalizedAdmissionQuota[fpkprk.speciality_1]
-                    .quota_verbose_name
-                }}
-              </td>
-              <td v-else></td>
-            </template>
             <td>{{ fpkprk.get_arrived_from_go_rovd }}</td>
-            <td v-if="fpkprk.application_has_been_printed" class="text-center">
-              <font-awesome-icon :icon="['fa', 'check']" />
-            </td>
-            <td v-else class="text-center"></td>
-            <td
-              v-if="fpkprk.application_has_been_printed_date"
-              class="text-center"
-            >
-              {{
-                new Date(
-                  fpkprk.application_has_been_printed_date,
-                ).toLocaleString("ru-RU", {
-                  day: "numeric",
-                  month: "long",
-                  year: "numeric",
-                  hour: "numeric",
-                  minute: "numeric",
-                  second: "numeric",
-                })
-              }}
-            </td>
-            <td v-else></td>
-            <td>{{ fpkprk.get_gender }}</td>
+            <td class="text-center">{{ fpkprk.get_gender }}</td>
             <td>{{ fpkprk.extra_data }}</td>
             <td>{{ fpkprk.comments_on_personal_file }}</td>
             <td>{{ fpkprk.last_name_rus }}</td>
@@ -1684,19 +1392,7 @@
             <td>{{ fpkprk.patronymic_rus }}</td>
             <td class="text-center">{{ fpkprk.date_of_birth }}</td>
             <td class="text-center">{{ fpkprk.get_age }}</td>
-            <!--            <td>{{ fpkprk.place_of_birth }}</td>-->
-            <!--            <td>{{ fpkprk.address_registration }}</td>-->
-            <!--            <td>{{ fpkprk.address_residence }}</td>-->
-            <!--            <td>{{ fpkprk.phone_number }}</td>-->
-            <!--            <td>{{ fpkprk.passport_number }}</td>-->
-            <!--            <td class="text-center">{{ fpkprk.passport_issue_date }}</td>-->
-            <!--            <td class="text-center">{{ fpkprk.passport_validity_period }}</td>-->
-            <!--            <td>{{ fpkprk.passport_issue_authority }}</td>-->
-            <!--            <td>{{ fpkprk.identification_number }}</td>-->
-
             <td>{{ fpkprk.get_foreign_language }}</td>
-
-            <!--            <td class="text-center">{{ fpkprk.student_record_book_number }}</td>-->
             <td class="text-center">{{ fpkprk.rus_bel_ct_number }}</td>
             <td class="text-center">{{ fpkprk.rus_score_ct }}</td>
             <td class="text-center">{{ fpkprk.rus_ct_choice }}</td>
@@ -1723,13 +1419,13 @@
 </template>
 
 <script>
-import { globalFPKPRKStudentAPIForEntranceInstance } from "@/api/fpkprk/fpk_prk_studentAPI.js"
+import { globalFPKPRKStudentAPIInstance } from "@/api/fpkprk/fpk_prk_studentAPI.js"
 import { debounce } from "lodash/function"
 import { mapGetters } from "vuex"
-import { getQueryStringFromSearchForm } from "../../../../utils.js"
+import { getQueryStringFromSearchForm } from "../../../utils.js"
 
 export default {
-  name: "EntranceFPKPRKTableView",
+  name: "FPKPRKTableView",
   data() {
     return {
       isLoading: true,
@@ -1759,30 +1455,6 @@ export default {
           fieldName: "Личный номер (жетон)",
           fieldValue: "personal_number_mvd",
         },
-        { fieldName: "Семейное положение", fieldValue: "get_marital_status" },
-        { fieldName: "Тип паспорта", fieldValue: "get_passport_document_type" },
-        { fieldName: "Номер паспорта", fieldValue: "passport_number" },
-        {
-          fieldName: "Дата выдачи паспорта",
-          fieldValue: "passport_issue_date",
-        },
-        {
-          fieldName: "Срок действия паспорта",
-          fieldValue: "passport_validity_period",
-        },
-        {
-          fieldName: "Орган выдачи паспорта",
-          fieldValue: "get_passport_issue_authority",
-        },
-
-        {
-          fieldName: "Орган выдачи паспорта (текстом)",
-          fieldValue: "passport_issue_authority_text",
-        },
-        {
-          fieldName: "Идентификационный номер",
-          fieldValue: "identification_number",
-        },
         { fieldName: "Звание", fieldValue: "get_rank" },
         { fieldName: "ФПКиПРК или МАГ", fieldValue: "get_fpk_mag_choice" },
         {
@@ -1797,23 +1469,10 @@ export default {
         { fieldName: "Группа", fieldValue: "get_group" },
         { fieldName: "Дата поступления", fieldValue: "get_academy_start_date" },
         { fieldName: "Дата окончания", fieldValue: "get_academy_end_date" },
-        { fieldName: "Причина окончания", fieldValue: "get_graduation_reason" },
-        {
-          fieldName: "Причина окончания (Статья)",
-          fieldValue: "graduation_reason_article",
-        },
-        {
-          fieldName: "Причина окончания (доп. данные)",
-          fieldValue: "graduation_extra_data",
-        },
         { fieldName: "Профилизация", fieldValue: "get_profiling" },
         {
           fieldName: "Специальность (обучается)",
           fieldValue: "get_speciality",
-        },
-        {
-          fieldName: "Специальность (на которую поступает)",
-          fieldValue: "get_speciality_1",
         },
         { fieldName: "Специализация", fieldValue: "get_specialization" },
         {
@@ -1836,28 +1495,8 @@ export default {
           fieldName: "Замечания по личному делу",
           fieldValue: "extra_data",
         },
-        {
-          fieldName: "Вид учреждения образования",
-          fieldValue: "get_education_kind",
-        },
-        { fieldName: "Уровень образования", fieldValue: "get_education_level" },
-        {
-          fieldName: "Наименование учебного заведения",
-          fieldValue: "education_graduated",
-        },
-        {
-          fieldName: "Год поступления в учебное заведение",
-          fieldValue: "education_graduating_start_year",
-        },
-        {
-          fieldName: "Год окончания учебного заведения",
-          fieldValue: "education_graduating_end_year",
-        },
+
         { fieldName: "Средний бал", fieldValue: "education_average_score" },
-        {
-          fieldName: "Вид населенного пункта",
-          fieldValue: "get_education_location_kind",
-        },
         {
           fieldName: "Номер сертификата по русскому / белорусскому языку",
           fieldValue: "rus_bel_ct_number",
@@ -1918,29 +1557,14 @@ export default {
           fieldName: "Иностранный язык - аттестат - количество баллов",
           fieldValue: "foreign_lang_score_cert",
         },
-        {
-          fieldName: "Заявление было отпечатано",
-          fieldValue: "application_has_been_printed",
-        },
-        {
-          fieldName: "Дата и время отпечатки заявления",
-          fieldValue: "get_application_has_been_printed_date",
-        },
       ],
-      selectedFieldsForDataExport: [
-        "last_name_rus",
-        "first_name_rus",
-        "comments_on_personal_file",
-      ],
-      searchForm: Object.assign(
-        {},
-        globalFPKPRKStudentAPIForEntranceInstance.searchObj,
-      ),
+      selectedFieldsForDataExport: ["last_name_rus", "first_name_rus"],
+      searchForm: Object.assign({}, globalFPKPRKStudentAPIInstance.searchObj),
       BACKEND_PROTOCOL: import.meta.env.VITE_APP_BACKEND_PROTOCOL,
       BACKEND_HOST: import.meta.env.VITE_APP_BACKEND_HOST,
       BACKEND_PORT: import.meta.env.VITE_APP_BACKEND_PORT,
       fpkprkList: { count: 0, results: [], previous: null, next: null },
-      fpkprkAPIInstance: globalFPKPRKStudentAPIForEntranceInstance,
+      fpkprkAPIInstance: globalFPKPRKStudentAPIInstance,
     }
   },
   async created() {
@@ -2048,95 +1672,6 @@ export default {
       }
     },
 
-    async notifyExport() {
-      this.isDocumentProcessing = true
-      this.fpkprkAPIInstance.get_notifies_mag().then((response) => {
-        const url = window.URL.createObjectURL(new Blob([response.data]))
-        const link = document.createElement("a")
-        link.href = url
-        link.setAttribute("download", `notify.docx`)
-        document.body.appendChild(link)
-        link.click()
-        this.isDocumentProcessing = false
-      })
-    },
-
-    async notifyExportFPK() {
-      this.isDocumentProcessing = true
-      let export_data = {}
-      export_data.query_string = getQueryStringFromSearchForm(this.searchForm)
-      this.fpkprkAPIInstance
-        .notify_export_fpk_filter(export_data)
-        .then((response) => {
-          const url = window.URL.createObjectURL(new Blob([response.data]))
-          const link = document.createElement("a")
-          link.href = url
-          link.setAttribute("download", `notify.docx`)
-          document.body.appendChild(link)
-          link.click()
-          this.isDocumentProcessing = false
-        })
-    },
-
-    async examSheetGU() {
-      this.isDocumentProcessing = true
-      this.fpkprkAPIInstance.get_exam_sheet_gu().then((response) => {
-        const url = window.URL.createObjectURL(new Blob([response.data]))
-        const link = document.createElement("a")
-        link.href = url
-        link.setAttribute("download", `exam_sheet_gu.docx`)
-        document.body.appendChild(link)
-        link.click()
-        this.isDocumentProcessing = false
-      })
-    },
-
-    async examSheetYUR() {
-      this.isDocumentProcessing = true
-      this.fpkprkAPIInstance.get_exam_sheet_yur().then((response) => {
-        const url = window.URL.createObjectURL(new Blob([response.data]))
-        const link = document.createElement("a")
-        link.href = url
-        link.setAttribute("download", `exam_sheet_yur.docx`)
-        document.body.appendChild(link)
-        link.click()
-        this.isDocumentProcessing = false
-      })
-    },
-
-    async titlePagesGU() {
-      this.isDocumentProcessing = true
-      this.fpkprkAPIInstance.get_title_pages_gu().then((response) => {
-        const url = window.URL.createObjectURL(new Blob([response.data]))
-        const link = document.createElement("a")
-        link.href = url
-        link.setAttribute("download", `title_pages.docx`)
-        document.body.appendChild(link)
-        link.click()
-        this.isDocumentProcessing = false
-      })
-    },
-
-    async titlePagesYUR() {
-      this.isDocumentProcessing = true
-      this.fpkprkAPIInstance.get_title_pages_yur().then((response) => {
-        const url = window.URL.createObjectURL(new Blob([response.data]))
-        const link = document.createElement("a")
-        link.href = url
-        link.setAttribute("download", `title_pages.docx`)
-        document.body.appendChild(link)
-        link.click()
-        this.isDocumentProcessing = false
-      })
-    },
-
-    showDocumentsModal() {
-      let addModal = this.$refs.documentsModal
-      let myModal = new bootstrap.Modal(addModal, {
-        keyboard: false,
-      })
-      myModal.show()
-    },
     clearFilter() {
       this.searchForm = Object.assign(
         {},
@@ -2154,53 +1689,19 @@ export default {
     orderedComponentOrgans() {
       return this.componentOrgans.results
     },
-    orderedPassportIssueAuthorities() {
-      return this.passportIssueAuthorities.results
-    },
     orderedForeignLanguages() {
       return this.foreignLanguages.results
     },
     orderedMilitaryOffices() {
       return this.militaryOffices.results
     },
-    orderedGraduationReasons() {
-      return this.graduationReasons.results
-    },
-    orderedEducationalInstitutions() {
-      return this.educationalInstitutions.results
-    },
     orderedGorovds() {
       return this.gorovds.results
     },
-    orderedAdmissionQuotas() {
-      return this.admissionQuotas.results
-        .filter((quota) => quota.ownership_category === "4")
-        .sort((a, b) => {
-          const admission_codeA = a.admission_code
-          const admission_codeB = b.admission_code
-          if (admission_codeA < admission_codeB) {
-            return -1
-          }
-          if (admission_codeA > admission_codeB) {
-            return 1
-          }
-          return 0
-        })
-    },
-    normalizedAdmissionQuota() {
-      let normObj = {}
-      this.admissionQuotas.results.map((item) => (normObj[item.id] = item))
-      return normObj
-    },
     ...mapGetters({
       componentOrgans: "componentOrgans/getList",
-      passportIssueAuthorities: "passportAuthorities/getList",
       foreignLanguages: "foreignLanguages/getList",
-      militaryOffices: "militaryOffices/getList",
-      graduationReasons: "graduationReasons/getList",
-      educationalInstitutions: "educationalInstitutions/getList",
       gorovds: "gorovds/getList",
-      admissionQuotas: "admissionQuota/getList",
     }),
   },
   watch: {

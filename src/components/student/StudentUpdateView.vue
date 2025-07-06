@@ -3,9 +3,9 @@
     <br />
 
     <div
-        v-if="isLoading || isCommonLoading"
-        style="height: calc(100vh - 170px)"
-        class="d-flex justify-content-center align-items-center"
+      v-if="isLoading || isCommonLoading"
+      style="height: calc(100vh - 170px)"
+      class="d-flex justify-content-center align-items-center"
     >
       <div class="spinner-grow" style="width: 3rem; height: 3rem" role="status">
         <span class="visually-hidden">Loading...</span>
@@ -21,13 +21,13 @@
       <div class="row">
         <div class="col-10">
           <div
-              data-bs-spy="scroll"
-              data-bs-target="#simple-list-example"
-              data-bs-offset="0"
-              data-bs-smooth-scroll="true"
-              class="scrollspy-example"
-              tabindex="0"
-              style="
+            data-bs-spy="scroll"
+            data-bs-target="#simple-list-example"
+            data-bs-offset="0"
+            data-bs-smooth-scroll="true"
+            class="scrollspy-example"
+            tabindex="0"
+            style="
               height: calc(100vh - 250px);
               max-height: calc(100vh - 250px);
               overflow-y: scroll;
@@ -40,27 +40,27 @@
                   <div class="row">
                     <div class="col-lg-4">
                       <div
-                          class="text-center m-3 border"
-                          style="position: relative"
+                        class="text-center m-3 border"
+                        style="position: relative"
                       >
                         <img
-                            v-if="currentStudentData.photo"
-                            :src="currentStudentData.photo"
-                            class="rounded-2"
-                            alt="..."
-                            style="width: 100%"
+                          v-if="currentStudentData.photo"
+                          :src="currentStudentData.photo"
+                          class="rounded-2"
+                          alt="..."
+                          style="width: 100%"
                         />
                         <img
-                            v-else
-                            src="../../assets/without_photo.jpg"
-                            class="rounded-2"
-                            alt="..."
-                            style="width: 100%"
+                          v-else
+                          src="../../assets/without_photo.jpg"
+                          class="rounded-2"
+                          alt="..."
+                          style="width: 100%"
                         />
                         <input
-                            type="file"
-                            accept="image/png, image/jpeg"
-                            style="position: absolute; bottom: 10px; left: 10px"
+                          type="file"
+                          accept="image/png, image/jpeg"
+                          style="position: absolute; bottom: 10px; left: 10px"
                         />
                       </div>
                     </div>
@@ -77,14 +77,14 @@
                           <div class="mb-3">
                             <div class="form-check">
                               <input
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="currentStudentData.is_active"
-                                  id="id_is_active"
+                                class="form-check-input"
+                                type="checkbox"
+                                v-model="currentStudentData.is_active"
+                                id="id_is_active"
                               />
                               <label
-                                  class="form-check-label"
-                                  for="id_is_active"
+                                class="form-check-label"
+                                for="id_is_active"
                               >
                                 Запись активна
                               </label>
@@ -97,38 +97,51 @@
                         <div class="col-lg-4">
                           <div class="mb-3">
                             <label class="form-label" for="id_id"
-                            >Номер в базе</label
+                              >Номер в базе</label
                             >
                             <input
-                                type="text"
-                                class="form-control"
-                                name="last_name_rus"
-                                maxlength="30"
-                                required
-                                id="id_id"
-                                v-model="currentStudentData.id"
+                              type="text"
+                              class="form-control"
+                              name="last_name_rus"
+                              id="id_id"
+                              v-model="currentStudentData.id"
+                              disabled
                             />
                           </div>
                         </div>
                         <div class="col-lg-4">
                           <div class="mb-3">
-                            <label class="form-label" for="id_first_name_rus"
-                            >Категория</label
+                            <label class="form-label" for="id_entrance_year"
+                              >Год набора</label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              name="entrance_year"
+                              required
+                              id="id_entrance_year"
+                              disabled
+                              v-model="currentStudentData.entrance_year"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                          <div class="mb-3">
+                            <label
+                              class="form-label"
+                              for="id_address_registration"
+                              >Пол</label
                             >
                             <select
-                                class="form-select"
-                                name="subdivision"
-                                id="id_subdivision"
-                                v-model="currentStudentData.category"
+                              name=""
+                              id=""
+                              class="form-select"
+                              v-model="currentStudentData.gender"
                             >
-                              <option value="" selected>---------</option>
-                              <option
-                                  v-for="category in orderedCategories"
-                                  :value="category.id"
-                                  :key="category.id"
-                              >
-                                {{ category.category }}
-                              </option>
+                              <option value="">------</option>
+                              <option value="1">мужской</option>
+                              <option value="0">женский</option>
                             </select>
                           </div>
                         </div>
@@ -138,47 +151,47 @@
                         <div class="col-lg-4">
                           <div class="mb-3">
                             <label class="form-label" for="id_last_name_rus"
-                            >Фамилия (рус):</label
+                              >Фамилия (рус):</label
                             >
                             <input
-                                type="text"
-                                class="form-control"
-                                name="last_name_rus"
-                                maxlength="30"
-                                required
-                                id="id_last_name_rus"
-                                v-model="currentStudentData.last_name_rus"
+                              type="text"
+                              class="form-control"
+                              name="last_name_rus"
+                              maxlength="30"
+                              required
+                              id="id_last_name_rus"
+                              v-model="currentStudentData.last_name_rus"
                             />
                           </div>
                         </div>
                         <div class="col-lg-4">
                           <div class="mb-3">
                             <label class="form-label" for="id_first_name_rus"
-                            >Имя (рус):</label
+                              >Имя (рус):</label
                             >
                             <input
-                                type="text"
-                                class="form-control"
-                                name="first_name_rus"
-                                maxlength="30"
-                                required
-                                id="id_first_name_rus"
-                                v-model="currentStudentData.first_name_rus"
+                              type="text"
+                              class="form-control"
+                              name="first_name_rus"
+                              maxlength="30"
+                              required
+                              id="id_first_name_rus"
+                              v-model="currentStudentData.first_name_rus"
                             />
                           </div>
                         </div>
                         <div class="col-lg-4">
                           <div class="mb-3">
                             <label class="form-label" for="id_patronymic_rus"
-                            >Отчество (рус):</label
+                              >Отчество (рус):</label
                             >
                             <input
-                                type="text"
-                                class="form-control"
-                                name="patronymic_rus"
-                                maxlength="30"
-                                id="id_patronymic_rus"
-                                v-model="currentStudentData.patronymic_rus"
+                              type="text"
+                              class="form-control"
+                              name="patronymic_rus"
+                              maxlength="30"
+                              id="id_patronymic_rus"
+                              v-model="currentStudentData.patronymic_rus"
                             />
                           </div>
                         </div>
@@ -188,47 +201,47 @@
                         <div class="col-lg-4">
                           <div class="mb-3">
                             <label class="form-label" for="id_last_name_bel"
-                            >Фамилия (бел):</label
+                              >Фамилия (бел):</label
                             >
                             <input
-                                type="text"
-                                class="form-control"
-                                name="last_name_rus"
-                                maxlength="30"
-                                required
-                                id="id_last_name_rus"
-                                v-model="currentStudentData.last_name_bel"
+                              type="text"
+                              class="form-control"
+                              name="last_name_rus"
+                              maxlength="30"
+                              required
+                              id="id_last_name_rus"
+                              v-model="currentStudentData.last_name_bel"
                             />
                           </div>
                         </div>
                         <div class="col-lg-4">
                           <div class="mb-3">
                             <label class="form-label" for="id_first_name_bel"
-                            >Имя (бел):</label
+                              >Имя (бел):</label
                             >
                             <input
-                                type="text"
-                                class="form-control"
-                                name="first_name_rus"
-                                maxlength="30"
-                                required
-                                id="id_first_name_rus"
-                                v-model="currentStudentData.first_name_bel"
+                              type="text"
+                              class="form-control"
+                              name="first_name_rus"
+                              maxlength="30"
+                              required
+                              id="id_first_name_rus"
+                              v-model="currentStudentData.first_name_bel"
                             />
                           </div>
                         </div>
                         <div class="col-lg-4">
                           <div class="mb-3">
                             <label class="form-label" for="id_patronymic_bel"
-                            >Отчество (бел):</label
+                              >Отчество (бел):</label
                             >
                             <input
-                                type="text"
-                                class="form-control"
-                                name="patronymic_rus"
-                                maxlength="30"
-                                id="id_patronymic_rus"
-                                v-model="currentStudentData.patronymic_bel"
+                              type="text"
+                              class="form-control"
+                              name="patronymic_rus"
+                              maxlength="30"
+                              id="id_patronymic_rus"
+                              v-model="currentStudentData.patronymic_bel"
                             />
                           </div>
                         </div>
@@ -238,28 +251,28 @@
                         <div class="col-lg-4">
                           <div class="mb-3">
                             <label class="form-label" for="id_date_of_birth"
-                            >Дата рождения:</label
+                              >Дата рождения:</label
                             >
                             <input
-                                type="date"
-                                class="form-control"
-                                name="date_of_birth"
-                                id="id_date_of_birth"
-                                v-model="currentStudentData.date_of_birth"
+                              type="date"
+                              class="form-control"
+                              name="date_of_birth"
+                              id="id_date_of_birth"
+                              v-model="currentStudentData.date_of_birth"
                             />
                           </div>
                         </div>
                         <div class="col-lg-8">
                           <div class="mb-3">
                             <label class="form-label" for="id_place_of_birth"
-                            >Место рождения</label
+                              >Место рождения</label
                             >
                             <input
-                                type="text"
-                                class="form-control"
-                                name="place_of_birth"
-                                id="id_place_of_birth"
-                                v-model="currentStudentData.place_of_birth"
+                              type="text"
+                              class="form-control"
+                              name="place_of_birth"
+                              id="id_place_of_birth"
+                              v-model="currentStudentData.place_of_birth"
                             />
                           </div>
                         </div>
@@ -269,69 +282,201 @@
                         <div class="col-lg-4">
                           <div class="mb-3">
                             <label class="form-label" for="id_phone_number"
-                            >Номер телефона:</label
+                              >Номер телефона:</label
                             >
                             <input
-                                type="text"
-                                class="form-control"
-                                name="phone_number"
-                                maxlength="30"
-                                id="id_phone_number"
-                                autocomplete="false"
-                                v-model="currentStudentData.phone_number"
+                              type="text"
+                              class="form-control"
+                              name="phone_number"
+                              maxlength="30"
+                              id="id_phone_number"
+                              autocomplete="false"
+                              v-model="currentStudentData.phone_number"
                             />
                           </div>
                         </div>
                         <div class="col-lg-8">
                           <div class="mb-3">
                             <label class="form-label" for="id_address_residence"
-                            >Адрес места жительства</label
+                              >Адрес места жительства</label
                             >
                             <input
-                                type="text"
-                                class="form-control"
-                                name="address_residence"
-                                id="id_address_residence"
-                                v-model="currentStudentData.address_residence"
+                              type="text"
+                              class="form-control"
+                              name="address_residence"
+                              id="id_address_residence"
+                              v-model="currentStudentData.address_residence"
                             />
                           </div>
                         </div>
                       </div>
 
                       <div class="row">
-                        <div class="col-lg-4">
+                        <div class="col-xl-6">
                           <div class="mb-3">
                             <label
-                                class="form-label"
-                                for="id_address_registration"
-                            >Пол</label
+                              class="form-label"
+                              for="id_education_location_kind"
+                              >Место регистрации - город/село</label
                             >
                             <select
-                                name=""
-                                id=""
-                                class="form-select"
-                                v-model="currentStudentData.gender"
+                              id="id_education_location_kind"
+                              class="form-select"
+                              v-model="
+                                currentStudentData.residence_location_kind
+                              "
                             >
-                              <option value="">------</option>
-                              <option value="1">мужской</option>
-                              <option value="0">женский</option>
+                              <option :value="null">---------</option>
+                              <option
+                                :value="educationLocalityKind.id"
+                                v-for="educationLocalityKind in orderedEducationLocalityKinds"
+                              >
+                                {{
+                                  educationLocalityKind.education_location_kind
+                                }}
+                              </option>
                             </select>
                           </div>
                         </div>
-                        <div class="col-lg-8">
+
+                        <div class="col-lg-6">
                           <div class="mb-3">
                             <label
-                                class="form-label"
-                                for="id_address_registration"
-                            >Адрес регистрации</label
+                              class="form-label"
+                              for="id_region_for_medical_examination"
+                              >Область места жительства</label
+                            >
+                            <select
+                              id="id_region_for_medical_examination"
+                              class="form-select"
+                              v-model="currentStudentData.residence_region"
+                            >
+                              <option :value="null">---------</option>
+                              <option
+                                :value="countryRegion.id"
+                                v-for="countryRegion in orderedCountryRegions"
+                              >
+                                {{ countryRegion.country_region }}
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-6">
+                          <label
+                            class="form-label"
+                            for="id_address_registration"
+                            >Место регистрации</label
+                          >
+                          <div class="mb-3">
+                            <input
+                              type="text"
+                              id="id_address_registration"
+                              class="form-control"
+                              placeholder="Место регистрации"
+                              v-model="currentStudentData.address_registration"
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="fmb-3">
+                            <label class="form-label" for="id_address_residence"
+                              >Место фактического жительства</label
                             >
                             <input
-                                type="text"
-                                class="form-control"
-                                name="address_registration"
-                                id="id_address_registration"
-                                v-model="currentStudentData.address_registration"
+                              id="id_address_residence"
+                              type="text"
+                              class="form-control"
+                              placeholder="Место фактического жительства"
+                              v-model="currentStudentData.address_residence"
                             />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-xxl-6">
+                          <div class="mb-3">
+                            <label class="form-label" for="id_social_status"
+                              >Социальный статус</label
+                            >
+                            <select
+                              id="id_social_status"
+                              class="form-select"
+                              v-model="currentStudentData.social_status"
+                            >
+                              <option :value="null">---------</option>
+                              <option
+                                :value="socialStatus.id"
+                                v-for="socialStatus in orderedSocialStatuses"
+                              >
+                                {{ socialStatus.social_status }}
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-xxl-6">
+                          <div class="mb-3">
+                            <label class="form-label" for="id_department"
+                              >Наименование ведомства (для сотрудников)</label
+                            >
+                            <textarea
+                              id="id_department"
+                              class="form-control"
+                              placeholder="Наименование ведомства (для сотрудников)"
+                              rows="1"
+                              v-model="currentStudentData.department"
+                            ></textarea>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xxl-6">
+                          <div class="mb-3">
+                            <label class="form-label" for="id_place_of_work"
+                              >Место работы и должность</label
+                            >
+                            <textarea
+                              id="id_place_of_work"
+                              class="form-control"
+                              placeholder="Место работы и должность"
+                              rows="1"
+                              v-model="currentStudentData.place_of_work"
+                            ></textarea>
+                          </div>
+                        </div>
+                        <div class="col-xxl-6">
+                          <div class="mb-3">
+                            <label class="form-label" for="id_rank"
+                              >Звание</label
+                            >
+                            <textarea
+                              id="id_rank"
+                              class="form-control"
+                              placeholder="Место работы"
+                              rows="1"
+                              v-model="currentStudentData.rank"
+                            ></textarea>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xl-12">
+                          <div class="form-floating mb-3">
+                            <textarea
+                              id="id_personal_information_tab_extra_data"
+                              class="form-control"
+                              placeholder="Примечание по личной информации"
+                              rows="2"
+                              v-model="
+                                currentStudentData.personal_information_tab_extra_data
+                              "
+                            ></textarea>
+                            <label for="id_personal_information_tab_extra_data"
+                              >Примечание по личной информации</label
+                            >
                           </div>
                         </div>
                       </div>
@@ -344,76 +489,89 @@
             <div class="shadow p-3 mb-3" id="simple-list-passport-data">
               <div class="card border-0">
                 <div class="card-body">
-                  <h5 class="card-title">Паспортные данные</h5>
+                  <h5 class="card-title mb-4">Паспортные данные</h5>
+
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="mb-3">
+                        <label
+                          class="form-label"
+                          for="id_passport_document_type"
+                          >Документ удостоверяющий личность</label
+                        >
+                        <select
+                          class="form-select"
+                          id="id_passport_document_type"
+                          v-model="currentStudentData.passport_document_type"
+                        >
+                          <option :value="null">---------</option>
+                          <option value="1">Паспорт</option>
+                          <option value="2">Идентификационная карта</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
                   <div class="row">
                     <div class="col-3">
                       <div class="mb-3">
                         <label class="form-label" for="id_passport_number"
-                        >Номер паспорта</label
-                        >
+                          >Серия и номер паспорта / id карты
+                        </label>
                         <input
-                            type="text"
-                            class="form-control"
-                            name="passport_number"
-                            maxlength="100"
-                            id="id_passport_number"
-                            v-model="currentStudentData.passport_number"
+                          type="text"
+                          class="form-control"
+                          name="passport_number"
+                          maxlength="100"
+                          id="id_passport_number"
+                          v-model="currentStudentData.passport_number"
                         />
                       </div>
                     </div>
                     <div class="col-3">
                       <div class="mb-3">
                         <label class="form-label" for="id_passport_issue_date"
-                        >Дата выдачи паспорта:</label
+                          >Дата выдачи паспорта:</label
                         >
                         <input
-                            type="date"
-                            class="form-control"
-                            name="passport_issue_date"
-                            id="id_passport_issue_date"
-                            v-model="currentStudentData.passport_issue_date"
+                          type="date"
+                          class="form-control"
+                          name="passport_issue_date"
+                          id="id_passport_issue_date"
+                          v-model="currentStudentData.passport_issue_date"
                         />
                       </div>
                     </div>
                     <div class="col-3">
                       <div class="mb-3">
                         <label
-                            class="form-label"
-                            for="id_passport_validity_period"
-                        >Срок оконч. паспорта:</label
+                          class="form-label"
+                          for="id_passport_validity_period"
+                          >Срок оконч. паспорта:</label
                         >
                         <input
-                            type="date"
-                            class="form-control"
-                            name="passport_validity_period"
-                            id="id_passport_validity_period"
-                            v-model="currentStudentData.passport_validity_period"
+                          type="date"
+                          class="form-control"
+                          name="passport_validity_period"
+                          id="id_passport_validity_period"
+                          v-model="currentStudentData.passport_validity_period"
                         />
                       </div>
                     </div>
                     <div class="col-3">
                       <div class="mb-3">
                         <label
-                            class="form-label"
-                            for="id_passport_issue_authority"
-                        >Орган выдачи паспорта:</label
+                          class="form-label"
+                          for="id_passport_issue_authority"
+                          >Орган выдачи паспорта:</label
                         >
-                        <select
-                            class="form-select"
-                            name="passport_issue_authority"
-                            id="id_passport_issue_authority"
-                            v-model="currentStudentData.passport_issue_authority"
-                        >
-                          <option value="" selected>---------</option>
-                          <option
-                              v-for="passportIssueAuthority in orderedPassportIssueAuthorities"
-                              :value="passportIssueAuthority.id"
-                          >
-                            {{
-                              passportIssueAuthority.passport_issue_authority
-                            }}
-                          </option>
-                        </select>
+                        <textarea
+                          class="form-control"
+                          rows="1"
+                          v-model="
+                            currentStudentData.passport_issue_authority_text
+                          "
+                        />
                       </div>
                     </div>
                   </div>
@@ -429,54 +587,33 @@
                     <div class="col-lg-4">
                       <div class="mb-3">
                         <label class="form-label" for="id_first_name_rus"
-                        >Номер зачетной книжки</label
+                          >Номер зачетной книжки</label
                         >
                         <input
-                            type="text"
-                            class="form-control"
-                            v-model="
+                          type="text"
+                          class="form-control"
+                          v-model="
                             currentStudentData.student_record_book_number
                           "
-                            id="id_student_record_book_number"
+                          id="id_student_record_book_number"
                         />
                       </div>
                     </div>
                     <div class="col-lg-4">
                       <div class="mb-3">
-                        <label class="form-label" for="id_subdivision"
-                        >Факультет</label
-                        >
-                        <select
-                            class="form-select"
-                            name="subdivision"
-                            id="id_subdivision"
-                            v-model="currentStudentData.subdivision"
-                        >
-                          <option value="" selected>---------</option>
-                          <option
-                              v-for="subdivision in orderedSubdivisions"
-                              :value="subdivision.id"
-                          >
-                            {{ subdivision.subdivision_name }}
-                          </option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="mb-3">
                         <label class="form-label" for="id_first_name_rus"
-                        >Форма обучения</label
+                          >Форма обучения</label
                         >
                         <select
-                            class="form-select"
-                            name="subdivision"
-                            id="id_subdivision"
-                            v-model="currentStudentData.education_form"
+                          class="form-select"
+                          name="subdivision"
+                          id="id_subdivision"
+                          v-model="currentStudentData.education_form"
                         >
                           <option value="" selected>---------</option>
                           <option
-                              v-for="education_form in orderedEducationForms"
-                              :value="education_form.id"
+                            v-for="education_form in orderedEducationForms"
+                            :value="education_form.id"
                           >
                             {{ education_form.education_form }}
                           </option>
@@ -486,109 +623,22 @@
                   </div>
 
                   <div class="row">
-                    <div class="col-lg-4">
-                      <div class="mb-3">
-                        <label class="form-label" for="id_first_name_rus"
-                        >Специальность</label
-                        >
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="mb-3">
-                        <label class="form-label" for="id_first_name_rus"
-                        >Специализация</label
-                        >
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="mb-3">
-                        <label class="form-label" for="id_first_name_rus"
-                        >Направление</label
-                        >
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-lg-3">
-                      <div class="mb-3">
-                        <label class="form-label" for="id_subdivision"
-                        >Дата начала обучения</label
-                        >
-                        <input
-                            type="date"
-                            class="form-control"
-                            v-model="currentStudentData.academy_start_date"
-                            id="id_subdivision"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-lg-3">
-                      <div class="mb-3">
-                        <label class="form-label" for="id_subdivision"
-                        >Дата окончания обучения</label
-                        >
-                        <input
-                            type="date"
-                            class="form-control"
-                            v-model="currentStudentData.academy_end_date"
-                            id="id_subdivision"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-lg-3">
-                      <div class="mb-3">
-                        <label class="form-label" for="id_subdivision"
-                        >Причина окончания</label
-                        >
-                        <select
-                            class="form-select"
-                            name="graduation_reason"
-                            id="id_graduation_reason"
-                            v-model="currentStudentData.graduation_reason"
-                        >
-                          <option value="" selected>---------</option>
-                          <option
-                              v-for="graduation_reason in orderedGraduationReasons"
-                              :value="graduation_reason.id"
-                              :key="graduation_reason.id"
-                          >
-                            {{ graduation_reason.graduation_reason }}
-                          </option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-lg-3">
-                      <div class="mb-3">
-                        <label class="form-label" for="id_subdivision"
-                        >Статья отчисления</label
-                        >
-                        <input
-                            type="text"
-                            class="form-control"
-                            v-model="currentStudentData.graduation_reason_article"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row">
                     <div class="col-lg-3">
                       <div class="mb-3">
                         <label class="form-label" for="id_category"
-                        >Группа</label
+                          >Группа</label
                         >
                         <select
-                            class="form-select"
-                            name="subdivision"
-                            id="id_subdivision"
-                            v-model="currentStudentData.group"
+                          class="form-select"
+                          name="subdivision"
+                          id="id_subdivision"
+                          v-model="currentStudentData.group"
                         >
                           <option value="" selected>---------</option>
                           <option
-                              v-for="group in orderedGroups"
-                              :value="group.id"
-                              :key="group.id"
+                            v-for="group in orderedGroups"
+                            :value="group.id"
+                            :key="group.id"
                           >
                             {{ group.group_name }}
                           </option>
@@ -599,13 +649,13 @@
                     <div class="col-lg-3">
                       <div class="mb-3">
                         <label class="form-label" for="id_contract_number"
-                        >Номер договора</label
+                          >Номер договора</label
                         >
                         <input
-                            type="text"
-                            class="form-control"
-                            id="id_contract_number"
-                            v-model="currentStudentData.contract_number"
+                          type="text"
+                          class="form-control"
+                          id="id_contract_number"
+                          v-model="currentStudentData.contract_number"
                         />
                       </div>
                     </div>
@@ -614,24 +664,48 @@
                       <div class="mb-3">
                         <label class="form-label" for="id_year">Курс</label>
                         <input
-                            type="text"
-                            class="form-control"
-                            id="id_year"
-                            v-model="currentStudentData.year"
+                          type="text"
+                          class="form-control"
+                          id="id_year"
+                          v-model="currentStudentData.year"
                         />
                       </div>
                     </div>
                     <div class="col-lg-3">
                       <div class="mb-3">
                         <label class="form-label" for="id_year_litera"
-                        >Литера</label
+                          >Литера</label
                         >
                         <input
-                            type="text"
-                            class="form-control"
-                            id="id_year_litera"
-                            v-model="currentStudentData.year_litera"
+                          type="text"
+                          class="form-control"
+                          id="id_year_litera"
+                          v-model="currentStudentData.year_litera"
                         />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="mb-3">
+                        <label class="form-label" for="id_first_name_rus"
+                          >Специальность</label
+                        >
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="mb-3">
+                        <label class="form-label" for="id_first_name_rus"
+                          >Специализация</label
+                        >
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="mb-3">
+                        <label class="form-label" for="id_first_name_rus"
+                          >Направление</label
+                        >
                       </div>
                     </div>
                   </div>
@@ -639,22 +713,76 @@
                   <div class="row">
                     <div class="col-lg-3">
                       <div class="mb-3">
-                        <label class="form-label" for="id_category"
-                        >Год поступления</label
+                        <label class="form-label" for="id_subdivision"
+                          >Дата начала обучения</label
                         >
+                        <input
+                          type="date"
+                          class="form-control"
+                          v-model="currentStudentData.academy_start_date"
+                          id="id_subdivision"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="mb-3">
+                        <label class="form-label" for="id_subdivision"
+                          >Дата окончания обучения</label
+                        >
+                        <input
+                          type="date"
+                          class="form-control"
+                          v-model="currentStudentData.academy_end_date"
+                          id="id_subdivision"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="mb-3">
+                        <label class="form-label" for="id_subdivision"
+                          >Причина окончания</label
+                        >
+                        <select
+                          class="form-select"
+                          name="graduation_reason"
+                          id="id_graduation_reason"
+                          v-model="currentStudentData.graduation_reason"
+                        >
+                          <option value="" selected>---------</option>
+                          <option
+                            v-for="graduation_reason in orderedGraduationReasons"
+                            :value="graduation_reason.id"
+                            :key="graduation_reason.id"
+                          >
+                            {{ graduation_reason.graduation_reason }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="mb-3">
+                        <label class="form-label" for="id_subdivision"
+                          >Статья отчисления</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          v-model="currentStudentData.graduation_reason_article"
+                        />
                       </div>
                     </div>
                   </div>
+
                   <div class="row">
                     <div class="col-12">
                       <div class="mb-3">
                         <label class="form-label" for="id_subdivision"
-                        >Дополнительная информация об отчислении</label
+                          >Дополнительная информация об отчислении</label
                         >
                         <textarea
-                            class="form-control"
-                            rows="2"
-                            v-model="currentStudentData.graduation_extra_data"
+                          class="form-control"
+                          rows="2"
+                          v-model="currentStudentData.graduation_extra_data"
                         />
                       </div>
                     </div>
@@ -675,50 +803,50 @@
                           <div class="col-4">
                             <div class="mb-3">
                               <label
-                                  class="form-label"
-                                  for="id_father_last_name"
-                              >Фамилия:</label
+                                class="form-label"
+                                for="id_father_last_name"
+                                >Фамилия:</label
                               >
                               <input
-                                  type="text"
-                                  class="form-control"
-                                  name="father_last_name"
-                                  v-model="currentStudentData.father_last_name"
-                                  id="id_father_last_name"
+                                type="text"
+                                class="form-control"
+                                name="father_last_name"
+                                v-model="currentStudentData.father_last_name"
+                                id="id_father_last_name"
                               />
                             </div>
                           </div>
                           <div class="col-4">
                             <div class="mb-3">
                               <label
-                                  class="form-label"
-                                  for="id_father_first_name"
-                              >Имя</label
+                                class="form-label"
+                                for="id_father_first_name"
+                                >Имя</label
                               >
                               <input
-                                  type="text"
-                                  class="form-control"
-                                  name="father_first_name"
-                                  maxlength="30"
-                                  id="id_father_first_name"
-                                  v-model="currentStudentData.father_first_name"
+                                type="text"
+                                class="form-control"
+                                name="father_first_name"
+                                maxlength="30"
+                                id="id_father_first_name"
+                                v-model="currentStudentData.father_first_name"
                               />
                             </div>
                           </div>
                           <div class="col-4">
                             <div class="mb-3">
                               <label
-                                  class="form-label"
-                                  for="id_father_patronymic"
-                              >Отчество</label
+                                class="form-label"
+                                for="id_father_patronymic"
+                                >Отчество</label
                               >
                               <input
-                                  type="text"
-                                  class="form-control"
-                                  name="father_patronymic"
-                                  maxlength="30"
-                                  id="id_father_patronymic"
-                                  v-model="currentStudentData.father_patronymic"
+                                type="text"
+                                class="form-control"
+                                name="father_patronymic"
+                                maxlength="30"
+                                id="id_father_patronymic"
+                                v-model="currentStudentData.father_patronymic"
                               />
                             </div>
                           </div>
@@ -727,16 +855,16 @@
                           <div class="col-4">
                             <div class="mb-3">
                               <label
-                                  class="form-label"
-                                  for="id_father_date_of_birth"
-                              >Дата рождения</label
+                                class="form-label"
+                                for="id_father_date_of_birth"
+                                >Дата рождения</label
                               >
                               <input
-                                  type="date"
-                                  class="form-control"
-                                  name="father_date_of_birth"
-                                  id="id_father_date_of_birth"
-                                  v-model="
+                                type="date"
+                                class="form-control"
+                                name="father_date_of_birth"
+                                id="id_father_date_of_birth"
+                                v-model="
                                   currentStudentData.father_date_of_birth
                                 "
                               />
@@ -745,17 +873,17 @@
                           <div class="col-8">
                             <div class="mb-3">
                               <label
-                                  class="form-label"
-                                  for="id_father_phone_number"
-                              >Номер телефона</label
+                                class="form-label"
+                                for="id_father_phone_number"
+                                >Номер телефона</label
                               >
                               <input
-                                  type="text"
-                                  class="form-control"
-                                  name="father_phone_number"
-                                  maxlength="30"
-                                  id="id_father_phone_number"
-                                  v-model="currentStudentData.father_phone_number"
+                                type="text"
+                                class="form-control"
+                                name="father_phone_number"
+                                maxlength="30"
+                                id="id_father_phone_number"
+                                v-model="currentStudentData.father_phone_number"
                               />
                             </div>
                           </div>
@@ -765,17 +893,17 @@
                           <div class="col-12">
                             <div class="mb-3">
                               <label
-                                  class="form-label"
-                                  for="id_father_place_of_work"
-                              >Место работы</label
+                                class="form-label"
+                                for="id_father_place_of_work"
+                                >Место работы</label
                               >
                               <textarea
-                                  class="form-control"
-                                  name="father_place_of_work"
-                                  cols="40"
-                                  rows="2"
-                                  id="id_father_place_of_work"
-                                  v-model="
+                                class="form-control"
+                                name="father_place_of_work"
+                                cols="40"
+                                rows="2"
+                                id="id_father_place_of_work"
+                                v-model="
                                   currentStudentData.father_place_of_work
                                 "
                               />
@@ -791,51 +919,51 @@
                           <div class="col-4">
                             <div class="mb-3">
                               <label
-                                  class="form-label"
-                                  for="id_mother_last_name"
-                              >Фамилия:</label
+                                class="form-label"
+                                for="id_mother_last_name"
+                                >Фамилия:</label
                               >
                               <input
-                                  type="text"
-                                  class="form-control"
-                                  name="mother_last_name"
-                                  maxlength="30"
-                                  id="id_mother_last_name"
-                                  v-model="currentStudentData.mother_last_name"
+                                type="text"
+                                class="form-control"
+                                name="mother_last_name"
+                                maxlength="30"
+                                id="id_mother_last_name"
+                                v-model="currentStudentData.mother_last_name"
                               />
                             </div>
                           </div>
                           <div class="col-4">
                             <div class="mb-3">
                               <label
-                                  class="form-label"
-                                  for="id_mother_first_name"
-                              >Имя</label
+                                class="form-label"
+                                for="id_mother_first_name"
+                                >Имя</label
                               >
                               <input
-                                  type="text"
-                                  class="form-control"
-                                  name="mother_first_name"
-                                  maxlength="30"
-                                  id="id_mother_first_name"
-                                  v-model="currentStudentData.mother_first_name"
+                                type="text"
+                                class="form-control"
+                                name="mother_first_name"
+                                maxlength="30"
+                                id="id_mother_first_name"
+                                v-model="currentStudentData.mother_first_name"
                               />
                             </div>
                           </div>
                           <div class="col-4">
                             <div class="mb-3">
                               <label
-                                  class="form-label"
-                                  for="id_mother_patronymic"
-                              >Отчество</label
+                                class="form-label"
+                                for="id_mother_patronymic"
+                                >Отчество</label
                               >
                               <input
-                                  type="text"
-                                  class="form-control"
-                                  name="mother_patronymic"
-                                  maxlength="30"
-                                  id="id_mother_patronymic"
-                                  v-model="currentStudentData.mother_patronymic"
+                                type="text"
+                                class="form-control"
+                                name="mother_patronymic"
+                                maxlength="30"
+                                id="id_mother_patronymic"
+                                v-model="currentStudentData.mother_patronymic"
                               />
                             </div>
                           </div>
@@ -844,16 +972,16 @@
                           <div class="col-4">
                             <div class="mb-3">
                               <label
-                                  class="form-label"
-                                  for="id_mother_date_of_birth"
-                              >Дата рождения</label
+                                class="form-label"
+                                for="id_mother_date_of_birth"
+                                >Дата рождения</label
                               >
                               <input
-                                  type="date"
-                                  class="form-control"
-                                  name="mother_date_of_birth"
-                                  id="id_mother_date_of_birth"
-                                  v-model="
+                                type="date"
+                                class="form-control"
+                                name="mother_date_of_birth"
+                                id="id_mother_date_of_birth"
+                                v-model="
                                   currentStudentData.mother_date_of_birth
                                 "
                               />
@@ -862,17 +990,17 @@
                           <div class="col-8">
                             <div class="mb-3">
                               <label
-                                  class="form-label"
-                                  for="id_mother_phone_number"
-                              >Номер телефона</label
+                                class="form-label"
+                                for="id_mother_phone_number"
+                                >Номер телефона</label
                               >
                               <input
-                                  type="text"
-                                  class="form-control"
-                                  name="mother_phone_number"
-                                  maxlength="30"
-                                  id="id_mother_phone_number"
-                                  v-model="currentStudentData.mother_phone_number"
+                                type="text"
+                                class="form-control"
+                                name="mother_phone_number"
+                                maxlength="30"
+                                id="id_mother_phone_number"
+                                v-model="currentStudentData.mother_phone_number"
                               />
                             </div>
                           </div>
@@ -882,17 +1010,17 @@
                           <div class="col-12">
                             <div class="mb-3">
                               <label
-                                  class="form-label"
-                                  for="id_father_place_of_work"
-                              >Место работы</label
+                                class="form-label"
+                                for="id_father_place_of_work"
+                                >Место работы</label
                               >
                               <textarea
-                                  class="form-control"
-                                  name="father_place_of_work"
-                                  cols="40"
-                                  rows="2"
-                                  id="id_father_place_of_work"
-                                  v-model="
+                                class="form-control"
+                                name="father_place_of_work"
+                                cols="40"
+                                rows="2"
+                                id="id_father_place_of_work"
+                                v-model="
                                   currentStudentData.mother_place_of_work
                                 "
                               />
@@ -914,16 +1042,16 @@
                     <div class="col-lg-6">
                       <div class="row mb-3">
                         <label for="inputEmail3" class="col-lg-4 col-form-label"
-                        >Приказ о зачислении</label
+                          >Приказ о зачислении</label
                         >
                         <div class="col-lg-4">
                           <input type="text" class="form-control" />
                         </div>
                         <div class="col-lg-4">
                           <input
-                              type="date"
-                              class="form-control"
-                              id="inputEmail3"
+                            type="date"
+                            class="form-control"
+                            id="inputEmail3"
                           />
                         </div>
                       </div>
@@ -931,20 +1059,20 @@
                     <div class="col-lg-6">
                       <div class="row mb-3">
                         <label for="inputEmail3" class="col-lg-4 col-form-label"
-                        >Приказ об отчислении</label
+                          >Приказ об отчислении</label
                         >
                         <div class="col-lg-4">
                           <input
-                              type="text"
-                              class="form-control"
-                              id="inputEmail3"
+                            type="text"
+                            class="form-control"
+                            id="inputEmail3"
                           />
                         </div>
                         <div class="col-lg-4">
                           <input
-                              type="date"
-                              class="form-control"
-                              id="inputEmail3"
+                            type="date"
+                            class="form-control"
+                            id="inputEmail3"
                           />
                         </div>
                       </div>
@@ -955,20 +1083,20 @@
                     <div class="col-lg-6">
                       <div class="row mb-3">
                         <label for="inputEmail3" class="col-lg-4 col-form-label"
-                        >Приказ о восстановлении</label
+                          >Приказ о восстановлении</label
                         >
                         <div class="col-lg-4">
                           <input
-                              type="text"
-                              class="form-control"
-                              id="inputEmail3"
+                            type="text"
+                            class="form-control"
+                            id="inputEmail3"
                           />
                         </div>
                         <div class="col-lg-4">
                           <input
-                              type="date"
-                              class="form-control"
-                              id="inputEmail3"
+                            type="date"
+                            class="form-control"
+                            id="inputEmail3"
                           />
                         </div>
                       </div>
@@ -976,20 +1104,20 @@
                     <div class="col-lg-6">
                       <div class="row mb-3">
                         <label for="inputEmail3" class="col-lg-4 col-form-label"
-                        >Приказ о предоставлении отпуска</label
+                          >Приказ о предоставлении отпуска</label
                         >
                         <div class="col-lg-4">
                           <input
-                              type="text"
-                              class="form-control"
-                              id="inputEmail3"
+                            type="text"
+                            class="form-control"
+                            id="inputEmail3"
                           />
                         </div>
                         <div class="col-lg-4">
                           <input
-                              type="date"
-                              class="form-control"
-                              id="inputEmail3"
+                            type="date"
+                            class="form-control"
+                            id="inputEmail3"
                           />
                         </div>
                       </div>
@@ -1002,7 +1130,7 @@
         </div>
         <div class="col-2">
           <div
-              style="
+            style="
               height: calc(100vh - 250px);
               max-height: calc(100vh - 250px);
               overflow-y: scroll;
@@ -1013,31 +1141,31 @@
                 <div class="card-body">
                   <div class="list-group">
                     <a
-                        class="list-group-item list-group-item-action rounded-1"
-                        href="#simple-list-personal-data"
-                    >Личные данные</a
+                      class="list-group-item list-group-item-action rounded-1"
+                      href="#simple-list-personal-data"
+                      >Личные данные</a
                     >
                     <a
-                        class="list-group-item list-group-item-action rounded-1"
-                        href="#simple-list-passport-data"
-                    >Паспортные данные</a
+                      class="list-group-item list-group-item-action rounded-1"
+                      href="#simple-list-passport-data"
+                      >Паспортные данные</a
                     >
                     <a
-                        class="list-group-item list-group-item-action rounded-1"
-                        href="#simple-list-academy-data"
-                    >Обучение в Академии МВД</a
-                    >
-
-                    <a
-                        class="list-group-item list-group-item-action rounded-1"
-                        href="#simple-list-parents-data"
-                    >Данные о родителях</a
+                      class="list-group-item list-group-item-action rounded-1"
+                      href="#simple-list-academy-data"
+                      >Обучение в Академии МВД</a
                     >
 
                     <a
-                        class="list-group-item list-group-item-action rounded-1"
-                        href="#simple-list-orders-data"
-                    >Приказы</a
+                      class="list-group-item list-group-item-action rounded-1"
+                      href="#simple-list-parents-data"
+                      >Данные о родителях</a
+                    >
+
+                    <a
+                      class="list-group-item list-group-item-action rounded-1"
+                      href="#simple-list-orders-data"
+                      >Приказы</a
                     >
                   </div>
                 </div>
@@ -1051,26 +1179,26 @@
 </template>
 
 <script>
-import getStudentAPIInstance from "@/api/student/studentAPI";
-import getJobHistoryAPIInstance from "@/api/cadet/jobHistoryAPI";
-import { debounce } from "lodash/function";
+import getStudentAPIInstance from "@/api/student/studentAPI"
+import getJobHistoryAPIInstance from "@/api/cadet/jobHistoryAPI"
+import { debounce } from "lodash/function"
 
-import { EducationHistoryCadetComponent } from "@/components/cadet/education";
-import { ForeignLanguagesCadetComponent } from "@/components/cadet/languages";
-import { ScientificWorksCadetComponent } from "@/components/cadet/scientific_works";
-import { JobCadetComponent } from "@/components/cadet/job";
+import { EducationHistoryCadetComponent } from "@/components/cadet/education"
+import { ForeignLanguagesCadetComponent } from "@/components/cadet/languages"
+import { ScientificWorksCadetComponent } from "@/components/cadet/scientific_works"
+import { JobCadetComponent } from "@/components/cadet/job"
 import {
   ArmyServiceCadetComponent,
   MVDServiceCadetComponent,
-} from "@/components/cadet/service";
-import { RewardCadetComponent } from "@/components/cadet/reward";
-import { PunishmentCadetComponent } from "@/components/cadet/punishment";
-import { PositionCadetComponent } from "@/components/cadet/position";
-import { SpecialityCadetComponent } from "@/components/cadet/speciality";
-import RelativesCadetComponent from "@/components/cadet/relatives/RelativesCadetComponent.vue";
+} from "@/components/cadet/service"
+import { RewardCadetComponent } from "@/components/cadet/reward"
+import { PunishmentCadetComponent } from "@/components/cadet/punishment"
+import { PositionCadetComponent } from "@/components/cadet/position"
+import { SpecialityCadetComponent } from "@/components/cadet/speciality"
+import RelativesCadetComponent from "@/components/cadet/relatives/RelativesCadetComponent.vue"
 
-import "vue-select/dist/vue-select.css";
-import { mapGetters } from "vuex";
+import "vue-select/dist/vue-select.css"
+import { mapGetters } from "vuex"
 
 export default {
   name: "StudentUpdateView",
@@ -1093,6 +1221,7 @@ export default {
       isLoading: true,
       isError: false,
       currentStudentData: {
+        is_preloaded_data: true,
         is_active: "",
         category: "",
         last_name_rus: "",
@@ -1116,6 +1245,7 @@ export default {
         passport_issue_date: "",
         passport_validity_period: "",
         passport_issue_authority: "",
+        passport_issue_authority_text: "",
         identification_number: "",
         removed_from_military_registration: "",
         military_commissariat_attitude: "",
@@ -1147,72 +1277,53 @@ export default {
       },
       studentAPIInstance: getStudentAPIInstance(),
       jobHistoryAPIInstance: getJobHistoryAPIInstance(),
-    };
+    }
   },
   async created() {
-    const video = document.getElementById("live-stream");
-
-    // Check if the browser supports the MediaDevices API
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      // Request access to the user's camera
-      navigator.mediaDevices
-          .getUserMedia({ video: true })
-          .then((stream) => {
-            // Set the video source to the camera stream
-            video.srcObject = stream;
-          })
-          .catch((error) => {
-            console.error("Error accessing the camera: ", error);
-          });
-    } else {
-      console.log("getUserMedia is not supported in this browser.");
-    }
-    await this.loadData(this.$route.params.id);
+    await this.loadData(this.$route.params.id)
   },
   methods: {
     async loadData(studentId) {
       const [student] = await Promise.all([
         this.getStudentData(studentId),
-      ]).catch(() => (this.isError = true));
-      this.currentStudentData = student;
+      ]).catch(() => (this.isError = true))
+      this.currentStudentData = student
+      this.isLoading = false
     },
     async getStudentData(studentId) {
-      const res = await this.studentAPIInstance.getItemData(studentId);
-      return res.data;
+      const res = await this.studentAPIInstance.getItemData(studentId)
+      return res.data
     },
     debouncedUpdate: debounce(async function () {
-      this.isLoading = true;
       try {
-        const { photo, ...rest } = this.currentStudentData;
-        await this.studentAPIInstance.updateItem(rest);
+        const { photo, attached_documents, sign_image, ...rest } =
+          this.currentStudentData
+        await this.studentAPIInstance.updateItem(rest)
       } catch (e) {
       } finally {
-        this.isLoading = false;
       }
     }, 500),
   },
   computed: {
     orderedGroups() {
-      return this.groups.results;
+      return this.groups.results
     },
     orderedPassportIssueAuthorities() {
-      return this.passportAuthorities.results;
+      return this.passportAuthorities.results
     },
     orderedGraduationReasons() {
-      return [];
+      return []
     },
     orderedEducationForms() {
-      return this.educationForms.results;
-    },
-    orderedCategories() {
-      return this.categories.results.filter(
-          (category) => category.category_group == "3",
-      );
+      return this.educationForms.results
     },
     orderedSubdivisions() {
       return this.subdivisions.results.filter(
-          (subdivision) => subdivision.subdivision_category == "3",
-      );
+        (subdivision) => subdivision.subdivision_category == "3",
+      )
+    },
+    orderedEducationLocalityKinds() {
+      return this.educationLocalityKinds.results
     },
     ...mapGetters({
       groups: "groups/getList",
@@ -1222,17 +1333,20 @@ export default {
       subdivisions: "subdivisions/getList",
       passportAuthorities: "passportAuthorities/getList",
       isCommonLoading: "common/getIsCommonLoading",
+      educationLocalityKinds: "educationLocalityKind/getList",
     }),
   },
   watch: {
     currentStudentData: {
       handler(newValue, oldValue) {
-        this.debouncedUpdate();
+        if (!oldValue.hasOwnProperty("is_preloaded_data")) {
+          this.debouncedUpdate()
+        }
       },
       deep: true,
     },
   },
-};
+}
 </script>
 
 <style scoped>

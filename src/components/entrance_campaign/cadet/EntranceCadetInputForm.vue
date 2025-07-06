@@ -2873,7 +2873,7 @@
                           class="form-select"
                           v-model="currentCadetData.rus_ct_choice"
                         >
-                          <option selected class="text-center" :value="null">
+                          <option selected class="text-center" value="">
                             ----------
                           </option>
                           <option value="2024 ЦЭ" class="text-center">
@@ -2895,7 +2895,7 @@
                           class="form-select"
                           v-model="currentCadetData.bel_ct_choice"
                         >
-                          <option selected class="text-center" :value="null">
+                          <option selected class="text-center" value="">
                             ----------
                           </option>
                           <option value="2024 ЦЭ" class="text-center">
@@ -2917,7 +2917,7 @@
                           class="form-select"
                           v-model="currentCadetData.social_science_ct_choice"
                         >
-                          <option selected class="text-center" :value="null">
+                          <option selected class="text-center" value="">
                             ----------
                           </option>
                           <option value="2024 ЦЭ" class="text-center">
@@ -2939,7 +2939,7 @@
                           class="form-select"
                           v-model="currentCadetData.foreign_lang_ct_choice"
                         >
-                          <option selected class="text-center" :value="null">
+                          <option selected class="text-center" value="">
                             ----------
                           </option>
                           <option value="2024 ЦЭ" class="text-center">
@@ -3259,6 +3259,7 @@ export default {
         is_fp: "",
         application_has_been_printed: "",
         application_has_been_printed_date: "",
+        has_visited_date_time: "",
         rus_ct_choice: "",
         bel_ct_choice: "",
         social_science_ct_choice: "",
@@ -3821,6 +3822,7 @@ export default {
       let dataObj = {
         id: this.currentCadetData.id,
         application_has_been_printed: true,
+        has_visited: true,
       }
       if (!this.currentCadetData.application_has_been_printed_date) {
         dataObj = {
@@ -3828,6 +3830,13 @@ export default {
           application_has_been_printed_date: new Date().toISOString(),
         }
       }
+      if (!this.currentCadetData.has_visited_date_time) {
+        dataObj = {
+          ...dataObj,
+          has_visited_date_time: new Date().toISOString(),
+        }
+      }
+
       const resp = await this.cadetAPIInstance.updateItemPartly(dataObj)
       this.currentCadetData = { ...this.currentCadetData, ...resp.data }
       this.currentCadetDataFromServer = Object.assign({}, this.currentCadetData)

@@ -113,7 +113,6 @@
         <th scope="col"></th>
         <th scope="col">Фамилия, имя, отчество</th>
         <th scope="col">Группа</th>
-        <th scope="col">Звание</th>
         <th scope="col">Период обучения</th>
       </tr>
     </template>
@@ -151,18 +150,10 @@
           </span>
         </td>
         <td>
-          <router-link
-            :to="{
-              name: 'student-update',
-              params: { id: student.id },
-            }"
-          >
-            {{ student.last_name_rus }}<br />
-            {{ student.first_name_rus }}<br />{{ student.patronymic_rus }}
-          </router-link>
+          {{ student.last_name_rus }}<br />
+          {{ student.first_name_rus }}<br />{{ student.patronymic_rus }}
         </td>
         <td>{{ student.get_group }}</td>
-        <td>{{ student.get_rank }}</td>
         <td>
           {{ student.academy_start_date }} - <br />
           {{ student.academy_end_date }}
@@ -258,63 +249,6 @@
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-6">
-          <div class="mb-3">
-            <label for="date_of_birth__gte" class="form-label"
-              >Дата рождения (с)</label
-            >
-            <input
-              type="date"
-              class="form-control"
-              id="date_of_birth__gte"
-              v-model="searchForm.date_of_birth__gte"
-            />
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="mb-3">
-            <label for="date_of_birth__lte" class="form-label"
-              >Дата рождения (по)</label
-            >
-            <input
-              type="date"
-              class="form-control"
-              id="date_of_birth__lte"
-              v-model="searchForm.date_of_birth__lte"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-6">
-          <div class="mb-3">
-            <label for="academy_start_date__gte" class="form-label"
-              >Дата поступления (с)</label
-            >
-            <input
-              type="date"
-              max="2100"
-              class="form-control"
-              id="academy_start_date__gte"
-              v-model="searchForm.academy_start_date__gte"
-            />
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="mb-3">
-            <label for="academy_start_date__lte" class="form-label"
-              >Дата поступления (по)</label
-            >
-            <input
-              type="date"
-              class="form-control"
-              id="academy_start_date__lte"
-              v-model="searchForm.academy_start_date__lte"
-            />
-          </div>
-        </div>
-      </div>
       <button type="button" class="btn btn-primary" @click="clearFilter">
         Сбросить фильтр
       </button>

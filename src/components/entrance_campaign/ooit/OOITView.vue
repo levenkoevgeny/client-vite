@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <h3 class="my-4">Разделы для ООИТ</h3>
-    <div style="width: 50rem">
+    <div style="width: 70rem">
       <div class="card my-4">
         <div class="card-body">
           <h3 class="card-title">Журнал регистрации</h3>
@@ -9,7 +9,26 @@
             Формирование ежедневного журнала поданных заявлений
           </p>
           <div class="d-flex flex-row align-items-end justify-content-between">
-            <div style="width: 30%">
+            <div>
+              <label class="form-label" for="id_speciality"
+                >Специальность (квота)</label
+              >
+              <select
+                id="id_speciality"
+                class="form-select"
+                v-model="specialityForJournal"
+              >
+                <option value="">---------</option>
+                <option
+                  :value="quota.id"
+                  v-for="quota in orderedAdmissionQuotes"
+                >
+                  {{ quota.quota_verbose_name }}
+                </option>
+              </select>
+            </div>
+
+            <div>
               <label for="id_journalDateFrom" class="form-label"
                 >Дата (c)</label
               >
@@ -20,7 +39,7 @@
                 id="id_journalDateFrom"
               />
             </div>
-            <div style="width: 30%">
+            <div>
               <label for="id_journalDateTill" class="form-label"
                 >Дата (по)</label
               >
@@ -58,22 +77,15 @@
             выбранными датой и временем !!!!
           </p>
           <div class="d-flex flex-row align-items-end justify-content-between">
-            <div style="width: 30%">
-              <label for="id_monitoringDate" class="form-label">Дата</label>
+            <div style="width: 60%">
+              <label for="id_monitoringDateTime" class="form-label"
+                >Дата и время</label
+              >
               <input
-                type="date"
+                type="datetime-local"
                 class="form-control"
-                v-model="monitoringDate"
-                id="id_monitoringDate"
-              />
-            </div>
-            <div style="width: 30%">
-              <label for="id_monitoringTime" class="form-label">Время</label>
-              <input
-                type="time"
-                class="form-control"
-                v-model="monitoringTime"
-                id="id_monitoringTime"
+                id="id_monitoringDateTime"
+                v-model="monitoringDateTime"
               />
             </div>
 
@@ -96,14 +108,15 @@
 
 <script>
 import getOOITAPIInstance from "@/api/cadet/ooitAPI.js"
+import { mapGetters } from "vuex"
 
 export default {
   name: "OOITView",
   data() {
     return {
       ooitAPIInstance: getOOITAPIInstance(),
-      monitoringDate: "",
-      monitoringTime: "",
+      monitoringDateTime: "",
+      specialityForJournal: "",
       journalDateFrom: "",
       journalDateTill: "",
       isMonitoringProcessing: false,
@@ -111,27 +124,18 @@ export default {
     }
   },
   mounted() {
-    this.setCurrentTime()
-    this.monitoringDate = new Date().toISOString().split("T")[0]
-    this.journalDateFrom = new Date().toISOString().split("T")[0]
-    this.journalDateTill = new Date().toISOString().split("T")[0]
+    const now = new Date()
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset())
+    this.monitoringDateTime = now.toISOString().slice(0, 16)
+    this.journalDateFrom = now.toISOString().slice(0, 10)
+    this.journalDateTill = now.toISOString().slice(0, 10)
   },
   methods: {
-    setCurrentTime() {
-      const now = new Date()
-      const hours = String(now.getHours()).padStart(2, "0")
-      const minutes = String(now.getMinutes()).padStart(2, "0")
-      const seconds = String(now.getSeconds()).padStart(2, "0")
-      this.monitoringTime = `${hours}:${minutes}:${seconds}`
-    },
-
     getMonitoringFile() {
+      const dateObject = new Date(this.monitoringDateTime)
       this.isMonitoringProcessing = true
       this.ooitAPIInstance
-        .monitoring_data_export_in_file(
-          this.monitoringDate,
-          this.monitoringTime,
-        )
+        .monitoring_data_export_in_file(dateObject.toISOString())
         .then((response) => {
           const url = window.URL.createObjectURL(new Blob([response.data]))
           const link = document.createElement("a")
@@ -143,22 +147,47 @@ export default {
         })
     },
     getJournal() {
-      this.isJournalProcessing = true
-      this.ooitAPIInstance
-        .entrance_applications_journal(
-          this.journalDateFrom,
-          this.journalDateTill,
-        )
-        .then((response) => {
-          const url = window.URL.createObjectURL(new Blob([response.data]))
-          const link = document.createElement("a")
-          link.href = url
-          link.setAttribute("download", `journal.json`)
-          document.body.appendChild(link)
-          link.click()
-          this.isJournalProcessing = false
+      if (this.specialityForJournal) {
+        this.isJournalProcessing = true
+        this.ooitAPIInstance
+          .entrance_applications_journal(
+            this.specialityForJournal,
+            this.journalDateFrom,
+            this.journalDateTill,
+          )
+          .then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]))
+            const link = document.createElement("a")
+            link.href = url
+            link.setAttribute("download", `journal.json`)
+            document.body.appendChild(link)
+            link.click()
+            this.isJournalProcessing = false
+          })
+      } else {
+        alert("Выберите специальность!")
+      }
+    },
+  },
+  computed: {
+    orderedAdmissionQuotes() {
+      return this.admissionQuota.results
+        .filter((quota) => quota.ownership_category === "1")
+        .sort((a, b) => {
+          const admission_codeA = a.admission_code
+          const admission_codeB = b.admission_code
+          if (admission_codeA < admission_codeB) {
+            return -1
+          }
+          if (admission_codeA > admission_codeB) {
+            return 1
+          }
+          return 0
         })
     },
+    ...mapGetters({
+      admissionQuota: "admissionQuota/getList",
+    }),
   },
 }
 </script>
