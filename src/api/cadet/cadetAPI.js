@@ -49,9 +49,14 @@ class CadetAPI extends BaseAPI {
       { responseType: "blob" },
     )
   }
+  async getJournal(speciality_1, subdivision) {
+    return axios.get(
+      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/?category=3&quota_1_speciality=${speciality_1}&quota_1_subdivision=${subdivision}&has_visited=true&ordering=has_visited_date_time&limit=10000`,
+    )
+  }
 }
 
-const searchObj = {
+export const searchObj = {
   is_active: "true",
   category: "",
   category__in: "",

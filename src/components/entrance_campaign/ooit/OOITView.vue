@@ -9,26 +9,31 @@
             Формирование ежедневного журнала поданных заявлений
           </p>
           <div class="d-flex flex-row align-items-end justify-content-between">
-            <div>
-              <label class="form-label" for="id_speciality"
-                >Специальность (квота)</label
-              >
-              <select
-                id="id_speciality"
-                class="form-select"
-                v-model="specialityForJournal"
-              >
-                <option value="">---------</option>
-                <option
-                  :value="quota.id"
-                  v-for="quota in orderedAdmissionQuotes"
-                >
-                  {{ quota.quota_verbose_name }}
+            <div class="me-2">
+              <label class="form-label">Специальность</label>
+              <select class="form-select" v-model="journalSpeciality">
+                <option :value="null">------</option>
+                <option value="2,13" key="2,13">Экономическое право ФКМ</option>
+                <option value="1,13" key="1,13">Правоведение ФКМ</option>
+                <option value="1,15" key="1,15">Правоведение ФМОБ</option>
+                <option value="1,2" key="1,2">Правоведение СЭФ</option>
+                <option value="10,2" key="10,2">
+                  Судебные криминалистические экспертизы СЭФ
+                </option>
+                <option value="1,3" key="1,3">Правоведение УИФ</option>
+                <option value="16,16" key="16,16">
+                  Правовое обеспечение общественной безопасности ИМВД
+                </option>
+                <option value="17,16" key="17,16">
+                  Правовое обеспечение оперативно-розыскной деятельности ИМВД
+                </option>
+                <option value="7,2" key="7,2">
+                  Психология служебной деятельности
                 </option>
               </select>
             </div>
 
-            <div>
+            <div class="me-2">
               <label for="id_journalDateFrom" class="form-label"
                 >Дата (c)</label
               >
@@ -39,7 +44,7 @@
                 id="id_journalDateFrom"
               />
             </div>
-            <div>
+            <div class="me-2">
               <label for="id_journalDateTill" class="form-label"
                 >Дата (по)</label
               >
@@ -116,9 +121,9 @@ export default {
     return {
       ooitAPIInstance: getOOITAPIInstance(),
       monitoringDateTime: "",
-      specialityForJournal: "",
       journalDateFrom: "",
       journalDateTill: "",
+      journalSpeciality: null,
       isMonitoringProcessing: false,
       isJournalProcessing: false,
     }
@@ -147,11 +152,12 @@ export default {
         })
     },
     getJournal() {
-      if (this.specialityForJournal) {
+      if (this.journalSpeciality) {
+        const params = this.journalSpeciality.split(",")
         this.isJournalProcessing = true
         this.ooitAPIInstance
           .entrance_applications_journal(
-            this.specialityForJournal,
+            ...params,
             this.journalDateFrom,
             this.journalDateTill,
           )
@@ -159,7 +165,7 @@ export default {
             const url = window.URL.createObjectURL(new Blob([response.data]))
             const link = document.createElement("a")
             link.href = url
-            link.setAttribute("download", `journal.json`)
+            link.setAttribute("download", `journal.docx`)
             document.body.appendChild(link)
             link.click()
             this.isJournalProcessing = false

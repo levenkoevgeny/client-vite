@@ -1,5 +1,6 @@
 <template>
   <div class="container-fluid">
+    <!--    Hystory modal-->
     <div
       class="modal fade"
       id="id_cadetHistoryModal"
@@ -71,6 +72,172 @@
               class="btn btn-secondary"
               data-bs-dismiss="modal"
               ref="cadetAddModalCloseButton"
+            >
+              Закрыть
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--    Journal modal-->
+
+    <div
+      class="modal fade"
+      id="id_specialityJournalModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      ref="specialityJournalModal"
+    >
+      <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Журнал подачи заявлений
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label">Специальность</label>
+              <select class="form-select" v-model="journalSpeciality">
+                <option :value="null">------</option>
+                <option value="2,13" key="2,13">Экономическое право ФКМ</option>
+                <option value="1,13" key="1,13">Правоведение ФКМ</option>
+                <option value="1,15" key="1,15">Правоведение ФМОБ</option>
+                <option value="1,2" key="1,2">Правоведение СЭФ</option>
+                <option value="10,2" key="10,2">
+                  Судебные криминалистические экспертизы СЭФ
+                </option>
+                <option value="1,3" key="1,3">Правоведение УИФ</option>
+                <option value="16,16" key="16,16">
+                  Правовое обеспечение общественной безопасности ИМВД
+                </option>
+                <option value="17,16" key="17,16">
+                  Правовое обеспечение оперативно-розыскной деятельности ИМВД
+                </option>
+                <option value="7,2" key="7,2">
+                  Психология служебной деятельности
+                </option>
+              </select>
+            </div>
+
+            <div
+              style="max-height: 600px; overflow-y: auto"
+              v-if="journalList.results.length > 0"
+            >
+              <table class="table table-responsive">
+                <thead>
+                  <tr>
+                    <th>№ личного дела</th>
+                    <th>Фамилия имя отчество</th>
+                    <th>Дата и время подачи документов</th>
+                    <th>Гражданство</th>
+                    <th>
+                      Перечень принятых сертификатов централизованного
+                      тестирования, централизованного экзамена
+                    </th>
+                    <th>Отметка о льготах</th>
+                    <th>Адрес места жительства</th>
+                    <th>Поступает на условиях целевой подготовки</th>
+                    <th>Отметка о зачислении</th>
+                    <th>Отметка о возврате документов</th>
+                  </tr>
+                  <tr>
+                    <th></th>
+                    <th>
+                      <div class="mb">
+                        <input
+                          type="text"
+                          class="form-control"
+                          v-model="journalLastNameSearch"
+                          placeholder="Поиск по фамилии"
+                          style="width: 200px"
+                        />
+                      </div>
+                    </th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="record in filteredJournalRecords" :key="record.id">
+                    <td>{{ record.counter }}</td>
+                    <td>
+                      {{ record.last_name_rus }} {{ record.first_name_rus }}
+                      {{ record.patronymic_rus }}
+                    </td>
+                    <td>
+                      {{
+                        new Date(record.has_visited_date_time).toLocaleString(
+                          "ru-RU",
+                          {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric",
+                            hour: "numeric",
+                            minute: "numeric",
+                            second: "numeric",
+                          },
+                        )
+                      }}
+                    </td>
+                    <td>Республика Беларусь</td>
+                    <td>
+                      <p
+                        v-if="record.rus_bel_ct_number"
+                        class="text-nowrap p-0 m-0"
+                      >
+                        Русский (Белорусский) язык №
+                        {{ record.rus_bel_ct_number }}
+                      </p>
+                      <p
+                        v-if="record.foreign_lang_ct_number"
+                        class="text-nowrap p-0 m-0"
+                      >
+                        Иностранный язык №
+                        {{ record.foreign_lang_ct_number }}
+                      </p>
+                      <p
+                        v-if="record.social_science_ct_number"
+                        class="text-nowrap p-0 m-0"
+                      >
+                        Обществоведение №
+                        {{ record.social_science_ct_number }}
+                      </p>
+                    </td>
+                    <td></td>
+                    <td>{{ record.address_residence }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div v-else>
+              <p>Записей нет</p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              ref="specialityJournalModalCloseButton"
             >
               Закрыть
             </button>
@@ -372,11 +539,18 @@
             </h1>
           </div>
 
-          <button class="my-3 btn btn-warning" @click="showHistory">
+          <button class="my-3 me-3 btn btn-warning" @click="showHistory">
             История изменений&nbsp;&nbsp;<font-awesome-icon
               :icon="['fas', 'database']"
             />
           </button>
+
+          <button class="my-3 btn btn-success" @click="showApplicationsJournal">
+            Журнал регистрации заявлений&nbsp;&nbsp;<font-awesome-icon
+              :icon="['fas', 'book']"
+            />
+          </button>
+
           <div
             v-if="currentCadetData.application_has_been_printed"
             class="my-3"
@@ -3081,8 +3255,8 @@
             >
               <font-awesome-icon :icon="['fas', 'print']" />&nbsp;&nbsp;
               <template v-if="isPrintingApplication"
-                >Формирование заявления ...</template
-              >
+                >Формирование заявления ...
+              </template>
               <template v-else>Напечатать заявление</template>
             </button>
             <div class="form-check my-3" v-if="currentUser.is_superuser">
@@ -3305,6 +3479,9 @@ export default {
         certificate: [{ selectIndex: 0, selectValue: 0 }],
         diploma: [{ selectIndex: 0, selectValue: 0 }],
       },
+      journalSpeciality: null,
+      journalList: { count: 0, results: [], previous: null, next: null },
+      journalLastNameSearch: "",
     }
   },
   setup() {
@@ -3786,6 +3963,34 @@ export default {
       } finally {
       }
     },
+    async getJournalData() {
+      if (this.journalSpeciality) {
+        const params = this.journalSpeciality.split(",")
+        try {
+          const response = await this.cadetAPIInstance.getJournal(...params)
+          let data = response.data
+          let counter = 1
+          data.results = data.results.map((record) => {
+            record.counter = counter
+            counter++
+            return record
+          })
+          this.journalList = data
+        } catch (error) {
+        } finally {
+        }
+      } else
+        this.journalList = { count: 0, results: [], previous: null, next: null }
+    },
+
+    async showApplicationsJournal() {
+      this.journalSpeciality = null
+      let specialityJournalModal = this.$refs.specialityJournalModal
+      let myModal = new bootstrap.Modal(specialityJournalModal, {
+        keyboard: false,
+      })
+      myModal.show()
+    },
     makeInputDefaultNullValueIfEmpty(event) {
       if (event.target.value.trim().length === 0) {
         this.currentCadetData[event.target.name] = null
@@ -4192,7 +4397,6 @@ export default {
       }
       return scoreSum
     },
-
     get_score_sum() {
       let education_average_score = this.currentCadetData
         .education_average_score
@@ -4220,7 +4424,6 @@ export default {
         foreign_lang_score_ct
       )
     },
-
     getAverageScore() {
       let counter = 0
       this.average_score_calculation.certificate.forEach((item) => {
@@ -4236,6 +4439,16 @@ export default {
       if (this.getAverageScoreCount() > 0) {
         return ((counter / this.getAverageScoreCount()) * 10).toFixed()
       } else return 0
+    },
+
+    filteredJournalRecords() {
+      if (this.journalLastNameSearch) {
+        return this.journalList.results.filter((record) =>
+          record.last_name_rus.includes(this.journalLastNameSearch),
+        )
+      } else {
+        return this.journalList.results
+      }
     },
 
     ...mapGetters({
@@ -4274,6 +4487,12 @@ export default {
     currentCadetData: {
       handler(newValue, oldValue) {
         this.applicationPrintData = Object.assign({}, this.currentCadetData)
+      },
+      deep: true,
+    },
+    journalSpeciality: {
+      handler(newValue, oldValue) {
+        this.getJournalData()
       },
       deep: true,
     },

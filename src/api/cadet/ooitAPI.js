@@ -10,11 +10,12 @@ class ooitAPI {
 
   async entrance_applications_journal(
     speciality,
+    subdivision,
     journalDateFrom,
     journalDateTill,
   ) {
     return axios.get(
-      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/entrance-applications-journal/?speciality=${speciality}&journalDateFrom=${journalDateFrom}&journalDateTill=${journalDateTill}`,
+      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/entrance-applications-journal/?speciality=${speciality}&subdivision=${subdivision}&journalDateFrom=${journalDateFrom}&journalDateTill=${journalDateTill}`,
       { responseType: "blob" },
     )
   }
