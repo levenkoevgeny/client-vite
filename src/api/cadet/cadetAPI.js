@@ -56,7 +56,7 @@ class CadetAPI extends BaseAPI {
   }
 }
 
-export const searchObj = {
+const searchObj = {
   is_active: "true",
   category: "",
   category__in: "",

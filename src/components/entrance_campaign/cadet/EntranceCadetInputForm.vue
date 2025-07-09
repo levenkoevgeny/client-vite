@@ -2481,7 +2481,7 @@
             <div class="col-xxl-6">
               <h5 class="fw-bold">Выбор специальностей</h5>
               <div class="row">
-                <div class="col-5">
+                <div class="col-6">
                   <div class="form-floating mb-3">
                     <select
                       id="id_s1"
@@ -2627,153 +2627,153 @@
                     <label for="id_s7">Специальность 9</label>
                   </div>
                 </div>
-                <div class="col-2">
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_s1"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_1"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_1"
-                      >
-                        {{ quota.admission_code }}
-                      </option>
-                    </select>
-                    <label for="id_s1">Код 1</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_s2"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_2"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_2"
-                      >
-                        {{ quota.admission_code }}
-                      </option>
-                    </select>
-                    <label for="id_s2">Код 2</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_s3"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_3"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_3"
-                      >
-                        {{ quota.admission_code }}
-                      </option>
-                    </select>
-                    <label for="id_s3">Код 3</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_s4"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_4"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_4"
-                      >
-                        {{ quota.admission_code }}
-                      </option>
-                    </select>
-                    <label for="id_s4">Код 4</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_s5"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_5"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_5"
-                      >
-                        {{ quota.admission_code }}
-                      </option>
-                    </select>
-                    <label for="id_s5">Код 5</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_s6"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_6"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_6"
-                      >
-                        {{ quota.admission_code }}
-                      </option>
-                    </select>
-                    <label for="id_s6">Код 6</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_s7"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_7"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_7"
-                      >
-                        {{ quota.admission_code }}
-                      </option>
-                    </select>
-                    <label for="id_s7">Код 7</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_s8"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_8"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_8"
-                      >
-                        {{ quota.admission_code }}
-                      </option>
-                    </select>
-                    <label for="id_s7">Код 8</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_s9"
-                      class="form-select"
-                      v-model="currentCadetData.speciality_9"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="quota.id"
-                        v-for="quota in orderedAdmissionQuotes_select_9"
-                      >
-                        {{ quota.admission_code }}
-                      </option>
-                    </select>
-                    <label for="id_s7">Код 9</label>
-                  </div>
-                </div>
-                <div class="col-5">
+                <!--                <div class="col-2">-->
+                <!--                  <div class="form-floating mb-3">-->
+                <!--                    <select-->
+                <!--                      id="id_s1"-->
+                <!--                      class="form-select"-->
+                <!--                      v-model="currentCadetData.speciality_1"-->
+                <!--                    >-->
+                <!--                      <option :value="null">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
+                <!--                      <option-->
+                <!--                        :value="quota.id"-->
+                <!--                        v-for="quota in orderedAdmissionQuotes_select_1"-->
+                <!--                      >-->
+                <!--                        {{ quota.admission_code }}-->
+                <!--                      </option>-->
+                <!--                    </select>-->
+                <!--                    <label for="id_s1">Код 1</label>-->
+                <!--                  </div>-->
+                <!--                  <div class="form-floating mb-3">-->
+                <!--                    <select-->
+                <!--                      id="id_s2"-->
+                <!--                      class="form-select"-->
+                <!--                      v-model="currentCadetData.speciality_2"-->
+                <!--                    >-->
+                <!--                      <option :value="null">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
+                <!--                      <option-->
+                <!--                        :value="quota.id"-->
+                <!--                        v-for="quota in orderedAdmissionQuotes_select_2"-->
+                <!--                      >-->
+                <!--                        {{ quota.admission_code }}-->
+                <!--                      </option>-->
+                <!--                    </select>-->
+                <!--                    <label for="id_s2">Код 2</label>-->
+                <!--                  </div>-->
+                <!--                  <div class="form-floating mb-3">-->
+                <!--                    <select-->
+                <!--                      id="id_s3"-->
+                <!--                      class="form-select"-->
+                <!--                      v-model="currentCadetData.speciality_3"-->
+                <!--                    >-->
+                <!--                      <option :value="null">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
+                <!--                      <option-->
+                <!--                        :value="quota.id"-->
+                <!--                        v-for="quota in orderedAdmissionQuotes_select_3"-->
+                <!--                      >-->
+                <!--                        {{ quota.admission_code }}-->
+                <!--                      </option>-->
+                <!--                    </select>-->
+                <!--                    <label for="id_s3">Код 3</label>-->
+                <!--                  </div>-->
+                <!--                  <div class="form-floating mb-3">-->
+                <!--                    <select-->
+                <!--                      id="id_s4"-->
+                <!--                      class="form-select"-->
+                <!--                      v-model="currentCadetData.speciality_4"-->
+                <!--                    >-->
+                <!--                      <option :value="null">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
+                <!--                      <option-->
+                <!--                        :value="quota.id"-->
+                <!--                        v-for="quota in orderedAdmissionQuotes_select_4"-->
+                <!--                      >-->
+                <!--                        {{ quota.admission_code }}-->
+                <!--                      </option>-->
+                <!--                    </select>-->
+                <!--                    <label for="id_s4">Код 4</label>-->
+                <!--                  </div>-->
+                <!--                  <div class="form-floating mb-3">-->
+                <!--                    <select-->
+                <!--                      id="id_s5"-->
+                <!--                      class="form-select"-->
+                <!--                      v-model="currentCadetData.speciality_5"-->
+                <!--                    >-->
+                <!--                      <option :value="null">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
+                <!--                      <option-->
+                <!--                        :value="quota.id"-->
+                <!--                        v-for="quota in orderedAdmissionQuotes_select_5"-->
+                <!--                      >-->
+                <!--                        {{ quota.admission_code }}-->
+                <!--                      </option>-->
+                <!--                    </select>-->
+                <!--                    <label for="id_s5">Код 5</label>-->
+                <!--                  </div>-->
+                <!--                  <div class="form-floating mb-3">-->
+                <!--                    <select-->
+                <!--                      id="id_s6"-->
+                <!--                      class="form-select"-->
+                <!--                      v-model="currentCadetData.speciality_6"-->
+                <!--                    >-->
+                <!--                      <option :value="null">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
+                <!--                      <option-->
+                <!--                        :value="quota.id"-->
+                <!--                        v-for="quota in orderedAdmissionQuotes_select_6"-->
+                <!--                      >-->
+                <!--                        {{ quota.admission_code }}-->
+                <!--                      </option>-->
+                <!--                    </select>-->
+                <!--                    <label for="id_s6">Код 6</label>-->
+                <!--                  </div>-->
+                <!--                  <div class="form-floating mb-3">-->
+                <!--                    <select-->
+                <!--                      id="id_s7"-->
+                <!--                      class="form-select"-->
+                <!--                      v-model="currentCadetData.speciality_7"-->
+                <!--                    >-->
+                <!--                      <option :value="null">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
+                <!--                      <option-->
+                <!--                        :value="quota.id"-->
+                <!--                        v-for="quota in orderedAdmissionQuotes_select_7"-->
+                <!--                      >-->
+                <!--                        {{ quota.admission_code }}-->
+                <!--                      </option>-->
+                <!--                    </select>-->
+                <!--                    <label for="id_s7">Код 7</label>-->
+                <!--                  </div>-->
+                <!--                  <div class="form-floating mb-3">-->
+                <!--                    <select-->
+                <!--                      id="id_s8"-->
+                <!--                      class="form-select"-->
+                <!--                      v-model="currentCadetData.speciality_8"-->
+                <!--                    >-->
+                <!--                      <option :value="null">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
+                <!--                      <option-->
+                <!--                        :value="quota.id"-->
+                <!--                        v-for="quota in orderedAdmissionQuotes_select_8"-->
+                <!--                      >-->
+                <!--                        {{ quota.admission_code }}-->
+                <!--                      </option>-->
+                <!--                    </select>-->
+                <!--                    <label for="id_s7">Код 8</label>-->
+                <!--                  </div>-->
+                <!--                  <div class="form-floating mb-3">-->
+                <!--                    <select-->
+                <!--                      id="id_s9"-->
+                <!--                      class="form-select"-->
+                <!--                      v-model="currentCadetData.speciality_9"-->
+                <!--                    >-->
+                <!--                      <option :value="null">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
+                <!--                      <option-->
+                <!--                        :value="quota.id"-->
+                <!--                        v-for="quota in orderedAdmissionQuotes_select_9"-->
+                <!--                      >-->
+                <!--                        {{ quota.admission_code }}-->
+                <!--                      </option>-->
+                <!--                    </select>-->
+                <!--                    <label for="id_s7">Код 9</label>-->
+                <!--                  </div>-->
+                <!--                </div>-->
+                <div class="col-6">
                   <div class="form-floating mb-3">
                     <select
                       id="id_privilege"
@@ -3273,6 +3273,61 @@
                 Заявление напечатано
               </label>
             </div>
+
+            <div v-if="currentUser.is_superuser">
+              <div class="card shadow mb-2 rounded border-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-4">
+                      <div class="form-check mb-3">
+                        <input
+                          id="id_is_enrolled_1"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="currentCadetData.is_enrolled_1"
+                        />
+                        <label class="form-check-label" for="id_is_enrolled_1"
+                          >Предварительно зачислен</label
+                        >
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="form-check mb-3">
+                        <input
+                          id="id_is_enrolled_2"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="currentCadetData.is_enrolled_2"
+                        />
+                        <label class="form-check-label" for="id_is_enrolled_2"
+                          >Окончательно зачислен</label
+                        >
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="form-floating mb-3">
+                        <select
+                          id="id_s1"
+                          class="form-select"
+                          v-model="currentCadetData.enrolled_speciality"
+                        >
+                          <option :value="null">---------</option>
+                          <option
+                            :value="quota.id"
+                            v-for="quota in orderedAdmissionQuotes"
+                          >
+                            {{ quota.quota_verbose_name }}
+                          </option>
+                        </select>
+                        <label for="id_s1"
+                          >Специальность на которую поступил</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -3468,6 +3523,9 @@ export default {
         privilege_8: "",
         privilege_9: "",
         get_score_sum: "",
+        enrolled_speciality: "",
+        is_enrolled_1: "",
+        is_enrolled_2: "",
       },
       applicationPrintData: {},
       currentCadetDataFromServer: {},

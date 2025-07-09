@@ -554,6 +554,34 @@
             <th scope="col" style="min-width: 450px">
               <div class="d-flex flex-row align-items-center">
                 <span class="text-nowrap">Специальность 1</span>
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('speciality_1__quota_verbose_name')"
+                      >
+                        А -> Я
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="
+                          setOrdering('-speciality_1__quota_verbose_name')
+                        "
+                      >
+                        Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </th>
             <th scope="col">
