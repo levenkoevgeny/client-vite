@@ -134,7 +134,7 @@
           <thead ref="thead">
             <tr>
               <th scope="col" class="text-center">№п.п.</th>
-              <th scope="col" style="min-width: 400px">Кто изучал дело</th>
+              <th scope="col" class="text-center">Форма обучения</th>
               <th scope="col">
                 <div class="d-flex flex-row align-items-center">
                   <span class="text-nowrap">Заявление отпечатано</span>
@@ -1129,19 +1129,20 @@
             </tr>
             <tr>
               <th></th>
+
               <th>
                 <select
-                  id="id_who_created"
                   class="form-select"
-                  v-model="searchForm.who_created"
+                  v-model="searchForm.education_form"
+                  style="width: 200px"
                 >
-                  <option value="">-------</option>
+                  <option selected value="">-------</option>
                   <option
-                    v-for="user in usersList.results"
-                    :value="user.id"
-                    :key="user.id"
+                    :value="form.id"
+                    :key="form.id"
+                    v-for="form in orderedEducationForms"
                   >
-                    {{ user.get_display_name }}
+                    {{ form.education_form }}
                   </option>
                 </select>
               </th>
@@ -1646,8 +1647,7 @@
               "
             >
               <td class="text-center">{{ student.serial_number }}</td>
-              <td></td>
-
+              <td class="text-center">{{ student.get_education_form }}</td>
               <td
                 v-if="student.application_has_been_printed"
                 class="text-center"
@@ -2292,6 +2292,9 @@ export default {
     orderedEducationLocalityKinds() {
       return this.educationLocalityKinds.results
     },
+    orderedEducationForms() {
+      return this.educationForms.results
+    },
 
     ...mapGetters({
       componentOrgans: "componentOrgans/getList",
@@ -2311,6 +2314,7 @@ export default {
       medals: "medals/getList",
       countryRegions: "countryRegion/getList",
       educationLocalityKinds: "educationLocalityKind/getList",
+      educationForms: "educationForms/getList",
     }),
   },
   watch: {

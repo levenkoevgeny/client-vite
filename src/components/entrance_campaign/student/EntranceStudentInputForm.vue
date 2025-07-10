@@ -3815,6 +3815,9 @@ export default {
     orderedAdmissionQuotes_select_1() {
       return this.orderedAdmissionQuotes
     },
+    orderedEducationForms() {
+      return this.educationForms.results
+    },
 
     orderedAdmissionQuotes() {
       return this.admissionQuota.results
@@ -3992,6 +3995,7 @@ export default {
       currentUser: "auth/getUser",
       documentTypes: "documentType/getList",
       healthGroups: "healthGroup/getList",
+      educationForms: "educationForms/getList",
     }),
   },
   watch: {
