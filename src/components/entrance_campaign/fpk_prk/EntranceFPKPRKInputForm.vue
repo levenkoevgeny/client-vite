@@ -2236,33 +2236,25 @@
 
           <div class="border-bottom border-4 my-3"></div>
 
-          <div>
-            <button
-              v-if="currentFPKPRKData.application_has_been_printed"
-              class="btn btn-primary"
-              disabled
-            >
-              <font-awesome-icon :icon="['fas', 'print']" />&nbsp;&nbsp;
-              Заявление отпечатано
-            </button>
-            <button v-else class="btn btn-primary" @click="printApplication">
+          <div class="mb-3">
+            <button class="btn btn-primary" @click="printApplication">
               <font-awesome-icon :icon="['fas', 'print']" />&nbsp;&nbsp;
               Отпечатать заявление
             </button>
-            <div class="form-check my-3">
-              <input
-                id="id_application_has_been_printed"
-                class="form-check-input"
-                type="checkbox"
-                v-model="currentFPKPRKData.application_has_been_printed"
-              />
-              <label
-                class="form-check-label"
-                for="id_application_has_been_printed"
-              >
-                Заявление отпечатано
-              </label>
-            </div>
+            <!--            <div class="form-check my-3">-->
+            <!--              <input-->
+            <!--                id="id_application_has_been_printed"-->
+            <!--                class="form-check-input"-->
+            <!--                type="checkbox"-->
+            <!--                v-model="currentFPKPRKData.application_has_been_printed"-->
+            <!--              />-->
+            <!--              <label-->
+            <!--                class="form-check-label"-->
+            <!--                for="id_application_has_been_printed"-->
+            <!--              >-->
+            <!--                Заявление отпечатано-->
+            <!--              </label>-->
+            <!--            </div>-->
           </div>
         </div>
       </div>

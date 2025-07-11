@@ -279,13 +279,86 @@
                   class="me-2"
                   v-if="this.average_score_calculation.choice.includes('cert')"
                 >
+                  <div class="mb-3">
+                    <select
+                      class="form-select"
+                      v-model="
+                        average_score_calculation.cert_average_score_5_10_system
+                      "
+                      @change="average_score_calculation_select_change"
+                    >
+                      <option :value="5">5 бальная</option>
+                      <option :value="10">10 бальная</option>
+                    </select>
+                  </div>
+
                   <h5 class="ms-2">Школьный аттестат</h5>
+
                   <select
                     class="form-select"
                     :name="select.selectIndex"
                     v-for="select in average_score_calculation.certificate"
                     v-model="select.selectValue"
                     @change="averageScoreCertificateSelectChange"
+                    v-if="
+                      average_score_calculation.cert_average_score_5_10_system ===
+                      10
+                    "
+                  >
+                    <option value=""></option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                  </select>
+
+                  <select
+                    class="form-select"
+                    :name="select.selectIndex"
+                    v-for="select in average_score_calculation.certificate"
+                    v-model="select.selectValue"
+                    @change="averageScoreCertificateSelectChange"
+                    v-else
+                  >
+                    <option value=""></option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                </div>
+                <div v-else style="width: 50%"></div>
+                <div
+                  style="width: 50%"
+                  v-if="this.average_score_calculation.choice.includes('dipl')"
+                >
+                  <div class="mb-3">
+                    <select
+                      class="form-select"
+                      v-model="
+                        average_score_calculation.dipl_average_score_5_10_system
+                      "
+                    >
+                      <option value="5">5 бальная</option>
+                      <option value="10">10 бальная</option>
+                    </select>
+                  </div>
+
+                  <h5 class="ms-2">Диплом</h5>
+
+                  <select
+                    class="form-select"
+                    :name="select.selectIndex"
+                    v-for="select in average_score_calculation.diploma"
+                    v-model="select.selectValue"
+                    @change="averageScoreDiplomaSelectChange"
+                    v-if="
+                      average_score_calculation.dipl_average_score_5_10_system ===
+                      10
+                    "
                   >
                     <option value=""></option>
                     <option value="2">2</option>
@@ -298,30 +371,19 @@
                     <option value="9">9</option>
                     <option value="10">10</option>
                   </select>
-                </div>
-                <div v-else style="width: 50%"></div>
-                <div
-                  style="width: 50%"
-                  v-if="this.average_score_calculation.choice.includes('dipl')"
-                >
-                  <h5 class="ms-2">Диплом</h5>
                   <select
                     class="form-select"
                     :name="select.selectIndex"
                     v-for="select in average_score_calculation.diploma"
                     v-model="select.selectValue"
                     @change="averageScoreDiplomaSelectChange"
+                    v-else
                   >
                     <option value=""></option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
                     <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
                   </select>
                 </div>
                 <div v-else style="width: 50%"></div>
@@ -1189,6 +1251,41 @@
                             ></textarea>
                             <label for="id_personal_information_tab_extra_data"
                               >Примечание по личной информации</label
+                            >
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row d-flex flex-row align-items-center">
+                        <div class="col-xl-3">
+                          <div class="form-check mb-3">
+                            <input
+                              id="id_is_disabled"
+                              class="form-check-input"
+                              type="checkbox"
+                              v-model="currentStudentData.is_disabled"
+                            />
+                            <label
+                              class="form-check-label"
+                              for="id_is_disabled"
+                            >
+                              Имеет инвалидность
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-xl-9">
+                          <div class="form-floating mb-3">
+                            <input
+                              id="id_is_disabled_extra_data"
+                              type="text"
+                              class="form-control"
+                              placeholder="Из числа детей-сирот (доп.)"
+                              v-model="
+                                currentStudentData.is_disabled_extra_data
+                              "
+                            />
+                            <label for="id_is_disabled_extra_data"
+                              >Имеет инвалидность (доп.)</label
                             >
                           </div>
                         </div>
@@ -2227,6 +2324,7 @@
                               </div>
                             </div>
                           </div>
+
                           <div class="row d-flex flex-row align-items-center">
                             <div class="col-xl-3">
                               <div class="form-check mb-3">
@@ -3158,6 +3256,8 @@ export default {
         has_other_cultural_and_mass_hobbies_extra_data: "",
         has_own_family: "",
         has_own_family_extra_data: "",
+        is_disabled: "",
+        is_disabled_extra_data: "",
         has_passion_for_choreography: "",
         has_passion_for_choreography_extra_data: "",
         has_passion_for_kvn: "",
@@ -3234,6 +3334,8 @@ export default {
       studentHistoryList: { count: 0, results: [], previous: null, next: null },
       average_score_calculation: {
         choice: "",
+        cert_average_score_5_10_system: 10,
+        dipl_average_score_5_10_system: 10,
         certificate: [{ selectIndex: 0, selectValue: 0 }],
         diploma: [{ selectIndex: 0, selectValue: 0 }],
       },
@@ -3953,15 +4055,41 @@ export default {
     },
 
     getAverageScore() {
+      const score_system = {
+        5: { 3: 4, 4: 7, 5: 10 },
+        10: {
+          3: 3,
+          4: 4,
+          5: 5,
+          6: 6,
+          7: 7,
+          8: 8,
+          9: 9,
+          10: 10,
+        },
+      }
+
       let counter = 0
       this.average_score_calculation.certificate.forEach((item) => {
         if (item.selectValue !== 0 && item.selectValue !== "") {
-          counter = counter + parseInt(item.selectValue)
+          counter =
+            counter +
+            parseInt(
+              score_system[
+                this.average_score_calculation.cert_average_score_5_10_system
+              ][item.selectValue],
+            )
         }
       })
       this.average_score_calculation.diploma.forEach((item) => {
         if (item.selectValue !== 0 && item.selectValue !== "") {
-          counter = counter + parseInt(item.selectValue)
+          counter =
+            counter +
+            parseInt(
+              score_system[
+                this.average_score_calculation.dipl_average_score_5_10_system
+              ][item.selectValue],
+            )
         }
       })
       if (this.getAverageScoreCount() > 0) {

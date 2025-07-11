@@ -352,6 +352,68 @@
                 </div>
               </div>
             </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <span class="text-nowrap">Посещал вступительную кампанию</span>
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('has_visited')"
+                      >
+                        А -> Я
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('-has_visited')"
+                      >
+                        Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <span class="text-nowrap">Дата посещения</span>
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('has_visited_date_time')"
+                      >
+                        А -> Я
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('-has_visited_date_time')"
+                      >
+                        Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
             <th scope="col" class="text-center" style="min-width: 450px">
               <div class="d-flex flex-row align-items-center">
                 <span class="text-nowrap">Учреждение образования</span>
@@ -1454,7 +1516,27 @@
                 />
               </div>
             </th>
-
+            <th>
+              <select class="form-select" v-model="searchForm.has_visited">
+                <option selected value="">-------</option>
+                <option value="true" key="1">Да</option>
+                <option value="false" key="0">Нет</option>
+              </select>
+            </th>
+            <th>
+              <div class="d-flex justify-content-center align-items-center">
+                <input
+                  type="date"
+                  class="form-control me-2"
+                  v-model="searchForm.has_visited_date__gte"
+                />
+                <input
+                  type="date"
+                  class="form-control"
+                  v-model="searchForm.has_visited_date__lte"
+                />
+              </div>
+            </th>
             <th style="min-width: 200px">
               <v-select
                 v-model="searchForm.educational_institution__in"
@@ -2043,6 +2125,24 @@
                 new Date(
                   cadet.application_has_been_printed_date,
                 ).toLocaleString("ru-RU", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                  second: "numeric",
+                })
+              }}
+            </td>
+            <td v-else></td>
+
+            <td v-if="cadet.has_visited" class="text-center">
+              <font-awesome-icon :icon="['fa', 'check']" />
+            </td>
+            <td v-else class="text-center"></td>
+            <td v-if="cadet.has_visited_date_time" class="text-center">
+              {{
+                new Date(cadet.has_visited_date_time).toLocaleString("ru-RU", {
                   day: "numeric",
                   month: "long",
                   year: "numeric",

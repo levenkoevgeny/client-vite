@@ -4523,7 +4523,9 @@ export default {
     filteredJournalRecords() {
       if (this.journalLastNameSearch) {
         return this.journalList.results.filter((record) =>
-          record.last_name_rus.includes(this.journalLastNameSearch),
+          record.last_name_rus
+            .toLowerCase()
+            .includes(this.journalLastNameSearch.toLowerCase()),
         )
       } else {
         return this.journalList.results

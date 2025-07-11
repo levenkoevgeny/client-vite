@@ -211,6 +211,8 @@ const searchObj = {
   is_member_of_other_public_organizations_extra_data__icontains: "",
   is_orphan: "",
   is_orphan_extra_data__icontains: "",
+  is_disabled: "",
+  is_disabled_extra_data__icontains: "",
   is_children_left_without_parental_care: "",
   is_children_left_without_parental_care_extra_data__icontains: "",
   has_own_family: "",
