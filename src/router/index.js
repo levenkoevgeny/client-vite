@@ -482,7 +482,7 @@ const routes = [
       {
         path: "/entrance",
         component: EntranceMainView,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, title: "Вступительная кампания" },
         name: "entrance-main",
         children: [
           {
@@ -584,7 +584,7 @@ const routes = [
       {
         path: "electronic-queue",
         component: ElectronicQueueMain,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, title: "Электронная очередь" },
         name: "electronic-queue-main",
         children: [
           {
@@ -651,7 +651,7 @@ const router = createRouter({
 router.beforeEach(async (to, from) => {
   await store.dispatch("auth/actionCheckLoggedIn")
   const isLoggedIn = store.getters["auth/getIsLoggedIn"]
-
+  document.title = to.meta?.title || "КИС"
   if (to.meta.requiresAuth && !isLoggedIn) {
     return {
       path: "/login",
