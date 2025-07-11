@@ -2487,6 +2487,7 @@
                       id="id_s1"
                       class="form-select"
                       v-model="currentCadetData.speciality_1"
+                      disabled
                     >
                       <option :value="null">---------</option>
                       <option
@@ -2520,7 +2521,7 @@
                       id="id_s3"
                       class="form-select"
                       v-model="currentCadetData.speciality_3"
-                      :disabled="select_2_9_isDisabled"
+                      :disabled="select_2_9_isDisabled || select_3_9_isDisabled"
                     >
                       <option :value="null">---------</option>
                       <option
@@ -2537,7 +2538,7 @@
                       id="id_s4"
                       class="form-select"
                       v-model="currentCadetData.speciality_4"
-                      :disabled="select_2_9_isDisabled"
+                      :disabled="select_2_9_isDisabled || select_3_9_isDisabled"
                     >
                       <option :value="null">---------</option>
                       <option
@@ -2554,7 +2555,7 @@
                       id="id_s5"
                       class="form-select"
                       v-model="currentCadetData.speciality_5"
-                      :disabled="select_2_9_isDisabled"
+                      :disabled="select_2_9_isDisabled || select_3_9_isDisabled"
                     >
                       <option :value="null">---------</option>
                       <option
@@ -2571,7 +2572,7 @@
                       id="id_s6"
                       class="form-select"
                       v-model="currentCadetData.speciality_6"
-                      :disabled="select_2_9_isDisabled"
+                      :disabled="select_2_9_isDisabled || select_3_9_isDisabled"
                     >
                       <option :value="null">---------</option>
                       <option
@@ -2588,7 +2589,7 @@
                       id="id_s7"
                       class="form-select"
                       v-model="currentCadetData.speciality_7"
-                      :disabled="select_2_9_isDisabled"
+                      :disabled="select_2_9_isDisabled || select_3_9_isDisabled"
                     >
                       <option :value="null">---------</option>
                       <option
@@ -2605,7 +2606,7 @@
                       id="id_s8"
                       class="form-select"
                       v-model="currentCadetData.speciality_8"
-                      :disabled="select_2_9_isDisabled"
+                      :disabled="select_2_9_isDisabled || select_3_9_isDisabled"
                     >
                       <option :value="null">---------</option>
                       <option
@@ -2622,7 +2623,7 @@
                       id="id_s9"
                       class="form-select"
                       v-model="currentCadetData.speciality_9"
-                      :disabled="select_2_9_isDisabled"
+                      :disabled="select_2_9_isDisabled || select_3_9_isDisabled"
                     >
                       <option :value="null">---------</option>
                       <option
@@ -4530,8 +4531,14 @@ export default {
     },
 
     select_2_9_isDisabled() {
-      console.log(this.speciality_1)
       return [5, 6, 7].includes(this.currentCadetData.speciality_1)
+    },
+
+    select_3_9_isDisabled() {
+      return (
+        [10, 12].includes(this.currentCadetData.speciality_1) ||
+        [10, 12].includes(this.currentCadetData.speciality_2)
+      )
     },
 
     ...mapGetters({
