@@ -3116,20 +3116,20 @@
               <template v-else>Напечатать заявление</template>
             </button>
 
-            <!--            <div class="form-check my-3" v-if="currentUser.is_superuser">-->
-            <!--              <input-->
-            <!--                id="id_application_has_been_printed"-->
-            <!--                class="form-check-input"-->
-            <!--                type="checkbox"-->
-            <!--                v-model="currentStudentData.application_has_been_printed"-->
-            <!--              />-->
-            <!--              <label-->
-            <!--                class="form-check-label"-->
-            <!--                for="id_application_has_been_printed"-->
-            <!--              >-->
-            <!--                Заявление напечатано-->
-            <!--              </label>-->
-            <!--            </div>-->
+            <div class="form-check my-3" v-if="currentUser.is_superuser">
+              <input
+                id="id_application_has_been_printed"
+                class="form-check-input"
+                type="checkbox"
+                v-model="currentStudentData.application_has_been_printed"
+              />
+              <label
+                class="form-check-label"
+                for="id_application_has_been_printed"
+              >
+                Заявление напечатано
+              </label>
+            </div>
           </div>
         </div>
       </div>
@@ -3489,13 +3489,13 @@ export default {
           ),
           $autoDirty: true,
         },
-        address_residence: {
-          required: helpers.withMessage(
-            "Поле 'Проживает по адресу' не может быть пустым",
-            required,
-          ),
-          $autoDirty: true,
-        },
+        // address_residence: {
+        //   required: helpers.withMessage(
+        //     "Поле 'Проживает по адресу' не может быть пустым",
+        //     required,
+        //   ),
+        //   $autoDirty: true,
+        // },
         education_graduating_end_year: {
           required: helpers.withMessage(
             "Поле 'Год окончания учреждения образования' не может быть пустым",
