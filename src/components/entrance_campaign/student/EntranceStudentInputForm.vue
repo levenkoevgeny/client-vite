@@ -2984,6 +2984,36 @@
                     </tr>
                   </tbody>
                 </table>
+
+                <div class="row">
+                  <div class="col-xl-3">
+                    <div class="form-check mb-3">
+                      <input
+                        id="id_has_3_ct"
+                        class="form-check-input"
+                        type="checkbox"
+                        v-model="currentStudentData.has_3_ct"
+                      />
+                      <label class="form-check-label" for="id_has_3_ct">
+                        3 ЦТ
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-xl-3">
+                    <div class="form-check mb-3">
+                      <input
+                        id="id_has_3_ct"
+                        class="form-check-input"
+                        type="checkbox"
+                        v-model="currentStudentData.has_2_ce"
+                      />
+                      <label class="form-check-label" for="id_has_3_ct">
+                        2 ЦЭ
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
                 <div class="border-bottom border-4 my-3"></div>
 
                 <div

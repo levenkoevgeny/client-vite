@@ -61,6 +61,7 @@ import { faAdjust } from "@fortawesome/free-solid-svg-icons"
 import { faArrowsAltH } from "@fortawesome/free-solid-svg-icons"
 import { faArrowsAltV } from "@fortawesome/free-solid-svg-icons"
 import { faSearch } from "@fortawesome/free-solid-svg-icons"
+import { faAddressCard } from "@fortawesome/free-solid-svg-icons"
 import axios from "axios"
 import "../public/vue-select.css"
 export const axiosInstance = axios.create()
@@ -121,6 +122,7 @@ library.add(faFloppyDisk)
 library.add(faEnvelope)
 library.add(faBook)
 library.add(faFile)
+library.add(faAddressCard)
 
 axiosInstance.interceptors.request.use(
   (config) => {

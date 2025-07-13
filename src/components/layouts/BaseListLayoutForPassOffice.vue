@@ -1,35 +1,30 @@
 <template>
   <div class="container-fluid">
     <slot name="modals"></slot>
+    <div class="my-4"></div>
     <div class="row flex-nowrap">
       <div class="col">
-        <div class="d-flex justify-content-end">
-          <a
-            href="#"
-            data-bs-target="#sidebar"
-            data-bs-toggle="collapse"
-            class="rounded-3 p-1 text-decoration-none fs-3 filter-icon-color"
-            ><font-awesome-icon :icon="['fas', 'filter']"
-          /></a>
-        </div>
-
         <h2>
           {{ title }}
         </h2>
+        <div class="my-4"></div>
 
         <div v-show="isLoading || isCommonLoading">Загрузка данных ...</div>
         <div v-show="!(isLoading || isCommonLoading)">
-          <div v-show="mainListLength">
+          <div>
             <div class="mb-3 d-flex align-items-center justify-content-between">
               <div>
                 <span>Всего записей - </span>
                 <span class="text-body-tertiary fw-semibold">
                   {{ mainListLength }}</span
+                ><span class="text-body-tertiary fw-semibold">
+                  (выбрано - {{ selectedItemsCount }})</span
                 >
               </div>
             </div>
+            <slot name="search-form-clear-button"></slot>
             <div
-              class="table-responsive border"
+              class="table-responsive"
               style="max-height: calc(100vh - 230px); overflow-y: auto"
               ref="infinite_list"
             >
@@ -48,27 +43,6 @@
           <div class="my-3"></div>
         </div>
       </div>
-
-      <div class="col-auto">
-        <div class="navbar navbar-expand-lg">
-          <div id="sidebar" class="collapse collapse-horizontal border-start">
-            <div
-              id="sidebar-nav"
-              class="list-group border-0 rounded-0 text-sm-start"
-              style="width: 500px"
-            >
-              <h3 class="my-3 p-3">Поиск по критериям</h3>
-              <div
-                style="max-height: calc(100vh - 290px); overflow-y: auto"
-                class="p-3"
-              >
-                <slot name="search-form"></slot>
-              </div>
-              <slot name="search-form-clear-button"></slot>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -84,6 +58,11 @@ export default {
       required: true,
     },
     mainListLength: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    selectedItemsCount: {
       type: Number,
       required: true,
       default: 0,

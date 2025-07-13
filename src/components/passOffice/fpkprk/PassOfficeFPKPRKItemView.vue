@@ -27,7 +27,7 @@
     </div>
   </div>
 
-  <div class="container-fluid">
+  <div class="container">
     <div style="height: 30px"></div>
     <h3 class="my-4">
       <router-link class="" :to="{ name: 'pass-office-fpk-prk' }">
@@ -45,88 +45,121 @@
     </div>
 
     <div v-else>
-      <div class="row">
-        <div class="col-xxl-8 border">
-          <h1>Сведения о записи</h1>
-          <h3 class="card-title my-2">
-            Фамилия -
-            <span class="fw-bold">{{ currentCadetData.last_name_rus }}</span>
-          </h3>
-          <h3 class="card-title my-2">
-            Имя -
-            <span class="fw-bold">{{ currentCadetData.first_name_rus }}</span>
-          </h3>
-          <h3 class="card-title my-2">
-            Отчество -
-            <span class="fw-bold">{{ currentCadetData.patronymic_rus }}</span>
-          </h3>
-          <h3 class="card-title my-2">
-            Группа -
-            <span v-if="currentCadetData.group" class="fw-bold">{{
-              currentCadetData.group
-            }}</span
-            ><span v-else class="fw-bold">Нет данных</span>
-          </h3>
-          <h3 class="card-title my-2">
-            Дата рождения -
-            <span v-if="currentCadetData.date_of_birth" class="fw-bold">{{
-              currentCadetData.date_of_birth
-            }}</span
-            ><span v-else class="fw-bold">Нет данных</span>
-          </h3>
-        </div>
-        <div class="col-xxl-4">
-          <div class="border">
-            <div class="text-center m-3">
-              <img
-                v-if="currentCadetData.photo"
-                :src="currentCadetData.photo"
-                class="rounded-2"
-                alt="..."
-                style="width: 250px"
-              />
-              <img
-                v-else
-                src="../../../assets/without_photo.jpg"
-                class="rounded-2"
-                alt="..."
-                style="width: 250px"
-              />
+      <div class="card shadow-lg p-3 mb-5 rounded bg-body-secondary-phoenix">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-xxl-8 border-end">
+              <h1 class="text-secondary-emphasis fst-italic">
+                <font-awesome-icon
+                  :icon="['fas', 'address-card']"
+                />&nbsp;Сведения о записи
+              </h1>
+              <h3 class="card-title my-2 text-secondary-emphasis fst-italic">
+                Фамилия -
+                <span class="fw-bold">{{
+                  currentCadetData.last_name_rus
+                }}</span>
+              </h3>
+              <h3 class="card-title my-2 text-secondary-emphasis fst-italic">
+                Имя -
+                <span class="fw-bold">{{
+                  currentCadetData.first_name_rus
+                }}</span>
+              </h3>
+              <h3 class="card-title my-2 text-secondary-emphasis fst-italic">
+                Отчество -
+                <span class="fw-bold">{{
+                  currentCadetData.patronymic_rus
+                }}</span>
+              </h3>
+              <h3 class="card-title my-2 text-secondary-emphasis fst-italic">
+                Группа -
+                <span v-if="currentCadetData.group" class="fw-bold">{{
+                  currentCadetData.group
+                }}</span
+                ><span v-else class="fw-bold">Нет данных</span>
+              </h3>
+              <h3 class="card-title my-2 text-secondary-emphasis fst-italic">
+                Дата рождения -
+                <span v-if="currentCadetData.date_of_birth" class="fw-bold">{{
+                  currentCadetData.date_of_birth
+                }}</span
+                ><span v-else class="fw-bold">Нет данных</span>
+              </h3>
             </div>
-            <div class="d-flex justify-content-end align-items-center">
-              <input
-                type="file"
-                v-on:change="uploadPhoto"
-                ref="uploadedPhoto"
-                name="photo_file"
-                accept="image/png, image/jpeg"
-              />
-              <button class="btn btn-primary m-3" @click="showItemModal">
-                Сделать фото (камера)
-              </button>
-            </div>
-          </div>
+            <div class="col-xxl-4">
+              <div>
+                <div class="d-flex justify-content-center">
+                  <div class="text-center position-relative">
+                    <img
+                      v-if="currentCadetData.photo"
+                      :src="currentCadetData.photo"
+                      class="rounded-2"
+                      alt="..."
+                      style="width: 250px"
+                    />
+                    <img
+                      v-else
+                      src="../../../assets/without_photo.jpg"
+                      class="rounded-2"
+                      alt="..."
+                      style="width: 250px"
+                    />
+                    <input
+                      type="file"
+                      v-on:change="uploadPhoto"
+                      ref="uploadedPhoto"
+                      name="photo_file"
+                      accept="image/png, image/jpeg"
+                      style="position: absolute; bottom: 10px; left: 20px"
+                    />
+                  </div>
+                </div>
 
-          <div class="border">
-            <div class="text-center m-3">
-              <img
-                v-if="currentCadetData.sign_image"
-                :src="currentCadetData.sign_image"
-                class="rounded-2"
-                alt="..."
-                style="width: 250px; background-color: #fff"
-              />
-              <img
-                v-else
-                src="../../../assets/without_signature.jpg"
-                class="rounded-2"
-                alt="..."
-                style="width: 250px"
-              />
-            </div>
+                <div class="d-flex justify-content-center">
+                  <button class="btn btn-primary m-3" @click="showItemModal">
+                    Сделать фото (камера)
+                  </button>
+                </div>
+              </div>
 
-            <div class="d-flex justify-content-end align-items-center">
-              <Signature @save-signature-event="saveSignature" />
+              <div class="border my-3"></div>
+
+              <div>
+                <div class="d-flex justify-content-center">
+                  <div class="text-center position-relative">
+                    <img
+                      v-if="currentCadetData.sign_image"
+                      :src="currentCadetData.sign_image"
+                      class="rounded-2"
+                      alt="..."
+                      style="width: 250px; background-color: #fff"
+                    />
+                    <img
+                      v-else
+                      src="../../../assets/without_signature.jpg"
+                      class="rounded-2"
+                      alt="..."
+                      style="width: 250px"
+                    />
+
+                    <input
+                      type="file"
+                      v-on:change="uploadSignature"
+                      ref="uploadedSignature"
+                      name="photo_file"
+                      accept="image/png, image/jpeg"
+                      style="position: absolute; bottom: 10px; left: 20px"
+                    />
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                  <button class="btn btn-primary m-3" @click="showItemModal">
+                    Сделать фото (камера)
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -218,6 +251,18 @@ export default {
       this.currentCadetData = {
         ...this.currentCadetData,
         photo: response.data.photo,
+      }
+    },
+    async uploadSignature() {
+      let formData = new FormData()
+      formData.append("sign_image", this.$refs.uploadedSignature.files[0])
+      const response = await this.cadetAPIInstance.updatePhotoOrAnyFile(
+        this.currentCadetData.id,
+        formData,
+      )
+      this.currentCadetData = {
+        ...this.currentCadetData,
+        sign_image: response.data.sign_image,
       }
     },
   },

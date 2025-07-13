@@ -221,6 +221,8 @@ const searchObj = {
   vpk_data__icontains: "",
   education_graduating_end_year: "",
   medal__in: "",
+  has_3_ct: "",
+  has_2_ce: "",
   ordering: null,
 }
 

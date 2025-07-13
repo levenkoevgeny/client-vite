@@ -370,6 +370,32 @@
               <th scope="col" style="min-width: 450px">
                 <div class="d-flex flex-row align-items-center">
                   <span class="text-nowrap">Льгота</span>
+                  <div class="dropdown">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('privilege_1__privilege')"
+                        >
+                          А -> Я
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('-privilege_1__privilege')"
+                        >
+                          Я -> А
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </th>
               <th scope="col" style="min-width: 300px">
@@ -995,6 +1021,68 @@
               </th>
               <th scope="col">
                 <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap">3 ЦТ</span>
+                  <div class="dropdown">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('has_3_ct')"
+                        >
+                          А -> Я
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('-has_3_ct')"
+                        >
+                          Я -> А
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap">2 ЦЭ</span>
+                  <div class="dropdown">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('has_2_ce')"
+                        >
+                          А -> Я
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('-has_2_ce')"
+                        >
+                          Я -> А
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex flex-row align-items-center">
                   <span class="text-nowrap"
                     >Колличество баллов по русскому языку (аттестат)
                   </span>
@@ -1165,7 +1253,7 @@
                   type="text"
                   class="form-control"
                   v-model="searchForm.last_name_rus__icontains"
-                  style="width: 250px"
+                  style="width: 150px"
                 />
               </th>
               <th>
@@ -1173,7 +1261,7 @@
                   type="text"
                   class="form-control"
                   v-model="searchForm.first_name_rus__icontains"
-                  style="width: 250px"
+                  style="width: 150px"
                 />
               </th>
               <th>
@@ -1181,7 +1269,7 @@
                   type="text"
                   class="form-control"
                   v-model="searchForm.patronymic_rus__icontains"
-                  style="width: 250px"
+                  style="width: 150px"
                 />
               </th>
               <th>
@@ -1582,6 +1670,20 @@
                 </div>
               </th>
               <th>
+                <select class="form-select" v-model="searchForm.has_3_ct">
+                  <option selected value="">-------</option>
+                  <option value="true" key="1">Да</option>
+                  <option value="false" key="0">Нет</option>
+                </select>
+              </th>
+              <th>
+                <select class="form-select" v-model="searchForm.has_2_ce">
+                  <option selected value="">-------</option>
+                  <option value="true" key="1">Да</option>
+                  <option value="false" key="0">Нет</option>
+                </select>
+              </th>
+              <th>
                 <div class="d-flex justify-content-center align-items-center">
                   <input
                     type="text"
@@ -1797,6 +1899,16 @@
               <td class="text-center">{{ student.foreign_lang_score_ct }}</td>
               <td class="text-center">{{ student.foreign_lang_ct_choice }}</td>
               <td class="text-center">{{ student.education_average_score }}</td>
+              <td v-if="student.has_3_ct" class="text-center">
+                <font-awesome-icon :icon="['fa', 'check']" />
+              </td>
+              <td v-else class="text-center"></td>
+
+              <td v-if="student.has_2_ce" class="text-center">
+                <font-awesome-icon :icon="['fa', 'check']" />
+              </td>
+              <td v-else class="text-center"></td>
+
               <td class="text-center">{{ student.rus_score_cert }}</td>
               <td class="text-center">{{ student.bel_score_cert }}</td>
               <td class="text-center">
@@ -2182,6 +2294,9 @@ export default {
       this.fieldsForDataExport.map((item) => {
         this.selectedFieldsForDataExport.push(item.fieldValue)
       })
+    },
+    clearAllFieldsForExport() {
+      this.selectedFieldsForDataExport = []
     },
     async exportData(destination) {
       if (this.selectedFieldsForDataExport.length === 0) {
