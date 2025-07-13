@@ -175,7 +175,7 @@
                 </thead>
                 <tbody>
                   <tr v-for="record in filteredJournalRecords" :key="record.id">
-                    <td>{{ record.counter }}</td>
+                    <td>{{ record.journal_number }}</td>
                     <td>
                       {{ record.last_name_rus }} {{ record.first_name_rus }}
                       {{ record.patronymic_rus }}
@@ -551,6 +551,9 @@
             />
           </button>
 
+          <h3 v-if="currentCadetData.journal_number">
+            Номер в журнале регистрации - {{ currentCadetData.journal_number }}
+          </h3>
           <div
             v-if="currentCadetData.application_has_been_printed"
             class="my-3"
@@ -4094,7 +4097,6 @@ export default {
       let dataObj = {
         id: this.currentCadetData.id,
         application_has_been_printed: true,
-        has_visited: true,
       }
       if (!this.currentCadetData.application_has_been_printed_date) {
         dataObj = {
@@ -4102,11 +4104,19 @@ export default {
           application_has_been_printed_date: new Date().toISOString(),
         }
       }
-      if (!this.currentCadetData.has_visited_date_time) {
-        dataObj = {
-          ...dataObj,
-          has_visited_date_time: new Date().toISOString(),
-        }
+      // if (!this.currentCadetData.has_visited_date_time) {
+      //   dataObj = {
+      //     ...dataObj,
+      //     has_visited_date_time: new Date().toISOString(),
+      //   }
+      // }
+
+      const journalResponse = await this.cadetAPIInstance.get_journal_number(
+        this.currentCadetData.id,
+      )
+      this.currentCadetData = {
+        ...this.currentCadetData,
+        ...journalResponse.data,
       }
 
       const resp = await this.cadetAPIInstance.updateItemPartly(dataObj)

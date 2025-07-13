@@ -27,6 +27,12 @@ class CadetAPI extends BaseAPI {
     )
   }
 
+  async get_journal_number(itemId) {
+    return axios.get(
+      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/${itemId}/get_journal_number/`,
+    )
+  }
+
   async list_export(export_data) {
     return axios.post(
       `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/list_export/`,

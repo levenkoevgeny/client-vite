@@ -2241,20 +2241,20 @@
               <font-awesome-icon :icon="['fas', 'print']" />&nbsp;&nbsp;
               Отпечатать заявление
             </button>
-            <!--            <div class="form-check my-3">-->
-            <!--              <input-->
-            <!--                id="id_application_has_been_printed"-->
-            <!--                class="form-check-input"-->
-            <!--                type="checkbox"-->
-            <!--                v-model="currentFPKPRKData.application_has_been_printed"-->
-            <!--              />-->
-            <!--              <label-->
-            <!--                class="form-check-label"-->
-            <!--                for="id_application_has_been_printed"-->
-            <!--              >-->
-            <!--                Заявление отпечатано-->
-            <!--              </label>-->
-            <!--            </div>-->
+            <div class="form-check my-3">
+              <input
+                id="id_application_has_been_printed"
+                class="form-check-input"
+                type="checkbox"
+                v-model="currentFPKPRKData.application_has_been_printed"
+              />
+              <label
+                class="form-check-label"
+                for="id_application_has_been_printed"
+              >
+                Заявление отпечатано
+              </label>
+            </div>
           </div>
         </div>
       </div>
