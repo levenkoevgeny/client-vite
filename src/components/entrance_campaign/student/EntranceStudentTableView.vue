@@ -137,6 +137,136 @@
               <th scope="col" class="text-center">Форма обучения</th>
               <th scope="col">
                 <div class="d-flex flex-row align-items-center">
+                  <nobr>Сумма балов</nobr>
+                  <div class="dropdown">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('score_sum')"
+                        >
+                          меньш. -> больш.
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('-score_sum')"
+                        >
+                          больш. -> меньш.
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap">Фамилия</span>
+                  <div class="dropdown">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('last_name_rus')"
+                        >
+                          А -> Я
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('-last_name_rus')"
+                        >
+                          Я -> А
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap">Имя</span>
+                  <div class="dropdown">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('first_name_rus')"
+                        >
+                          А -> Я
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('-first_name_rus')"
+                        >
+                          Я -> А
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap">Отчество</span>
+
+                  <div class="dropdown">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('patronymic_rus')"
+                        >
+                          А -> Я
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('-patronymic_rus')"
+                        >
+                          Я -> А
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap">Возраст</span>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex flex-row align-items-center">
                   <span class="text-nowrap">Заявление отпечатано</span>
                   <div class="dropdown">
                     <button
@@ -259,106 +389,7 @@
                   <span class="text-nowrap">Группа предназначения</span>
                 </div>
               </th>
-              <th scope="col">
-                <div class="d-flex flex-row align-items-center">
-                  <span class="text-nowrap">Фамилия</span>
-                  <div class="dropdown">
-                    <button
-                      class="btn dropdown-toggle"
-                      type="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    ></button>
-                    <ul class="dropdown-menu">
-                      <li>
-                        <button
-                          class="dropdown-item"
-                          @click="setOrdering('last_name_rus')"
-                        >
-                          А -> Я
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="dropdown-item"
-                          @click="setOrdering('-last_name_rus')"
-                        >
-                          Я -> А
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </th>
-              <th scope="col">
-                <div class="d-flex flex-row align-items-center">
-                  <span class="text-nowrap">Имя</span>
-                  <div class="dropdown">
-                    <button
-                      class="btn dropdown-toggle"
-                      type="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    ></button>
-                    <ul class="dropdown-menu">
-                      <li>
-                        <button
-                          class="dropdown-item"
-                          @click="setOrdering('first_name_rus')"
-                        >
-                          А -> Я
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="dropdown-item"
-                          @click="setOrdering('-first_name_rus')"
-                        >
-                          Я -> А
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </th>
-              <th scope="col">
-                <div class="d-flex flex-row align-items-center">
-                  <span class="text-nowrap">Отчество</span>
 
-                  <div class="dropdown">
-                    <button
-                      class="btn dropdown-toggle"
-                      type="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    ></button>
-                    <ul class="dropdown-menu">
-                      <li>
-                        <button
-                          class="dropdown-item"
-                          @click="setOrdering('patronymic_rus')"
-                        >
-                          А -> Я
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="dropdown-item"
-                          @click="setOrdering('-patronymic_rus')"
-                        >
-                          Я -> А
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </th>
-
-              <th scope="col">
-                <div class="d-flex flex-row align-items-center">
-                  <span class="text-nowrap">Возраст</span>
-                </div>
-              </th>
               <!--              <th scope="col">-->
               <!--                <span class="text-nowrap">Место рождения</span>-->
               <!--              </th>-->
@@ -933,6 +964,37 @@
               </th>
               <th scope="col">
                 <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap">Средний балл (аттестат) </span>
+                  <div class="dropdown">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('education_average_score')"
+                        >
+                          А -> Я
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('-education_average_score')"
+                        >
+                          Я -> А
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex flex-row align-items-center">
                   <span class="text-nowrap"
                     >Колличество баллов по русскому языку (аттестат)
                   </span>
@@ -1064,72 +1126,10 @@
                   </div>
                 </div>
               </th>
-              <th scope="col">
-                <div class="d-flex flex-row align-items-center">
-                  <span class="text-nowrap">Средний балл (аттестат) </span>
-                  <div class="dropdown">
-                    <button
-                      class="btn dropdown-toggle"
-                      type="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    ></button>
-                    <ul class="dropdown-menu">
-                      <li>
-                        <button
-                          class="dropdown-item"
-                          @click="setOrdering('education_average_score')"
-                        >
-                          А -> Я
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="dropdown-item"
-                          @click="setOrdering('-education_average_score')"
-                        >
-                          Я -> А
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </th>
-              <th scope="col">
-                <div class="d-flex flex-row align-items-center">
-                  <nobr>Сумма балов</nobr>
-                  <div class="dropdown">
-                    <button
-                      class="btn dropdown-toggle"
-                      type="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    ></button>
-                    <ul class="dropdown-menu">
-                      <li>
-                        <button
-                          class="dropdown-item"
-                          @click="setOrdering('score_sum')"
-                        >
-                          меньш. -> больш.
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="dropdown-item"
-                          @click="setOrdering('-score_sum')"
-                        >
-                          больш. -> меньш.
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </th>
             </tr>
+
             <tr>
               <th></th>
-
               <th>
                 <select
                   class="form-select"
@@ -1145,6 +1145,60 @@
                     {{ form.education_form }}
                   </option>
                 </select>
+              </th>
+              <th>
+                <div class="d-flex justify-content-center align-items-center">
+                  <input
+                    type="text"
+                    class="form-control me-2"
+                    v-model="searchForm.score_sum__gte"
+                  />
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="searchForm.score_sum__lte"
+                  />
+                </div>
+              </th>
+              <th>
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="searchForm.last_name_rus__icontains"
+                  style="width: 250px"
+                />
+              </th>
+              <th>
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="searchForm.first_name_rus__icontains"
+                  style="width: 250px"
+                />
+              </th>
+              <th>
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="searchForm.patronymic_rus__icontains"
+                  style="width: 250px"
+                />
+              </th>
+              <th>
+                <div class="d-flex justify-content-center align-items-center">
+                  <input
+                    type="text"
+                    class="form-control me-2"
+                    v-model="searchForm.age_gte"
+                    style="width: 70px"
+                  />
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="searchForm.age_lte"
+                    style="width: 70px"
+                  />
+                </div>
               </th>
               <th>
                 <select
@@ -1224,42 +1278,6 @@
                     {{ item.health_group }}
                   </option>
                 </select>
-              </th>
-              <th>
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="searchForm.last_name_rus__icontains"
-                />
-              </th>
-              <th>
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="searchForm.first_name_rus__icontains"
-                />
-              </th>
-              <th>
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="searchForm.patronymic_rus__icontains"
-                />
-              </th>
-
-              <th>
-                <div class="d-flex justify-content-center align-items-center">
-                  <input
-                    type="text"
-                    class="form-control me-2"
-                    v-model="searchForm.age_gte"
-                  />
-                  <input
-                    type="text"
-                    class="form-control"
-                    v-model="searchForm.age_lte"
-                  />
-                </div>
               </th>
               <!--              <th>-->
               <!--                <input-->
@@ -1554,6 +1572,20 @@
                   <input
                     type="text"
                     class="form-control me-2"
+                    v-model="searchForm.education_average_score__gte"
+                  />
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="searchForm.education_average_score__lte"
+                  />
+                </div>
+              </th>
+              <th>
+                <div class="d-flex justify-content-center align-items-center">
+                  <input
+                    type="text"
+                    class="form-control me-2"
                     v-model="searchForm.rus_score_cert__gte"
                   />
                   <input
@@ -1605,34 +1637,6 @@
                   />
                 </div>
               </th>
-              <th>
-                <div class="d-flex justify-content-center align-items-center">
-                  <input
-                    type="text"
-                    class="form-control me-2"
-                    v-model="searchForm.education_average_score__gte"
-                  />
-                  <input
-                    type="text"
-                    class="form-control"
-                    v-model="searchForm.education_average_score__lte"
-                  />
-                </div>
-              </th>
-              <th>
-                <div class="d-flex justify-content-center align-items-center">
-                  <input
-                    type="text"
-                    class="form-control me-2"
-                    v-model="searchForm.score_sum__gte"
-                  />
-                  <input
-                    type="text"
-                    class="form-control"
-                    v-model="searchForm.score_sum__lte"
-                  />
-                </div>
-              </th>
             </tr>
           </thead>
           <tbody>
@@ -1648,6 +1652,12 @@
             >
               <td class="text-center">{{ student.serial_number }}</td>
               <td class="text-center">{{ student.get_education_form }}</td>
+              <td class="text-center">{{ student.score_sum }}</td>
+              <td>{{ student.last_name_rus }}</td>
+              <td>{{ student.first_name_rus }}</td>
+              <td>{{ student.patronymic_rus }}</td>
+              <td class="text-center">{{ student.get_age }}</td>
+
               <td
                 v-if="student.application_has_been_printed"
                 class="text-center"
@@ -1733,10 +1743,6 @@
                 </td>
                 <td v-else></td>
               </template>
-              <td>{{ student.last_name_rus }}</td>
-              <td>{{ student.first_name_rus }}</td>
-              <td>{{ student.patronymic_rus }}</td>
-              <td class="text-center">{{ student.get_age }}</td>
               <!--              <td>{{ student.place_of_birth }}</td>-->
               <!--              <td>{{ student.address_registration }}</td>-->
               <!--              <td>{{ student.address_residence }}</td>-->
@@ -1790,14 +1796,13 @@
               </td>
               <td class="text-center">{{ student.foreign_lang_score_ct }}</td>
               <td class="text-center">{{ student.foreign_lang_ct_choice }}</td>
+              <td class="text-center">{{ student.education_average_score }}</td>
               <td class="text-center">{{ student.rus_score_cert }}</td>
               <td class="text-center">{{ student.bel_score_cert }}</td>
               <td class="text-center">
                 {{ student.social_science_score_cert }}
               </td>
               <td class="text-center">{{ student.foreign_lang_score_cert }}</td>
-              <td class="text-center">{{ student.education_average_score }}</td>
-              <td class="text-center">{{ student.score_sum }}</td>
             </tr>
           </tbody>
         </table>

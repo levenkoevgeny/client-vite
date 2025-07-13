@@ -70,7 +70,7 @@
         </div>
       </div>
 
-      <div class="card">
+      <div class="card my-4">
         <div class="card-body">
           <h3 class="card-title">Мониторинг вступительной кампании</h3>
           <p class="card-text">
@@ -107,6 +107,26 @@
           </div>
         </div>
       </div>
+
+      <div class="card my-4">
+        <div class="card-body">
+          <h3 class="card-title">Сведения о подаче документов</h3>
+          <p class="card-text">Дневная форма получения образования.</p>
+          <div class="d-flex flex-row align-items-end justify-content-between">
+            <div style="width: 60%"></div>
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click="getSubmissionDataFile"
+              :disabled="isSubmissionProcessing"
+              style="width: 30%"
+            >
+              <span v-if="isSubmissionProcessing"> Loading ... </span>
+              <span v-else> Сформировать файл</span>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -126,6 +146,7 @@ export default {
       journalSpeciality: null,
       isMonitoringProcessing: false,
       isJournalProcessing: false,
+      isSubmissionProcessing: false,
     }
   },
   mounted() {
@@ -173,6 +194,18 @@ export default {
       } else {
         alert("Выберите специальность!")
       }
+    },
+    getSubmissionDataFile() {
+      this.isSubmissionProcessing = true
+      this.ooitAPIInstance.getSubmissionData().then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]))
+        const link = document.createElement("a")
+        link.href = url
+        link.setAttribute("download", `submission_data.docx`)
+        document.body.appendChild(link)
+        link.click()
+        this.isSubmissionProcessing = false
+      })
     },
   },
   computed: {
