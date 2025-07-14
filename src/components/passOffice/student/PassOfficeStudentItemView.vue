@@ -167,19 +167,19 @@
 </template>
 
 <script>
-import { globalCadetAPIInstanceForPassOffice } from "@/api/cadet/cadetAPI.js"
+import { globalStudentAPIInstanceForPassOffice } from "@/api/student/studentAPI.js"
 import { mapGetters } from "vuex"
 import Camera from "@/components/passOffice/Camera.vue"
 import Signature from "@/components/passOffice/signature/Signature.vue"
 
 export default {
-  name: "PassOfficeCadetItemView",
+  name: "PassOfficeStudentItemView",
   components: { Signature, Camera },
   data() {
     return {
       isLoading: true,
       isDataSaving: false,
-      cadetAPIInstance: globalCadetAPIInstanceForPassOffice,
+      cadetAPIInstance: globalStudentAPIInstanceForPassOffice,
       currentCadetData: {
         id: "",
         is_active: "",

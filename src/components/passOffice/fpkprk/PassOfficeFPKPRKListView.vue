@@ -181,7 +181,7 @@ export default {
       this.isLoading = false
     },
     debouncedSearch: debounce(async function () {
-      this.searchForm.limit = 1000
+      this.searchForm.limit = 100
       this.cadetAPIInstance.searchObj = this.searchForm
       try {
         const cadetAResponse = await this.cadetAPIInstance.getItemsList()

@@ -155,9 +155,7 @@
                 </div>
 
                 <div class="d-flex justify-content-center">
-                  <button class="btn btn-primary m-3" @click="showItemModal">
-                    Сделать фото (камера)
-                  </button>
+                  <Signature @save-signature-event="saveSignature" />
                 </div>
               </div>
             </div>

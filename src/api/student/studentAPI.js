@@ -234,7 +234,10 @@ export default function getStudentAPIInstance() {
   })
 }
 export const globalStudentAPIInstance = getStudentAPIInstance()
-export const globalStudentAPIInstanceForPassOffice = getStudentAPIInstance()
+export const globalStudentAPIInstanceForPassOffice = new StudentAPI(
+  "student",
+  searchObj,
+)
 export const globalStudentAPIForEntranceInstance = new StudentAPI("student", {
   ...searchObj,
   category: 3,
