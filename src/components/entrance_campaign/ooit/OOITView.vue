@@ -127,6 +127,26 @@
           </div>
         </div>
       </div>
+
+      <div class="card my-4">
+        <div class="card-body">
+          <h3 class="card-title">Автоматическое зачисление</h3>
+          <p class="card-text">Дневная форма получения образования.</p>
+          <div class="d-flex flex-row align-items-end justify-content-between">
+            <div style="width: 60%"></div>
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click="makeEnrollment"
+              :disabled="isEnrolling"
+              style="width: 30%"
+            >
+              <span v-if="isSubmissionProcessing"> Loading ... </span>
+              <span v-else> Произвести зачисление</span>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -147,6 +167,7 @@ export default {
       isMonitoringProcessing: false,
       isJournalProcessing: false,
       isSubmissionProcessing: false,
+      isEnrolling: false,
     }
   },
   mounted() {
@@ -205,6 +226,18 @@ export default {
         document.body.appendChild(link)
         link.click()
         this.isSubmissionProcessing = false
+      })
+    },
+    makeEnrollment() {
+      this.isEnrolling = true
+      this.ooitAPIInstance.makeEnrollment().then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]))
+        const link = document.createElement("a")
+        link.href = url
+        link.setAttribute("download", `enrollment_data.docx`)
+        document.body.appendChild(link)
+        link.click()
+        this.isEnrolling = false
       })
     },
   },
