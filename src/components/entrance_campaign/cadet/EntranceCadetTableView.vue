@@ -2034,6 +2034,44 @@
               </th>
               <th scope="col">
                 <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap">Данные по ВПК</span>
+                </div>
+              </th>
+
+              <th scope="col" class="text-center" style="min-width: 450px">
+                <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap">Медаль</span>
+                  <div class="dropdown">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('medal__medal_kind')"
+                        >
+                          А -> Я
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('-medal__medal_kind')"
+                        >
+                          Я -> А
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
+
+              <th scope="col">
+                <div class="d-flex flex-row align-items-center">
                   <span class="text-nowrap"
                     >Претендует на диплом с отличием</span
                   >
@@ -2840,6 +2878,27 @@
                 />
               </th>
               <th>
+                <div class="d-flex justify-content-center align-items-center">
+                  <input
+                    type="text"
+                    class="form-control me-2"
+                    v-model="searchForm.vpk_data__icontains"
+                    style="width: 250px"
+                  />
+                </div>
+              </th>
+
+              <th>
+                <v-select
+                  v-model="searchForm.medal__in"
+                  :options="orderedMedals"
+                  label="medal_kind"
+                  :reduce="(medal) => medal.id"
+                  multiple
+                />
+              </th>
+
+              <th>
                 <select
                   class="form-select"
                   v-model="searchForm.aims_to_graduate_with_honors"
@@ -3279,6 +3338,8 @@
               <td class="text-center">{{ cadet.foreign_lang_score_cert }}</td>
               <td class="text-center">{{ cadet.education_average_score }}</td>
               <td class="text-center">{{ cadet.get_vpk }}</td>
+              <td class="text-center">{{ cadet.vpk_data }}</td>
+              <td class="text-center">{{ cadet.get_medal }}</td>
               <td v-if="cadet.aims_to_graduate_with_honors" class="text-center">
                 <font-awesome-icon :icon="['fa', 'check']" />
               </td>
@@ -3324,7 +3385,7 @@ export default {
   data() {
     return {
       isLoading: true,
-      isLoadingMore: true,
+      isLoadingMore: false,
       isError: false,
       isExporting: false,
       isDocumentProcessing: false,
@@ -3903,6 +3964,9 @@ export default {
     orderedVpkCategories() {
       return this.vpkCategories.results
     },
+    orderedMedals() {
+      return this.medals.results
+    },
     ...mapGetters({
       componentOrgans: "componentOrgans/getList",
       passportIssueAuthorities: "passportAuthorities/getList",
@@ -3917,6 +3981,7 @@ export default {
       ppflCategories: "ppflCategories/getList",
       healthGroups: "healthGroup/getList",
       vpkCategories: "vpkCategories/getList",
+      medals: "medals/getList",
       isCommonLoading: "common/getIsCommonLoading",
     }),
   },
