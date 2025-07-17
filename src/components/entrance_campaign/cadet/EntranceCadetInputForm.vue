@@ -2490,7 +2490,6 @@
                       id="id_s1"
                       class="form-select"
                       v-model="currentCadetData.speciality_1"
-                      disabled
                     >
                       <option :value="null">---------</option>
                       <option
@@ -4346,8 +4345,8 @@ export default {
       return this.admissionQuota.results
         .filter((quota) => quota.ownership_category === "1")
         .sort((a, b) => {
-          const admission_codeA = a.admission_code
-          const admission_codeB = b.admission_code
+          const admission_codeA = a.quota_verbose_name
+          const admission_codeB = b.quota_verbose_name
           if (admission_codeA < admission_codeB) {
             return -1
           }

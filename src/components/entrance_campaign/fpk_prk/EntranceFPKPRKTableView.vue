@@ -334,6 +334,38 @@
               </div>
             </th>
 
+            <th scope="col" style="min-width: 450px">
+              <div class="d-flex flex-row align-items-center">
+                <span class="text-nowrap">Звание</span>
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('current_rank__rank')"
+                      >
+                        А -> Я
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('-current_rank__rank')"
+                      >
+                        Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
+
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
                 <span class="text-nowrap">Заявление отпечатано</span>
@@ -1219,6 +1251,16 @@
             </th>
 
             <th>
+              <v-select
+                v-model="searchForm.current_rank__in"
+                :options="orderedRanks"
+                label="rank"
+                :reduce="(rank) => rank.id"
+                multiple
+              />
+            </th>
+
+            <th>
               <select
                 class="form-select"
                 v-model="searchForm.application_has_been_printed"
@@ -1654,6 +1696,7 @@
               <td v-else></td>
             </template>
             <td>{{ fpkprk.get_arrived_from_go_rovd }}</td>
+            <td>{{ fpkprk.get_rank }}</td>
             <td v-if="fpkprk.application_has_been_printed" class="text-center">
               <font-awesome-icon :icon="['fa', 'check']" />
             </td>
@@ -1733,6 +1776,7 @@ export default {
   data() {
     return {
       isLoading: true,
+      isLoadingMore: false,
       isError: false,
       isExporting: false,
       isDocumentProcessing: false,
@@ -1959,11 +2003,11 @@ export default {
       if (
         container.scrollTop + container.clientHeight >=
           container.scrollHeight - 50 &&
-        !this.isLoading
+        !this.isLoadingMore
       ) {
         if (this.fpkprkList) {
           if (this.fpkprkList.next) {
-            this.isLoading = true
+            this.isLoadingMore = true
             try {
               const response = await this.fpkprkAPIInstance.updateList(
                 this.fpkprkList.next,
@@ -1980,7 +2024,7 @@ export default {
             } catch (error) {
               this.isError = true
             } finally {
-              this.isLoading = false
+              this.isLoadingMore = false
             }
           }
         }
@@ -2172,6 +2216,19 @@ export default {
     orderedGorovds() {
       return this.gorovds.results
     },
+    orderedRanks() {
+      return this.ranks.results.sort((a, b) => {
+        const rankA = a.rank
+        const rankB = b.rank
+        if (rankA < rankB) {
+          return -1
+        }
+        if (rankA > rankB) {
+          return 1
+        }
+        return 0
+      })
+    },
     orderedAdmissionQuotas() {
       return this.admissionQuotas.results
         .filter((quota) => quota.ownership_category === "4")
@@ -2201,6 +2258,7 @@ export default {
       educationalInstitutions: "educationalInstitutions/getList",
       gorovds: "gorovds/getList",
       admissionQuotas: "admissionQuota/getList",
+      ranks: "ranks/getList",
     }),
   },
   watch: {
