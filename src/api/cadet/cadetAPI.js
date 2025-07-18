@@ -203,6 +203,11 @@ const searchObj = {
   has_achievements_in_sports: "",
   is_class_other: "",
   is_olympiad_winner: "",
+  passed_medical_examination: "",
+  fit_for_service: "",
+  is_enrolled_1: "",
+  is_enrolled_2: "",
+  enrolled_speciality__in: "",
   ordering: null,
 }
 

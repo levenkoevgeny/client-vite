@@ -1970,6 +1970,10 @@ export default {
           fieldName: "Дата и время отпечатки заявления",
           fieldValue: "get_application_has_been_printed_date",
         },
+        {
+          fieldName: "Сумма баллов",
+          fieldValue: "score_sum",
+        },
       ],
       selectedFieldsForDataExport: [
         "last_name_rus",

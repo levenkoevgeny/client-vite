@@ -2108,6 +2108,171 @@
                   >
                 </div>
               </th>
+              <th scope="col">
+                <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap">Окончательное мед. освид.</span>
+                  <div class="dropdown">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('passed_medical_examination')"
+                        >
+                          А -> Я
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('-passed_medical_examination')"
+                        >
+                          Я -> А
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap">Годен к службе</span>
+                  <div class="dropdown">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('fit_for_service')"
+                        >
+                          А -> Я
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('-fit_for_service')"
+                        >
+                          Я -> А
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap">Зачислен 1</span>
+                  <div class="dropdown">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('is_enrolled_1')"
+                        >
+                          А -> Я
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('-is_enrolled_1')"
+                        >
+                          Я -> А
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap">Зачислен 2</span>
+                  <div class="dropdown">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('is_enrolled_2')"
+                        >
+                          А -> Я
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('-is_enrolled_2')"
+                        >
+                          Я -> А
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap"
+                    >Специальность, на которую зачислен</span
+                  >
+                  <div class="dropdown">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="
+                            setOrdering(
+                              'enrolled_speciality_quota__verbose_name',
+                            )
+                          "
+                        >
+                          А -> Я
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="
+                            setOrdering(
+                              '-enrolled_speciality_quota__verbose_name',
+                            )
+                          "
+                        >
+                          Я -> А
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
             </tr>
             <tr>
               <th></th>
@@ -2950,6 +3115,49 @@
                   <option value="false" key="0">Нет</option>
                 </select>
               </th>
+              <th>
+                <select
+                  class="form-select"
+                  v-model="searchForm.passed_medical_examination"
+                >
+                  <option selected value="">-------</option>
+                  <option value="true" key="1">Да</option>
+                  <option value="false" key="0">Нет</option>
+                </select>
+              </th>
+              <th>
+                <select
+                  class="form-select"
+                  v-model="searchForm.fit_for_service"
+                >
+                  <option selected value="">-------</option>
+                  <option value="true" key="1">Да</option>
+                  <option value="false" key="0">Нет</option>
+                </select>
+              </th>
+              <th>
+                <select class="form-select" v-model="searchForm.is_enrolled_1">
+                  <option selected value="">-------</option>
+                  <option value="true" key="1">Да</option>
+                  <option value="false" key="0">Нет</option>
+                </select>
+              </th>
+              <th>
+                <select class="form-select" v-model="searchForm.is_enrolled_2">
+                  <option selected value="">-------</option>
+                  <option value="true" key="1">Да</option>
+                  <option value="false" key="0">Нет</option>
+                </select>
+              </th>
+              <th>
+                <v-select
+                  v-model="searchForm.enrolled_speciality__in"
+                  :options="orderedAdmissionQuotas"
+                  label="quota_verbose_name"
+                  :reduce="(quota) => quota.id"
+                  multiple
+                />
+              </th>
             </tr>
           </thead>
 
@@ -3041,6 +3249,7 @@
                 </td>
                 <td v-else></td>
               </template>
+
               <template v-if="Object.keys(normalizedPrivileges).length === 0">
                 <td></td>
               </template>
@@ -3364,6 +3573,39 @@
                 <font-awesome-icon :icon="['fa', 'check']" />
               </td>
               <td v-else class="text-center"></td>
+              <td v-if="cadet.passed_medical_examination" class="text-center">
+                <font-awesome-icon :icon="['fa', 'check']" />
+              </td>
+              <td v-else class="text-center"></td>
+              <td v-if="cadet.fit_for_service" class="text-center">
+                <font-awesome-icon :icon="['fa', 'check']" />
+              </td>
+              <td v-else class="text-center"></td>
+
+              <td v-if="cadet.is_enrolled_1" class="text-center">
+                <font-awesome-icon :icon="['fa', 'check']" />
+              </td>
+              <td v-else class="text-center"></td>
+
+              <td v-if="cadet.is_enrolled_2" class="text-center">
+                <font-awesome-icon :icon="['fa', 'check']" />
+              </td>
+              <td v-else class="text-center"></td>
+
+              <template
+                v-if="Object.keys(normalizedAdmissionQuota).length === 0"
+              >
+                <td></td>
+              </template>
+              <template v-else>
+                <td v-if="cadet.enrolled_speciality">
+                  {{
+                    normalizedAdmissionQuota[cadet.enrolled_speciality]
+                      .quota_verbose_name
+                  }}
+                </td>
+                <td v-else></td>
+              </template>
             </tr>
           </tbody>
         </table>
@@ -3704,7 +3946,11 @@ export default {
         },
         {
           fieldName: "Окончательное медицинское освидетельствование",
-          fieldValue: "passed_medical_examination",
+          fieldValue: "get_passed_medical_examination",
+        },
+        {
+          fieldName: "Годен к службе",
+          fieldValue: "get_fit_for_service",
         },
         {
           fieldName: "Дата прохождения медицинской комиссии",

@@ -1978,6 +1978,22 @@
                           </div>
                         </div>
                         <div class="col-xl-2">
+                          <div class="form-check">
+                            <input
+                              id="id_passed_medical_examination"
+                              class="form-check-input"
+                              type="checkbox"
+                              v-model="currentCadetData.fit_for_service"
+                            />
+                            <label
+                              class="form-check-label"
+                              for="id_passed_medical_examination"
+                            >
+                              Годен к службе
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-xl-2">
                           <div class="form-floating mb-3">
                             <input
                               id="id_passed_medical_examination_date"
@@ -1997,8 +2013,7 @@
                             </label>
                           </div>
                         </div>
-
-                        <div class="col-xl-8">
+                        <div class="col-xl-6">
                           <div class="form-floating mb-3">
                             <textarea
                               id="id_passed_medical_examination_extra_data"
@@ -3476,6 +3491,7 @@ export default {
         health_group: "",
         ppfl_test: "",
         medical_age_group: "",
+        fit_for_service: "",
         passed_medical_examination_extra_data: "",
         passed_medical_examination: "",
         passed_medical_examination_date: "",
@@ -3597,10 +3613,10 @@ export default {
             "Значение поля 'Русский язык - колличество баллов по сертификату' не может превышать 100",
             ct_maxValueValue,
           ),
-          ct_minValueValue: helpers.withMessage(
-            "Значение поля 'Русский язык - колличество баллов по сертификату' не может быть меньше 10",
-            ct_minValueValue_10,
-          ),
+          // ct_minValueValue: helpers.withMessage(
+          //   "Значение поля 'Русский язык - колличество баллов по сертификату' не может быть меньше 10",
+          //   ct_minValueValue_10,
+          // ),
           $autoDirty: true,
         },
         bel_score_ct: {
@@ -3608,10 +3624,10 @@ export default {
             "Значение поля 'Белорусский язык - колличество баллов по сертификату' не может превышать 100",
             ct_maxValueValue,
           ),
-          ct_minValueValue: helpers.withMessage(
-            "Значение поля 'Белорусский язык - колличество баллов по сертификату' не может быть меньше 10",
-            ct_minValueValue_10,
-          ),
+          // ct_minValueValue: helpers.withMessage(
+          //   "Значение поля 'Белорусский язык - колличество баллов по сертификату' не может быть меньше 10",
+          //   ct_minValueValue_10,
+          // ),
           $autoDirty: true,
         },
         social_science_score_ct: {
@@ -3619,10 +3635,10 @@ export default {
             "Значение поля 'Обществоведение - колличество баллов по сертификату' не может превышать 100",
             ct_maxValueValue,
           ),
-          ct_minValueValue: helpers.withMessage(
-            "Значение поля 'Обществоведение - колличество баллов по сертификату' не может быть меньше 25",
-            ct_minValueValue_25,
-          ),
+          // ct_minValueValue: helpers.withMessage(
+          //   "Значение поля 'Обществоведение - колличество баллов по сертификату' не может быть меньше 25",
+          //   ct_minValueValue_25,
+          // ),
           $autoDirty: true,
         },
         foreign_lang_score_ct: {
@@ -3630,10 +3646,10 @@ export default {
             "Значение поля 'Иностранный язык - колличество баллов по сертификату' не может превышать 100",
             ct_maxValueValue,
           ),
-          ct_minValueValue: helpers.withMessage(
-            "Значение поля 'Иностранный язык - колличество баллов по сертификату' не может быть меньше 15",
-            ct_minValueValue_15,
-          ),
+          // ct_minValueValue: helpers.withMessage(
+          //   "Значение поля 'Иностранный язык - колличество баллов по сертификату' не может быть меньше 15",
+          //   ct_minValueValue_15,
+          // ),
           $autoDirty: true,
         },
         rus_score_cert: {
