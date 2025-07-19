@@ -2071,7 +2071,6 @@ export default {
       this.selectedFieldsForDataExport = []
     },
     async exportData(destination) {
-      console.log(destination)
       if (this.selectedFieldsForDataExport.length === 0) {
         alert("Выберите хотя бы одно поле для экспорта!")
       } else {
@@ -2082,7 +2081,9 @@ export default {
         export_data.fields_for_export =
           this.selectedFieldsForDataExport.toString()
         export_data.destination = destination
-        export_data.ordering = this.searchForm.ordering
+        if (this.searchForm.ordering) {
+          export_data.ordering = this.searchForm.ordering.replace(",id", "")
+        }
 
         this.fpkprkAPIInstance.list_export(export_data).then((response) => {
           const url = window.URL.createObjectURL(new Blob([response.data]))
@@ -2192,7 +2193,7 @@ export default {
       )
     },
     setOrdering(fieldName) {
-      this.searchForm.ordering = fieldName
+      this.searchForm.ordering = fieldName + ",id"
     },
   },
   computed: {
