@@ -4117,7 +4117,7 @@ export default {
       )
     },
     setOrdering(fieldName) {
-      this.searchForm.ordering = fieldName
+      this.searchForm.ordering = fieldName + ",id"
     },
   },
   computed: {
