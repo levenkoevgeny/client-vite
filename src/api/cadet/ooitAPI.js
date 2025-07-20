@@ -45,6 +45,13 @@ class ooitAPI {
       { responseType: "blob" },
     )
   }
+
+  async makeEnrollmentReserve() {
+    return axios.get(
+      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/enrollment-reserve/`,
+      { responseType: "blob" },
+    )
+  }
 }
 
 export default function getOOITAPIInstance() {

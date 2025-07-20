@@ -2172,7 +2172,7 @@
               </th>
               <th scope="col">
                 <div class="d-flex flex-row align-items-center">
-                  <span class="text-nowrap">Зачислен 1</span>
+                  <span class="text-nowrap">Предворительно зачислен</span>
                   <div class="dropdown">
                     <button
                       class="btn dropdown-toggle"
@@ -2203,7 +2203,7 @@
               </th>
               <th scope="col">
                 <div class="d-flex flex-row align-items-center">
-                  <span class="text-nowrap">Зачислен 2</span>
+                  <span class="text-nowrap">Окончательно зачислен</span>
                   <div class="dropdown">
                     <button
                       class="btn dropdown-toggle"
@@ -4059,6 +4059,10 @@ export default {
         {
           fieldName: "Зачислен на специальность",
           fieldValue: "get_enrolled_speciality",
+        },
+        {
+          fieldName: "Резерв",
+          fieldValue: "is_reserve",
         },
       ],
       selectedFieldsForDataExport: ["last_name_rus", "first_name_rus"],

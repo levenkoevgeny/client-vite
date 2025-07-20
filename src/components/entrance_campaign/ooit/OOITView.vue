@@ -165,6 +165,16 @@
                 <span v-if="isEnrolling"> Loading ... </span>
                 <span v-else> Зачисление по сумме баллов</span>
               </button>
+              <button
+                type="button"
+                class="btn btn-primary mb-3"
+                @click="makeEnrollmentReserve"
+                :disabled="isEnrolling"
+                style="width: 30%"
+              >
+                <span v-if="isEnrolling"> Loading ... </span>
+                <span v-else> Сделать резерв</span>
+              </button>
             </div>
           </div>
         </div>
@@ -281,6 +291,19 @@ export default {
         const link = document.createElement("a")
         link.href = url
         link.setAttribute("download", `enrollment_score_data.docx`)
+        document.body.appendChild(link)
+        link.click()
+        this.isEnrolling = false
+      })
+    },
+
+    makeEnrollmentReserve() {
+      this.isEnrolling = true
+      this.ooitAPIInstance.makeEnrollmentReserve().then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]))
+        const link = document.createElement("a")
+        link.href = url
+        link.setAttribute("download", `enrollment_reserve.docx`)
         document.body.appendChild(link)
         link.click()
         this.isEnrolling = false
