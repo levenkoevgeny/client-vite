@@ -3,6 +3,7 @@ import { getLocalToken, saveLocalToken, removeLocalToken } from "@/utils"
 
 const state = () => ({
   token: null,
+  refreshToken: null,
   isLoggedIn: false,
   isLogInError: null,
   user: { is_preloaded_data: true, is_staff: false },
@@ -12,6 +13,9 @@ const state = () => ({
 const getters = {
   getToken(state) {
     return state.token
+  },
+  getRefreshToken(state) {
+    return state.refreshToken
   },
   getIsLoggedIn(state) {
     return state.isLoggedIn
@@ -35,9 +39,11 @@ const actions = {
       const response = await authApi.logInGetToken(username, password)
       const data = await response.data
       const token = data.access
+      const refreshToken = data.refresh
       if (token) {
         saveLocalToken(token)
         commit("setToken", token)
+        commit("setRefreshToken", refreshToken)
         commit("setLoggedIn", true)
         commit("setIsLogInError", false)
 
@@ -88,6 +94,9 @@ const mutations = {
   },
   setToken(state, payload) {
     state.token = payload
+  },
+  setRefreshToken(state, payload) {
+    state.refreshToken = payload
   },
   setUserData(state, payload) {
     state.user = payload

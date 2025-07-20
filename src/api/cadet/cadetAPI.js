@@ -210,6 +210,7 @@ const searchObj = {
   is_enrolled_1: "",
   is_enrolled_2: "",
   enrolled_speciality__in: "",
+  is_reserve: "",
   ordering: null,
 }
 

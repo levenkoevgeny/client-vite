@@ -2273,6 +2273,76 @@
                   </div>
                 </div>
               </th>
+              <th scope="col">
+                <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap">Резерв</span>
+                  <div class="dropdown">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('is_reserve')"
+                        >
+                          А -> Я
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('-is_reserve')"
+                        >
+                          Я -> А
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap">Область для мед. ком.</span>
+                  <div class="dropdown">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="
+                            setOrdering(
+                              'region_for_medical_examination__country_region',
+                            )
+                          "
+                        >
+                          А -> Я
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="
+                            setOrdering(
+                              '-region_for_medical_examination__country_region',
+                            )
+                          "
+                        >
+                          Я -> А
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
             </tr>
             <tr>
               <th></th>
@@ -3158,6 +3228,23 @@
                   multiple
                 />
               </th>
+
+              <th>
+                <select class="form-select" v-model="searchForm.is_reserve">
+                  <option selected value="">-------</option>
+                  <option value="true" key="1">Да</option>
+                  <option value="false" key="0">Нет</option>
+                </select>
+              </th>
+              <th>
+                <v-select
+                  v-model="searchForm.region_for_medical_examination__in"
+                  :options="orderedCountryRegions"
+                  label="country_region"
+                  :reduce="(country_region) => country_region.id"
+                  multiple
+                />
+              </th>
             </tr>
           </thead>
 
@@ -3606,6 +3693,12 @@
                 </td>
                 <td v-else></td>
               </template>
+
+              <td v-if="cadet.is_reserve" class="text-center">
+                <font-awesome-icon :icon="['fa', 'check']" />
+              </td>
+              <td v-else class="text-center"></td>
+              <td>{{ cadet.get_region_for_medical_examination }}</td>
             </tr>
           </tbody>
         </table>
@@ -3961,6 +4054,12 @@ export default {
           fieldValue: "passed_medical_examination_extra_data",
         },
         { fieldName: "Возраст", fieldValue: "get_age" },
+        { fieldName: "Предварительно зачислен", fieldValue: "is_enrolled_1" },
+        { fieldName: "Окончательно зачислен", fieldValue: "is_enrolled_2" },
+        {
+          fieldName: "Зачислен на специальность",
+          fieldValue: "get_enrolled_speciality",
+        },
       ],
       selectedFieldsForDataExport: ["last_name_rus", "first_name_rus"],
       searchForm: Object.assign(
@@ -4215,6 +4314,9 @@ export default {
     orderedMedals() {
       return this.medals.results
     },
+    orderedCountryRegions() {
+      return this.countryRegions.results
+    },
     ...mapGetters({
       componentOrgans: "componentOrgans/getList",
       passportIssueAuthorities: "passportAuthorities/getList",
@@ -4230,6 +4332,7 @@ export default {
       healthGroups: "healthGroup/getList",
       vpkCategories: "vpkCategories/getList",
       medals: "medals/getList",
+      countryRegions: "countryRegion/getList",
       isCommonLoading: "common/getIsCommonLoading",
     }),
   },

@@ -64,6 +64,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons"
 import { faAddressCard } from "@fortawesome/free-solid-svg-icons"
 import axios from "axios"
 import "../public/vue-select.css"
+
 export const axiosInstance = axios.create()
 
 library.add(faSliders)
@@ -149,6 +150,32 @@ axiosInstance.interceptors.response.use(
     }
     switch (error.response.status) {
       case 401:
+        // const originalRequest = error.config
+
+        // if (!originalRequest._retry) {
+        //   originalRequest._retry = true
+        //
+        //   try {
+        //     const response = await axiosInstance.post(
+        //       `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/token/refresh/`,
+        //       { refresh: store.getters["auth/getRefreshToken"] },
+        //     )
+        //     console.log(store.getters["auth/getRefreshToken"])
+        //     console.log(response.data.access)
+        //     store.commit("auth/setToken", response.data.access)
+        //     return axiosInstance(originalRequest)
+        //   } catch (e) {
+        //     store.commit("errors/setErrorList", {
+        //       errorCode: "token_not_valid",
+        //       errorStatus: error.status,
+        //       errorMessage: "Ошибка авторизации",
+        //     })
+        //     await store.dispatch("auth/actionRemoveLogIn")
+        //     await router.replace({ name: "login" })
+        //     break
+        //   }
+        // }
+
         if (error.response.data.code) {
           store.commit("errors/setErrorList", {
             errorCode: "token_not_valid",
@@ -161,10 +188,10 @@ axiosInstance.interceptors.response.use(
             errorMessage: "Ошибка авторизации",
           })
         }
-
         await store.dispatch("auth/actionRemoveLogIn")
         await router.replace({ name: "login" })
         break
+
       case 403:
         store.commit("errors/setErrorList", {
           errorStatus: error.status,

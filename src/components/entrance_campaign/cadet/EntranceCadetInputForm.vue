@@ -2435,17 +2435,6 @@
                     </div>
                     <div class="form-check mb-3">
                       <input
-                        id="id_is_reserve"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentCadetData.is_reserve"
-                      />
-                      <label class="form-check-label" for="id_is_reserve"
-                        >Резерв</label
-                      >
-                    </div>
-                    <div class="form-check mb-3">
-                      <input
                         id="id_is_fired"
                         class="form-check-input"
                         type="checkbox"
@@ -2505,6 +2494,7 @@
                       id="id_s1"
                       class="form-select"
                       v-model="currentCadetData.speciality_1"
+                      disabled
                     >
                       <option :value="null">---------</option>
                       <option
@@ -3304,7 +3294,7 @@
               <div class="card shadow mb-2 rounded border-0">
                 <div class="card-body">
                   <div class="row">
-                    <div class="col-4">
+                    <div class="col-3">
                       <div class="form-check mb-3">
                         <input
                           id="id_is_enrolled_1"
@@ -3317,7 +3307,7 @@
                         >
                       </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-3">
                       <div class="form-check mb-3">
                         <input
                           id="id_is_enrolled_2"
@@ -3330,7 +3320,21 @@
                         >
                       </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-3">
+                      <div class="form-check mb-3">
+                        <input
+                          id="id_is_reserve"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="currentCadetData.is_reserve"
+                        />
+                        <label class="form-check-label" for="id_is_reserve"
+                          >Резерв</label
+                        >
+                      </div>
+                    </div>
+
+                    <div class="col-3">
                       <div class="form-floating mb-3">
                         <select
                           id="id_s1"
