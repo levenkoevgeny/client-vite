@@ -3353,6 +3353,24 @@
                           >Специальность на которую поступил</label
                         >
                       </div>
+                      <div class="form-floating mb-3">
+                        <select
+                          id="id_s1"
+                          class="form-select"
+                          v-model="currentCadetData.enrolled_privilege"
+                        >
+                          <option :value="null">---------</option>
+                          <option
+                            :value="privilege.id"
+                            v-for="privilege in orderedPrivileges"
+                          >
+                            {{ privilege.privilege }}
+                          </option>
+                        </select>
+                        <label for="id_s1"
+                          >Льгота, которой воспользовался</label
+                        >
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -3555,6 +3573,7 @@ export default {
         privilege_9: "",
         get_score_sum: "",
         enrolled_speciality: "",
+        enrolled_privilege: "",
         is_enrolled_1: "",
         is_enrolled_2: "",
       },

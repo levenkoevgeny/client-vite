@@ -210,7 +210,10 @@ const searchObj = {
   is_enrolled_1: "",
   is_enrolled_2: "",
   enrolled_speciality__in: "",
+  enrolled_privilege__in: "",
   is_reserve: "",
+  passed_medical_examination_date__gte: "",
+  passed_medical_examination_date__lte: "",
   ordering: null,
 }
 
@@ -226,5 +229,6 @@ export const globalCadetAPIInstanceForPassOffice = new CadetAPI(
 export const globalCadetAPIForEntranceInstance = new CadetAPI("cadet", {
   ...searchObj,
   category: 3,
-  is_active: "",
+  is_active: "true",
+  educational_institution__in: [1, 2],
 })

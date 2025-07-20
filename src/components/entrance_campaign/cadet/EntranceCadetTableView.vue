@@ -2141,6 +2141,43 @@
               </th>
               <th scope="col">
                 <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap"
+                    >Окончательное мед. освид. (дата)</span
+                  >
+                  <div class="dropdown">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="
+                            setOrdering('passed_medical_examination_date')
+                          "
+                        >
+                          А -> Я
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="
+                            setOrdering('-passed_medical_examination_date')
+                          "
+                        >
+                          Я -> А
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex flex-row align-items-center">
                   <span class="text-nowrap">Годен к службе</span>
                   <div class="dropdown">
                     <button
@@ -2250,7 +2287,7 @@
                           class="dropdown-item"
                           @click="
                             setOrdering(
-                              'enrolled_speciality_quota__verbose_name',
+                              'enrolled_speciality__quota_verbose_name',
                             )
                           "
                         >
@@ -2262,9 +2299,42 @@
                           class="dropdown-item"
                           @click="
                             setOrdering(
-                              '-enrolled_speciality_quota__verbose_name',
+                              '-enrolled_speciality__quota_verbose_name',
                             )
                           "
+                        >
+                          Я -> А
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap"
+                    >Льгота, которой воспользовался</span
+                  >
+                  <div class="dropdown">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('enrolled_privilege__privilege')"
+                        >
+                          А -> Я
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('-enrolled_privilege__privilege')"
                         >
                           Я -> А
                         </button>
@@ -3195,6 +3265,22 @@
                   <option value="false" key="0">Нет</option>
                 </select>
               </th>
+
+              <th>
+                <div class="d-flex justify-content-center align-items-center">
+                  <input
+                    type="date"
+                    class="form-control me-2"
+                    v-model="searchForm.passed_medical_examination_date__gte"
+                  />
+                  <input
+                    type="date"
+                    class="form-control"
+                    v-model="searchForm.passed_medical_examination_date__lte"
+                  />
+                </div>
+              </th>
+
               <th>
                 <select
                   class="form-select"
@@ -3225,6 +3311,16 @@
                   :options="orderedAdmissionQuotas"
                   label="quota_verbose_name"
                   :reduce="(quota) => quota.id"
+                  multiple
+                />
+              </th>
+
+              <th>
+                <v-select
+                  v-model="searchForm.enrolled_privilege__in"
+                  :options="orderedPrivileges"
+                  label="privilege"
+                  :reduce="(privilege) => privilege.id"
                   multiple
                 />
               </th>
@@ -3664,6 +3760,22 @@
                 <font-awesome-icon :icon="['fa', 'check']" />
               </td>
               <td v-else class="text-center"></td>
+              <td
+                v-if="cadet.passed_medical_examination_date"
+                class="text-center"
+              >
+                {{
+                  new Date(
+                    cadet.passed_medical_examination_date,
+                  ).toLocaleString("ru-RU", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                  })
+                }}
+              </td>
+              <td v-else></td>
+
               <td v-if="cadet.fit_for_service" class="text-center">
                 <font-awesome-icon :icon="['fa', 'check']" />
               </td>
@@ -3690,6 +3802,16 @@
                     normalizedAdmissionQuota[cadet.enrolled_speciality]
                       .quota_verbose_name
                   }}
+                </td>
+                <td v-else></td>
+              </template>
+
+              <template v-if="Object.keys(normalizedPrivileges).length === 0">
+                <td></td>
+              </template>
+              <template v-else>
+                <td v-if="cadet.enrolled_privilege" class="text-center">
+                  {{ normalizedPrivileges[cadet.enrolled_privilege].privilege }}
                 </td>
                 <td v-else></td>
               </template>
