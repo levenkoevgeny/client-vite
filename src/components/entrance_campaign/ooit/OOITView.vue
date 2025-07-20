@@ -147,13 +147,23 @@
               </button>
               <button
                 type="button"
-                class="btn btn-primary"
+                class="btn btn-primary mb-3"
                 @click="makeEnrollmentABC"
                 :disabled="isEnrolling"
                 style="width: 30%"
               >
                 <span v-if="isEnrolling"> Loading ... </span>
                 <span v-else> Зачисление по алфавиту</span>
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary mb-3"
+                @click="makeEnrollmentScore"
+                :disabled="isEnrolling"
+                style="width: 30%"
+              >
+                <span v-if="isEnrolling"> Loading ... </span>
+                <span v-else> Зачисление по сумме баллов</span>
               </button>
             </div>
           </div>
@@ -259,6 +269,18 @@ export default {
         const link = document.createElement("a")
         link.href = url
         link.setAttribute("download", `enrollment_abc_data.docx`)
+        document.body.appendChild(link)
+        link.click()
+        this.isEnrolling = false
+      })
+    },
+    makeEnrollmentScore() {
+      this.isEnrolling = true
+      this.ooitAPIInstance.makeEnrollmentScore().then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]))
+        const link = document.createElement("a")
+        link.href = url
+        link.setAttribute("download", `enrollment_score_data.docx`)
         document.body.appendChild(link)
         link.click()
         this.isEnrolling = false
