@@ -578,6 +578,24 @@
               >
             </h3>
           </div>
+          <div>
+            <h1
+              v-if="currentCadetData.enrolled_speciality"
+              class="bg-success p-2 rounded-3 text-white"
+            >
+              Предварительно зачислен -
+              {{ currentCadetData.get_enrolled_speciality }}
+            </h1>
+            <h1
+              v-else-if="currentCadetData.is_reserve"
+              class="bg-warning p-2 rounded-3 text-white"
+            >
+              Резерв
+            </h1>
+            <h1 v-else class="bg-danger p-2 rounded-3 text-white">
+              Не поступил
+            </h1>
+          </div>
         </div>
         <div class="d-flex flex-row justify-content-end align-items-center">
           <div
