@@ -1269,6 +1269,78 @@
                 </div>
               </th>
 
+              <th scope="col" class="text-center" style="min-width: 250px">
+                <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap">Образование (город/село)</span>
+                  <div class="dropdown">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="
+                            setOrdering(
+                              'education_location_kind__education_location_kind',
+                            )
+                          "
+                        >
+                          А -> Я
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="
+                            setOrdering(
+                              '-education_location_kind__education_location_kind',
+                            )
+                          "
+                        >
+                          Я -> А
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
+
+              <th scope="col">
+                <div class="d-flex flex-row align-items-center">
+                  <nobr>Год окончания</nobr>
+                  <div class="dropdown">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('education_graduating_end_year')"
+                        >
+                          меньш. -> больш.
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('-education_graduating_end_year')"
+                        >
+                          больш. -> меньш.
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
+
               <th scope="col">
                 <div class="d-flex flex-row align-items-center">
                   <span class="text-nowrap"
@@ -2530,6 +2602,7 @@
                   multiple
                 />
               </th>
+
               <th>
                 <v-select
                   v-model="searchForm.component_organ__in"
@@ -2752,6 +2825,32 @@
                   multiple
                 />
               </th>
+
+              <th>
+                <v-select
+                  v-model="searchForm.education_location_kind__in"
+                  :options="orderedEducationLocalityKinds"
+                  label="education_location_kind"
+                  :reduce="(educationLocalityKind) => educationLocalityKind.id"
+                  multiple
+                />
+              </th>
+
+              <th>
+                <div class="d-flex justify-content-center align-items-center">
+                  <input
+                    type="text"
+                    class="form-control me-2"
+                    v-model="searchForm.education_graduating_end_year__gte"
+                  />
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="searchForm.education_graduating_end_year__lte"
+                  />
+                </div>
+              </th>
+
               <th>
                 <v-select
                   v-model="searchForm.ppfl_test__in"
@@ -3647,6 +3746,14 @@
                 <td v-else></td>
               </template>
 
+              <td class="text-center">
+                {{ cadet.get_education_location_kind }}
+              </td>
+
+              <td class="text-center">
+                {{ cadet.education_graduating_end_year }}
+              </td>
+
               <template
                 v-if="Object.keys(normalizedPpflCategories).length === 0"
               >
@@ -4443,6 +4550,9 @@ export default {
     orderedCountryRegions() {
       return this.countryRegions.results
     },
+    orderedEducationLocalityKinds() {
+      return this.educationLocalityKinds.results
+    },
     ...mapGetters({
       componentOrgans: "componentOrgans/getList",
       passportIssueAuthorities: "passportAuthorities/getList",
@@ -4459,6 +4569,7 @@ export default {
       vpkCategories: "vpkCategories/getList",
       medals: "medals/getList",
       countryRegions: "countryRegion/getList",
+      educationLocalityKinds: "educationLocalityKind/getList",
       isCommonLoading: "common/getIsCommonLoading",
     }),
   },

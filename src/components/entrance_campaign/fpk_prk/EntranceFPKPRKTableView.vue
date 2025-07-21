@@ -2254,6 +2254,9 @@ export default {
       this.admissionQuotas.results.map((item) => (normObj[item.id] = item))
       return normObj
     },
+    orderedEducationLocalityKinds() {
+      return this.educationLocalityKinds.results
+    },
     ...mapGetters({
       componentOrgans: "componentOrgans/getList",
       passportIssueAuthorities: "passportAuthorities/getList",
@@ -2263,6 +2266,7 @@ export default {
       educationalInstitutions: "educationalInstitutions/getList",
       gorovds: "gorovds/getList",
       admissionQuotas: "admissionQuota/getList",
+      educationLocalityKinds: "educationLocalityKind/getList",
       ranks: "ranks/getList",
     }),
   },

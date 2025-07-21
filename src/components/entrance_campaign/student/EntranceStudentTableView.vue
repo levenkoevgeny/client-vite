@@ -700,6 +700,7 @@
                     </div>
                   </div>
                 </th>
+
                 <th scope="col" class="text-center" style="min-width: 250px">
                   <div class="d-flex flex-row align-items-center">
                     <span class="text-nowrap">Уровень образования</span>
@@ -1627,6 +1628,7 @@
                     multiple
                   />
                 </th>
+
                 <th>
                   <v-select
                     v-model="searchForm.education_level__in"
