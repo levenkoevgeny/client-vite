@@ -2067,7 +2067,7 @@ export default {
   data() {
     return {
       isLoading: true,
-      isLoadingMore: true,
+      isLoadingMore: false,
       isError: false,
       isExporting: false,
       isDocumentProcessing: false,
