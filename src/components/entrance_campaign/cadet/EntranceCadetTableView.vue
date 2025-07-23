@@ -2281,7 +2281,7 @@
               </th>
               <th scope="col">
                 <div class="d-flex flex-row align-items-center">
-                  <span class="text-nowrap">Предворительно зачислен</span>
+                  <span class="text-nowrap">Предварительно зачислен</span>
                   <div class="dropdown">
                     <button
                       class="btn dropdown-toggle"
@@ -2438,6 +2438,37 @@
                         <button
                           class="dropdown-item"
                           @click="setOrdering('-is_reserve')"
+                        >
+                          Я -> А
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap">Забрал документы</span>
+                  <div class="dropdown">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('took_documents')"
+                        >
+                          А -> Я
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('-took_documents')"
                         >
                           Я -> А
                         </button>
@@ -3432,6 +3463,13 @@
                 </select>
               </th>
               <th>
+                <select class="form-select" v-model="searchForm.took_documents">
+                  <option selected value="">-------</option>
+                  <option value="true" key="1">Да</option>
+                  <option value="false" key="0">Нет</option>
+                </select>
+              </th>
+              <th>
                 <v-select
                   v-model="searchForm.region_for_medical_examination__in"
                   :options="orderedCountryRegions"
@@ -3927,6 +3965,10 @@
                 <font-awesome-icon :icon="['fa', 'check']" />
               </td>
               <td v-else class="text-center"></td>
+              <td v-if="cadet.took_documents" class="text-center">
+                <font-awesome-icon :icon="['fa', 'check']" />
+              </td>
+              <td v-else class="text-center"></td>
               <td>{{ cadet.get_region_for_medical_examination }}</td>
             </tr>
           </tbody>
@@ -4257,6 +4299,10 @@ export default {
         { fieldName: "Льгота 7", fieldValue: "get_privilege_7" },
         { fieldName: "Льгота 8", fieldValue: "get_privilege_8" },
         { fieldName: "Льгота 9", fieldValue: "get_privilege_9" },
+        {
+          fieldName: "Льгота, которой воспользовался",
+          fieldValue: "get_enrolled_privilege",
+        },
         { fieldName: "Группа здоровья", fieldValue: "get_health_group" },
         {
           fieldName: "Категория профессионального соответствия",

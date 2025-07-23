@@ -212,6 +212,7 @@ const searchObj = {
   enrolled_speciality__in: "",
   enrolled_privilege__in: "",
   is_reserve: "",
+  took_documents: "",
   passed_medical_examination_date__gte: "",
   passed_medical_examination_date__lte: "",
   ordering: null,
