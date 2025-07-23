@@ -515,79 +515,67 @@
                 <th scope="col">
                   <div class="d-flex flex-row align-items-center">
                     <span class="text-nowrap"
-                      >Категория профессионального соответствия</span
+                      >Группа по физической культуре</span
                     >
+                    <div class="dropdown">
+                      <button
+                        class="btn dropdown-toggle"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      ></button>
+                      <ul class="dropdown-menu">
+                        <li>
+                          <button
+                            class="dropdown-item"
+                            @click="setOrdering('ppfl_test__category')"
+                          >
+                            А -> Я
+                          </button>
+                        </li>
+                        <li>
+                          <button
+                            class="dropdown-item"
+                            @click="setOrdering('-ppfl_test__category')"
+                          >
+                            Я -> А
+                          </button>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </th>
                 <th scope="col">
                   <div class="d-flex flex-row align-items-center">
-                    <span class="text-nowrap">Группа предназначения</span>
+                    <span class="text-nowrap">Группа здоровья</span>
+                    <div class="dropdown">
+                      <button
+                        class="btn dropdown-toggle"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      ></button>
+                      <ul class="dropdown-menu">
+                        <li>
+                          <button
+                            class="dropdown-item"
+                            @click="setOrdering('health_group__health_group')"
+                          >
+                            А -> Я
+                          </button>
+                        </li>
+                        <li>
+                          <button
+                            class="dropdown-item"
+                            @click="setOrdering('-health_group__health_group')"
+                          >
+                            Я -> А
+                          </button>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </th>
-
-                <!--              <th scope="col">-->
-                <!--                <span class="text-nowrap">Место рождения</span>-->
-                <!--              </th>-->
-                <!--              <th scope="col">-->
-                <!--                <span class="text-nowrap">Адрес регистрации</span>-->
-                <!--              </th>-->
-                <!--              <th scope="col">-->
-                <!--                <span class="text-nowrap">Адрес места жительства</span>-->
-                <!--              </th>-->
-                <!--              <th scope="col">-->
-                <!--                <span class="text-nowrap">Номер телефона</span>-->
-                <!--              </th>-->
-                <!--              <th scope="col">-->
-                <!--                <span class="text-nowrap">Номер паспорта</span>-->
-                <!--              </th>-->
-                <!--              <th scope="col">-->
-                <!--                <span class="text-nowrap">Паспорт (дата выдачи)</span>-->
-                <!--              </th>-->
-                <!--              <th scope="col">-->
-                <!--                <span class="text-nowrap">Паспорт (срок действия)</span>-->
-                <!--              </th>-->
-                <!--              <th scope="col">-->
-                <!--                <span class="text-nowrap">Паспорт (орган выдачи)</span>-->
-                <!--              </th>-->
-                <!--              <th scope="col">-->
-                <!--                <span class="text-nowrap">Идентификационный номер</span>-->
-                <!--              </th>-->
-                <!--              <th scope="col">-->
-                <!--                <span class="text-nowrap">Отец (фамилия)</span>-->
-                <!--              </th>-->
-                <!--              <th scope="col">-->
-                <!--                <span class="text-nowrap">Отец (имя)</span>-->
-                <!--              </th>-->
-                <!--              <th scope="col">-->
-                <!--                <span class="text-nowrap">Отец (отчество)</span>-->
-                <!--              </th>-->
-                <!--              <th scope="col">-->
-                <!--                <span class="text-nowrap">Отец (дата рождекния)</span>-->
-                <!--              </th>-->
-                <!--              <th scope="col">-->
-                <!--                <span class="text-nowrap">Отец (место работы)</span>-->
-                <!--              </th>-->
-                <!--              <th scope="col">-->
-                <!--                <span class="text-nowrap">Отец (номер телефона)</span>-->
-                <!--              </th>-->
-                <!--              <th scope="col">-->
-                <!--                <span class="text-nowrap">Мать (фамилия)</span>-->
-                <!--              </th>-->
-                <!--              <th scope="col">-->
-                <!--                <span class="text-nowrap">Мать (имя)</span>-->
-                <!--              </th>-->
-                <!--              <th scope="col">-->
-                <!--                <span class="text-nowrap">Мать (отчество)</span>-->
-                <!--              </th>-->
-                <!--              <th scope="col">-->
-                <!--                <span class="text-nowrap">Мать (дата рождекния)</span>-->
-                <!--              </th>-->
-                <!--              <th scope="col">-->
-                <!--                <span class="text-nowrap">Мать (место работы)</span>-->
-                <!--              </th>-->
-                <!--              <th scope="col">-->
-                <!--                <span class="text-nowrap">Мать (номер телефона)</span>-->
-                <!--              </th>-->
                 <th scope="col">
                   <span class="text-nowrap"
                     >Иностранный язык (изучал в школе)</span
@@ -1299,6 +1287,37 @@
                     <span class="text-nowrap">Специальность</span>
                   </div>
                 </th>
+                <th scope="col" style="min-width: 450px">
+                  <div class="d-flex flex-row align-items-center">
+                    <span class="text-nowrap">Примечание по личному делу</span>
+                    <div class="dropdown">
+                      <button
+                        class="btn dropdown-toggle"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      ></button>
+                      <ul class="dropdown-menu">
+                        <li>
+                          <button
+                            class="dropdown-item"
+                            @click="setOrdering('extra_data')"
+                          >
+                            А -> Я
+                          </button>
+                        </li>
+                        <li>
+                          <button
+                            class="dropdown-item"
+                            @click="setOrdering('-extra_data')"
+                          >
+                            Я -> А
+                          </button>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </th>
               </tr>
 
               <tr>
@@ -1466,13 +1485,17 @@
                 <th>
                   <select class="form-select" v-model="searchForm.health_group">
                     <option value="">-----</option>
-                    <option
-                      v-for="item in orderedHealthGroups"
-                      :value="item.id"
-                      :key="item.id"
-                    >
-                      {{ item.health_group }}
-                    </option>
+                    <option value="1" key="1">1</option>
+                    <option value="2" key="2">2</option>
+                    <option value="3" key="3">3</option>
+
+                    <!--                    <option-->
+                    <!--                      v-for="item in orderedHealthGroups"-->
+                    <!--                      :value="item.id"-->
+                    <!--                      :key="item.id"-->
+                    <!--                    >-->
+                    <!--                      {{ item.health_group }}-->
+                    <!--                    </option>-->
                   </select>
                 </th>
                 <!--              <th>-->
@@ -1854,6 +1877,15 @@
                     multiple
                   />
                 </th>
+
+                <th>
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="searchForm.extra_data__icontains"
+                    style="width: 100%"
+                  />
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -2044,6 +2076,7 @@
                   </td>
                   <td v-else></td>
                 </template>
+                <td class="text-center">{{ student.extra_data }}</td>
               </tr>
             </tbody>
           </table>
@@ -2196,7 +2229,7 @@ export default {
           fieldValue: "get_health_group",
         },
         {
-          fieldName: "Категория профессионального соответствия",
+          fieldName: "Группа по физичевкой культуре",
           fieldValue: "get_ppfl_test",
         },
         {
@@ -2520,12 +2553,12 @@ export default {
     },
     orderedPpflCategories() {
       return this.ppflCategories.results.filter(
-        (category) => category.ownership_category === "1",
+        (category) => category.ownership_category === "3",
       )
     },
     orderedHealthGroups() {
       return this.healthGroups.results.filter(
-        (group) => group.ownership_category === "1",
+        (group) => group.ownership_category === "3",
       )
     },
     orderedVpkCategories() {
