@@ -468,6 +468,38 @@
 
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
+                <span class="text-nowrap">Наименование УВО</span>
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('education_graduated')"
+                      >
+                        А -> Я
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('-education_graduated')"
+                      >
+                        Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
+
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
                 <span class="text-nowrap">Примечания для отдела кадров</span>
               </div>
             </th>
@@ -1298,6 +1330,15 @@
               <input
                 type="text"
                 class="form-control"
+                v-model="searchForm.education_graduated__icontains"
+                style="width: 350px"
+              />
+            </th>
+
+            <th>
+              <input
+                type="text"
+                class="form-control"
                 v-model="searchForm.extra_data__icontains"
               />
             </th>
@@ -1720,6 +1761,7 @@
             </td>
             <td v-else></td>
             <td>{{ fpkprk.get_gender }}</td>
+            <td>{{ fpkprk.education_graduated }}</td>
             <td>{{ fpkprk.extra_data }}</td>
             <td>{{ fpkprk.comments_on_personal_file }}</td>
             <td>{{ fpkprk.last_name_rus }}</td>
