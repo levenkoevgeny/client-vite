@@ -1485,9 +1485,9 @@
                 <th>
                   <select class="form-select" v-model="searchForm.health_group">
                     <option value="">-----</option>
-                    <option value="1" key="1">1</option>
-                    <option value="2" key="2">2</option>
-                    <option value="3" key="3">3</option>
+                    <option :value="8" :key="8">1</option>
+                    <option :value="1" :key="1">2</option>
+                    <option :value="3" :key="3">3</option>
 
                     <!--                    <option-->
                     <!--                      v-for="item in orderedHealthGroups"-->
@@ -2132,10 +2132,6 @@ export default {
         {
           fieldName: "Срок действия паспорта",
           fieldValue: "passport_validity_period",
-        },
-        {
-          fieldName: "Орган выдачи паспорта",
-          fieldValue: "get_passport_issue_authority",
         },
         {
           fieldName: "Орган выдачи паспорта (текстом)",
