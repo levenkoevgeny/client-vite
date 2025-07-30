@@ -62,6 +62,21 @@ class CadetAPI extends BaseAPI {
       `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/?category=3&quota_1_speciality=${speciality_1}&quota_1_subdivision=${subdivision}&has_visited=true&ordering=has_visited_date_time&limit=10000`,
     )
   }
+
+  async makeStudentRecordBook(items) {
+    return axios.post(
+      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/make_student_record_book/`,
+      { selected_items: items },
+    )
+  }
+
+  async makeStudentCard(items) {
+    return axios.post(
+      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/make_student_card/`,
+      { selected_items: items },
+      { responseType: "blob" },
+    )
+  }
 }
 
 const searchObj = {
@@ -211,6 +226,8 @@ const searchObj = {
   is_enrolled_2: "",
   enrolled_speciality__in: "",
   enrolled_privilege__in: "",
+  enrolled_speciality_2__in: "",
+  enrolled_privilege_2__in: "",
   is_reserve: "",
   took_documents: "",
   passed_medical_examination_date__gte: "",

@@ -2312,39 +2312,8 @@
               </th>
               <th scope="col">
                 <div class="d-flex flex-row align-items-center">
-                  <span class="text-nowrap">Окончательно зачислен</span>
-                  <div class="dropdown">
-                    <button
-                      class="btn dropdown-toggle"
-                      type="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    ></button>
-                    <ul class="dropdown-menu">
-                      <li>
-                        <button
-                          class="dropdown-item"
-                          @click="setOrdering('is_enrolled_2')"
-                        >
-                          А -> Я
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          class="dropdown-item"
-                          @click="setOrdering('-is_enrolled_2')"
-                        >
-                          Я -> А
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </th>
-              <th scope="col">
-                <div class="d-flex flex-row align-items-center">
                   <span class="text-nowrap"
-                    >Специальность, на которую зачислен</span
+                    >Специальность, на которую зачислен (предварительно)</span
                   >
                   <div class="dropdown">
                     <button
@@ -2385,7 +2354,7 @@
               <th scope="col">
                 <div class="d-flex flex-row align-items-center">
                   <span class="text-nowrap"
-                    >Льгота, которой воспользовался</span
+                    >Льгота, которой воспользовался (предварительно)</span
                   >
                   <div class="dropdown">
                     <button
@@ -2415,6 +2384,115 @@
                   </div>
                 </div>
               </th>
+              <th scope="col">
+                <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap">Окончательно зачислен</span>
+                  <div class="dropdown">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('is_enrolled_2')"
+                        >
+                          А -> Я
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('-is_enrolled_2')"
+                        >
+                          Я -> А
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
+
+              <th scope="col">
+                <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap"
+                    >Специальность, на которую зачисленс (окончательно)</span
+                  >
+                  <div class="dropdown">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="
+                            setOrdering(
+                              'enrolled_speciality_2__quota_verbose_name',
+                            )
+                          "
+                        >
+                          А -> Я
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="
+                            setOrdering(
+                              '-enrolled_speciality__quota_verbose_name',
+                            )
+                          "
+                        >
+                          Я -> А
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap"
+                    >Льгота, которой воспользовался (окончательно)</span
+                  >
+                  <div class="dropdown">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="
+                            setOrdering('enrolled_privilege_2__privilege')
+                          "
+                        >
+                          А -> Я
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('-enrolled_privilege__privilege')"
+                        >
+                          Я -> А
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
+
               <th scope="col">
                 <div class="d-flex flex-row align-items-center">
                   <span class="text-nowrap">Резерв</span>
@@ -3428,13 +3506,7 @@
                   <option value="false" key="0">Нет</option>
                 </select>
               </th>
-              <th>
-                <select class="form-select" v-model="searchForm.is_enrolled_2">
-                  <option selected value="">-------</option>
-                  <option value="true" key="1">Да</option>
-                  <option value="false" key="0">Нет</option>
-                </select>
-              </th>
+
               <th>
                 <v-select
                   v-model="searchForm.enrolled_speciality__in"
@@ -3448,6 +3520,33 @@
               <th>
                 <v-select
                   v-model="searchForm.enrolled_privilege__in"
+                  :options="orderedPrivileges"
+                  label="privilege"
+                  :reduce="(privilege) => privilege.id"
+                  multiple
+                />
+              </th>
+              <th>
+                <select class="form-select" v-model="searchForm.is_enrolled_2">
+                  <option selected value="">-------</option>
+                  <option value="true" key="1">Да</option>
+                  <option value="false" key="0">Нет</option>
+                </select>
+              </th>
+
+              <th>
+                <v-select
+                  v-model="searchForm.enrolled_speciality_2__in"
+                  :options="orderedAdmissionQuotas"
+                  label="quota_verbose_name"
+                  :reduce="(quota) => quota.id"
+                  multiple
+                />
+              </th>
+
+              <th>
+                <v-select
+                  v-model="searchForm.enrolled_privilege_2__in"
                   :options="orderedPrivileges"
                   label="privilege"
                   :reduce="(privilege) => privilege.id"
@@ -3931,11 +4030,6 @@
               </td>
               <td v-else class="text-center"></td>
 
-              <td v-if="cadet.is_enrolled_2" class="text-center">
-                <font-awesome-icon :icon="['fa', 'check']" />
-              </td>
-              <td v-else class="text-center"></td>
-
               <template
                 v-if="Object.keys(normalizedAdmissionQuota).length === 0"
               >
@@ -3957,6 +4051,38 @@
               <template v-else>
                 <td v-if="cadet.enrolled_privilege" class="text-center">
                   {{ normalizedPrivileges[cadet.enrolled_privilege].privilege }}
+                </td>
+                <td v-else></td>
+              </template>
+
+              <td v-if="cadet.is_enrolled_2" class="text-center">
+                <font-awesome-icon :icon="['fa', 'check']" />
+              </td>
+              <td v-else class="text-center"></td>
+
+              <template
+                v-if="Object.keys(normalizedAdmissionQuota).length === 0"
+              >
+                <td></td>
+              </template>
+              <template v-else>
+                <td v-if="cadet.enrolled_speciality_2">
+                  {{
+                    normalizedAdmissionQuota[cadet.enrolled_speciality_2]
+                      .quota_verbose_name
+                  }}
+                </td>
+                <td v-else></td>
+              </template>
+
+              <template v-if="Object.keys(normalizedPrivileges).length === 0">
+                <td></td>
+              </template>
+              <template v-else>
+                <td v-if="cadet.enrolled_privilege_2" class="text-center">
+                  {{
+                    normalizedPrivileges[cadet.enrolled_privilege_2].privilege
+                  }}
                 </td>
                 <td v-else></td>
               </template>
@@ -4214,9 +4340,9 @@ export default {
           fieldName: "Год окончания учебного заведения",
           fieldValue: "education_graduating_end_year",
         },
-        { fieldName: "Средний бал", fieldValue: "education_average_score" },
+        { fieldName: "Средний балл", fieldValue: "education_average_score" },
 
-        { fieldName: "Сумма балов", fieldValue: "score_sum" },
+        { fieldName: "Сумма баллов", fieldValue: "score_sum" },
         {
           fieldName: "Вид населенного пункта",
           fieldValue: "get_education_location_kind",
@@ -4300,8 +4426,12 @@ export default {
         { fieldName: "Льгота 8", fieldValue: "get_privilege_8" },
         { fieldName: "Льгота 9", fieldValue: "get_privilege_9" },
         {
-          fieldName: "Льгота, которой воспользовался",
+          fieldName: "Льгота, которой воспользовался (предварительно)",
           fieldValue: "get_enrolled_privilege",
+        },
+        {
+          fieldName: "Льгота, которой воспользовался (окончательно)",
+          fieldValue: "get_enrolled_privilege_2",
         },
         { fieldName: "Группа здоровья", fieldValue: "get_health_group" },
         {
@@ -4332,8 +4462,12 @@ export default {
         { fieldName: "Предварительно зачислен", fieldValue: "is_enrolled_1" },
         { fieldName: "Окончательно зачислен", fieldValue: "is_enrolled_2" },
         {
-          fieldName: "Зачислен на специальность",
+          fieldName: "Предвательно зачислен на специальность",
           fieldValue: "get_enrolled_speciality",
+        },
+        {
+          fieldName: "Окончательно зачислен на специальность",
+          fieldValue: "get_enrolled_speciality_2",
         },
         {
           fieldName: "Резерв",

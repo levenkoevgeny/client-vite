@@ -3324,35 +3324,6 @@
                           >Предварительно зачислен</label
                         >
                       </div>
-                    </div>
-                    <div class="col-3">
-                      <div class="form-check mb-3">
-                        <input
-                          id="id_is_enrolled_2"
-                          class="form-check-input"
-                          type="checkbox"
-                          v-model="currentCadetData.is_enrolled_2"
-                        />
-                        <label class="form-check-label" for="id_is_enrolled_2"
-                          >Окончательно зачислен</label
-                        >
-                      </div>
-                    </div>
-                    <div class="col-3">
-                      <div class="form-check mb-3">
-                        <input
-                          id="id_is_reserve"
-                          class="form-check-input"
-                          type="checkbox"
-                          v-model="currentCadetData.is_reserve"
-                        />
-                        <label class="form-check-label" for="id_is_reserve"
-                          >Резерв</label
-                        >
-                      </div>
-                    </div>
-
-                    <div class="col-3">
                       <div class="form-floating mb-3">
                         <select
                           id="id_s1"
@@ -3368,7 +3339,8 @@
                           </option>
                         </select>
                         <label for="id_s1"
-                          >Специальность на которую поступил</label
+                          >Специальность на которую поступил
+                          (предварительно)</label
                         >
                       </div>
                       <div class="form-floating mb-3">
@@ -3386,10 +3358,76 @@
                           </option>
                         </select>
                         <label for="id_s1"
-                          >Льгота, которой воспользовался</label
+                          >Льгота, которой воспользовался
+                          (предварительно)</label
                         >
                       </div>
                     </div>
+                    <div class="col-3">
+                      <div class="form-check mb-3">
+                        <input
+                          id="id_is_enrolled_2"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="currentCadetData.is_enrolled_2"
+                        />
+                        <label class="form-check-label" for="id_is_enrolled_2"
+                          >Окончательно зачислен</label
+                        >
+                      </div>
+                      <div class="form-floating mb-3">
+                        <select
+                          id="id_s1"
+                          class="form-select"
+                          v-model="currentCadetData.enrolled_speciality_2"
+                        >
+                          <option :value="null">---------</option>
+                          <option
+                            :value="quota.id"
+                            v-for="quota in orderedAdmissionQuotes"
+                          >
+                            {{ quota.quota_verbose_name }}
+                          </option>
+                        </select>
+                        <label for="id_s1"
+                          >Специальность на которую поступил
+                          (окончательно)</label
+                        >
+                      </div>
+                      <div class="form-floating mb-3">
+                        <select
+                          id="id_s1"
+                          class="form-select"
+                          v-model="currentCadetData.enrolled_privilege_2"
+                        >
+                          <option :value="null">---------</option>
+                          <option
+                            :value="privilege.id"
+                            v-for="privilege in orderedPrivileges"
+                          >
+                            {{ privilege.privilege }}
+                          </option>
+                        </select>
+                        <label for="id_s1"
+                          >Льгота, которой воспользовался (окончательно)</label
+                        >
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="form-check mb-3">
+                        <input
+                          id="id_is_reserve"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="currentCadetData.is_reserve"
+                        />
+                        <label class="form-check-label" for="id_is_reserve"
+                          >Резерв</label
+                        >
+                      </div>
+                    </div>
+
+                    <div class="col-3"></div>
                   </div>
                 </div>
               </div>
@@ -3592,6 +3630,8 @@ export default {
         get_score_sum: "",
         enrolled_speciality: "",
         enrolled_privilege: "",
+        enrolled_speciality_2: "",
+        enrolled_privilege_2: "",
         is_enrolled_1: "",
         is_enrolled_2: "",
       },
