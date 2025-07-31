@@ -223,6 +223,7 @@ const searchObj = {
   medal__in: "",
   has_3_ct: "",
   has_2_ce: "",
+  is_enrolled: "",
   extra_data__icontains: "",
   ordering: null,
 }

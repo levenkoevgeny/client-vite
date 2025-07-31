@@ -207,6 +207,7 @@ const searchObj = {
   medical_age_group: "",
   is_risk_group: "",
   has_gusb_check: "",
+  is_orphan: "",
   application_has_been_printed_date__gte: "",
   application_has_been_printed_date__lte: "",
   application_has_been_printed: "",

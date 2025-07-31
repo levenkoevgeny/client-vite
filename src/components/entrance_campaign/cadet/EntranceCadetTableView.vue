@@ -1370,6 +1370,11 @@
                   <span class="text-nowrap">Проверка ГУСБ</span>
                 </div>
               </th>
+              <th scope="col">
+                <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap">Сирота</span>
+                </div>
+              </th>
 
               <th scope="col">
                 <div class="d-flex flex-row align-items-center">
@@ -3010,6 +3015,14 @@
               </th>
 
               <th>
+                <select class="form-select" v-model="searchForm.is_orphan">
+                  <option selected value="">-------</option>
+                  <option value="true" key="1">Да</option>
+                  <option value="false" key="0">Нет</option>
+                </select>
+              </th>
+
+              <th>
                 <div class="d-flex justify-content-center align-items-center">
                   <input
                     type="date"
@@ -3923,6 +3936,11 @@
                 <font-awesome-icon :icon="['fa', 'check']" />
               </td>
               <td v-else class="text-center"></td>
+              <td v-if="cadet.is_orphan" class="text-center">
+                <font-awesome-icon :icon="['fa', 'check']" />
+              </td>
+              <td v-else class="text-center"></td>
+
               <td class="text-center">{{ cadet.date_of_birth }}</td>
               <td class="text-center">{{ cadet.get_age }}</td>
               <td>{{ cadet.place_of_birth }}</td>
@@ -4472,6 +4490,18 @@ export default {
         {
           fieldName: "Резерв",
           fieldValue: "is_reserve",
+        },
+        {
+          fieldName: "Сирота",
+          fieldValue: "is_orphan",
+        },
+        {
+          fieldName: "ВПК (Военно-патриотический клуб)",
+          fieldValue: "get_vpk",
+        },
+        {
+          fieldName: "Данные о ВПК",
+          fieldValue: "vpk_data",
         },
       ],
       selectedFieldsForDataExport: ["last_name_rus", "first_name_rus"],

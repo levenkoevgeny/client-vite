@@ -147,7 +147,7 @@
                 <th scope="col" class="text-center">Форма обучения</th>
                 <th scope="col">
                   <div class="d-flex flex-row align-items-center">
-                    <nobr>Сумма балов</nobr>
+                    <nobr>Сумма баллов</nobr>
                     <div class="dropdown">
                       <button
                         class="btn dropdown-toggle"
@@ -1318,6 +1318,11 @@
                     </div>
                   </div>
                 </th>
+                <th scope="col">
+                  <div class="d-flex flex-row align-items-center">
+                    <span class="text-nowrap">Зачислен</span>
+                  </div>
+                </th>
               </tr>
 
               <tr>
@@ -1886,6 +1891,13 @@
                     style="width: 100%"
                   />
                 </th>
+                <th>
+                  <select class="form-select" v-model="searchForm.is_enrolled">
+                    <option selected value="">-------</option>
+                    <option value="true" key="1">Да</option>
+                    <option value="false" key="0">Нет</option>
+                  </select>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -2077,6 +2089,10 @@
                   <td v-else></td>
                 </template>
                 <td class="text-center">{{ student.extra_data }}</td>
+                <td v-if="student.is_enrolled" class="text-center">
+                  <font-awesome-icon :icon="['fa', 'check']" />
+                </td>
+                <td v-else class="text-center"></td>
               </tr>
             </tbody>
           </table>
@@ -2278,7 +2294,7 @@ export default {
           fieldValue: "education_average_score",
         },
         {
-          fieldName: "Сумма балов",
+          fieldName: "Сумма баллов",
           fieldValue: "score_sum",
         },
         {
