@@ -6,28 +6,28 @@
     :load-more-data="loadMoreData"
   >
     <template v-slot:add-button>
-      <div class="dropdown">
-        <button
-          class="btn btn-secondary dropdown-toggle me-2"
-          type="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          Сформировать документ
-        </button>
-        <ul class="dropdown-menu">
-          <li>
-            <button class="dropdown-item" @click="get_examination_reports">
-              Ведомость
-            </button>
-          </li>
-          <li>
-            <button class="dropdown-item" @click="get_group_list">
-              Список
-            </button>
-          </li>
-        </ul>
-      </div>
+      <!--      <div class="dropdown">-->
+      <!--        <button-->
+      <!--          class="btn btn-secondary dropdown-toggle me-2"-->
+      <!--          type="button"-->
+      <!--          data-bs-toggle="dropdown"-->
+      <!--          aria-expanded="false"-->
+      <!--        >-->
+      <!--          Сформировать документ-->
+      <!--        </button>-->
+      <!--        <ul class="dropdown-menu">-->
+      <!--          <li>-->
+      <!--            <button class="dropdown-item" @click="get_examination_reports">-->
+      <!--              Ведомость-->
+      <!--            </button>-->
+      <!--          </li>-->
+      <!--          <li>-->
+      <!--            <button class="dropdown-item" @click="get_group_list">-->
+      <!--              Список-->
+      <!--            </button>-->
+      <!--          </li>-->
+      <!--        </ul>-->
+      <!--      </div>-->
       <button class="btn btn-warning" @click="showStudentAddModal">
         Добавить запись
       </button>
@@ -58,6 +58,17 @@
 
             <form @submit.prevent="addNewStudent">
               <div class="modal-body">
+                <div class="mb-3">
+                  <label for="date_of_birth" class="form-label"
+                    >Год набора</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="id_entrance_year"
+                    v-model="studentNewForm.entrance_year"
+                  />
+                </div>
                 <div class="mb-3">
                   <label for="last_name_rus" class="form-label">Фамилия</label>
                   <input
@@ -113,7 +124,7 @@
         <th scope="col"></th>
         <th scope="col">Фамилия, имя, отчество</th>
         <th scope="col">Группа</th>
-        <th scope="col">Период обучения</th>
+        <th scope="col">Форма обучения</th>
       </tr>
     </template>
     <template v-slot:tbody>
@@ -155,8 +166,7 @@
         </td>
         <td>{{ student.get_group }}</td>
         <td>
-          {{ student.academy_start_date }} - <br />
-          {{ student.academy_end_date }}
+          {{ student.get_education_form }}
         </td>
       </tr>
     </template>
@@ -209,15 +219,19 @@
           multiple
         />
       </div>
+
       <div class="mb-3">
-        <label for="subdivision" class="form-label">Звание</label>
-        <v-select
-          v-model="searchForm.current_rank__in"
-          :options="orderedRanks"
-          label="rank"
-          :reduce="(rank) => rank.id"
-          multiple
-        />
+        <label for="subdivision" class="form-label">Форма обучения</label>
+        <select class="form-select" v-model="searchForm.education_form">
+          <option selected value="">-------</option>
+          <option
+            :value="form.id"
+            :key="form.id"
+            v-for="form in orderedEducationForms"
+          >
+            {{ form.education_form }}
+          </option>
+        </select>
       </div>
 
       <div class="row">
@@ -293,9 +307,11 @@ export default {
       positionAPIInstance: getPositionAPIInstance(),
       searchForm: Object.assign({}, globalStudentAPIInstance.searchObj),
       studentNewForm: {
+        category: 5,
         last_name_rus: "",
         first_name_rus: "",
         date_of_birth: null,
+        entrance_year: new Date().getFullYear(),
       },
     }
   },
@@ -363,6 +379,38 @@ export default {
       }
     },
 
+    showStudentAddModal() {
+      let addModal = this.$refs.cadetAddModal
+      let myModal = new bootstrap.Modal(addModal, {
+        keyboard: false,
+      })
+      myModal.show()
+    },
+
+    async addNewStudent() {
+      try {
+        this.isLoading = true
+        const response = await this.studentAPIInstance.addItem(
+          this.studentNewForm,
+        )
+        const newItem = response.data
+        this.studentList.results.unshift(newItem)
+        this.studentList.count = this.studentList.count + 1
+        this.$refs.cadetAddModalCloseButton.click()
+        this.studentNewForm = {
+          category: 5,
+          last_name_rus: "",
+          first_name_rus: "",
+          patronymic_rus: "",
+          date_of_birth: null,
+          entrance_year: new Date().getFullYear(),
+        }
+      } catch (e) {
+      } finally {
+        this.isLoading = false
+      }
+    },
+
     get_examination_reports(destination) {
       let queryString = "?"
       for (let key in this.searchForm) {
@@ -396,12 +444,12 @@ export default {
     orderedGroups() {
       return this.groups.results
     },
-    orderedRanks() {
-      return this.ranks.results
+    orderedEducationForms() {
+      return this.educationForms.results
     },
     ...mapGetters({
       groups: "groups/getList",
-      ranks: "ranks/getList",
+      educationForms: "educationForms/getList",
       positions: "positions/getList",
     }),
   },

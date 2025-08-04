@@ -59,6 +59,8 @@
                         />
                         <input
                           type="file"
+                          v-on:change="uploadPhoto"
+                          ref="uploadedPhoto"
                           accept="image/png, image/jpeg"
                           style="position: absolute; bottom: 10px; left: 10px"
                         />
@@ -139,7 +141,7 @@
                               class="form-select"
                               v-model="currentStudentData.gender"
                             >
-                              <option value="">------</option>
+                              <option :value="null">------</option>
                               <option value="1">мужской</option>
                               <option value="0">женский</option>
                             </select>
@@ -464,7 +466,10 @@
                       </div>
                       <div class="row">
                         <div class="col-xl-12">
-                          <div class="form-floating mb-3">
+                          <div class="mb-3">
+                            <label for="id_personal_information_tab_extra_data"
+                              >Примечание по личной информации</label
+                            >
                             <textarea
                               id="id_personal_information_tab_extra_data"
                               class="form-control"
@@ -474,9 +479,6 @@
                                 currentStudentData.personal_information_tab_extra_data
                               "
                             ></textarea>
-                            <label for="id_personal_information_tab_extra_data"
-                              >Примечание по личной информации</label
-                            >
                           </div>
                         </div>
                       </div>
@@ -610,7 +612,7 @@
                           id="id_subdivision"
                           v-model="currentStudentData.education_form"
                         >
-                          <option value="" selected>---------</option>
+                          <option :value="null" selected>---------</option>
                           <option
                             v-for="education_form in orderedEducationForms"
                             :value="education_form.id"
@@ -634,7 +636,7 @@
                           id="id_subdivision"
                           v-model="currentStudentData.group"
                         >
-                          <option value="" selected>---------</option>
+                          <option :value="null" selected>---------</option>
                           <option
                             v-for="group in orderedGroups"
                             :value="group.id"
@@ -748,7 +750,7 @@
                           id="id_graduation_reason"
                           v-model="currentStudentData.graduation_reason"
                         >
-                          <option value="" selected>---------</option>
+                          <option :value="null" selected>---------</option>
                           <option
                             v-for="graduation_reason in orderedGraduationReasons"
                             :value="graduation_reason.id"
@@ -1293,6 +1295,22 @@ export default {
     async getStudentData(studentId) {
       const res = await this.studentAPIInstance.getItemData(studentId)
       return res.data
+    },
+    async uploadPhoto() {
+      if (this.$refs.uploadedPhoto.files.length) {
+        let formData = new FormData()
+        formData.append("photo", this.$refs.uploadedPhoto.files[0])
+
+        const response = await this.studentAPIInstance.updatePhotoOrAnyFile(
+          this.currentStudentData.id,
+          formData,
+        )
+
+        this.currentStudentData = {
+          ...this.currentStudentData,
+          photo: response.data.photo,
+        }
+      }
     },
     debouncedUpdate: debounce(async function () {
       try {

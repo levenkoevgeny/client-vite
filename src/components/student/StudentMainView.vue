@@ -42,7 +42,7 @@
       </template>
     </navigation-layout>
     <div class="container-fluid">
-      <h2 class="mt-3">КИС "Факультет права"</h2>
+      <h2 class="mt-3">КИС "Студент"</h2>
     </div>
     <router-view></router-view>
   </div>
