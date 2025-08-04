@@ -1246,17 +1246,19 @@ export default {
       }
     }, 500),
     async uploadPhoto() {
-      let formData = new FormData()
-      formData.append("photo", this.$refs.uploadedPhoto.files[0])
+      if (this.$refs.uploadedPhoto.files.length) {
+        let formData = new FormData()
+        formData.append("photo", this.$refs.uploadedPhoto.files[0])
 
-      const response = await this.cadetAPIInstance.updatePhotoOrAnyFile(
-        this.currentCadetData.id,
-        formData,
-      )
+        const response = await this.cadetAPIInstance.updatePhotoOrAnyFile(
+          this.currentCadetData.id,
+          formData,
+        )
 
-      this.currentCadetData = {
-        ...this.currentCadetData,
-        photo: response.data.photo,
+        this.currentCadetData = {
+          ...this.currentCadetData,
+          photo: response.data.photo,
+        }
       }
     },
   },
