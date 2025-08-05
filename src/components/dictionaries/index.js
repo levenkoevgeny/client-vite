@@ -1,6 +1,4 @@
 export { default as DictionaryMainView } from "./DictionaryMainView.vue"
-export { default as GroupListView } from "./group/GroupListView.vue"
-export { default as RankListView } from "./rank/RankListView.vue"
 export { default as EncouragementKindListView } from "./encouragement/EncouragementKindListView.vue"
 export { default as PunishmentKindListView } from "./punishment/PunishmentKindListView.vue"
 export { default as SubdivisionListView } from "./subdivision/SubdivisionListView.vue"

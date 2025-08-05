@@ -1094,11 +1094,6 @@
 import getCadetAPIInstance from "@/api/cadet/cadetAPI"
 
 import { debounce } from "lodash/function"
-import { RankHistoryCadetComponent } from "@/components/cadet/rank"
-import { EncouragementCadetComponent } from "@/components/cadet/encouragement"
-import { EducationHistoryCadetComponent } from "@/components/cadet/education"
-import { ForeignLanguagesCadetComponent } from "@/components/cadet/languages"
-import { ScientificWorksCadetComponent } from "@/components/cadet/scientific_works"
 import { JobCadetComponent } from "@/components/cadet/job"
 import {
   ArmyServiceCadetComponent,
@@ -1116,11 +1111,15 @@ import { mapGetters } from "vuex"
 export default {
   name: "CadetUpdateView",
   components: {
-    RankHistoryCadetComponent,
-    EncouragementCadetComponent,
-    EducationHistoryCadetComponent,
-    ForeignLanguagesCadetComponent,
-    ScientificWorksCadetComponent,
+    RankHistoryCadetComponent: () => import("@/components/cadet/rank"),
+    EncouragementCadetComponent: () =>
+      import("@/components/cadet/encouragement"),
+    EducationHistoryCadetComponent: () =>
+      import("@/components/cadet/education"),
+    ForeignLanguagesCadetComponent: () =>
+      import("@/components/cadet/languages"),
+    ScientificWorksCadetComponent: () =>
+      import("@/components/cadet/scientific_works"),
     JobCadetComponent,
     ArmyServiceCadetComponent,
     MVDServiceCadetComponent,

@@ -162,7 +162,7 @@
 </template>
 
 <script>
-import * as dayjs from "dayjs"
+// import * as dayjs from "dayjs"
 
 export default {
   name: "PunishmentModalForCadetUpdate",
@@ -181,11 +181,11 @@ export default {
   watch: {
     "mainData.punishment_start_date": {
       handler(newValue, oldValue) {
-        if (newValue) {
-          this.mainData.punishment_expiration_date = dayjs(newValue)
-            .add(1, "year")
-            .format("YYYY-MM-DD")
-        }
+        // if (newValue) {
+        //   this.mainData.punishment_expiration_date = dayjs(newValue)
+        //     .add(1, "year")
+        //     .format("YYYY-MM-DD")
+        // }
       },
       deep: true,
     },

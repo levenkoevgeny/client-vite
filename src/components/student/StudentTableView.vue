@@ -145,6 +145,12 @@
               <tr>
                 <th scope="col" class="text-center">№п.п.</th>
                 <th scope="col" class="text-center">Форма обучения</th>
+
+                <th scope="col" class="text-center">Курс</th>
+                <th scope="col" class="text-center text-nowrap">
+                  Литера курса
+                </th>
+                <th scope="col" class="text-center text-nowrap">Год набора</th>
                 <th scope="col">
                   <div class="d-flex flex-row align-items-center">
                     <nobr>Сумма баллов</nobr>
@@ -341,74 +347,7 @@
                     <span class="text-nowrap">Возраст</span>
                   </div>
                 </th>
-                <th scope="col">
-                  <div class="d-flex flex-row align-items-center">
-                    <span class="text-nowrap">Заявление отпечатано</span>
-                    <div class="dropdown">
-                      <button
-                        class="btn dropdown-toggle"
-                        type="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      ></button>
-                      <ul class="dropdown-menu">
-                        <li>
-                          <button
-                            class="dropdown-item"
-                            @click="setOrdering('application_has_been_printed')"
-                          >
-                            А -> Я
-                          </button>
-                        </li>
-                        <li>
-                          <button
-                            class="dropdown-item"
-                            @click="
-                              setOrdering('-application_has_been_printed')
-                            "
-                          >
-                            Я -> А
-                          </button>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </th>
-                <th scope="col">
-                  <div class="d-flex flex-row align-items-center">
-                    <span class="text-nowrap">Дата печати заявления</span>
-                    <div class="dropdown">
-                      <button
-                        class="btn dropdown-toggle"
-                        type="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      ></button>
-                      <ul class="dropdown-menu">
-                        <li>
-                          <button
-                            class="dropdown-item"
-                            @click="
-                              setOrdering('application_has_been_printed_date')
-                            "
-                          >
-                            А -> Я
-                          </button>
-                        </li>
-                        <li>
-                          <button
-                            class="dropdown-item"
-                            @click="
-                              setOrdering('-application_has_been_printed_date')
-                            "
-                          >
-                            Я -> А
-                          </button>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </th>
+
                 <th scope="col">
                   <div class="d-flex flex-row align-items-center">
                     <span class="text-nowrap">Пол</span>
@@ -468,37 +407,6 @@
                             @click="
                               setOrdering('-residence_region__country_region')
                             "
-                          >
-                            Я -> А
-                          </button>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </th>
-                <th scope="col" style="min-width: 450px">
-                  <div class="d-flex flex-row align-items-center">
-                    <span class="text-nowrap">Льгота</span>
-                    <div class="dropdown">
-                      <button
-                        class="btn dropdown-toggle"
-                        type="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      ></button>
-                      <ul class="dropdown-menu">
-                        <li>
-                          <button
-                            class="dropdown-item"
-                            @click="setOrdering('privilege_1__privilege')"
-                          >
-                            А -> Я
-                          </button>
-                        </li>
-                        <li>
-                          <button
-                            class="dropdown-item"
-                            @click="setOrdering('-privilege_1__privilege')"
                           >
                             Я -> А
                           </button>
@@ -1318,11 +1226,6 @@
                     </div>
                   </div>
                 </th>
-                <th scope="col">
-                  <div class="d-flex flex-row align-items-center">
-                    <span class="text-nowrap">Зачислен</span>
-                  </div>
-                </th>
               </tr>
 
               <tr>
@@ -1342,6 +1245,40 @@
                       {{ form.education_form }}
                     </option>
                   </select>
+                </th>
+                <th>
+                  <div class="d-flex justify-content-center align-items-center">
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="searchForm.year"
+                    />
+                  </div>
+                </th>
+                <th>
+                  <div class="d-flex justify-content-center align-items-center">
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="searchForm.year_litera"
+                    />
+                  </div>
+                </th>
+                <th>
+                  <div class="d-flex justify-content-center align-items-center">
+                    <input
+                      type="number"
+                      class="form-control me-2"
+                      v-model="searchForm.entrance_year__gte"
+                      style="width: 100px"
+                    />
+                    <input
+                      type="number"
+                      class="form-control"
+                      v-model="searchForm.entrance_year__lte"
+                      style="width: 100px"
+                    />
+                  </div>
                 </th>
                 <th>
                   <div class="d-flex justify-content-center align-items-center">
@@ -1416,34 +1353,7 @@
                     />
                   </div>
                 </th>
-                <th>
-                  <select
-                    class="form-select"
-                    v-model="searchForm.application_has_been_printed"
-                  >
-                    <option selected value="">-------</option>
-                    <option value="true" key="1">Да</option>
-                    <option value="false" key="0">Нет</option>
-                  </select>
-                </th>
-                <th>
-                  <div class="d-flex justify-content-center align-items-center">
-                    <input
-                      type="date"
-                      class="form-control me-2"
-                      v-model="
-                        searchForm.application_has_been_printed_date__gte
-                      "
-                    />
-                    <input
-                      type="date"
-                      class="form-control"
-                      v-model="
-                        searchForm.application_has_been_printed_date__lte
-                      "
-                    />
-                  </div>
-                </th>
+
                 <th>
                   <select class="form-select" v-model="searchForm.gender">
                     <option selected value="">-------</option>
@@ -1457,15 +1367,6 @@
                     :options="orderedCountryRegions"
                     label="country_region"
                     :reduce="(region) => region.id"
-                    multiple
-                  />
-                </th>
-                <th>
-                  <v-select
-                    v-model="searchForm.privilege_1__in"
-                    :options="orderedPrivileges"
-                    label="privilege"
-                    :reduce="(privilege) => privilege.id"
                     multiple
                   />
                 </th>
@@ -1891,13 +1792,6 @@
                     style="width: 100%"
                   />
                 </th>
-                <th>
-                  <select class="form-select" v-model="searchForm.is_enrolled">
-                    <option selected value="">-------</option>
-                    <option value="true" key="1">Да</option>
-                    <option value="false" key="0">Нет</option>
-                  </select>
-                </th>
               </tr>
             </thead>
             <tbody>
@@ -1906,13 +1800,17 @@
                 :key="student.id"
                 @dblclick="
                   $router.push({
-                    name: 'entrance-student-input-form',
+                    name: 'student-update',
                     params: { id: student.id },
                   })
                 "
               >
                 <td class="text-center">{{ student.serial_number }}</td>
                 <td class="text-center">{{ student.get_education_form }}</td>
+                <td class="text-center">{{ student.year }}</td>
+                <td class="text-center">{{ student.year_litera }}</td>
+                <td class="text-center">{{ student.entrance_year }}</td>
+
                 <td class="text-center">{{ student.score_sum }}</td>
                 <td>{{ student.last_name_rus }}</td>
                 <td>{{ student.first_name_rus }}</td>
@@ -1922,45 +1820,10 @@
                 <td class="text-center">{{ student.place_of_work }}</td>
                 <td class="text-center">{{ student.get_age }}</td>
 
-                <td
-                  v-if="student.application_has_been_printed"
-                  class="text-center"
-                >
-                  <font-awesome-icon :icon="['fa', 'check']" />
-                </td>
-                <td v-else class="text-center"></td>
-
-                <td
-                  v-if="student.application_has_been_printed_date"
-                  class="text-center"
-                >
-                  {{
-                    new Date(
-                      student.application_has_been_printed_date,
-                    ).toLocaleString("ru-RU", {
-                      day: "numeric",
-                      month: "long",
-                      year: "numeric",
-                      hour: "numeric",
-                      minute: "numeric",
-                      second: "numeric",
-                    })
-                  }}
-                </td>
-                <td v-else></td>
                 <td>{{ student.get_gender }}</td>
                 <td class="text-center">
                   {{ student.get_residence_region }}
                 </td>
-                <template v-if="Object.keys(normalizedPrivilege).length === 0">
-                  <td></td>
-                </template>
-                <template v-else>
-                  <td v-if="student.privilege_1">
-                    {{ normalizedPrivilege[student.privilege_1].privilege }}
-                  </td>
-                  <td v-else></td>
-                </template>
                 <template
                   v-if="Object.keys(normalizedEducationKinds).length === 0"
                 >
@@ -2089,10 +1952,6 @@
                   <td v-else></td>
                 </template>
                 <td class="text-center">{{ student.extra_data }}</td>
-                <td v-if="student.is_enrolled" class="text-center">
-                  <font-awesome-icon :icon="['fa', 'check']" />
-                </td>
-                <td v-else class="text-center"></td>
               </tr>
             </tbody>
           </table>
@@ -2105,14 +1964,14 @@
 </template>
 
 <script>
-import { globalStudentAPIForEntranceInstance } from "@/api/student/studentAPI.js"
+import { globalStudentAPIInstance } from "@/api/student/studentAPI.js"
 import { debounce } from "lodash/function"
 import { mapGetters } from "vuex"
 import getUsersAPIInstance from "@/api/auth/usersAPI.js"
-import { getQueryStringFromSearchForm } from "../../../../utils.js"
+import { getQueryStringFromSearchForm } from "../../.././utils.js"
 
 export default {
-  name: "EntranceStudentTableView",
+  name: "StudentTableView",
   data() {
     return {
       isLoading: true,
@@ -2375,14 +2234,10 @@ export default {
         },
       ],
       selectedFieldsForDataExport: ["last_name_rus", "first_name_rus"],
-      searchForm: Object.assign(
-        {},
-        globalStudentAPIForEntranceInstance.searchObj,
-      ),
+      searchForm: Object.assign({}, globalStudentAPIInstance.searchObj),
       studentList: { count: 0, results: [], previous: null, next: null },
-      studentAPIInstance: globalStudentAPIForEntranceInstance,
+      studentAPIInstance: globalStudentAPIInstance,
       usersAPIInstance: getUsersAPIInstance(),
-      usersList: { count: 0, results: [], previous: null, next: null },
     }
   },
   async created() {
@@ -2393,8 +2248,6 @@ export default {
       this.isLoading = true
       const response = await this.studentAPIInstance.getItemsList()
       this.studentList = await response.data
-      const responseUser = await this.usersAPIInstance.getItemsList()
-      this.usersList = await responseUser.data
 
       this.isLoading = false
       this.setSerialNumbers()

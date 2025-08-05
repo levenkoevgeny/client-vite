@@ -490,7 +490,6 @@ import BaseListLayout from "@/components/layouts/BaseListLayout.vue"
 
 import { mapGetters } from "vuex"
 import BaseListLayoutForCadetUpdate from "@/components/layouts/BaseListLayoutForCadetUpdate.vue"
-import { PaginatorView } from "@/components/common"
 import {
   ArmyServiceCadetComponent,
   MVDServiceCadetComponent,
@@ -499,25 +498,25 @@ import RelativesCadetComponent from "@/components/cadet/relatives/RelativesCadet
 import { PositionCadetComponent } from "@/components/cadet/position"
 import { JobCadetComponent } from "@/components/cadet/job"
 import { ForeignLanguagesCadetComponent } from "@/components/cadet/languages"
-import { EncouragementCadetComponent } from "@/components/cadet/encouragement"
+// import { EncouragementCadetComponent } from "@/components/cadet/encouragement"
 import { SpecialityCadetComponent } from "@/components/cadet/speciality"
 import { RewardCadetComponent } from "@/components/cadet/reward"
-import { RankHistoryEmployeeComponent } from "@/components/employee/rank"
+// import { RankHistoryEmployeeComponent } from "@/components/employee/rank"
 import { ScientificWorksCadetComponent } from "@/components/cadet/scientific_works"
-import { PunishmentCadetComponent } from "@/components/cadet/punishment"
+// import { PunishmentCadetComponent } from "@/components/cadet/punishment"
 import { EducationHistoryCadetComponent } from "@/components/cadet/education"
 
 export default {
   name: "EmployeeUpdateView",
   components: {
     EducationHistoryCadetComponent,
-    PunishmentCadetComponent,
+    // PunishmentCadetComponent,
     MVDServiceCadetComponent,
     ScientificWorksCadetComponent,
-    RankHistoryEmployeeComponent,
+    // RankHistoryEmployeeComponent,
     RewardCadetComponent,
     SpecialityCadetComponent,
-    EncouragementCadetComponent,
+    // EncouragementCadetComponent,
     ForeignLanguagesCadetComponent,
     JobCadetComponent,
     PositionCadetComponent,
@@ -525,7 +524,6 @@ export default {
     ArmyServiceCadetComponent,
     BaseListLayoutForCadetUpdate,
     BaseListLayout,
-    PaginatorView,
   },
   data() {
     return {

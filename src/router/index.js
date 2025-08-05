@@ -55,8 +55,6 @@ import {
 
 import {
   DictionaryMainView,
-  GroupListView,
-  RankListView,
   RankGroupsListView,
   EncouragementKindListView,
   PunishmentKindListView,
@@ -302,6 +300,12 @@ const routes = [
             name: "student",
           },
           {
+            path: "table-view",
+            component: () =>
+              import("@/components/student/StudentTableView.vue"),
+            name: "student-table-view",
+          },
+          {
             path: "reports",
             component: StudentDocsMakeView,
             name: "student-reports",
@@ -325,12 +329,14 @@ const routes = [
         children: [
           {
             path: "groups",
-            component: GroupListView,
+            component: () =>
+              import("@/components/dictionaries/group/GroupListView.vue"),
             name: "dictionaries-groups",
           },
           {
             path: "ranks",
-            component: RankListView,
+            component: () =>
+              import("@/components/dictionaries/rank/RankListView.vue"),
             name: "dictionaries-ranks",
           },
           {

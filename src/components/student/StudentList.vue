@@ -33,6 +33,16 @@
       </button>
     </template>
 
+    <template v-slot:table-mode-button>
+      <router-link
+        :to="{ name: 'student-table-view' }"
+        class="fs-3 fw-light link-secondary"
+        title="Табличный режим"
+      >
+        <font-awesome-icon :icon="['fas', 'table']" />
+      </router-link>
+    </template>
+
     <template v-slot:modals>
       <div
         class="modal fade"
@@ -124,6 +134,8 @@
         <th scope="col"></th>
         <th scope="col">Фамилия, имя, отчество</th>
         <th scope="col">Группа</th>
+        <th scope="col">Курс</th>
+        <th scope="col">Литера курса</th>
         <th scope="col">Форма обучения</th>
       </tr>
     </template>
@@ -165,6 +177,8 @@
           {{ student.first_name_rus }}<br />{{ student.patronymic_rus }}
         </td>
         <td>{{ student.get_group }}</td>
+        <td>{{ student.year }}</td>
+        <td>{{ student.year_litera }}</td>
         <td>
           {{ student.get_education_form }}
         </td>
@@ -195,6 +209,31 @@
           v-model="searchForm.last_name_rus__icontains"
           autocomplete="false"
         />
+      </div>
+
+      <div class="mb-3">
+        <div class="row">
+          <div class="col-6">
+            <label for="last_name_rus" class="form-label">Курс</label>
+            <input
+              type="text"
+              id="last_name_rus"
+              class="form-control"
+              v-model="searchForm.year"
+              autocomplete="false"
+            />
+          </div>
+          <div class="col-6">
+            <label for="last_name_rus" class="form-label">Литера курса</label>
+            <input
+              type="text"
+              id="last_name_rus"
+              class="form-control"
+              v-model="searchForm.year_litera"
+              autocomplete="false"
+            />
+          </div>
+        </div>
       </div>
 
       <div class="mb-3">
