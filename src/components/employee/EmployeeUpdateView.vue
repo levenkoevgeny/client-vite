@@ -417,7 +417,6 @@
               :order-owners-list="orderOwners"
             />
             <!--            <EducationHistoryCadetComponent :cadet-id="$route.params.id" />-->
-            <!--            <ForeignLanguagesCadetComponent :cadet-id="$route.params.id" />-->
             <!--            <ScientificWorksCadetComponent :cadet-id="$route.params.id" />-->
             <!--            <JobCadetComponent :cadet-id="$route.params.id" />-->
             <!--            <ArmyServiceCadetComponent-->
@@ -497,7 +496,7 @@ import {
 import RelativesCadetComponent from "@/components/cadet/relatives/RelativesCadetComponent.vue"
 import { PositionCadetComponent } from "@/components/cadet/position"
 import { JobCadetComponent } from "@/components/cadet/job"
-import { ForeignLanguagesCadetComponent } from "@/components/cadet/languages"
+
 // import { EncouragementCadetComponent } from "@/components/cadet/encouragement"
 import { SpecialityCadetComponent } from "@/components/cadet/speciality"
 import { RewardCadetComponent } from "@/components/cadet/reward"
@@ -517,7 +516,6 @@ export default {
     RewardCadetComponent,
     SpecialityCadetComponent,
     // EncouragementCadetComponent,
-    ForeignLanguagesCadetComponent,
     JobCadetComponent,
     PositionCadetComponent,
     RelativesCadetComponent,

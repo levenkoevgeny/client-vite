@@ -1111,13 +1111,16 @@ import { mapGetters } from "vuex"
 export default {
   name: "CadetUpdateView",
   components: {
-    RankHistoryCadetComponent: () => import("@/components/cadet/rank"),
+    RankHistoryCadetComponent: () =>
+      import("@/components/cadet/rank/RankHistoryCadetComponent.vue"),
     EncouragementCadetComponent: () =>
-      import("@/components/cadet/encouragement"),
+      import(
+        "@/components/cadet/encouragement/EncouragementCadetComponent.vue"
+      ),
     EducationHistoryCadetComponent: () =>
-      import("@/components/cadet/education"),
+      import("@/components/cadet/education/EducationHistoryCadetComponent.vue"),
     ForeignLanguagesCadetComponent: () =>
-      import("@/components/cadet/languages"),
+      import("@/components/cadet/languages/ForeignLanguagesCadetComponent.vue"),
     ScientificWorksCadetComponent: () =>
       import("@/components/cadet/scientific_works"),
     JobCadetComponent,

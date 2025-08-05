@@ -1186,7 +1186,6 @@ import getJobHistoryAPIInstance from "@/api/cadet/jobHistoryAPI"
 import { debounce } from "lodash/function"
 
 import { EducationHistoryCadetComponent } from "@/components/cadet/education"
-import { ForeignLanguagesCadetComponent } from "@/components/cadet/languages"
 import { ScientificWorksCadetComponent } from "@/components/cadet/scientific_works"
 import { JobCadetComponent } from "@/components/cadet/job"
 import {
@@ -1206,7 +1205,6 @@ export default {
   name: "StudentUpdateView",
   components: {
     EducationHistoryCadetComponent,
-    ForeignLanguagesCadetComponent,
     ScientificWorksCadetComponent,
     JobCadetComponent,
     ArmyServiceCadetComponent,

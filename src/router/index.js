@@ -53,40 +53,6 @@ import {
   QueueListUser,
 } from "@/components/electronic_queue"
 
-import {
-  DictionaryMainView,
-  RankGroupsListView,
-  EncouragementKindListView,
-  PunishmentKindListView,
-  SubdivisionListView,
-  PositionNameListView,
-  MilitaryOfficeListView,
-  GOROVDListView,
-  ComponentOrganListView,
-  RewardListView,
-  SpecialityListView,
-  SpecializationListView,
-  OrderOwnerListView,
-  PersonCategoriesListView,
-  DirectionsORDListView,
-  MaritalStatusesListView,
-  PassportAuthoritiesListView,
-  ForeignLanguagesListView,
-  GraduationReasonsListView,
-  EducationFormsListView,
-  ForeignLanguageLevelsListView,
-  EntranceCategoryListView,
-  SocialStatusListView,
-  EducationKindListView,
-  EducationLevelListView,
-  EducationLocationKindList,
-  VPKCategoryListView,
-  PFLCategoryListView,
-  PrivilegeListView,
-  DocumentTypeListView,
-  InWhoseInterestsListView,
-} from "@/components/dictionaries"
-
 import LoginView from "@/components/auth/LoginView.vue"
 import NavigationPage from "@/components/NavigationPage.vue"
 import BaseViewForStore from "@/components/BaseViewForStore.vue"
@@ -325,7 +291,8 @@ const routes = [
       {
         path: "dictionaries",
         name: "dictionaries-main",
-        component: DictionaryMainView,
+        component: () =>
+          import("@/components/dictionaries/DictionaryMainView.vue"),
         children: [
           {
             path: "groups",
@@ -341,152 +308,238 @@ const routes = [
           },
           {
             path: "rank-groups",
-            component: RankGroupsListView,
+            component: () =>
+              import(
+                "@/components/dictionaries/rank_groups/RankGroupsListView.vue"
+              ),
             name: "dictionaries-rank-groups",
           },
           {
             path: "encouragements",
-            component: EncouragementKindListView,
+            component: () =>
+              import(
+                "@/components/dictionaries/encouragement/EncouragementKindListView.vue"
+              ),
             name: "dictionaries-encouragements",
           },
           {
             path: "punishments",
-            component: PunishmentKindListView,
+            component: () =>
+              import(
+                "@/components/dictionaries/punishment/PunishmentKindListView.vue"
+              ),
             name: "dictionaries-punishments",
           },
           {
             path: "subdivisions",
-            component: SubdivisionListView,
+            component: () =>
+              import(
+                "@/components/dictionaries/subdivision/SubdivisionListView.vue"
+              ),
             name: "dictionaries-subdivisions",
           },
           {
             path: "positions",
-            component: PositionNameListView,
+            component: () =>
+              import(
+                "@/components/dictionaries/position/PositionNameListView.vue"
+              ),
             name: "dictionaries-positions",
           },
           {
             path: "order-owners",
-            component: OrderOwnerListView,
+            component: () =>
+              import(
+                "@/components/dictionaries/orderOwner/OrderOwnerListView.vue"
+              ),
             name: "order-owners",
           },
           {
             path: "militaryoffices",
-            component: MilitaryOfficeListView,
+            component: () =>
+              import(
+                "@/components/dictionaries/militaryoffice/MilitaryOfficeListView.vue"
+              ),
             name: "dictionaries-militaryoffices",
           },
           {
             path: "go-rovd",
-            component: GOROVDListView,
+            component: () =>
+              import("@/components/dictionaries/go-rovd/GOROVDListView.vue"),
             name: "dictionaries-go-rovd",
           },
           {
             path: "component-organs",
-            component: ComponentOrganListView,
+            component: () =>
+              import(
+                "@/components/dictionaries/componentorgan/ComponentOrganListView.vue"
+              ),
             name: "dictionaries-component-organ",
           },
           {
             path: "rewards",
-            component: RewardListView,
+            component: () =>
+              import("@/components/dictionaries/reward/RewardListView.vue"),
             name: "dictionaries-rewards",
           },
           {
             path: "specialities",
-            component: SpecialityListView,
+            component: () =>
+              import(
+                "@/components/dictionaries/speciality/SpecialityListView.vue"
+              ),
             name: "dictionaries-speciality",
           },
           {
             path: "specializations",
-            component: SpecializationListView,
+            component: () =>
+              import(
+                "@/components/dictionaries/specialization/SpecializationListView.vue"
+              ),
             name: "dictionaries-specializations",
           },
           {
             path: "person-categories",
-            component: PersonCategoriesListView,
+            component: () =>
+              import(
+                "@/components/dictionaries/personCategories/PersonCategoriesListView.vue"
+              ),
             name: "dictionaries-person-categories",
           },
           {
             path: "ord-directions",
-            component: DirectionsORDListView,
+            component: () =>
+              import(
+                "@/components/dictionaries/directionsORD/DirectionsORDListView.vue"
+              ),
             name: "dictionaries-ord-directions",
           },
           {
             path: "marital-statuses",
-            component: MaritalStatusesListView,
+            component: () =>
+              import(
+                "@/components/dictionaries/maritalStatus/MaritalStatusesListView.vue"
+              ),
             name: "dictionaries-marital-statuses",
           },
           {
             path: "passport-authorities",
-            component: PassportAuthoritiesListView,
+            component: () =>
+              import(
+                "@/components/dictionaries/passportAuthority/PassportAuthoritiesListView.vue"
+              ),
             name: "dictionaries-passport-authorities",
           },
           {
             path: "passport-foreign-languages",
-            component: ForeignLanguagesListView,
+            component: () =>
+              import(
+                "@/components/dictionaries/foreignLanguages/ForeignLanguagesListView.vue"
+              ),
             name: "dictionaries-foreign-languages",
           },
           {
             path: "graduation-reasons",
-            component: GraduationReasonsListView,
+            component: () =>
+              import(
+                "@/components/dictionaries/graduationReasons/GraduationReasonsListView.vue"
+              ),
             name: "dictionaries-graduation-reasons",
           },
           {
             path: "education-forms",
-            component: EducationFormsListView,
+            component: () =>
+              import(
+                "@/components/dictionaries/educationForms/EducationFormsListView.vue"
+              ),
             name: "dictionaries-education-forms",
           },
           {
             path: "passport-foreign-language-levels",
-            component: ForeignLanguageLevelsListView,
+            component: () =>
+              import(
+                "@/components/dictionaries/foreignLanguageLevels/ForeignLanguageLevelsListView.vue"
+              ),
             name: "dictionaries-foreign-language-levels",
           },
           {
             path: "entrance-categories",
-            component: EntranceCategoryListView,
+            component: () =>
+              import(
+                "@/components/dictionaries/entranceCategory/EntranceCategoryListView.vue"
+              ),
             name: "dictionaries-entrance-categories",
           },
           {
             path: "social-statuses",
-            component: SocialStatusListView,
+            component: () =>
+              import(
+                "@/components/dictionaries/socialStatus/SocialStatusListView.vue"
+              ),
             name: "dictionaries-social-statuses",
           },
           {
             path: "education-kinds",
-            component: EducationKindListView,
+            component: () =>
+              import(
+                "@/components/dictionaries/educationKind/EducationKindListView.vue"
+              ),
             name: "dictionaries-education-kinds",
           },
           {
             path: "education-levels",
-            component: EducationLevelListView,
+            component: () =>
+              import(
+                "@/components/dictionaries/educationLevel/EducationLevelListView.vue"
+              ),
             name: "dictionaries-education-levels",
           },
           {
             path: "education-location-kinds",
-            component: EducationLocationKindList,
+            component: () =>
+              import(
+                "@/components/dictionaries/educationLocationKind/EducationLocationKindList.vue"
+              ),
             name: "dictionaries-education-location-kinds",
           },
           {
             path: "vpk-categories",
-            component: VPKCategoryListView,
+            component: () =>
+              import(
+                "@/components/dictionaries/VPKCategory/VPKCategoryListView.vue"
+              ),
             name: "dictionaries-vpk-categories",
           },
           {
             path: "pfl-categories",
-            component: PFLCategoryListView,
+            component: () =>
+              import(
+                "@/components/dictionaries/PFLCategory/PFLCategoryListView.vue"
+              ),
             name: "dictionaries-pfl-categories",
           },
           {
             path: "privileges",
-            component: PrivilegeListView,
+            component: () =>
+              import(
+                "@/components/dictionaries/privilege/PrivilegeListView.vue"
+              ),
             name: "dictionaries-privileges",
           },
           {
             path: "document-types",
-            component: DocumentTypeListView,
+            component: () =>
+              import(
+                "@/components/dictionaries/documentType/DocumentTypeListView.vue"
+              ),
             name: "dictionaries-document-types",
           },
           {
             path: "in-whose-interests",
-            component: InWhoseInterestsListView,
+            component: () =>
+              import(
+                "@/components/dictionaries/inWhoseInterests/InWhoseInterestsListView.vue"
+              ),
             name: "dictionaries-in-whose-interests",
           },
         ],
