@@ -514,7 +514,7 @@
                     <input
                       id="id_last_name_rus"
                       type="text"
-                      class="form-control form-control-sm"
+                      class="form-control"
                       placeholder="Фамилия"
                       v-model="currentStudentData.last_name_rus"
                     />
@@ -567,7 +567,7 @@
                     <input
                       id="id_last_name_bel"
                       type="text"
-                      class="form-control form-control-sm"
+                      class="form-control"
                       placeholder="Фамилия"
                       v-model="currentStudentData.last_name_bel"
                     />
@@ -613,12 +613,7 @@
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
 
-          <div class="card shadow mb-2 rounded border-0">
-            <div class="card-body">
-              <h5 class="card-title">Блок по Академии</h5>
               <div class="row mt-3">
                 <div class="col-xl-3">
                   <div class="form-floating mb-3">
@@ -634,46 +629,6 @@
                     <label for="id_education_form">Форма обучения</label>
                   </div>
                 </div>
-                <div class="col-xl-3">
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_foreign_language_was"
-                      class="form-select"
-                      v-model="currentStudentData.foreign_language_was"
-                    >
-                      <option :value="null">---------</option>
-                      <option
-                        :value="foreign_language.id"
-                        v-for="foreign_language in orderedForeignLanguages"
-                      >
-                        {{ foreign_language.foreign_language }}
-                      </option>
-                    </select>
-                    <label for="id_foreign_language_was"
-                      >Иностранный язык (был)</label
-                    >
-                  </div>
-                </div>
-                <div class="col-xl-3">
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_foreign_language_will_be"
-                      class="form-select"
-                      v-model="currentStudentData.foreign_language_will_be"
-                    >
-                      <option :value="null">---------</option>
-                      <option :value="1" :key="1">Английский</option>
-                      <option :value="2" :key="2">Немецкий</option>
-                    </select>
-                    <label for="id_foreign_language_will_be"
-                      >Иностранный язык (будет)</label
-                    >
-                  </div>
-                </div>
-                <div class="col-xl-3"></div>
-              </div>
-
-              <div class="row">
                 <div class="col-xl-3">
                   <div class="form-floating mb-3">
                     <select
@@ -3126,6 +3081,51 @@
                 </table>
 
                 <div class="my-3"></div>
+
+                <div class="card shadow mb-2 rounded border-0">
+                  <div class="card-body">
+                    <div class="row mt-3">
+                      <div class="col-xl-6">
+                        <div class="form-floating mb-3">
+                          <select
+                            id="id_foreign_language_was"
+                            class="form-select"
+                            v-model="currentStudentData.foreign_language_was"
+                          >
+                            <option :value="null">---------</option>
+                            <option
+                              :value="foreign_language.id"
+                              v-for="foreign_language in orderedForeignLanguages"
+                            >
+                              {{ foreign_language.foreign_language }}
+                            </option>
+                          </select>
+                          <label for="id_foreign_language_was"
+                            >Иностранный язык (был)</label
+                          >
+                        </div>
+                      </div>
+                      <div class="col-xl-6">
+                        <div class="form-floating mb-3">
+                          <select
+                            id="id_foreign_language_will_be"
+                            class="form-select"
+                            v-model="
+                              currentStudentData.foreign_language_will_be
+                            "
+                          >
+                            <option :value="null">---------</option>
+                            <option :value="1" :key="1">Английский</option>
+                            <option :value="2" :key="2">Немецкий</option>
+                          </select>
+                          <label for="id_foreign_language_will_be"
+                            >Иностранный язык (будет)</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 

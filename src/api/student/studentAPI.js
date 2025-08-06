@@ -231,7 +231,7 @@ const searchObj = {
 export default function getStudentAPIInstance() {
   return new StudentAPI("student", {
     ...searchObj,
-    is_active: 1,
+    is_active: "",
     category__in: [4, 5],
   })
 }

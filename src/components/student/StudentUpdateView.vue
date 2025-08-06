@@ -15,11 +15,13 @@
     <div v-else>
       <h1 class="my-2 text-decoration-underline">
         Личное дело ({{ currentStudentData.last_name_rus }}
-        {{ currentStudentData.first_name_rus }})
+        {{ currentStudentData.first_name_rus }}
+        {{ currentStudentData.patronymic_rus || "" }}) (тел. -
+        {{ currentStudentData.phone_number || "Нет данных" }})
       </h1>
       <div class="mb-3"></div>
       <div class="row">
-        <div class="col-10">
+        <div>
           <div
             data-bs-spy="scroll"
             data-bs-target="#simple-list-example"
@@ -36,9 +38,9 @@
             <div class="shadow p-3 mb-3" id="simple-list-personal-data">
               <div class="card border-0">
                 <div class="card-body">
-                  <h5 class="card-title">Личные данные</h5>
+                  <h5 class="card-title">Обучение в Академии</h5>
                   <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-xl-2">
                       <div
                         class="text-center m-3 border"
                         style="position: relative"
@@ -66,7 +68,7 @@
                         />
                       </div>
                     </div>
-                    <div class="col-lg-8">
+                    <div class="col-xl-10">
                       <div class="d-flex flex-row">
                         <h3 class="me-3" v-if="currentStudentData.get_age">
                           Возраст - {{ currentStudentData.get_age }} лет
@@ -95,55 +97,151 @@
                         </div>
                       </div>
 
-                      <div class="row">
-                        <div class="col-lg-4">
+                      <div class="row my-3">
+                        <h3>Набор {{ currentStudentData.entrance_year }}</h3>
+                        <div class="col-xl-3">Специальность</div>
+                        <div class="col-xl-3">Специализация /профилизация</div>
+                        <div class="col-xl-3">
                           <div class="mb-3">
-                            <label class="form-label" for="id_id"
-                              >Номер в базе</label
+                            <label class="form-label" for="id_subdivision"
+                              >Дата начала обучения</label
                             >
                             <input
-                              type="text"
+                              type="date"
                               class="form-control"
-                              name="last_name_rus"
-                              id="id_id"
-                              v-model="currentStudentData.id"
-                              disabled
+                              v-model="currentStudentData.academy_start_date"
+                              id="id_subdivision"
                             />
                           </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-xl-3">
                           <div class="mb-3">
-                            <label class="form-label" for="id_entrance_year"
-                              >Год набора</label
+                            <label class="form-label" for="id_subdivision"
+                              >Дата окончания обучения</label
                             >
                             <input
-                              type="text"
+                              type="date"
                               class="form-control"
-                              name="entrance_year"
-                              required
-                              id="id_entrance_year"
-                              disabled
-                              v-model="currentStudentData.entrance_year"
+                              v-model="currentStudentData.academy_end_date"
+                              id="id_subdivision"
                             />
                           </div>
                         </div>
+                      </div>
 
-                        <div class="col-lg-4">
+                      <div class="row">
+                        <div class="col-xl-2">
+                          <div class="mb-3">
+                            <label class="form-label" for="id_first_name_rus"
+                              >Форма обучения</label
+                            >
+                            <select
+                              class="form-select"
+                              name="subdivision"
+                              id="id_subdivision"
+                              v-model="currentStudentData.education_form"
+                            >
+                              <option :value="null" selected>---------</option>
+                              <option
+                                v-for="education_form in orderedEducationForms"
+                                :value="education_form.id"
+                              >
+                                {{ education_form.education_form }}
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-xl-1">
+                          <div class="mb-3">
+                            <label class="form-label" for="id_year">Курс</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="id_year"
+                              v-model="currentStudentData.year"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-xl-1">
+                          <div class="mb-3">
+                            <label class="form-label" for="id_year_litera"
+                              >Литера</label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="id_year_litera"
+                              v-model="currentStudentData.year_litera"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-xl-2">
+                          <div class="mb-3">
+                            <label class="form-label" for="id_category"
+                              >Группа</label
+                            >
+                            <select
+                              class="form-select"
+                              name="subdivision"
+                              id="id_subdivision"
+                              v-model="currentStudentData.group"
+                            >
+                              <option :value="null" selected>---------</option>
+                              <option
+                                v-for="group in orderedGroups"
+                                :value="group.id"
+                                :key="group.id"
+                              >
+                                {{ group.group_name }}
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-xl-2">
+                          <div class="mb-3">
+                            <label class="form-label" for="id_first_name_rus"
+                              >Номер зачетной книжки</label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              v-model="
+                                currentStudentData.student_record_book_number
+                              "
+                              id="id_student_record_book_number"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-xl-2">
+                          <div class="mb-3">
+                            <label class="form-label" for="id_contract_number"
+                              >Номер договора</label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="id_contract_number"
+                              v-model="currentStudentData.contract_number"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-lg-2">
                           <div class="mb-3">
                             <label
                               class="form-label"
-                              for="id_address_registration"
-                              >Пол</label
+                              for="id_foreign_language_will_be"
+                              >Иностранный язык</label
                             >
                             <select
-                              name=""
-                              id=""
+                              id="id_foreign_language_will_be"
                               class="form-select"
-                              v-model="currentStudentData.gender"
+                              v-model="
+                                currentStudentData.foreign_language_will_be
+                              "
                             >
-                              <option :value="null">------</option>
-                              <option value="1">мужской</option>
-                              <option value="0">женский</option>
+                              <option :value="null">---------</option>
+                              <option :value="1" :key="1">Английский</option>
+                              <option :value="2" :key="2">Немецкий</option>
                             </select>
                           </div>
                         </div>
@@ -248,788 +346,6 @@
                           </div>
                         </div>
                       </div>
-
-                      <div class="row">
-                        <div class="col-lg-4">
-                          <div class="mb-3">
-                            <label class="form-label" for="id_date_of_birth"
-                              >Дата рождения:</label
-                            >
-                            <input
-                              type="date"
-                              class="form-control"
-                              name="date_of_birth"
-                              id="id_date_of_birth"
-                              v-model="currentStudentData.date_of_birth"
-                            />
-                          </div>
-                        </div>
-                        <div class="col-lg-8">
-                          <div class="mb-3">
-                            <label class="form-label" for="id_place_of_birth"
-                              >Место рождения</label
-                            >
-                            <input
-                              type="text"
-                              class="form-control"
-                              name="place_of_birth"
-                              id="id_place_of_birth"
-                              v-model="currentStudentData.place_of_birth"
-                            />
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-lg-4">
-                          <div class="mb-3">
-                            <label class="form-label" for="id_phone_number"
-                              >Номер телефона:</label
-                            >
-                            <input
-                              type="text"
-                              class="form-control"
-                              name="phone_number"
-                              maxlength="30"
-                              id="id_phone_number"
-                              autocomplete="false"
-                              v-model="currentStudentData.phone_number"
-                            />
-                          </div>
-                        </div>
-                        <div class="col-lg-8">
-                          <div class="mb-3">
-                            <label class="form-label" for="id_address_residence"
-                              >Адрес места жительства</label
-                            >
-                            <input
-                              type="text"
-                              class="form-control"
-                              name="address_residence"
-                              id="id_address_residence"
-                              v-model="currentStudentData.address_residence"
-                            />
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-xl-6">
-                          <div class="mb-3">
-                            <label
-                              class="form-label"
-                              for="id_education_location_kind"
-                              >Место регистрации - город/село</label
-                            >
-                            <select
-                              id="id_education_location_kind"
-                              class="form-select"
-                              v-model="
-                                currentStudentData.residence_location_kind
-                              "
-                            >
-                              <option :value="null">---------</option>
-                              <option
-                                :value="educationLocalityKind.id"
-                                v-for="educationLocalityKind in orderedEducationLocalityKinds"
-                              >
-                                {{
-                                  educationLocalityKind.education_location_kind
-                                }}
-                              </option>
-                            </select>
-                          </div>
-                        </div>
-
-                        <div class="col-lg-6">
-                          <div class="mb-3">
-                            <label
-                              class="form-label"
-                              for="id_region_for_medical_examination"
-                              >Область места жительства</label
-                            >
-                            <select
-                              id="id_region_for_medical_examination"
-                              class="form-select"
-                              v-model="currentStudentData.residence_region"
-                            >
-                              <option :value="null">---------</option>
-                              <option
-                                :value="countryRegion.id"
-                                v-for="countryRegion in orderedCountryRegions"
-                              >
-                                {{ countryRegion.country_region }}
-                              </option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-6">
-                          <label
-                            class="form-label"
-                            for="id_address_registration"
-                            >Место регистрации</label
-                          >
-                          <div class="mb-3">
-                            <input
-                              type="text"
-                              id="id_address_registration"
-                              class="form-control"
-                              placeholder="Место регистрации"
-                              v-model="currentStudentData.address_registration"
-                              required
-                            />
-                          </div>
-                        </div>
-                        <div class="col-6">
-                          <div class="fmb-3">
-                            <label class="form-label" for="id_address_residence"
-                              >Место фактического жительства</label
-                            >
-                            <input
-                              id="id_address_residence"
-                              type="text"
-                              class="form-control"
-                              placeholder="Место фактического жительства"
-                              v-model="currentStudentData.address_residence"
-                            />
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-xxl-6">
-                          <div class="mb-3">
-                            <label class="form-label" for="id_social_status"
-                              >Социальный статус</label
-                            >
-                            <select
-                              id="id_social_status"
-                              class="form-select"
-                              v-model="currentStudentData.social_status"
-                            >
-                              <option :value="null">---------</option>
-                              <option
-                                :value="socialStatus.id"
-                                v-for="socialStatus in orderedSocialStatuses"
-                              >
-                                {{ socialStatus.social_status }}
-                              </option>
-                            </select>
-                          </div>
-                        </div>
-                        <div class="col-xxl-6">
-                          <div class="mb-3">
-                            <label class="form-label" for="id_department"
-                              >Наименование ведомства (для сотрудников)</label
-                            >
-                            <textarea
-                              id="id_department"
-                              class="form-control"
-                              placeholder="Наименование ведомства (для сотрудников)"
-                              rows="1"
-                              v-model="currentStudentData.department"
-                            ></textarea>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-xxl-6">
-                          <div class="mb-3">
-                            <label class="form-label" for="id_place_of_work"
-                              >Место работы и должность</label
-                            >
-                            <textarea
-                              id="id_place_of_work"
-                              class="form-control"
-                              placeholder="Место работы и должность"
-                              rows="1"
-                              v-model="currentStudentData.place_of_work"
-                            ></textarea>
-                          </div>
-                        </div>
-                        <div class="col-xxl-6">
-                          <div class="mb-3">
-                            <label class="form-label" for="id_rank"
-                              >Звание</label
-                            >
-                            <textarea
-                              id="id_rank"
-                              class="form-control"
-                              placeholder="Место работы"
-                              rows="1"
-                              v-model="currentStudentData.rank"
-                            ></textarea>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-xl-12">
-                          <div class="mb-3">
-                            <label for="id_personal_information_tab_extra_data"
-                              >Примечание по личной информации</label
-                            >
-                            <textarea
-                              id="id_personal_information_tab_extra_data"
-                              class="form-control"
-                              placeholder="Примечание по личной информации"
-                              rows="2"
-                              v-model="
-                                currentStudentData.personal_information_tab_extra_data
-                              "
-                            ></textarea>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="shadow p-3 mb-3" id="simple-list-passport-data">
-              <div class="card border-0">
-                <div class="card-body">
-                  <h5 class="card-title mb-4">Паспортные данные</h5>
-
-                  <div class="row">
-                    <div class="col-6">
-                      <div class="mb-3">
-                        <label
-                          class="form-label"
-                          for="id_passport_document_type"
-                          >Документ удостоверяющий личность</label
-                        >
-                        <select
-                          class="form-select"
-                          id="id_passport_document_type"
-                          v-model="currentStudentData.passport_document_type"
-                        >
-                          <option :value="null">---------</option>
-                          <option value="1">Паспорт</option>
-                          <option value="2">Идентификационная карта</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-3">
-                      <div class="mb-3">
-                        <label class="form-label" for="id_passport_number"
-                          >Серия и номер паспорта / id карты
-                        </label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          name="passport_number"
-                          maxlength="100"
-                          id="id_passport_number"
-                          v-model="currentStudentData.passport_number"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-3">
-                      <div class="mb-3">
-                        <label class="form-label" for="id_passport_issue_date"
-                          >Дата выдачи паспорта:</label
-                        >
-                        <input
-                          type="date"
-                          class="form-control"
-                          name="passport_issue_date"
-                          id="id_passport_issue_date"
-                          v-model="currentStudentData.passport_issue_date"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-3">
-                      <div class="mb-3">
-                        <label
-                          class="form-label"
-                          for="id_passport_validity_period"
-                          >Срок оконч. паспорта:</label
-                        >
-                        <input
-                          type="date"
-                          class="form-control"
-                          name="passport_validity_period"
-                          id="id_passport_validity_period"
-                          v-model="currentStudentData.passport_validity_period"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-3">
-                      <div class="mb-3">
-                        <label
-                          class="form-label"
-                          for="id_passport_issue_authority"
-                          >Орган выдачи паспорта:</label
-                        >
-                        <textarea
-                          class="form-control"
-                          rows="1"
-                          v-model="
-                            currentStudentData.passport_issue_authority_text
-                          "
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="shadow p-3 mb-3" id="simple-list-academy-data">
-              <div class="card border-0">
-                <div class="card-body">
-                  <h5 class="card-title">Обучение в Академии МВД</h5>
-                  <div class="row">
-                    <div class="col-lg-4">
-                      <div class="mb-3">
-                        <label class="form-label" for="id_first_name_rus"
-                          >Номер зачетной книжки</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          v-model="
-                            currentStudentData.student_record_book_number
-                          "
-                          id="id_student_record_book_number"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="mb-3">
-                        <label class="form-label" for="id_first_name_rus"
-                          >Форма обучения</label
-                        >
-                        <select
-                          class="form-select"
-                          name="subdivision"
-                          id="id_subdivision"
-                          v-model="currentStudentData.education_form"
-                        >
-                          <option :value="null" selected>---------</option>
-                          <option
-                            v-for="education_form in orderedEducationForms"
-                            :value="education_form.id"
-                          >
-                            {{ education_form.education_form }}
-                          </option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-lg-3">
-                      <div class="mb-3">
-                        <label class="form-label" for="id_category"
-                          >Группа</label
-                        >
-                        <select
-                          class="form-select"
-                          name="subdivision"
-                          id="id_subdivision"
-                          v-model="currentStudentData.group"
-                        >
-                          <option :value="null" selected>---------</option>
-                          <option
-                            v-for="group in orderedGroups"
-                            :value="group.id"
-                            :key="group.id"
-                          >
-                            {{ group.group_name }}
-                          </option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div class="col-lg-3">
-                      <div class="mb-3">
-                        <label class="form-label" for="id_contract_number"
-                          >Номер договора</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="id_contract_number"
-                          v-model="currentStudentData.contract_number"
-                        />
-                      </div>
-                    </div>
-
-                    <div class="col-lg-3">
-                      <div class="mb-3">
-                        <label class="form-label" for="id_year">Курс</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="id_year"
-                          v-model="currentStudentData.year"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-lg-3">
-                      <div class="mb-3">
-                        <label class="form-label" for="id_year_litera"
-                          >Литера</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="id_year_litera"
-                          v-model="currentStudentData.year_litera"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-lg-4">
-                      <div class="mb-3">
-                        <label class="form-label" for="id_first_name_rus"
-                          >Специальность</label
-                        >
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="mb-3">
-                        <label class="form-label" for="id_first_name_rus"
-                          >Специализация</label
-                        >
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="mb-3">
-                        <label class="form-label" for="id_first_name_rus"
-                          >Направление</label
-                        >
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-lg-3">
-                      <div class="mb-3">
-                        <label class="form-label" for="id_subdivision"
-                          >Дата начала обучения</label
-                        >
-                        <input
-                          type="date"
-                          class="form-control"
-                          v-model="currentStudentData.academy_start_date"
-                          id="id_subdivision"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-lg-3">
-                      <div class="mb-3">
-                        <label class="form-label" for="id_subdivision"
-                          >Дата окончания обучения</label
-                        >
-                        <input
-                          type="date"
-                          class="form-control"
-                          v-model="currentStudentData.academy_end_date"
-                          id="id_subdivision"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-lg-3">
-                      <div class="mb-3">
-                        <label class="form-label" for="id_subdivision"
-                          >Причина окончания</label
-                        >
-                        <select
-                          class="form-select"
-                          name="graduation_reason"
-                          id="id_graduation_reason"
-                          v-model="currentStudentData.graduation_reason"
-                        >
-                          <option :value="null" selected>---------</option>
-                          <option
-                            v-for="graduation_reason in orderedGraduationReasons"
-                            :value="graduation_reason.id"
-                            :key="graduation_reason.id"
-                          >
-                            {{ graduation_reason.graduation_reason }}
-                          </option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-lg-3">
-                      <div class="mb-3">
-                        <label class="form-label" for="id_subdivision"
-                          >Статья отчисления</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          v-model="currentStudentData.graduation_reason_article"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-12">
-                      <div class="mb-3">
-                        <label class="form-label" for="id_subdivision"
-                          >Дополнительная информация об отчислении</label
-                        >
-                        <textarea
-                          class="form-control"
-                          rows="2"
-                          v-model="currentStudentData.graduation_extra_data"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="shadow p-3 mb-3" id="simple-list-parents-data">
-              <div class="card border-0">
-                <div class="card-body">
-                  <h5 class="card-title mb-3">Данные о родителях</h5>
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <div>
-                        <h5>Отец</h5>
-                        <div class="row">
-                          <div class="col-4">
-                            <div class="mb-3">
-                              <label
-                                class="form-label"
-                                for="id_father_last_name"
-                                >Фамилия:</label
-                              >
-                              <input
-                                type="text"
-                                class="form-control"
-                                name="father_last_name"
-                                v-model="currentStudentData.father_last_name"
-                                id="id_father_last_name"
-                              />
-                            </div>
-                          </div>
-                          <div class="col-4">
-                            <div class="mb-3">
-                              <label
-                                class="form-label"
-                                for="id_father_first_name"
-                                >Имя</label
-                              >
-                              <input
-                                type="text"
-                                class="form-control"
-                                name="father_first_name"
-                                maxlength="30"
-                                id="id_father_first_name"
-                                v-model="currentStudentData.father_first_name"
-                              />
-                            </div>
-                          </div>
-                          <div class="col-4">
-                            <div class="mb-3">
-                              <label
-                                class="form-label"
-                                for="id_father_patronymic"
-                                >Отчество</label
-                              >
-                              <input
-                                type="text"
-                                class="form-control"
-                                name="father_patronymic"
-                                maxlength="30"
-                                id="id_father_patronymic"
-                                v-model="currentStudentData.father_patronymic"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-4">
-                            <div class="mb-3">
-                              <label
-                                class="form-label"
-                                for="id_father_date_of_birth"
-                                >Дата рождения</label
-                              >
-                              <input
-                                type="date"
-                                class="form-control"
-                                name="father_date_of_birth"
-                                id="id_father_date_of_birth"
-                                v-model="
-                                  currentStudentData.father_date_of_birth
-                                "
-                              />
-                            </div>
-                          </div>
-                          <div class="col-8">
-                            <div class="mb-3">
-                              <label
-                                class="form-label"
-                                for="id_father_phone_number"
-                                >Номер телефона</label
-                              >
-                              <input
-                                type="text"
-                                class="form-control"
-                                name="father_phone_number"
-                                maxlength="30"
-                                id="id_father_phone_number"
-                                v-model="currentStudentData.father_phone_number"
-                              />
-                            </div>
-                          </div>
-                          <div class="col-4"></div>
-                        </div>
-                        <div class="row">
-                          <div class="col-12">
-                            <div class="mb-3">
-                              <label
-                                class="form-label"
-                                for="id_father_place_of_work"
-                                >Место работы</label
-                              >
-                              <textarea
-                                class="form-control"
-                                name="father_place_of_work"
-                                cols="40"
-                                rows="2"
-                                id="id_father_place_of_work"
-                                v-model="
-                                  currentStudentData.father_place_of_work
-                                "
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div>
-                        <h5>Мать</h5>
-                        <div class="row">
-                          <div class="col-4">
-                            <div class="mb-3">
-                              <label
-                                class="form-label"
-                                for="id_mother_last_name"
-                                >Фамилия:</label
-                              >
-                              <input
-                                type="text"
-                                class="form-control"
-                                name="mother_last_name"
-                                maxlength="30"
-                                id="id_mother_last_name"
-                                v-model="currentStudentData.mother_last_name"
-                              />
-                            </div>
-                          </div>
-                          <div class="col-4">
-                            <div class="mb-3">
-                              <label
-                                class="form-label"
-                                for="id_mother_first_name"
-                                >Имя</label
-                              >
-                              <input
-                                type="text"
-                                class="form-control"
-                                name="mother_first_name"
-                                maxlength="30"
-                                id="id_mother_first_name"
-                                v-model="currentStudentData.mother_first_name"
-                              />
-                            </div>
-                          </div>
-                          <div class="col-4">
-                            <div class="mb-3">
-                              <label
-                                class="form-label"
-                                for="id_mother_patronymic"
-                                >Отчество</label
-                              >
-                              <input
-                                type="text"
-                                class="form-control"
-                                name="mother_patronymic"
-                                maxlength="30"
-                                id="id_mother_patronymic"
-                                v-model="currentStudentData.mother_patronymic"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-4">
-                            <div class="mb-3">
-                              <label
-                                class="form-label"
-                                for="id_mother_date_of_birth"
-                                >Дата рождения</label
-                              >
-                              <input
-                                type="date"
-                                class="form-control"
-                                name="mother_date_of_birth"
-                                id="id_mother_date_of_birth"
-                                v-model="
-                                  currentStudentData.mother_date_of_birth
-                                "
-                              />
-                            </div>
-                          </div>
-                          <div class="col-8">
-                            <div class="mb-3">
-                              <label
-                                class="form-label"
-                                for="id_mother_phone_number"
-                                >Номер телефона</label
-                              >
-                              <input
-                                type="text"
-                                class="form-control"
-                                name="mother_phone_number"
-                                maxlength="30"
-                                id="id_mother_phone_number"
-                                v-model="currentStudentData.mother_phone_number"
-                              />
-                            </div>
-                          </div>
-                          <div class="col-4"></div>
-                        </div>
-                        <div class="row">
-                          <div class="col-12">
-                            <div class="mb-3">
-                              <label
-                                class="form-label"
-                                for="id_father_place_of_work"
-                                >Место работы</label
-                              >
-                              <textarea
-                                class="form-control"
-                                name="father_place_of_work"
-                                cols="40"
-                                rows="2"
-                                id="id_father_place_of_work"
-                                v-model="
-                                  currentStudentData.mother_place_of_work
-                                "
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -1128,48 +444,867 @@
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="col-2">
-          <div
-            style="
-              height: calc(100vh - 250px);
-              max-height: calc(100vh - 250px);
-              overflow-y: scroll;
-            "
-          >
-            <div class="shadow p-2 mb-5 rounded">
+
+            <div class="shadow p-3 mb-3" id="simple-list-passport-data">
               <div class="card border-0">
                 <div class="card-body">
-                  <div class="list-group">
-                    <a
-                      class="list-group-item list-group-item-action rounded-1"
-                      href="#simple-list-personal-data"
-                      >Личные данные</a
-                    >
-                    <a
-                      class="list-group-item list-group-item-action rounded-1"
-                      href="#simple-list-passport-data"
-                      >Паспортные данные</a
-                    >
-                    <a
-                      class="list-group-item list-group-item-action rounded-1"
-                      href="#simple-list-academy-data"
-                      >Обучение в Академии МВД</a
-                    >
+                  <h5 class="card-title mb-4">Личные данные</h5>
 
-                    <a
-                      class="list-group-item list-group-item-action rounded-1"
-                      href="#simple-list-parents-data"
-                      >Данные о родителях</a
-                    >
-
-                    <a
-                      class="list-group-item list-group-item-action rounded-1"
-                      href="#simple-list-orders-data"
-                      >Приказы</a
-                    >
+                  <div class="row">
+                    <div class="col-lg-1">
+                      <div class="mb-3">
+                        <label class="form-label" for="id_date_of_birth"
+                          >Дата рождения:</label
+                        >
+                        <input
+                          type="date"
+                          class="form-control"
+                          name="date_of_birth"
+                          id="id_date_of_birth"
+                          v-model="currentStudentData.date_of_birth"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="mb-3">
+                        <label class="form-label" for="id_place_of_birth"
+                          >Место рождения</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="place_of_birth"
+                          id="id_place_of_birth"
+                          v-model="currentStudentData.place_of_birth"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-2">
+                      <div class="mb-3">
+                        <label class="form-label" for="id_address_registration"
+                          >Пол</label
+                        >
+                        <select
+                          name=""
+                          id=""
+                          class="form-select"
+                          v-model="currentStudentData.gender"
+                        >
+                          <option :value="null">------</option>
+                          <option value="1">мужской</option>
+                          <option value="0">женский</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-xl-3">
+                      <div class="mb-3">
+                        <label
+                          class="form-label"
+                          for="id_education_location_kind"
+                          >Место регистрации - город/село</label
+                        >
+                        <select
+                          id="id_education_location_kind"
+                          class="form-select"
+                          v-model="currentStudentData.residence_location_kind"
+                        >
+                          <option :value="null">---------</option>
+                          <option
+                            :value="educationLocalityKind.id"
+                            v-for="educationLocalityKind in orderedEducationLocalityKinds"
+                          >
+                            {{ educationLocalityKind.education_location_kind }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-xl-3">
+                      <div class="mb-3">
+                        <label
+                          class="form-label"
+                          for="id_region_for_medical_examination"
+                          >Область места жительства</label
+                        >
+                        <select
+                          id="id_region_for_medical_examination"
+                          class="form-select"
+                          v-model="currentStudentData.residence_region"
+                        >
+                          <option :value="null">---------</option>
+                          <option
+                            :value="countryRegion.id"
+                            v-for="countryRegion in orderedCountryRegions"
+                          >
+                            {{ countryRegion.country_region }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
                   </div>
+
+                  <div class="row">
+                    <div class="col-lg-8"></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-4">
+                      <label class="form-label" for="id_address_registration"
+                        >Место регистрации</label
+                      >
+                      <div class="mb-3">
+                        <input
+                          type="text"
+                          id="id_address_registration"
+                          class="form-control"
+                          v-model="currentStudentData.address_registration"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="col-xl-6">
+                      <div class="fmb-3">
+                        <label class="form-label" for="id_address_residence"
+                          >Место фактического жительства</label
+                        >
+                        <input
+                          id="id_address_residence"
+                          type="text"
+                          class="form-control"
+                          placeholder="Место фактического жительства"
+                          v-model="currentStudentData.address_residence"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-xl-2">
+                      <div class="mb-3">
+                        <label class="form-label" for="id_phone_number"
+                          >Номер телефона:</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="phone_number"
+                          maxlength="30"
+                          id="id_phone_number"
+                          autocomplete="false"
+                          v-model="currentStudentData.phone_number"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-2">
+                      <div class="mb-3">
+                        <label class="form-label" for="id_social_status"
+                          >Социальный статус</label
+                        >
+                        <select
+                          id="id_social_status"
+                          class="form-select"
+                          v-model="currentStudentData.social_status"
+                        >
+                          <option :value="null">---------</option>
+                          <option
+                            :value="socialStatus.id"
+                            v-for="socialStatus in orderedSocialStatuses"
+                          >
+                            {{ socialStatus.social_status }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-xxl-4">
+                      <div class="mb-3">
+                        <label class="form-label" for="id_place_of_work"
+                          >Место работы и должность</label
+                        >
+                        <textarea
+                          id="id_place_of_work"
+                          class="form-control"
+                          placeholder="Место работы и должность"
+                          rows="1"
+                          v-model="currentStudentData.place_of_work"
+                        ></textarea>
+                      </div>
+                    </div>
+                    <div class="col-xxl-3">
+                      <div class="mb-3">
+                        <label class="form-label" for="id_rank">Звание</label>
+                        <textarea
+                          id="id_rank"
+                          class="form-control"
+                          rows="1"
+                          v-model="currentStudentData.rank"
+                        ></textarea>
+                      </div>
+                    </div>
+                    <div class="col-xxl-3">
+                      <div class="mb-3">
+                        <label class="form-label" for="id_department"
+                          >Наименование ведомства (для сотрудников)</label
+                        >
+                        <textarea
+                          id="id_department"
+                          class="form-control"
+                          rows="1"
+                          v-model="currentStudentData.department"
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-2">
+                      <div class="mb-3">
+                        <label
+                          class="form-label"
+                          for="id_passport_document_type"
+                          >Документ удостоверяющий личность</label
+                        >
+                        <select
+                          class="form-select"
+                          id="id_passport_document_type"
+                          v-model="currentStudentData.passport_document_type"
+                        >
+                          <option :value="null">---------</option>
+                          <option value="1">Паспорт</option>
+                          <option value="2">Идентификационная карта</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-2">
+                      <div class="mb-3">
+                        <label class="form-label" for="id_passport_number"
+                          >Серия и номер паспорта / id карты
+                        </label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="passport_number"
+                          maxlength="100"
+                          id="id_passport_number"
+                          v-model="currentStudentData.passport_number"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-2">
+                      <div class="mb-3">
+                        <label class="form-label" for="id_identification_number"
+                          >Идентификационный номер</label
+                        >
+                        <input
+                          type="text"
+                          id="id_identification_number"
+                          class="form-control"
+                          v-model="currentStudentData.identification_number"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-1">
+                      <div class="mb-3">
+                        <label class="form-label" for="id_passport_issue_date"
+                          >Дата выдачи</label
+                        >
+                        <input
+                          type="date"
+                          class="form-control"
+                          name="passport_issue_date"
+                          id="id_passport_issue_date"
+                          v-model="currentStudentData.passport_issue_date"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-1">
+                      <div class="mb-3">
+                        <label
+                          class="form-label"
+                          for="id_passport_validity_period"
+                          >Срок оконч.</label
+                        >
+                        <input
+                          type="date"
+                          class="form-control"
+                          name="passport_validity_period"
+                          id="id_passport_validity_period"
+                          v-model="currentStudentData.passport_validity_period"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="mb-3">
+                        <label
+                          class="form-label"
+                          for="id_passport_issue_authority"
+                          >Орган выдачи паспорта:</label
+                        >
+                        <textarea
+                          class="form-control"
+                          rows="1"
+                          v-model="
+                            currentStudentData.passport_issue_authority_text
+                          "
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-12">
+                      <div class="mb-3">
+                        <label
+                          class="form-label"
+                          for="id_personal_information_tab_extra_data"
+                          >Примечание по личным данным</label
+                        >
+                        <textarea
+                          id="id_personal_information_tab_extra_data"
+                          class="form-control"
+                          rows="2"
+                          v-model="
+                            currentStudentData.personal_information_tab_extra_data
+                          "
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="shadow p-3 mb-3" id="simple-list-parents-data">
+              <div class="card border-0">
+                <div class="card-body">
+                  <h5 class="card-title mb-3">Данные о родителях</h5>
+
+                  <div>
+                    <div class="my-3">
+                      <p class="fs-6 fw-bold my-2">Мать</p>
+                      <div class="row">
+                        <div class="col-xl-3">
+                          <div class="form-floating mb-3">
+                            <input
+                              id="id_mother_last_name"
+                              type="text"
+                              class="form-control form-control-sm"
+                              placeholder="Мать (фамилия)"
+                              v-model="currentStudentData.mother_last_name"
+                            />
+                            <label for="id_mother_last_name">Фамилия</label>
+                          </div>
+                        </div>
+                        <div class="col-xl-3">
+                          <div class="form-floating mb-3">
+                            <input
+                              id="id_mother_first_name"
+                              type="text"
+                              class="form-control form-control-sm"
+                              placeholder="Мать (имя)"
+                              v-model="currentStudentData.mother_first_name"
+                            />
+                            <label for="id_mother_first_name">Имя</label>
+                          </div>
+                        </div>
+                        <div class="col-xl-3">
+                          <div class="form-floating mb-3">
+                            <input
+                              id="id_mother_patronymic"
+                              type="text"
+                              class="form-control form-control-sm"
+                              placeholder="Мать (отчество)"
+                              v-model="currentStudentData.mother_patronymic"
+                            />
+                            <label for="id_mother_patronymic">Отчество</label>
+                          </div>
+                        </div>
+                        <div class="col-xl-3">
+                          <div class="form-floating mb-3">
+                            <input
+                              id="id_mother_date_of_birth"
+                              name="mother_date_of_birth"
+                              type="date"
+                              class="form-control form-control-sm"
+                              placeholder="Мать (дата рождения)"
+                              v-model="currentStudentData.mother_date_of_birth"
+                              @input="makeInputDefaultNullValueIfEmpty"
+                            />
+                            <label for="id_mother_date_of_birth"
+                              >Дата рождения</label
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-6">
+                          <div class="form-floating mb-3">
+                            <input
+                              id="id_mother_address_registration"
+                              type="text"
+                              class="form-control form-control-sm"
+                              placeholder="Место регистрации"
+                              v-model="
+                                currentStudentData.mother_address_registration
+                              "
+                            />
+                            <label for="id_mother_address_registration"
+                              >Место регистрации</label
+                            >
+                          </div>
+                        </div>
+
+                        <div class="col-6">
+                          <div class="form-floating mb-3">
+                            <input
+                              id="id_mother_address_residence"
+                              type="text"
+                              class="form-control form-control-sm"
+                              placeholder="Место фактичесго жительства"
+                              v-model="
+                                currentStudentData.mother_address_residence
+                              "
+                            />
+                            <label for="id_mother_address_residence"
+                              >Место фактичесго жительства</label
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-6">
+                          <div class="row">
+                            <div class="col-3 d-flex align-items-end">
+                              <div class="form-check mb-3">
+                                <input
+                                  id="id_mother_is_employee"
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  v-model="
+                                    currentStudentData.mother_is_employee
+                                  "
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="id_mother_is_employee"
+                                >
+                                  Является сотрудником
+                                </label>
+                              </div>
+                            </div>
+                            <div class="col-9">
+                              <div class="form-floating mb-3">
+                                <input
+                                  id="id_mother_place_of_work"
+                                  type="text"
+                                  class="form-control form-control-sm"
+                                  placeholder="Место работы и должность"
+                                  v-model="
+                                    currentStudentData.mother_place_of_work
+                                  "
+                                />
+                                <label for="id_mother_place_of_work"
+                                  >Место работы и должность</label
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="form-floating mb-3">
+                            <input
+                              id="id_mother_phone_number"
+                              type="text"
+                              class="form-control form-control-sm"
+                              placeholder="Номер телефона"
+                              v-model="currentStudentData.mother_phone_number"
+                            />
+                            <label for="id_mother_phone_number"
+                              >Номер телефона</label
+                            >
+                          </div>
+                        </div>
+                      </div>
+
+                      <p class="fs-6 fw-bold my-2">Отец</p>
+                      <div class="row">
+                        <div class="col-xl-3">
+                          <div class="form-floating mb-3">
+                            <input
+                              id="id_father_last_name"
+                              type="text"
+                              class="form-control form-control-sm"
+                              placeholder="Отец (фамилия)"
+                              v-model="currentStudentData.father_last_name"
+                            />
+                            <label for="id_father_last_name">Фамилия</label>
+                          </div>
+                        </div>
+                        <div class="col-xl-3">
+                          <div class="form-floating mb-3">
+                            <input
+                              id="id_father_first_name"
+                              type="text"
+                              class="form-control form-control-sm"
+                              placeholder="Отец (имя)"
+                              v-model="currentStudentData.father_first_name"
+                            />
+                            <label for="id_father_first_name">Имя</label>
+                          </div>
+                        </div>
+                        <div class="col-xl-3">
+                          <div class="form-floating mb-3">
+                            <input
+                              id="id_father_patronymic"
+                              type="text"
+                              class="form-control form-control-sm"
+                              placeholder="Отец (отчество)"
+                              v-model="currentStudentData.father_patronymic"
+                            />
+                            <label for="id_father_patronymic">Отчество</label>
+                          </div>
+                        </div>
+                        <div class="col-xl-3">
+                          <div class="form-floating mb-3">
+                            <input
+                              id="id_father_date_of_birth"
+                              type="date"
+                              name="father_date_of_birth"
+                              class="form-control form-control-sm"
+                              placeholder="Отец (дата рождения)"
+                              v-model="currentStudentData.father_date_of_birth"
+                              @input="makeInputDefaultNullValueIfEmpty"
+                            />
+                            <label for="id_father_date_of_birth"
+                              >Дата рождения</label
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-6">
+                          <div class="form-floating mb-3">
+                            <input
+                              id="id_father_address_registration"
+                              type="text"
+                              class="form-control form-control-sm"
+                              placeholder="Место регистрации"
+                              v-model="
+                                currentStudentData.father_address_registration
+                              "
+                            />
+                            <label for="id_father_address_registration"
+                              >Место регистрации</label
+                            >
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="form-floating mb-3">
+                            <input
+                              id="id_father_address_residence"
+                              type="text"
+                              class="form-control form-control-sm"
+                              placeholder="Место фактического жительства"
+                              v-model="
+                                currentStudentData.father_address_residence
+                              "
+                            />
+                            <label for="id_father_address_residence"
+                              >Место фактического жительства</label
+                            >
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-6">
+                          <div class="row">
+                            <div class="col-3 d-flex align-items-end">
+                              <div class="form-check mb-3">
+                                <input
+                                  id="id_father_is_employee"
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  v-model="
+                                    currentStudentData.father_is_employee
+                                  "
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="id_father_is_employee"
+                                >
+                                  Является сотрудником
+                                </label>
+                              </div>
+                            </div>
+                            <div class="col-9">
+                              <div class="form-floating mb-3">
+                                <input
+                                  id="id_father_place_of_work"
+                                  type="text"
+                                  class="form-control form-control-sm"
+                                  placeholder="Место работы и должность"
+                                  v-model="
+                                    currentStudentData.father_place_of_work
+                                  "
+                                />
+                                <label for="id_father_place_of_work"
+                                  >Место работы и должность</label
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="form-floating mb-3">
+                            <input
+                              id="id_father_phone_number"
+                              type="text"
+                              class="form-control form-control-sm"
+                              placeholder="Номер телефона"
+                              v-model="currentStudentData.father_phone_number"
+                            />
+                            <label for="id_father_phone_number"
+                              >Номер телефона</label
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!--                  <div class="row">-->
+                  <!--                    <div class="col-lg-6">-->
+                  <!--                      <div>-->
+                  <!--                        <h5>Отец</h5>-->
+                  <!--                        <div class="row">-->
+                  <!--                          <div class="col-4">-->
+                  <!--                            <div class="mb-3">-->
+                  <!--                              <label-->
+                  <!--                                class="form-label"-->
+                  <!--                                for="id_father_last_name"-->
+                  <!--                                >Фамилия:</label-->
+                  <!--                              >-->
+                  <!--                              <input-->
+                  <!--                                type="text"-->
+                  <!--                                class="form-control"-->
+                  <!--                                name="father_last_name"-->
+                  <!--                                v-model="currentStudentData.father_last_name"-->
+                  <!--                                id="id_father_last_name"-->
+                  <!--                              />-->
+                  <!--                            </div>-->
+                  <!--                          </div>-->
+                  <!--                          <div class="col-4">-->
+                  <!--                            <div class="mb-3">-->
+                  <!--                              <label-->
+                  <!--                                class="form-label"-->
+                  <!--                                for="id_father_first_name"-->
+                  <!--                                >Имя</label-->
+                  <!--                              >-->
+                  <!--                              <input-->
+                  <!--                                type="text"-->
+                  <!--                                class="form-control"-->
+                  <!--                                name="father_first_name"-->
+                  <!--                                maxlength="30"-->
+                  <!--                                id="id_father_first_name"-->
+                  <!--                                v-model="currentStudentData.father_first_name"-->
+                  <!--                              />-->
+                  <!--                            </div>-->
+                  <!--                          </div>-->
+                  <!--                          <div class="col-4">-->
+                  <!--                            <div class="mb-3">-->
+                  <!--                              <label-->
+                  <!--                                class="form-label"-->
+                  <!--                                for="id_father_patronymic"-->
+                  <!--                                >Отчество</label-->
+                  <!--                              >-->
+                  <!--                              <input-->
+                  <!--                                type="text"-->
+                  <!--                                class="form-control"-->
+                  <!--                                name="father_patronymic"-->
+                  <!--                                maxlength="30"-->
+                  <!--                                id="id_father_patronymic"-->
+                  <!--                                v-model="currentStudentData.father_patronymic"-->
+                  <!--                              />-->
+                  <!--                            </div>-->
+                  <!--                          </div>-->
+                  <!--                        </div>-->
+                  <!--                        <div class="row">-->
+                  <!--                          <div class="col-4">-->
+                  <!--                            <div class="mb-3">-->
+                  <!--                              <label-->
+                  <!--                                class="form-label"-->
+                  <!--                                for="id_father_date_of_birth"-->
+                  <!--                                >Дата рождения</label-->
+                  <!--                              >-->
+                  <!--                              <input-->
+                  <!--                                type="date"-->
+                  <!--                                class="form-control"-->
+                  <!--                                name="father_date_of_birth"-->
+                  <!--                                id="id_father_date_of_birth"-->
+                  <!--                                v-model="-->
+                  <!--                                  currentStudentData.father_date_of_birth-->
+                  <!--                                "-->
+                  <!--                              />-->
+                  <!--                            </div>-->
+                  <!--                          </div>-->
+                  <!--                          <div class="col-8">-->
+                  <!--                            <div class="mb-3">-->
+                  <!--                              <label-->
+                  <!--                                class="form-label"-->
+                  <!--                                for="id_father_phone_number"-->
+                  <!--                                >Номер телефона</label-->
+                  <!--                              >-->
+                  <!--                              <input-->
+                  <!--                                type="text"-->
+                  <!--                                class="form-control"-->
+                  <!--                                name="father_phone_number"-->
+                  <!--                                maxlength="30"-->
+                  <!--                                id="id_father_phone_number"-->
+                  <!--                                v-model="currentStudentData.father_phone_number"-->
+                  <!--                              />-->
+                  <!--                            </div>-->
+                  <!--                          </div>-->
+                  <!--                          <div class="col-4"></div>-->
+                  <!--                        </div>-->
+                  <!--                        <div class="row">-->
+                  <!--                          <div class="col-12">-->
+                  <!--                            <div class="mb-3">-->
+                  <!--                              <label-->
+                  <!--                                class="form-label"-->
+                  <!--                                for="id_father_place_of_work"-->
+                  <!--                                >Место работы</label-->
+                  <!--                              >-->
+                  <!--                              <textarea-->
+                  <!--                                class="form-control"-->
+                  <!--                                name="father_place_of_work"-->
+                  <!--                                cols="40"-->
+                  <!--                                rows="2"-->
+                  <!--                                id="id_father_place_of_work"-->
+                  <!--                                v-model="-->
+                  <!--                                  currentStudentData.father_place_of_work-->
+                  <!--                                "-->
+                  <!--                              />-->
+                  <!--                            </div>-->
+                  <!--                          </div>-->
+                  <!--                        </div>-->
+                  <!--                      </div>-->
+                  <!--                    </div>-->
+                  <!--                    <div class="col-lg-6">-->
+                  <!--                      <div>-->
+                  <!--                        <h5>Мать</h5>-->
+                  <!--                        <div class="row">-->
+                  <!--                          <div class="col-4">-->
+                  <!--                            <div class="mb-3">-->
+                  <!--                              <label-->
+                  <!--                                class="form-label"-->
+                  <!--                                for="id_mother_last_name"-->
+                  <!--                                >Фамилия:</label-->
+                  <!--                              >-->
+                  <!--                              <input-->
+                  <!--                                type="text"-->
+                  <!--                                class="form-control"-->
+                  <!--                                name="mother_last_name"-->
+                  <!--                                maxlength="30"-->
+                  <!--                                id="id_mother_last_name"-->
+                  <!--                                v-model="currentStudentData.mother_last_name"-->
+                  <!--                              />-->
+                  <!--                            </div>-->
+                  <!--                          </div>-->
+                  <!--                          <div class="col-4">-->
+                  <!--                            <div class="mb-3">-->
+                  <!--                              <label-->
+                  <!--                                class="form-label"-->
+                  <!--                                for="id_mother_first_name"-->
+                  <!--                                >Имя</label-->
+                  <!--                              >-->
+                  <!--                              <input-->
+                  <!--                                type="text"-->
+                  <!--                                class="form-control"-->
+                  <!--                                name="mother_first_name"-->
+                  <!--                                maxlength="30"-->
+                  <!--                                id="id_mother_first_name"-->
+                  <!--                                v-model="currentStudentData.mother_first_name"-->
+                  <!--                              />-->
+                  <!--                            </div>-->
+                  <!--                          </div>-->
+                  <!--                          <div class="col-4">-->
+                  <!--                            <div class="mb-3">-->
+                  <!--                              <label-->
+                  <!--                                class="form-label"-->
+                  <!--                                for="id_mother_patronymic"-->
+                  <!--                                >Отчество</label-->
+                  <!--                              >-->
+                  <!--                              <input-->
+                  <!--                                type="text"-->
+                  <!--                                class="form-control"-->
+                  <!--                                name="mother_patronymic"-->
+                  <!--                                maxlength="30"-->
+                  <!--                                id="id_mother_patronymic"-->
+                  <!--                                v-model="currentStudentData.mother_patronymic"-->
+                  <!--                              />-->
+                  <!--                            </div>-->
+                  <!--                          </div>-->
+                  <!--                        </div>-->
+                  <!--                        <div class="row">-->
+                  <!--                          <div class="col-4">-->
+                  <!--                            <div class="mb-3">-->
+                  <!--                              <label-->
+                  <!--                                class="form-label"-->
+                  <!--                                for="id_mother_date_of_birth"-->
+                  <!--                                >Дата рождения</label-->
+                  <!--                              >-->
+                  <!--                              <input-->
+                  <!--                                type="date"-->
+                  <!--                                class="form-control"-->
+                  <!--                                name="mother_date_of_birth"-->
+                  <!--                                id="id_mother_date_of_birth"-->
+                  <!--                                v-model="-->
+                  <!--                                  currentStudentData.mother_date_of_birth-->
+                  <!--                                "-->
+                  <!--                              />-->
+                  <!--                            </div>-->
+                  <!--                          </div>-->
+                  <!--                          <div class="col-8">-->
+                  <!--                            <div class="mb-3">-->
+                  <!--                              <label-->
+                  <!--                                class="form-label"-->
+                  <!--                                for="id_mother_phone_number"-->
+                  <!--                                >Номер телефона</label-->
+                  <!--                              >-->
+                  <!--                              <input-->
+                  <!--                                type="text"-->
+                  <!--                                class="form-control"-->
+                  <!--                                name="mother_phone_number"-->
+                  <!--                                maxlength="30"-->
+                  <!--                                id="id_mother_phone_number"-->
+                  <!--                                v-model="currentStudentData.mother_phone_number"-->
+                  <!--                              />-->
+                  <!--                            </div>-->
+                  <!--                          </div>-->
+                  <!--                          <div class="col-4"></div>-->
+                  <!--                        </div>-->
+                  <!--                        <div class="row">-->
+                  <!--                          <div class="col-12">-->
+                  <!--                            <div class="mb-3">-->
+                  <!--                              <label-->
+                  <!--                                class="form-label"-->
+                  <!--                                for="id_father_place_of_work"-->
+                  <!--                                >Место работы</label-->
+                  <!--                              >-->
+                  <!--                              <textarea-->
+                  <!--                                class="form-control"-->
+                  <!--                                name="father_place_of_work"-->
+                  <!--                                cols="40"-->
+                  <!--                                rows="2"-->
+                  <!--                                id="id_father_place_of_work"-->
+                  <!--                                v-model="-->
+                  <!--                                  currentStudentData.mother_place_of_work-->
+                  <!--                                "-->
+                  <!--                              />-->
+                  <!--                            </div>-->
+                  <!--                          </div>-->
+                  <!--                        </div>-->
+                  <!--                      </div>-->
+                  <!--                    </div>-->
+                  <!--                  </div>-->
                 </div>
               </div>
             </div>
@@ -1186,7 +1321,6 @@ import getJobHistoryAPIInstance from "@/api/cadet/jobHistoryAPI"
 import { debounce } from "lodash/function"
 
 import { EducationHistoryCadetComponent } from "@/components/cadet/education"
-import { ScientificWorksCadetComponent } from "@/components/cadet/scientific_works"
 import { JobCadetComponent } from "@/components/cadet/job"
 import {
   ArmyServiceCadetComponent,
@@ -1205,7 +1339,10 @@ export default {
   name: "StudentUpdateView",
   components: {
     EducationHistoryCadetComponent,
-    ScientificWorksCadetComponent,
+    ScientificWorksCadetComponent: () =>
+      import(
+        "@/components/cadet/scientific_works/ScientificWorksCadetComponent.vue"
+      ),
     JobCadetComponent,
     ArmyServiceCadetComponent,
     MVDServiceCadetComponent,
@@ -1341,6 +1478,22 @@ export default {
     orderedEducationLocalityKinds() {
       return this.educationLocalityKinds.results
     },
+    orderedCountryRegions() {
+      return this.countryRegions.results.sort((a, b) => {
+        const nameA = a.country_region.toUpperCase() // ignore upper and lowercase
+        const nameB = b.country_region.toUpperCase() // ignore upper and lowercase
+        if (nameA < nameB) {
+          return -1
+        }
+        if (nameA > nameB) {
+          return 1
+        }
+        return 0
+      })
+    },
+    orderedSocialStatuses() {
+      return this.socialStatuses.results
+    },
     ...mapGetters({
       groups: "groups/getList",
       ranks: "ranks/getList",
@@ -1350,6 +1503,8 @@ export default {
       passportAuthorities: "passportAuthorities/getList",
       isCommonLoading: "common/getIsCommonLoading",
       educationLocalityKinds: "educationLocalityKind/getList",
+      countryRegions: "countryRegion/getList",
+      socialStatuses: "socialStatus/getList",
     }),
   },
   watch: {

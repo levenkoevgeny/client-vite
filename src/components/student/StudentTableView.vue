@@ -63,7 +63,6 @@
                 </button>
               </div>
               <label class="form-label">Выбор полей для экспорта</label>
-
               <v-select
                 v-model="selectedFieldsForDataExport"
                 :options="fieldsForDataExport"
@@ -144,16 +143,16 @@
             <thead ref="thead">
               <tr>
                 <th scope="col" class="text-center">№п.п.</th>
+                <th scope="col">Активный</th>
                 <th scope="col" class="text-center">Форма обучения</th>
 
                 <th scope="col" class="text-center">Курс</th>
                 <th scope="col" class="text-center text-nowrap">
                   Литера курса
                 </th>
-                <th scope="col" class="text-center text-nowrap">Год набора</th>
-                <th scope="col">
+                <th scope="col" class="text-center text-nowrap">
                   <div class="d-flex flex-row align-items-center">
-                    <nobr>Сумма баллов</nobr>
+                    <span class="text-nowrap">Группа</span>
                     <div class="dropdown">
                       <button
                         class="btn dropdown-toggle"
@@ -165,23 +164,24 @@
                         <li>
                           <button
                             class="dropdown-item"
-                            @click="setOrdering('score_sum')"
+                            @click="setOrdering('group__group_name')"
                           >
-                            меньш. -> больш.
+                            А -> Я
                           </button>
                         </li>
                         <li>
                           <button
                             class="dropdown-item"
-                            @click="setOrdering('-score_sum')"
+                            @click="setOrdering('-group__group_name')"
                           >
-                            больш. -> меньш.
+                            Я -> А
                           </button>
                         </li>
                       </ul>
                     </div>
                   </div>
                 </th>
+
                 <th scope="col">
                   <div class="d-flex flex-row align-items-center">
                     <span class="text-nowrap">Фамилия</span>
@@ -270,6 +270,101 @@
                             @click="setOrdering('-patronymic_rus')"
                           >
                             Я -> А
+                          </button>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </th>
+                <th scope="col">
+                  <div class="d-flex flex-row align-items-center">
+                    <span class="text-nowrap">Номер зачетной книжки</span>
+                    <div class="dropdown">
+                      <button
+                        class="btn dropdown-toggle"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      ></button>
+                      <ul class="dropdown-menu">
+                        <li>
+                          <button
+                            class="dropdown-item"
+                            @click="setOrdering('student_record_book_number')"
+                          >
+                            А -> Я
+                          </button>
+                        </li>
+                        <li>
+                          <button
+                            class="dropdown-item"
+                            @click="setOrdering('-student_record_book_number')"
+                          >
+                            Я -> А
+                          </button>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </th>
+                <th scope="col">
+                  <div class="d-flex flex-row align-items-center">
+                    <span class="text-nowrap">Номер договора</span>
+                    <div class="dropdown">
+                      <button
+                        class="btn dropdown-toggle"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      ></button>
+                      <ul class="dropdown-menu">
+                        <li>
+                          <button
+                            class="dropdown-item"
+                            @click="setOrdering('contract_number')"
+                          >
+                            А -> Я
+                          </button>
+                        </li>
+                        <li>
+                          <button
+                            class="dropdown-item"
+                            @click="setOrdering('-contract_number')"
+                          >
+                            Я -> А
+                          </button>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </th>
+
+                <th scope="col" class="text-center text-nowrap">Год набора</th>
+                <th scope="col">
+                  <div class="d-flex flex-row align-items-center">
+                    <nobr>Сумма баллов</nobr>
+                    <div class="dropdown">
+                      <button
+                        class="btn dropdown-toggle"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      ></button>
+                      <ul class="dropdown-menu">
+                        <li>
+                          <button
+                            class="dropdown-item"
+                            @click="setOrdering('score_sum')"
+                          >
+                            меньш. -> больш.
+                          </button>
+                        </li>
+                        <li>
+                          <button
+                            class="dropdown-item"
+                            @click="setOrdering('-score_sum')"
+                          >
+                            больш. -> меньш.
                           </button>
                         </li>
                       </ul>
@@ -1226,10 +1321,48 @@
                     </div>
                   </div>
                 </th>
+                <th scope="col" style="min-width: 450px">
+                  <div class="d-flex flex-row align-items-center">
+                    <span class="text-nowrap">Льгота</span>
+                    <div class="dropdown">
+                      <button
+                        class="btn dropdown-toggle"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      ></button>
+                      <ul class="dropdown-menu">
+                        <li>
+                          <button
+                            class="dropdown-item"
+                            @click="setOrdering('privilege_1__privilege')"
+                          >
+                            А -> Я
+                          </button>
+                        </li>
+                        <li>
+                          <button
+                            class="dropdown-item"
+                            @click="setOrdering('-privilege_1__privilege')"
+                          >
+                            Я -> А
+                          </button>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </th>
               </tr>
 
               <tr>
                 <th></th>
+                <th>
+                  <select class="form-select" v-model="searchForm.is_active">
+                    <option selected value="">-------</option>
+                    <option value="true" key="1">Да</option>
+                    <option value="false" key="0">Нет</option>
+                  </select>
+                </th>
                 <th>
                   <select
                     class="form-select"
@@ -1265,6 +1398,57 @@
                   </div>
                 </th>
                 <th>
+                  <v-select
+                    v-model="searchForm.group__in"
+                    :options="orderedGroups"
+                    label="group_name"
+                    :reduce="(group) => group.id"
+                    multiple
+                    style="width: 200px"
+                  />
+                </th>
+                <th>
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="searchForm.last_name_rus__icontains"
+                    style="width: 150px"
+                  />
+                </th>
+                <th>
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="searchForm.first_name_rus__icontains"
+                    style="width: 150px"
+                  />
+                </th>
+                <th>
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="searchForm.patronymic_rus__icontains"
+                    style="width: 150px"
+                  />
+                </th>
+                <th>
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="searchForm.student_record_book_number__icontains"
+                    style="width: 200px"
+                  />
+                </th>
+                <th>
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="searchForm.contract_number"
+                    style="width: 200px"
+                  />
+                </th>
+
+                <th>
                   <div class="d-flex justify-content-center align-items-center">
                     <input
                       type="number"
@@ -1294,30 +1478,7 @@
                     />
                   </div>
                 </th>
-                <th>
-                  <input
-                    type="text"
-                    class="form-control"
-                    v-model="searchForm.last_name_rus__icontains"
-                    style="width: 150px"
-                  />
-                </th>
-                <th>
-                  <input
-                    type="text"
-                    class="form-control"
-                    v-model="searchForm.first_name_rus__icontains"
-                    style="width: 150px"
-                  />
-                </th>
-                <th>
-                  <input
-                    type="text"
-                    class="form-control"
-                    v-model="searchForm.patronymic_rus__icontains"
-                    style="width: 150px"
-                  />
-                </th>
+
                 <th>
                   <v-select
                     v-model="searchForm.social_status__in"
@@ -1792,6 +1953,15 @@
                     style="width: 100%"
                   />
                 </th>
+                <th>
+                  <v-select
+                    v-model="searchForm.privilege_1__in"
+                    :options="orderedPrivileges"
+                    label="privilege"
+                    :reduce="(privilege) => privilege.id"
+                    multiple
+                  />
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -1806,15 +1976,24 @@
                 "
               >
                 <td class="text-center">{{ student.serial_number }}</td>
+                <td v-if="student.is_active"></td>
+                <td v-else class="text-center">
+                  <font-awesome-icon :icon="['fas', 'lock']" />
+                </td>
+
                 <td class="text-center">{{ student.get_education_form }}</td>
                 <td class="text-center">{{ student.year }}</td>
                 <td class="text-center">{{ student.year_litera }}</td>
+                <td class="text-center">{{ student.get_group }}</td>
+                <td class="text-center">{{ student.last_name_rus }}</td>
+                <td class="text-center">{{ student.first_name_rus }}</td>
+                <td class="text-center">{{ student.patronymic_rus }}</td>
+                <td class="text-center">
+                  {{ student.student_record_book_number }}
+                </td>
+                <td class="text-center">{{ student.contract_number }}</td>
                 <td class="text-center">{{ student.entrance_year }}</td>
-
                 <td class="text-center">{{ student.score_sum }}</td>
-                <td>{{ student.last_name_rus }}</td>
-                <td>{{ student.first_name_rus }}</td>
-                <td>{{ student.patronymic_rus }}</td>
 
                 <td class="text-center">{{ student.get_social_status }}</td>
                 <td class="text-center">{{ student.place_of_work }}</td>
@@ -1952,6 +2131,15 @@
                   <td v-else></td>
                 </template>
                 <td class="text-center">{{ student.extra_data }}</td>
+                <template v-if="Object.keys(normalizedPrivilege).length === 0">
+                  <td></td>
+                </template>
+                <template v-else>
+                  <td v-if="student.privilege_1">
+                    {{ normalizedPrivilege[student.privilege_1].privilege }}
+                  </td>
+                  <td v-else></td>
+                </template>
               </tr>
             </tbody>
           </table>
@@ -2020,7 +2208,6 @@ export default {
           fieldName: "Отец - фамилия",
           fieldValue: "father_last_name",
         },
-
         {
           fieldName: "Отец - имя",
           fieldValue: "father_first_name",
@@ -2033,7 +2220,6 @@ export default {
           fieldName: "Отец - дата рождения",
           fieldValue: "get_father_date_of_birth",
         },
-
         {
           fieldName: "Отец - место работы",
           fieldValue: "father_place_of_work",
@@ -2082,7 +2268,6 @@ export default {
           fieldName: "Мать - является сотрудником",
           fieldValue: "mother_is_employee",
         },
-
         {
           fieldName: "Иностранный язык (изучаемый в школе)",
           fieldValue: "get_foreign_language_was",
@@ -2221,16 +2406,12 @@ export default {
           fieldValue: "foreign_lang_score_cert",
         },
         {
-          fieldName: "Специальность, на которую поступает",
-          fieldValue: "get_speciality_1",
+          fieldName: "Номер зачетной книжки",
+          fieldValue: "student_record_book_number",
         },
         {
-          fieldName: "Льгота",
-          fieldValue: "get_privilege_1",
-        },
-        {
-          fieldName: "Дата и время отпечатки заявления",
-          fieldValue: "get_application_has_been_printed_date",
+          fieldName: "Номер договора",
+          fieldValue: "contract_number",
         },
       ],
       selectedFieldsForDataExport: ["last_name_rus", "first_name_rus"],
@@ -2446,8 +2627,12 @@ export default {
     orderedSocialStatuses() {
       return this.socialStatus.results
     },
+    orderedGroups() {
+      return this.groups.results
+    },
 
     ...mapGetters({
+      groups: "groups/getList",
       componentOrgans: "componentOrgans/getList",
       passportIssueAuthorities: "passportAuthorities/getList",
       foreignLanguages: "foreignLanguages/getList",
