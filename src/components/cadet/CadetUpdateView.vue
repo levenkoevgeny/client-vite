@@ -1122,7 +1122,9 @@ export default {
     ForeignLanguagesCadetComponent: () =>
       import("@/components/cadet/languages/ForeignLanguagesCadetComponent.vue"),
     ScientificWorksCadetComponent: () =>
-      import("@/components/cadet/scientific_works"),
+      import(
+        "@/components/cadet/scientific_works/ScientificWorksCadetComponent.vue"
+      ),
     JobCadetComponent,
     ArmyServiceCadetComponent,
     MVDServiceCadetComponent,

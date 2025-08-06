@@ -64,14 +64,16 @@
               </div>
               <label class="form-label">Выбор полей для экспорта</label>
 
-              <v-select
-                v-model="selectedFieldsForDataExport"
-                :options="fieldsForDataExport"
-                label="fieldName"
-                :reduce="(field) => field.fieldValue"
-                multiple
-                style="min-width: 400px"
-              />
+              <div style="max-height: 500px; overflow-y: auto">
+                <v-select
+                  v-model="selectedFieldsForDataExport"
+                  :options="fieldsForDataExport"
+                  label="fieldName"
+                  :reduce="(field) => field.fieldValue"
+                  multiple
+                  style="min-width: 400px"
+                />
+              </div>
             </div>
           </div>
         </div>

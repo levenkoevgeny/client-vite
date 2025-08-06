@@ -501,7 +501,6 @@ import { JobCadetComponent } from "@/components/cadet/job"
 import { SpecialityCadetComponent } from "@/components/cadet/speciality"
 import { RewardCadetComponent } from "@/components/cadet/reward"
 // import { RankHistoryEmployeeComponent } from "@/components/employee/rank"
-import { ScientificWorksCadetComponent } from "@/components/cadet/scientific_works"
 // import { PunishmentCadetComponent } from "@/components/cadet/punishment"
 import { EducationHistoryCadetComponent } from "@/components/cadet/education"
 
@@ -511,7 +510,10 @@ export default {
     EducationHistoryCadetComponent,
     // PunishmentCadetComponent,
     MVDServiceCadetComponent,
-    ScientificWorksCadetComponent,
+    ScientificWorksCadetComponent: () =>
+      import(
+        "@/components/cadet/scientific_works/ScientificWorksCadetComponent.vue"
+      ),
     // RankHistoryEmployeeComponent,
     RewardCadetComponent,
     SpecialityCadetComponent,
