@@ -151,6 +151,8 @@
                               class="form-control"
                               v-model="currentStudentData.academy_start_date"
                               id="id_subdivision"
+                              name="academy_start_date"
+                              @input="makeInputDefaultNullValueIfEmpty"
                             />
                           </div>
                         </div>
@@ -164,6 +166,8 @@
                               class="form-control"
                               v-model="currentStudentData.academy_end_date"
                               id="id_subdivision"
+                              name="academy_end_date"
+                              @input="makeInputDefaultNullValueIfEmpty"
                             />
                           </div>
                         </div>
@@ -392,97 +396,99 @@
               </div>
             </div>
 
-            <div class="shadow p-3 mb-3" id="simple-list-orders-data">
-              <div class="card border-0">
-                <div class="card-body">
-                  <h5 class="card-title mb-3">Приказы</h5>
-                  <!--                  <div class="row">-->
-                  <!--                    <div class="col-lg-6">-->
-                  <!--                      <div class="row mb-3">-->
-                  <!--                        <label for="inputEmail3" class="col-lg-4 col-form-label"-->
-                  <!--                          >Приказ о зачислении</label-->
-                  <!--                        >-->
-                  <!--                        <div class="col-lg-4">-->
-                  <!--                          <input type="text" class="form-control" />-->
-                  <!--                        </div>-->
-                  <!--                        <div class="col-lg-4">-->
-                  <!--                          <input-->
-                  <!--                            type="date"-->
-                  <!--                            class="form-control"-->
-                  <!--                            id="inputEmail3"-->
-                  <!--                          />-->
-                  <!--                        </div>-->
-                  <!--                      </div>-->
-                  <!--                    </div>-->
-                  <!--                    <div class="col-lg-6">-->
-                  <!--                      <div class="row mb-3">-->
-                  <!--                        <label for="inputEmail3" class="col-lg-4 col-form-label"-->
-                  <!--                          >Приказ об отчислении</label-->
-                  <!--                        >-->
-                  <!--                        <div class="col-lg-4">-->
-                  <!--                          <input-->
-                  <!--                            type="text"-->
-                  <!--                            class="form-control"-->
-                  <!--                            id="inputEmail3"-->
-                  <!--                          />-->
-                  <!--                        </div>-->
-                  <!--                        <div class="col-lg-4">-->
-                  <!--                          <input-->
-                  <!--                            type="date"-->
-                  <!--                            class="form-control"-->
-                  <!--                            id="inputEmail3"-->
-                  <!--                          />-->
-                  <!--                        </div>-->
-                  <!--                      </div>-->
-                  <!--                    </div>-->
-                  <!--                  </div>-->
-                  <!--                  <div class="row">-->
-                  <!--                    <div class="col-lg-6">-->
-                  <!--                      <div class="row mb-3">-->
-                  <!--                        <label for="inputEmail3" class="col-lg-4 col-form-label"-->
-                  <!--                          >Приказ о восстановлении</label-->
-                  <!--                        >-->
-                  <!--                        <div class="col-lg-4">-->
-                  <!--                          <input-->
-                  <!--                            type="text"-->
-                  <!--                            class="form-control"-->
-                  <!--                            id="inputEmail3"-->
-                  <!--                          />-->
-                  <!--                        </div>-->
-                  <!--                        <div class="col-lg-4">-->
-                  <!--                          <input-->
-                  <!--                            type="date"-->
-                  <!--                            class="form-control"-->
-                  <!--                            id="inputEmail3"-->
-                  <!--                          />-->
-                  <!--                        </div>-->
-                  <!--                      </div>-->
-                  <!--                    </div>-->
-                  <!--                    <div class="col-lg-6">-->
-                  <!--                      <div class="row mb-3">-->
-                  <!--                        <label for="inputEmail3" class="col-lg-4 col-form-label"-->
-                  <!--                          >Приказ о предоставлении отпуска</label-->
-                  <!--                        >-->
-                  <!--                        <div class="col-lg-4">-->
-                  <!--                          <input-->
-                  <!--                            type="text"-->
-                  <!--                            class="form-control"-->
-                  <!--                            id="inputEmail3"-->
-                  <!--                          />-->
-                  <!--                        </div>-->
-                  <!--                        <div class="col-lg-4">-->
-                  <!--                          <input-->
-                  <!--                            type="date"-->
-                  <!--                            class="form-control"-->
-                  <!--                            id="inputEmail3"-->
-                  <!--                          />-->
-                  <!--                        </div>-->
-                  <!--                      </div>-->
-                  <!--                    </div>-->
-                  <!--                  </div>-->
-                </div>
-              </div>
-            </div>
+            <OrderHistoryStudentComponent :student-id="$route.params.id" />
+
+            <!--            <div class="shadow p-3 mb-3" id="simple-list-orders-data">-->
+            <!--              <div class="card border-0">-->
+            <!--                <div class="card-body">-->
+            <!--                  <h5 class="card-title mb-3">Приказы</h5>-->
+            <!--                  &lt;!&ndash;                  <div class="row">&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                    <div class="col-lg-6">&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                      <div class="row mb-3">&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                        <label for="inputEmail3" class="col-lg-4 col-form-label"&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                          >Приказ о зачислении</label&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                        >&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                        <div class="col-lg-4">&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                          <input type="text" class="form-control" />&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                        </div>&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                        <div class="col-lg-4">&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                          <input&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                            type="date"&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                            class="form-control"&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                            id="inputEmail3"&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                          />&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                        </div>&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                      </div>&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                    </div>&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                    <div class="col-lg-6">&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                      <div class="row mb-3">&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                        <label for="inputEmail3" class="col-lg-4 col-form-label"&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                          >Приказ об отчислении</label&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                        >&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                        <div class="col-lg-4">&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                          <input&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                            type="text"&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                            class="form-control"&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                            id="inputEmail3"&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                          />&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                        </div>&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                        <div class="col-lg-4">&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                          <input&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                            type="date"&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                            class="form-control"&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                            id="inputEmail3"&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                          />&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                        </div>&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                      </div>&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                    </div>&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                  </div>&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                  <div class="row">&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                    <div class="col-lg-6">&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                      <div class="row mb-3">&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                        <label for="inputEmail3" class="col-lg-4 col-form-label"&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                          >Приказ о восстановлении</label&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                        >&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                        <div class="col-lg-4">&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                          <input&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                            type="text"&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                            class="form-control"&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                            id="inputEmail3"&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                          />&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                        </div>&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                        <div class="col-lg-4">&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                          <input&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                            type="date"&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                            class="form-control"&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                            id="inputEmail3"&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                          />&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                        </div>&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                      </div>&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                    </div>&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                    <div class="col-lg-6">&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                      <div class="row mb-3">&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                        <label for="inputEmail3" class="col-lg-4 col-form-label"&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                          >Приказ о предоставлении отпуска</label&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                        >&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                        <div class="col-lg-4">&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                          <input&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                            type="text"&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                            class="form-control"&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                            id="inputEmail3"&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                          />&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                        </div>&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                        <div class="col-lg-4">&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                          <input&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                            type="date"&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                            class="form-control"&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                            id="inputEmail3"&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                          />&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                        </div>&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                      </div>&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                    </div>&ndash;&gt;-->
+            <!--                  &lt;!&ndash;                  </div>&ndash;&gt;-->
+            <!--                </div>-->
+            <!--              </div>-->
+            <!--            </div>-->
 
             <div class="shadow p-3 mb-3" id="simple-list-passport-data">
               <div class="card border-0">
@@ -490,7 +496,7 @@
                   <h5 class="card-title mb-4">Личные данные</h5>
 
                   <div class="row">
-                    <div class="col-lg-1">
+                    <div class="col-lg-2">
                       <div class="mb-3">
                         <label class="form-label" for="id_date_of_birth"
                           >Дата рождения:</label
@@ -501,6 +507,7 @@
                           name="date_of_birth"
                           id="id_date_of_birth"
                           v-model="currentStudentData.date_of_birth"
+                          @input="makeInputDefaultNullValueIfEmpty"
                         />
                       </div>
                     </div>
@@ -535,7 +542,7 @@
                         </select>
                       </div>
                     </div>
-                    <div class="col-xl-3">
+                    <div class="col-xl-2">
                       <div class="mb-3">
                         <label
                           class="form-label"
@@ -694,7 +701,7 @@
                   </div>
 
                   <div class="row">
-                    <div class="col-2">
+                    <div class="col-3">
                       <div class="mb-3">
                         <label
                           class="form-label"
@@ -712,7 +719,7 @@
                         </select>
                       </div>
                     </div>
-                    <div class="col-2">
+                    <div class="col-3">
                       <div class="mb-3">
                         <label class="form-label" for="id_passport_number"
                           >Серия и номер паспорта / id карты
@@ -751,6 +758,7 @@
                           name="passport_issue_date"
                           id="id_passport_issue_date"
                           v-model="currentStudentData.passport_issue_date"
+                          @input="makeInputDefaultNullValueIfEmpty"
                         />
                       </div>
                     </div>
@@ -767,10 +775,11 @@
                           name="passport_validity_period"
                           id="id_passport_validity_period"
                           v-model="currentStudentData.passport_validity_period"
+                          @input="makeInputDefaultNullValueIfEmpty"
                         />
                       </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-2">
                       <div class="mb-3">
                         <label
                           class="form-label"
@@ -1930,40 +1939,16 @@
 
 <script>
 import getStudentAPIInstance from "@/api/student/studentAPI"
-import getJobHistoryAPIInstance from "@/api/cadet/jobHistoryAPI"
 import { debounce } from "lodash/function"
-
-import { EducationHistoryCadetComponent } from "@/components/cadet/education"
-import { JobCadetComponent } from "@/components/cadet/job"
-import {
-  ArmyServiceCadetComponent,
-  MVDServiceCadetComponent,
-} from "@/components/cadet/service"
-import { RewardCadetComponent } from "@/components/cadet/reward"
-import { PunishmentCadetComponent } from "@/components/cadet/punishment"
-import { PositionCadetComponent } from "@/components/cadet/position"
-import { SpecialityCadetComponent } from "@/components/cadet/speciality"
-import RelativesCadetComponent from "@/components/cadet/relatives/RelativesCadetComponent.vue"
 
 import "vue-select/dist/vue-select.css"
 import { mapGetters } from "vuex"
+import OrderHistoryStudentComponent from "@/components/student/orderHistory/OrderHistoryStudentComponent.vue"
 
 export default {
   name: "StudentUpdateView",
   components: {
-    EducationHistoryCadetComponent,
-    ScientificWorksCadetComponent: () =>
-      import(
-        "@/components/cadet/scientific_works/ScientificWorksCadetComponent.vue"
-      ),
-    JobCadetComponent,
-    ArmyServiceCadetComponent,
-    MVDServiceCadetComponent,
-    RewardCadetComponent,
-    PunishmentCadetComponent,
-    PositionCadetComponent,
-    SpecialityCadetComponent,
-    RelativesCadetComponent,
+    OrderHistoryStudentComponent,
   },
   data() {
     return {
@@ -2026,7 +2011,6 @@ export default {
         year_litera: "",
       },
       studentAPIInstance: getStudentAPIInstance(),
-      jobHistoryAPIInstance: getJobHistoryAPIInstance(),
     }
   },
   async created() {
@@ -2058,6 +2042,11 @@ export default {
           ...this.currentStudentData,
           photo: response.data.photo,
         }
+      }
+    },
+    makeInputDefaultNullValueIfEmpty(event) {
+      if (event.target.value.trim().length === 0) {
+        this.currentStudentData[event.target.name] = null
       }
     },
     debouncedUpdate: debounce(async function () {

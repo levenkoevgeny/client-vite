@@ -2413,6 +2413,26 @@ export default {
           fieldName: "Номер договора",
           fieldValue: "contract_number",
         },
+        {
+          fieldName: "Звание",
+          fieldValue: "rank",
+        },
+        {
+          fieldName: "Место работы и должность",
+          fieldValue: "place_of_work",
+        },
+        {
+          fieldName: "Место работы",
+          fieldValue: "place_of_work",
+        },
+        {
+          fieldName: "Наименование ведомства",
+          fieldValue: "department",
+        },
+        {
+          fieldName: "Из многодетной семьи",
+          fieldValue: "is_from_large_family",
+        },
       ],
       selectedFieldsForDataExport: ["last_name_rus", "first_name_rus"],
       searchForm: Object.assign({}, globalStudentAPIInstance.searchObj),

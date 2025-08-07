@@ -291,6 +291,7 @@
                               name="date_of_birth"
                               id="id_date_of_birth"
                               v-model="currentCadetData.date_of_birth"
+                              @input="makeInputDefaultNullValueIfEmpty"
                             />
                           </div>
                         </div>
@@ -429,6 +430,7 @@
                           name="passport_issue_date"
                           id="id_passport_issue_date"
                           v-model="currentCadetData.passport_issue_date"
+                          @input="makeInputDefaultNullValueIfEmpty"
                         />
                       </div>
                     </div>
@@ -445,6 +447,7 @@
                           name="passport_validity_period"
                           id="id_passport_validity_period"
                           v-model="currentCadetData.passport_validity_period"
+                          @input="makeInputDefaultNullValueIfEmpty"
                         />
                       </div>
                     </div>
@@ -584,6 +587,8 @@
                           class="form-control"
                           v-model="currentCadetData.academy_start_date"
                           id="id_subdivision"
+                          name="academy_start_date"
+                          @input="makeInputDefaultNullValueIfEmpty"
                         />
                       </div>
                     </div>
@@ -597,6 +602,8 @@
                           class="form-control"
                           v-model="currentCadetData.academy_end_date"
                           id="id_subdivision"
+                          name="academy_end_date"
+                          @input="makeInputDefaultNullValueIfEmpty"
                         />
                       </div>
                     </div>
@@ -672,6 +679,8 @@
                           v-model="
                             currentCadetData.removed_from_military_registration
                           "
+                          name="removed_from_military_registration"
+                          @input="makeInputDefaultNullValueIfEmpty"
                         />
                       </div>
                     </div>
@@ -777,6 +786,7 @@
                                 name="father_date_of_birth"
                                 id="id_father_date_of_birth"
                                 v-model="currentCadetData.father_date_of_birth"
+                                @input="makeInputDefaultNullValueIfEmpty"
                               />
                             </div>
                           </div>
@@ -890,6 +900,7 @@
                                 name="mother_date_of_birth"
                                 id="id_mother_date_of_birth"
                                 v-model="currentCadetData.mother_date_of_birth"
+                                @input="makeInputDefaultNullValueIfEmpty"
                               />
                             </div>
                           </div>
@@ -1103,6 +1114,10 @@ import { RewardCadetComponent } from "@/components/cadet/reward"
 import { PunishmentCadetComponent } from "@/components/cadet/punishment"
 import { PositionCadetComponent } from "@/components/cadet/position"
 import { SpecialityCadetComponent } from "@/components/cadet/speciality"
+import RankHistoryCadetComponent from "@/components/cadet/rank/RankHistoryCadetComponent.vue"
+import EncouragementCadetComponent from "@/components/cadet/encouragement/EncouragementCadetComponent.vue"
+import EducationHistoryCadetComponent from "@/components/cadet/education/EducationHistoryCadetComponent.vue"
+import ForeignLanguagesCadetComponent from "@/components/cadet/languages/ForeignLanguagesCadetComponent.vue"
 import RelativesCadetComponent from "@/components/cadet/relatives/RelativesCadetComponent.vue"
 
 import "vue-select/dist/vue-select.css"
@@ -1111,20 +1126,10 @@ import { mapGetters } from "vuex"
 export default {
   name: "CadetUpdateView",
   components: {
-    RankHistoryCadetComponent: () =>
-      import("@/components/cadet/rank/RankHistoryCadetComponent.vue"),
-    EncouragementCadetComponent: () =>
-      import(
-        "@/components/cadet/encouragement/EncouragementCadetComponent.vue"
-      ),
-    EducationHistoryCadetComponent: () =>
-      import("@/components/cadet/education/EducationHistoryCadetComponent.vue"),
-    ForeignLanguagesCadetComponent: () =>
-      import("@/components/cadet/languages/ForeignLanguagesCadetComponent.vue"),
-    ScientificWorksCadetComponent: () =>
-      import(
-        "@/components/cadet/scientific_works/ScientificWorksCadetComponent.vue"
-      ),
+    RankHistoryCadetComponent,
+    EncouragementCadetComponent,
+    EducationHistoryCadetComponent,
+    ForeignLanguagesCadetComponent,
     JobCadetComponent,
     ArmyServiceCadetComponent,
     MVDServiceCadetComponent,
@@ -1263,6 +1268,11 @@ export default {
           ...this.currentCadetData,
           photo: response.data.photo,
         }
+      }
+    },
+    makeInputDefaultNullValueIfEmpty(event) {
+      if (event.target.value.trim().length === 0) {
+        this.currentStudentData[event.target.name] = null
       }
     },
   },
