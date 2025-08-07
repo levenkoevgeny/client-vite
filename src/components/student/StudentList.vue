@@ -131,6 +131,9 @@
 
     <template v-slot:thead>
       <tr>
+        <th scope="col" class="text-center fw-bold" style="width: 70px">
+          № п.п.
+        </th>
         <th scope="col"></th>
         <th scope="col">Фамилия, имя, отчество</th>
         <th scope="col">Группа</th>
@@ -148,6 +151,9 @@
           $router.push({ name: 'student-update', params: { id: student.id } })
         "
       >
+        <td class="text-center fw-bold">
+          {{ student.serial_number }}
+        </td>
         <td class="text-start">
           <span v-if="student.is_active">
             <img
@@ -367,6 +373,7 @@ export default {
           () => (this.isError = true),
         )
         this.studentList = students
+        this.setSerialNumbers()
       } catch (e) {
         this.isError = true
       } finally {
@@ -449,7 +456,13 @@ export default {
         this.isLoading = false
       }
     },
-
+    setSerialNumbers() {
+      let i = 1
+      this.studentList.results.forEach((item) => {
+        item.serial_number = i
+        i++
+      })
+    },
     get_examination_reports(destination) {
       let queryString = "?"
       for (let key in this.searchForm) {

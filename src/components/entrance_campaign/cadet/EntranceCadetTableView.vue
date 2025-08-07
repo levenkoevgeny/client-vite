@@ -2286,6 +2286,37 @@
               </th>
               <th scope="col">
                 <div class="d-flex flex-row align-items-center">
+                  <span class="text-nowrap">Дактилоскопирование</span>
+                  <div class="dropdown">
+                    <button
+                      class="btn dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('has_dactocard')"
+                        >
+                          А -> Я
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          class="dropdown-item"
+                          @click="setOrdering('-has_dactocard')"
+                        >
+                          Я -> А
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="d-flex flex-row align-items-center">
                   <span class="text-nowrap">Предварительно зачислен</span>
                   <div class="dropdown">
                     <button
@@ -3513,6 +3544,14 @@
                 </select>
               </th>
               <th>
+                <select class="form-select" v-model="searchForm.has_dactocard">
+                  <option selected value="">-------</option>
+                  <option value="true" key="1">Да</option>
+                  <option value="false" key="0">Нет</option>
+                </select>
+              </th>
+
+              <th>
                 <select class="form-select" v-model="searchForm.is_enrolled_1">
                   <option selected value="">-------</option>
                   <option value="true" key="1">Да</option>
@@ -4042,7 +4081,10 @@
                 <font-awesome-icon :icon="['fa', 'check']" />
               </td>
               <td v-else class="text-center"></td>
-
+              <td v-if="cadet.has_dactocard" class="text-center">
+                <font-awesome-icon :icon="['fa', 'check']" />
+              </td>
+              <td v-else class="text-center"></td>
               <td v-if="cadet.is_enrolled_1" class="text-center">
                 <font-awesome-icon :icon="['fa', 'check']" />
               </td>

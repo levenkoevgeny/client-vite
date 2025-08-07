@@ -222,6 +222,7 @@ const searchObj = {
   is_olympiad_winner: "",
   passed_medical_examination: "",
   fit_for_service: "",
+  has_dactocard: "",
   is_enrolled_1: "",
   is_enrolled_2: "",
   enrolled_speciality__in: "",
