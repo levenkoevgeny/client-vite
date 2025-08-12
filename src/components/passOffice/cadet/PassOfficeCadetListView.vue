@@ -6,6 +6,136 @@
     title="Курсанты"
     :load-more-data="loadMoreData"
   >
+    <template v-slot:modals>
+      <div
+        class="modal fade"
+        id="printErrorModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+        ref="printErrorModal"
+      >
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5">
+                Исправте следующие ошибки для формирования документа:
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div style="max-height: 350px; overflow-y: auto">
+                <div
+                  class="alert alert-danger my-1"
+                  v-for="error in error_list"
+                >
+                  {{ error }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--      <div-->
+      <!--        class="modal fade"-->
+      <!--        id="cadetAddModal"-->
+      <!--        tabindex="-1"-->
+      <!--        aria-labelledby="exampleModalLabel"-->
+      <!--        aria-hidden="true"-->
+      <!--        ref="cadetAddModal"-->
+      <!--      >-->
+      <!--        <div class="modal-dialog modal-dialog-centered">-->
+      <!--          <div class="modal-content">-->
+      <!--            <div class="modal-header">-->
+      <!--              <h1 class="modal-title fs-5" id="exampleModalLabel">-->
+      <!--                Добавление личного дела-->
+      <!--              </h1>-->
+      <!--              <button-->
+      <!--                type="button"-->
+      <!--                class="btn-close"-->
+      <!--                data-bs-dismiss="modal"-->
+      <!--                aria-label="Close"-->
+      <!--              ></button>-->
+      <!--            </div>-->
+
+      <!--            <form @submit.prevent="addNewCadetForEntrance">-->
+      <!--              <div class="modal-body">-->
+      <!--                <div class="mb-3">-->
+      <!--                  <label for="id_last_name_rus" class="form-label"-->
+      <!--                  >Фамилия</label-->
+      <!--                  >-->
+      <!--                  <input-->
+      <!--                    type="text"-->
+      <!--                    class="form-control"-->
+      <!--                    id="id_last_name_rus"-->
+      <!--                    v-model="cadetNewForm.last_name_rus"-->
+      <!--                    required-->
+      <!--                  />-->
+      <!--                </div>-->
+      <!--                <div class="mb-3">-->
+      <!--                  <label for="id_first_name_rus" class="form-label">Имя</label>-->
+      <!--                  <input-->
+      <!--                    type="text"-->
+      <!--                    class="form-control"-->
+      <!--                    id="id_first_name_rus"-->
+      <!--                    v-model="cadetNewForm.first_name_rus"-->
+      <!--                    required-->
+      <!--                  />-->
+      <!--                </div>-->
+      <!--                <div class="mb-3">-->
+      <!--                  <label for="id_patronymic_rus" class="form-label"-->
+      <!--                  >Отчество</label-->
+      <!--                  >-->
+      <!--                  <input-->
+      <!--                    type="text"-->
+      <!--                    class="form-control"-->
+      <!--                    id="id_patronymic_rus"-->
+      <!--                    v-model="cadetNewForm.patronymic_rus"-->
+      <!--                    required-->
+      <!--                  />-->
+      <!--                </div>-->
+      <!--                <div class="mb-3">-->
+      <!--                  <label for="id_date_of_birth" class="form-label"-->
+      <!--                  >Дата рождения</label-->
+      <!--                  >-->
+      <!--                  <input-->
+      <!--                    type="date"-->
+      <!--                    class="form-control"-->
+      <!--                    id="id_date_of_birth"-->
+      <!--                    v-model="cadetNewForm.date_of_birth"-->
+      <!--                    required-->
+      <!--                  />-->
+      <!--                </div>-->
+      <!--              </div>-->
+      <!--              <div class="modal-footer">-->
+      <!--                <button-->
+      <!--                  type="button"-->
+      <!--                  class="btn btn-secondary"-->
+      <!--                  data-bs-dismiss="modal"-->
+      <!--                  ref="cadetAddModalCloseButton"-->
+      <!--                >-->
+      <!--                  Закрыть без сохранения-->
+      <!--                </button>-->
+      <!--                <button-->
+      <!--                  type="submit"-->
+      <!--                  class="btn btn-primary"-->
+      <!--                  :disabled="isLoading"-->
+      <!--                >-->
+      <!--                  Сохранить-->
+      <!--                </button>-->
+      <!--              </div>-->
+      <!--            </form>-->
+      <!--          </div>-->
+      <!--        </div>-->
+      <!--      </div>-->
+    </template>
+
     <template v-slot:thead>
       <tr ref="thead">
         <th scope="col"></th>
@@ -169,8 +299,22 @@
             Печать документов
           </button>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Зачетные книжки</a></li>
-            <li><a class="dropdown-item" href="#">Студенческие билеты</a></li>
+            <li>
+              <a
+                class="dropdown-item"
+                @click="make_student_record_book()"
+                style="cursor: pointer"
+                >Зачетные книжки</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                @click="make_student_card()"
+                style="cursor: pointer"
+                >Студенческие билеты</a
+              >
+            </li>
           </ul>
         </div>
       </div>
@@ -201,6 +345,7 @@ export default {
         globalCadetAPIInstanceForPassOffice.searchObj,
       ),
       currentCadetForUpdate: {},
+      error_list: [],
     }
   },
   async created() {
@@ -230,14 +375,48 @@ export default {
         this.cadetAPIInstance.searchObjDefault,
       )
     },
-    async updatePhotoMethod(response) {
-      this.currentCadetForUpdate = {
-        ...this.currentCadetForUpdate,
-        photo: response.data.photo,
+
+    async make_student_record_book() {
+      this.error_list = []
+      if (this.selectedItems.length) {
+        let items_array = []
+        this.selectedItems.map((item) => items_array.push(item.id))
+        await this.cadetAPIInstance.makeStudentRecordBook(items_array)
+      } else {
+        alert("Не выбрано ни одной записи!")
       }
     },
+
+    async make_student_card() {
+      this.error_list = []
+      if (!this.selectedItems.length) {
+        alert("Не выбрано ни одной записи!")
+      } else {
+        let items_array = []
+        this.selectedItems.map((item) => items_array.push(item.id))
+        const response =
+          await this.cadetAPIInstance.makeStudentCard(items_array)
+        console.log(response)
+        if (response.data.error_list) {
+          console.log(response.data.error_list)
+          this.error_list = response.data.error_list
+          let errorModal = this.$refs.printErrorModal
+          let myModal = new bootstrap.Modal(errorModal, {
+            keyboard: false,
+          })
+          myModal.show()
+        } else {
+          const url = window.URL.createObjectURL(new Blob([response.data]))
+          const link = document.createElement("a")
+          link.href = url
+          link.setAttribute("download", "students_cards.pdf")
+          document.body.appendChild(link)
+          link.click()
+        }
+      }
+    },
+
     async loadMoreData(entries, observer) {
-      console.log("loadMoreData")
       if (entries[0].isIntersecting) {
         if (this.cadetList) {
           if (this.cadetList.next) {
@@ -291,14 +470,12 @@ export default {
         (subdivision) => subdivision.subdivision_category === "1",
       )
     },
+    selectedItems() {
+      return this.cadetList.results.filter((item) => item.isSelected)
+    },
+
     selectedItemsCount() {
-      let counter = 0
-      this.cadetList.results.map((item) => {
-        if (item.isSelected) {
-          counter++
-        }
-      })
-      return counter
+      return this.selectedItems.length
     },
     ...mapGetters({
       groups: "groups/getList",

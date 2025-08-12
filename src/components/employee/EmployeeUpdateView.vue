@@ -412,10 +412,10 @@
               </div>
             </div>
 
-            <RankHistoryEmployeeComponent
-              :employee-id="$route.params.id"
-              :order-owners-list="orderOwners"
-            />
+            <!--            <RankHistoryEmployeeComponent-->
+            <!--              :employee-id="$route.params.id"-->
+            <!--              :order-owners-list="orderOwners"-->
+            <!--            />-->
             <!--            <EducationHistoryCadetComponent :cadet-id="$route.params.id" />-->
             <!--            <ScientificWorksCadetComponent :cadet-id="$route.params.id" />-->
             <!--            <JobCadetComponent :cadet-id="$route.params.id" />-->
@@ -488,40 +488,45 @@ import getEmployeeAPIInstance from "@/api/employee/employeeAPI"
 import BaseListLayout from "@/components/layouts/BaseListLayout.vue"
 
 import { mapGetters } from "vuex"
+import { defineAsyncComponent } from "vue"
+
+const ArmyServiceCadetComponent = defineAsyncComponent(
+  () => import("@/components/cadet/service/ArmyServiceCadetComponent.vue"),
+)
+const MVDServiceCadetComponent = defineAsyncComponent(
+  () => import("@/components/cadet/service/MVDServiceCadetComponent.vue"),
+)
+const RewardCadetComponent = defineAsyncComponent(
+  () => import("@/components/cadet/reward/RewardCadetComponent.vue"),
+)
+
 import BaseListLayoutForCadetUpdate from "@/components/layouts/BaseListLayoutForCadetUpdate.vue"
-import {
-  ArmyServiceCadetComponent,
-  MVDServiceCadetComponent,
-} from "@/components/cadet/service"
-import RelativesCadetComponent from "@/components/cadet/relatives/RelativesCadetComponent.vue"
-import { PositionCadetComponent } from "@/components/cadet/position"
-import { JobCadetComponent } from "@/components/cadet/job"
+
+// import RelativesCadetComponent from "@/components/cadet/relatives/RelativesCadetComponent.vue"
+// import { PositionCadetComponent } from "@/components/cadet/position"
+// import { JobCadetComponent } from "@/components/cadet/job"
 
 // import { EncouragementCadetComponent } from "@/components/cadet/encouragement"
-import { SpecialityCadetComponent } from "@/components/cadet/speciality"
-import { RewardCadetComponent } from "@/components/cadet/reward"
+// import { SpecialityCadetComponent } from "@/components/cadet/speciality"
+
 // import { RankHistoryEmployeeComponent } from "@/components/employee/rank"
 // import { PunishmentCadetComponent } from "@/components/cadet/punishment"
-import { EducationHistoryCadetComponent } from "@/components/cadet/education"
+// import { EducationHistoryCadetComponent } from "@/components/cadet/education"
 
 export default {
   name: "EmployeeUpdateView",
   components: {
-    EducationHistoryCadetComponent,
+    // EducationHistoryCadetComponent,
     // PunishmentCadetComponent,
-    MVDServiceCadetComponent,
-    ScientificWorksCadetComponent: () =>
-      import(
-        "@/components/cadet/scientific_works/ScientificWorksCadetComponent.vue"
-      ),
+    // MVDServiceCadetComponent,
     // RankHistoryEmployeeComponent,
-    RewardCadetComponent,
-    SpecialityCadetComponent,
+    // RewardCadetComponent,
+    // SpecialityCadetComponent,
     // EncouragementCadetComponent,
-    JobCadetComponent,
-    PositionCadetComponent,
-    RelativesCadetComponent,
-    ArmyServiceCadetComponent,
+    // JobCadetComponent,
+    // PositionCadetComponent,
+    // RelativesCadetComponent,
+    // ArmyServiceCadetComponent,
     BaseListLayoutForCadetUpdate,
     BaseListLayout,
   },

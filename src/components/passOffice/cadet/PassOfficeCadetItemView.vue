@@ -30,7 +30,7 @@
   <div class="container">
     <div style="height: 30px"></div>
     <h3 class="my-4">
-      <router-link class="" :to="{ name: 'pass-office-fpk-prk' }">
+      <router-link class="" :to="{ name: 'pass-office-cadet' }">
         Вернуться к списку
       </router-link>
     </h3>

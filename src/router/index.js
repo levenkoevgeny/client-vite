@@ -1,9 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router"
 import { CadetMainView, CadetListView, CadetItemView } from "@/components/cadet"
-import { PunishmentListView } from "@/components/cadet/punishment"
-import { EncouragementListView } from "@/components/cadet/encouragement"
-import { PositionListView } from "@/components/cadet/position"
-import { RankHistoryListView } from "@/components/cadet/rank"
+
 import {
   EntranceMainView,
   EntranceCadetMainView,
@@ -20,9 +17,7 @@ import {
   EntranceStudentTableView,
   EntranceFPKPRKTableView,
 } from "@/components/entrance_campaign"
-import { SpecialityHistoryView } from "@/components/cadet/speciality"
 import { CadetUpdateView, CadetListOkView } from "@/components/cadet"
-import { FiredCadetComponent } from "@/components/cadet/fired"
 import {
   FPKMainView,
   FPKListView,
@@ -178,32 +173,41 @@ const routes = [
           },
           {
             path: "encouragement",
-            component: EncouragementListView,
+            component: () =>
+              import(
+                "@/components/cadet/encouragement/EncouragementListView.vue"
+              ),
             name: "cadet-encouragement",
           },
           {
             path: "punishment",
-            component: PunishmentListView,
+            component: () =>
+              import("@/components/cadet/punishment/PunishmentListView.vue"),
             name: "cadet-punishment",
           },
           {
             path: "positions",
-            component: PositionListView,
+            component: () =>
+              import("@/components/cadet/position/PositionListView.vue"),
+
             name: "cadet-positions",
           },
           {
             path: "rank-histories",
-            component: RankHistoryListView,
+            component: () =>
+              import("@/components/cadet/rank/RankHistoryListView.vue"),
             name: "cadet-rank-histories",
           },
           {
             path: "specialities",
-            component: SpecialityHistoryView,
+            component: () =>
+              import("@/components/cadet/speciality/SpecialityHistoryView.vue"),
             name: "cadet-specialities",
           },
           {
             path: "fired",
-            component: FiredCadetComponent,
+            component: () =>
+              import("@/components/cadet/fired/FiredCadetComponent.vue"),
             name: "cadet-fired",
           },
         ],
@@ -230,29 +234,36 @@ const routes = [
           },
           {
             path: "employee-encouragement",
-            component: EncouragementListView,
+            component: () =>
+              import(
+                "@/components/cadet/encouragement/EncouragementListView.vue"
+              ),
             name: "encouragement",
           },
           {
             path: "employee-punishment",
-            component: PunishmentListView,
+            component: () =>
+              import("@/components/cadet/punishment/PunishmentListView.vue"),
             name: "punishment",
           },
           {
             path: "employee-positions",
-            component: PositionListView,
+            component: () =>
+              import("@/components/cadet/position/PositionListView.vue"),
             name: "positions",
           },
           {
             path: "employee-rank-histories",
-            component: RankHistoryListView,
+            component: () =>
+              import("@/components/cadet/rank/RankHistoryListView.vue"),
             name: "rank-histories",
           },
-          {
-            path: "fired",
-            component: FiredCadetComponent,
-            name: "fired",
-          },
+          // {
+          //   path: "fired",
+          //   component: () =>
+          //     import("@/components/cadet/fired/FiredCadetComponent.vue"),
+          //   name: "fired",
+          // },
         ],
       },
       {

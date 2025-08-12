@@ -42,6 +42,14 @@ class StudentAPI extends BaseAPI {
       { responseType: "blob" },
     )
   }
+
+  async csv_export(export_data) {
+    return axios.post(
+      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/make_csv/`,
+      export_data,
+      { responseType: "blob" },
+    )
+  }
 }
 
 const searchObj = {

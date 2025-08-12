@@ -106,11 +106,36 @@
       >
         <div class="m-0 p-0"></div>
         <div class="d-flex flex-row">
-          <button class="btn btn-secondary me-3" @click="showDocumentsModal">
-            Выходные документы&nbsp;&nbsp;<font-awesome-icon
-              :icon="['fas', 'print']"
-            />
-          </button>
+          <div class="dropdown">
+            <button
+              class="btn btn-secondary dropdown-toggle me-3"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Выходные документы&nbsp;&nbsp;<font-awesome-icon
+                :icon="['fas', 'print']"
+              />
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a
+                  class="dropdown-item"
+                  @click="make_csv()"
+                  style="cursor: pointer"
+                  >CSV для импорта в ALIS
+                </a>
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  @click="make_library_card()"
+                  style="cursor: pointer"
+                  >Читатательский билет</a
+                >
+              </li>
+            </ul>
+          </div>
 
           <button class="btn btn-secondary me-3" @click="showExportDataModal">
             Экспорт&nbsp;&nbsp;<font-awesome-icon
@@ -2549,6 +2574,24 @@ export default {
           link.click()
           this.isExporting = false
         })
+      }
+    },
+
+    async make_csv() {
+      try {
+        let export_data = {}
+        export_data.query_string = getQueryStringFromSearchForm(this.searchForm)
+        this.studentAPIInstance.csv_export(export_data).then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]))
+          const link = document.createElement("a")
+          link.href = url
+          link.setAttribute("download", `file.csv`)
+          document.body.appendChild(link)
+          link.click()
+          this.isExporting = false
+        })
+      } catch (e) {
+      } finally {
       }
     },
   },

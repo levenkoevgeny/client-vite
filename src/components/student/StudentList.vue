@@ -135,11 +135,219 @@
           № п.п.
         </th>
         <th scope="col"></th>
-        <th scope="col">Фамилия, имя, отчество</th>
-        <th scope="col">Группа</th>
-        <th scope="col">Курс</th>
-        <th scope="col">Литера курса</th>
-        <th scope="col">Форма обучения</th>
+        <th scope="col">
+          <div class="d-flex flex-row align-items-center">
+            <span class="text-nowrap">Фамилия</span>
+            <div class="dropdown">
+              <button
+                class="btn dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              ></button>
+              <ul class="dropdown-menu">
+                <li>
+                  <button
+                    class="dropdown-item"
+                    @click="setOrdering('last_name_rus')"
+                  >
+                    А -> Я
+                  </button>
+                </li>
+                <li>
+                  <button
+                    class="dropdown-item"
+                    @click="setOrdering('-last_name_rus')"
+                  >
+                    Я -> А
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </th>
+        <th scope="col">
+          <div class="d-flex flex-row align-items-center">
+            <span class="text-nowrap">Имя</span>
+            <div class="dropdown">
+              <button
+                class="btn dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              ></button>
+              <ul class="dropdown-menu">
+                <li>
+                  <button
+                    class="dropdown-item"
+                    @click="setOrdering('first_name_rus')"
+                  >
+                    А -> Я
+                  </button>
+                </li>
+                <li>
+                  <button
+                    class="dropdown-item"
+                    @click="setOrdering('-first_name_rus')"
+                  >
+                    Я -> А
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </th>
+        <th scope="col">
+          <div class="d-flex flex-row align-items-center">
+            <span class="text-nowrap">Отчество</span>
+            <div class="dropdown">
+              <button
+                class="btn dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              ></button>
+              <ul class="dropdown-menu">
+                <li>
+                  <button
+                    class="dropdown-item"
+                    @click="setOrdering('patronymic_rus')"
+                  >
+                    А -> Я
+                  </button>
+                </li>
+                <li>
+                  <button
+                    class="dropdown-item"
+                    @click="setOrdering('-patronymic_rus')"
+                  >
+                    Я -> А
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </th>
+        <th scope="col">
+          <div class="d-flex flex-row align-items-center">
+            <span class="text-nowrap">Группа</span>
+            <div class="dropdown">
+              <button
+                class="btn dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              ></button>
+              <ul class="dropdown-menu">
+                <li>
+                  <button
+                    class="dropdown-item"
+                    @click="setOrdering('group__group_name')"
+                  >
+                    А -> Я
+                  </button>
+                </li>
+                <li>
+                  <button
+                    class="dropdown-item"
+                    @click="setOrdering('-group__group_name')"
+                  >
+                    Я -> А
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </th>
+        <th scope="col">
+          <div class="d-flex flex-row align-items-center">
+            <span class="text-nowrap">Курс</span>
+            <div class="dropdown">
+              <button
+                class="btn dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              ></button>
+              <ul class="dropdown-menu">
+                <li>
+                  <button class="dropdown-item" @click="setOrdering('year')">
+                    А -> Я
+                  </button>
+                </li>
+                <li>
+                  <button class="dropdown-item" @click="setOrdering('-year')">
+                    Я -> А
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </th>
+
+        <th scope="col">
+          <div class="d-flex flex-row align-items-center">
+            <span class="text-nowrap">Литера курса</span>
+            <div class="dropdown">
+              <button
+                class="btn dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              ></button>
+              <ul class="dropdown-menu">
+                <li>
+                  <button
+                    class="dropdown-item"
+                    @click="setOrdering('year_litera')"
+                  >
+                    А -> Я
+                  </button>
+                </li>
+                <li>
+                  <button
+                    class="dropdown-item"
+                    @click="setOrdering('-year_litera')"
+                  >
+                    Я -> А
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </th>
+
+        <th scope="col">
+          <div class="d-flex flex-row align-items-center">
+            <span class="text-nowrap">Форма обучения</span>
+            <div class="dropdown">
+              <button
+                class="btn dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              ></button>
+              <ul class="dropdown-menu">
+                <li>
+                  <button
+                    class="dropdown-item"
+                    @click="setOrdering('education_form__education_form')"
+                  >
+                    А -> Я
+                  </button>
+                </li>
+                <li>
+                  <button
+                    class="dropdown-item"
+                    @click="setOrdering('-education_form__education_form')"
+                  >
+                    Я -> А
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </th>
       </tr>
     </template>
     <template v-slot:tbody>
@@ -179,8 +387,14 @@
           </span>
         </td>
         <td>
-          {{ student.last_name_rus }}<br />
-          {{ student.first_name_rus }}<br />{{ student.patronymic_rus }}
+          {{ student.last_name_rus }}
+        </td>
+        <td>
+          {{ student.first_name_rus }}
+        </td>
+
+        <td>
+          {{ student.patronymic_rus }}
         </td>
         <td>{{ student.get_group }}</td>
         <td>{{ student.year }}</td>
@@ -191,7 +405,7 @@
       </tr>
     </template>
 
-    <template v-slot:paginator> </template>
+    <template v-slot:paginator></template>
     <template v-slot:search-form>
       <div class="mb-3">
         <label for="last_name_rus" class="form-label">Активная запись</label>
@@ -386,6 +600,7 @@ export default {
       try {
         const studentResponse = await this.studentAPIInstance.getItemsList()
         this.studentList = await studentResponse.data
+        this.setSerialNumbers()
       } catch (e) {
         this.isError = true
       } finally {
@@ -432,7 +647,6 @@ export default {
       })
       myModal.show()
     },
-
     async addNewStudent() {
       try {
         this.isLoading = true
@@ -462,6 +676,9 @@ export default {
         item.serial_number = i
         i++
       })
+    },
+    setOrdering(fieldName) {
+      this.searchForm.ordering = fieldName + ",id"
     },
     get_examination_reports(destination) {
       let queryString = "?"

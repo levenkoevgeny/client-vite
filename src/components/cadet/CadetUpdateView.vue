@@ -1105,20 +1105,47 @@
 import getCadetAPIInstance from "@/api/cadet/cadetAPI"
 
 import { debounce } from "lodash/function"
-import { JobCadetComponent } from "@/components/cadet/job"
-import {
-  ArmyServiceCadetComponent,
-  MVDServiceCadetComponent,
-} from "@/components/cadet/service"
-import { RewardCadetComponent } from "@/components/cadet/reward"
-import { PunishmentCadetComponent } from "@/components/cadet/punishment"
-import { PositionCadetComponent } from "@/components/cadet/position"
-import { SpecialityCadetComponent } from "@/components/cadet/speciality"
-import RankHistoryCadetComponent from "@/components/cadet/rank/RankHistoryCadetComponent.vue"
-import EncouragementCadetComponent from "@/components/cadet/encouragement/EncouragementCadetComponent.vue"
-import EducationHistoryCadetComponent from "@/components/cadet/education/EducationHistoryCadetComponent.vue"
-import ForeignLanguagesCadetComponent from "@/components/cadet/languages/ForeignLanguagesCadetComponent.vue"
-import RelativesCadetComponent from "@/components/cadet/relatives/RelativesCadetComponent.vue"
+import { defineAsyncComponent } from "vue"
+
+const ArmyServiceCadetComponent = defineAsyncComponent(
+  () => import("@/components/cadet/service/ArmyServiceCadetComponent.vue"),
+)
+const MVDServiceCadetComponent = defineAsyncComponent(
+  () => import("@/components/cadet/service/MVDServiceCadetComponent.vue"),
+)
+const JobCadetComponent = defineAsyncComponent(
+  () => import("@/components/cadet/job/JobCadetComponent.vue"),
+)
+const RewardCadetComponent = defineAsyncComponent(
+  () => import("@/components/cadet/reward/RewardCadetComponent.vue"),
+)
+const PunishmentCadetComponent = defineAsyncComponent(
+  () => import("@/components/cadet/punishment/PunishmentCadetComponent.vue"),
+)
+const PositionCadetComponent = defineAsyncComponent(
+  () => import("@/components/cadet/position/PositionCadetComponent.vue"),
+)
+const SpecialityCadetComponent = defineAsyncComponent(
+  () => import("@/components/cadet/speciality/SpecialityCadetComponent.vue"),
+)
+const RankHistoryCadetComponent = defineAsyncComponent(
+  () => import("@/components/cadet/rank/RankHistoryCadetComponent.vue"),
+)
+const EncouragementCadetComponent = defineAsyncComponent(
+  () =>
+    import("@/components/cadet/encouragement/EncouragementCadetComponent.vue"),
+)
+const EducationHistoryCadetComponent = defineAsyncComponent(
+  () =>
+    import("@/components/cadet/education/EducationHistoryCadetComponent.vue"),
+)
+const ForeignLanguagesCadetComponent = defineAsyncComponent(
+  () =>
+    import("@/components/cadet/languages/ForeignLanguagesCadetComponent.vue"),
+)
+const RelativesCadetComponent = defineAsyncComponent(
+  () => import("@/components/cadet/relatives/RelativesCadetComponent.vue"),
+)
 
 import "vue-select/dist/vue-select.css"
 import { mapGetters } from "vuex"

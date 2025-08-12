@@ -205,22 +205,22 @@
       </template>
       <template v-slot:thead>
         <tr>
-          <th>
-            <div
-              class="form-check d-flex align-items-center justify-content-center"
-            >
-              <input
-                type="checkbox"
-                class="form-check-input my-0"
-                @change="checkAllHandler($event)"
-              />
-            </div>
-          </th>
+          <!--          <th>-->
+          <!--            <div-->
+          <!--              class="form-check d-flex align-items-center justify-content-center"-->
+          <!--            >-->
+          <!--              <input-->
+          <!--                type="checkbox"-->
+          <!--                class="form-check-input my-0"-->
+          <!--                @change="checkAllHandler($event)"-->
+          <!--              />-->
+          <!--            </div>-->
+          <!--          </th>-->
           <th>Номер приказа</th>
           <th>Дата приказа</th>
           <th>Дата начала действия приказа</th>
           <th>Доп. информация</th>
-          <th></th>
+          <!--          <th></th>-->
         </tr>
       </template>
       <template v-slot:tbody>
@@ -229,17 +229,17 @@
           :key="order.id"
           @dblclick.stop="showUpdateMainItemModal(order.id)"
         >
-          <td>
-            <div
-              class="form-check d-flex align-items-center justify-content-center"
-            >
-              <input
-                type="checkbox"
-                class="form-check-input my-0"
-                v-model="order.isSelected"
-              />
-            </div>
-          </td>
+          <!--          <td>-->
+          <!--            <div-->
+          <!--              class="form-check d-flex align-items-center justify-content-center"-->
+          <!--            >-->
+          <!--              <input-->
+          <!--                type="checkbox"-->
+          <!--                class="form-check-input my-0"-->
+          <!--                v-model="order.isSelected"-->
+          <!--              />-->
+          <!--            </div>-->
+          <!--          </td>-->
           <td>{{ order.order_number || "Нет данных" }}</td>
           <td>
             {{
@@ -262,18 +262,18 @@
           <td>
             {{ order.order_extra_data || "Нет данных" }}
           </td>
-          <td>
-            <div class="d-flex align-items-end justify-content-end">
-              <button
-                type="button"
-                class="btn btn-outline-danger"
-                @click="trashButtonClick(order.id)"
-                style="padding: 0.25rem 0.5rem"
-              >
-                <font-awesome-icon :icon="['fas', 'trash']" />
-              </button>
-            </div>
-          </td>
+          <!--          <td>-->
+          <!--            <div class="d-flex align-items-end justify-content-end">-->
+          <!--              <button-->
+          <!--                type="button"-->
+          <!--                class="btn btn-outline-danger"-->
+          <!--                @click="trashButtonClick(order.id)"-->
+          <!--                style="padding: 0.25rem 0.5rem"-->
+          <!--              >-->
+          <!--                <font-awesome-icon :icon="['fas', 'trash']" />-->
+          <!--              </button>-->
+          <!--            </div>-->
+          <!--          </td>-->
         </tr>
       </template>
       <template v-slot:paginator>
