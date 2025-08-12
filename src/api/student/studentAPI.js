@@ -50,6 +50,14 @@ class StudentAPI extends BaseAPI {
       { responseType: "blob" },
     )
   }
+
+  async make_library_card(items) {
+    return axios.post(
+      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/make_library_card/`,
+      { selected_items: items },
+      { responseType: "blob" },
+    )
+  }
 }
 
 const searchObj = {

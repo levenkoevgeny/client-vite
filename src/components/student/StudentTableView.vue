@@ -167,6 +167,7 @@
           >
             <thead ref="thead">
               <tr>
+                <th></th>
                 <th scope="col" class="text-center">№п.п.</th>
                 <th scope="col">Активный</th>
                 <th scope="col" class="text-center">Форма обучения</th>
@@ -1380,6 +1381,17 @@
               </tr>
 
               <tr>
+                <th>
+                  <div
+                    class="form-check d-flex align-items-center justify-content-center"
+                  >
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      @change="checkAllHandler($event)"
+                    />
+                  </div>
+                </th>
                 <th></th>
                 <th>
                   <select class="form-select" v-model="searchForm.is_active">
@@ -2000,6 +2012,17 @@
                   })
                 "
               >
+                <td>
+                  <div
+                    class="form-check d-flex align-items-center justify-content-center"
+                  >
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="student.isSelected"
+                    />
+                  </div>
+                </td>
                 <td class="text-center">{{ student.serial_number }}</td>
                 <td v-if="student.is_active"></td>
                 <td v-else class="text-center">
@@ -2576,7 +2599,6 @@ export default {
         })
       }
     },
-
     async make_csv() {
       try {
         let export_data = {}
@@ -2594,8 +2616,44 @@ export default {
       } finally {
       }
     },
+    checkAllHandler(e) {
+      if (e.target.checked) {
+        this.studentList.results = this.studentList.results.map((item) => ({
+          ...item,
+          isSelected: true,
+        }))
+      } else {
+        this.studentList.results = this.studentList.results.map((item) => ({
+          ...item,
+          isSelected: false,
+        }))
+      }
+    },
+    async make_library_card() {
+      try {
+        if (!this.selectedItems.length) {
+          alert("Не выбрано ни одной записи!")
+        } else {
+          let items_array = []
+          this.selectedItems.map((item) => items_array.push(item.id))
+          const response =
+            await this.studentAPIInstance.make_library_card(items_array)
+          const url = window.URL.createObjectURL(new Blob([response.data]))
+          const link = document.createElement("a")
+          link.href = url
+          link.setAttribute("download", "library_cards.docx")
+          document.body.appendChild(link)
+          link.click()
+        }
+      } catch (e) {
+      } finally {
+      }
+    },
   },
   computed: {
+    selectedItems() {
+      return this.studentList.results.filter((item) => item.isSelected)
+    },
     normalizedAdmissionQuota() {
       let normObj = {}
       this.admissionQuotas.results.map((item) => (normObj[item.id] = item))
