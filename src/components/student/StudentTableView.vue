@@ -78,6 +78,41 @@
     </div>
   </div>
 
+  <div
+    class="modal fade"
+    id="libraryCardErrorModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+    ref="libraryCardErrorModal"
+  >
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">
+            Исправте следующие ошибки для формирования документа:
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div style="max-height: 350px; overflow-y: auto">
+            <div
+              class="alert alert-danger my-1"
+              v-for="error in library_cards_error_array"
+            >
+              {{ error }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="container-fluid">
     <div
       v-if="isLoading || isCommonLoading"
@@ -123,7 +158,7 @@
                   class="dropdown-item"
                   @click="make_csv()"
                   style="cursor: pointer"
-                  >CSV для импорта в ALIS
+                  >txt для импорта в ALIS (по фильтру)
                 </a>
               </li>
               <li>
@@ -131,7 +166,7 @@
                   class="dropdown-item"
                   @click="make_library_card()"
                   style="cursor: pointer"
-                  >Читатательский билет</a
+                  >Читатательский билет (по выбранным записям)</a
                 >
               </li>
             </ul>
@@ -2487,6 +2522,7 @@ export default {
       studentList: { count: 0, results: [], previous: null, next: null },
       studentAPIInstance: globalStudentAPIInstance,
       usersAPIInstance: getUsersAPIInstance(),
+      library_cards_error_array: [],
     }
   },
   async created() {
@@ -2607,7 +2643,7 @@ export default {
           const url = window.URL.createObjectURL(new Blob([response.data]))
           const link = document.createElement("a")
           link.href = url
-          link.setAttribute("download", `file.csv`)
+          link.setAttribute("download", `fp_export.txt`)
           document.body.appendChild(link)
           link.click()
           this.isExporting = false
@@ -2630,23 +2666,60 @@ export default {
       }
     },
     async make_library_card() {
-      try {
-        if (!this.selectedItems.length) {
-          alert("Не выбрано ни одной записи!")
-        } else {
-          let items_array = []
-          this.selectedItems.map((item) => items_array.push(item.id))
-          const response =
-            await this.studentAPIInstance.make_library_card(items_array)
-          const url = window.URL.createObjectURL(new Blob([response.data]))
-          const link = document.createElement("a")
-          link.href = url
-          link.setAttribute("download", "library_cards.docx")
-          document.body.appendChild(link)
-          link.click()
+      this.library_cards_error_array = []
+      this.selectedItems.map((student) => {
+        if (!student.subdivision) {
+          this.library_cards_error_array.push(
+            student.last_name_rus + " - не указан факультет",
+          )
         }
-      } catch (e) {
-      } finally {
+        if (!student.photo) {
+          this.library_cards_error_array.push(
+            student.last_name_rus + " - нет фото",
+          )
+        }
+        if (!student.date_of_birth) {
+          this.library_cards_error_array.push(
+            student.last_name_rus + " - не указана дата рождения",
+          )
+        }
+        if (!student.year) {
+          this.library_cards_error_array.push(
+            student.last_name_rus + " - не указан курс",
+          )
+        }
+        if (!student.academy_start_date) {
+          this.library_cards_error_array.push(
+            student.last_name_rus + " - не указана дата начала обучения",
+          )
+        }
+      })
+
+      if (this.library_cards_error_array.length) {
+        let errorModal = this.$refs.libraryCardErrorModal
+        let myModal = new bootstrap.Modal(errorModal, {
+          keyboard: false,
+        })
+        myModal.show()
+      } else {
+        try {
+          if (!this.selectedItems.length) {
+            alert("Не выбрано ни одной записи!")
+          } else {
+            let items_array = []
+            this.selectedItems.map((item) => items_array.push(item.id))
+            const response =
+              await this.studentAPIInstance.make_library_card(items_array)
+            const url = window.URL.createObjectURL(new Blob([response.data]))
+            const link = document.createElement("a")
+            link.href = url
+            link.setAttribute("download", "library_cards.docx")
+            document.body.appendChild(link)
+            link.click()
+          }
+        } catch (e) {
+        } finally {
+        }
       }
     },
   },

@@ -397,7 +397,6 @@ export default {
         const response =
           await this.cadetAPIInstance.makeStudentCard(items_array)
         if (response.data.error_list) {
-          console.log(response.data.error_list)
           this.error_list = response.data.error_list
           let errorModal = this.$refs.printErrorModal
           let myModal = new bootstrap.Modal(errorModal, {
