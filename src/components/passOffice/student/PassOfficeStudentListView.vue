@@ -236,7 +236,6 @@ export default {
       }
     },
     async loadMoreData(entries, observer) {
-      console.log("loadMoreData")
       if (entries[0].isIntersecting) {
         if (this.cadetList) {
           if (this.cadetList.next) {

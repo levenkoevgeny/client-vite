@@ -64,7 +64,7 @@
               ></button>
             </div>
             <div class="modal-body">
-              <div style="max-height: 350px; overflow-y: auto">
+              <div style="max-height: 600px; overflow-y: auto">
                 <div class="container-fluid">
                   <div class="row my-3">
                     <div class="col-10">
@@ -108,8 +108,20 @@
               ></button>
             </div>
             <div class="modal-body">
-              <div style="max-height: 350px; overflow-y: auto">
+              <div style="max-height: 600px; overflow-y: auto">
                 <div class="container-fluid">
+                  <div
+                    class="d-flex justify-content-end align-items-center my-3"
+                  >
+                    <button
+                      class="btn btn-primary"
+                      @click="addNewEmptyCardBlank"
+                    >
+                      <font-awesome-icon
+                        :icon="['fas', 'address-card']"
+                      />&nbsp;&nbsp;Добавить запись
+                    </button>
+                  </div>
                   <div
                     class="my-1"
                     v-for="cardRecordBlank in cadetRecordsCardsForOneStudent.results"
@@ -268,7 +280,7 @@
         <td>{{ cadet.student_record_book_number }}</td>
         <td class="text-center">
           <button class="btn btn-warning" @click="showCardBlanks(cadet.id)">
-            <font-awesome-icon :icon="['fas', 'ticket']" />
+            <font-awesome-icon :icon="['fas', 'address-card']" />
           </button>
         </td>
       </tr>
@@ -313,11 +325,12 @@
             class="btn btn-primary my-4"
             @click="clearFilter"
           >
-            Сбросить фильтр
+            <font-awesome-icon :icon="['fas', 'filter']" />&nbsp;&nbsp;Сбросить
+            фильтр
           </button>
         </div>
 
-        <div class="dropdown">
+        <div class="dropdown me-2">
           <button
             class="btn btn-secondary dropdown-toggle"
             type="button"
@@ -345,6 +358,17 @@
               >
             </li>
           </ul>
+        </div>
+
+        <div class="me-2">
+          <button
+            type="button"
+            class="btn btn-warning my-4"
+            @click="$router.push({ name: 'pass-office-cadet-card-blanks' })"
+          >
+            <font-awesome-icon :icon="['fas', 'address-card']" />&nbsp;&nbsp;
+            Список использованных бланков студенческих билетов
+          </button>
         </div>
       </div>
     </template>
@@ -385,6 +409,7 @@ export default {
       error_list: [],
       cadetRecordsCards: [],
       cadetRecordsCardsForOneStudent: { results: [] },
+      currentCadetForRecordsCardsForOneStudent: null,
       lastNameSearch: "",
       cadetCardBlankAPIInstance: getCadetCardBlankAPIInstance(),
     }
@@ -530,8 +555,9 @@ export default {
       }
     },
     async showCardBlanks(cadetId) {
+      this.currentCadetForRecordsCardsForOneStudent = cadetId
       try {
-        this.cadetRecordsCardsForOneStudent = []
+        this.cadetRecordsCardsForOneStudent = { results: [] }
         this.cadetCardBlankAPIInstance.searchObj.cadet = cadetId
         const response = await this.cadetCardBlankAPIInstance.getItemsList()
         this.cadetRecordsCardsForOneStudent = response.data
@@ -545,6 +571,12 @@ export default {
       } catch (e) {
       } finally {
       }
+    },
+    addNewEmptyCardBlank() {
+      this.cadetRecordsCardsForOneStudent.results.push({
+        cadet: this.currentCadetForRecordsCardsForOneStudent,
+        card_blank_number: "",
+      })
     },
   },
   computed: {

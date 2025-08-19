@@ -63,6 +63,9 @@ import { faArrowsAltV } from "@fortawesome/free-solid-svg-icons"
 import { faSearch } from "@fortawesome/free-solid-svg-icons"
 import { faAddressCard } from "@fortawesome/free-solid-svg-icons"
 import { faTicket } from "@fortawesome/free-solid-svg-icons"
+import { faUser } from "@fortawesome/free-solid-svg-icons"
+import { faCalendarDays } from "@fortawesome/free-solid-svg-icons"
+import { faDoorOpen } from "@fortawesome/free-solid-svg-icons"
 import axios from "axios"
 import "../public/vue-select.css"
 
@@ -126,6 +129,9 @@ library.add(faBook)
 library.add(faFile)
 library.add(faAddressCard)
 library.add(faTicket)
+library.add(faUser)
+library.add(faCalendarDays)
+library.add(faDoorOpen)
 
 axiosInstance.interceptors.request.use(
   (config) => {

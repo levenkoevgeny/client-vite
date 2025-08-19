@@ -118,6 +118,12 @@ const routes = [
             name: "pass-office-cadet-update",
           },
           {
+            path: "cadets/card-blanks",
+            component: () =>
+              import("@/components/passOffice/cadet/CadetCardBlanksView.vue"),
+            name: "pass-office-cadet-card-blanks",
+          },
+          {
             path: "employees",
             component: PassOfficeEmployeeListView,
             name: "pass-office-employees",

@@ -12,6 +12,7 @@ export default function getCadetCardBlankAPIInstance() {
       card_blank_number__lte: "",
       date_time_created__gte: "",
       date_time_created__lte: "",
+      ordering: null,
     },
     {
       cadet: "",
