@@ -2673,11 +2673,6 @@ export default {
             student.last_name_rus + " - не указан факультет",
           )
         }
-        if (!student.photo) {
-          this.library_cards_error_array.push(
-            student.last_name_rus + " - нет фото",
-          )
-        }
         if (!student.date_of_birth) {
           this.library_cards_error_array.push(
             student.last_name_rus + " - не указана дата рождения",

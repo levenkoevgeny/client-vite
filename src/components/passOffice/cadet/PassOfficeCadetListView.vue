@@ -42,110 +42,101 @@
         </div>
       </div>
 
-      <!--      <div-->
-      <!--        class="modal fade"-->
-      <!--        id="cadetAddModal"-->
-      <!--        tabindex="-1"-->
-      <!--        aria-labelledby="exampleModalLabel"-->
-      <!--        aria-hidden="true"-->
-      <!--        ref="cadetAddModal"-->
-      <!--      >-->
-      <!--        <div class="modal-dialog modal-dialog-centered">-->
-      <!--          <div class="modal-content">-->
-      <!--            <div class="modal-header">-->
-      <!--              <h1 class="modal-title fs-5" id="exampleModalLabel">-->
-      <!--                Добавление личного дела-->
-      <!--              </h1>-->
-      <!--              <button-->
-      <!--                type="button"-->
-      <!--                class="btn-close"-->
-      <!--                data-bs-dismiss="modal"-->
-      <!--                aria-label="Close"-->
-      <!--              ></button>-->
-      <!--            </div>-->
+      <div
+        class="modal fade"
+        id="studentRecordBookModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+        ref="studentRecordBookModal"
+      >
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-3">
+                Заполните номера бланков студенческих билетов
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div style="max-height: 350px; overflow-y: auto">
+                <div class="container-fluid">
+                  <div class="row my-3">
+                    <div class="col-10">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Поиск по фамилии"
+                        v-model="lastNameSearch"
+                      />
+                    </div>
+                  </div>
+                  <div class="my-1" v-for="cadet in filteredCadetRecordsCards">
+                    <CadetRecordsBook :cadet-data="cadet" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <!--            <form @submit.prevent="addNewCadetForEntrance">-->
-      <!--              <div class="modal-body">-->
-      <!--                <div class="mb-3">-->
-      <!--                  <label for="id_last_name_rus" class="form-label"-->
-      <!--                  >Фамилия</label-->
-      <!--                  >-->
-      <!--                  <input-->
-      <!--                    type="text"-->
-      <!--                    class="form-control"-->
-      <!--                    id="id_last_name_rus"-->
-      <!--                    v-model="cadetNewForm.last_name_rus"-->
-      <!--                    required-->
-      <!--                  />-->
-      <!--                </div>-->
-      <!--                <div class="mb-3">-->
-      <!--                  <label for="id_first_name_rus" class="form-label">Имя</label>-->
-      <!--                  <input-->
-      <!--                    type="text"-->
-      <!--                    class="form-control"-->
-      <!--                    id="id_first_name_rus"-->
-      <!--                    v-model="cadetNewForm.first_name_rus"-->
-      <!--                    required-->
-      <!--                  />-->
-      <!--                </div>-->
-      <!--                <div class="mb-3">-->
-      <!--                  <label for="id_patronymic_rus" class="form-label"-->
-      <!--                  >Отчество</label-->
-      <!--                  >-->
-      <!--                  <input-->
-      <!--                    type="text"-->
-      <!--                    class="form-control"-->
-      <!--                    id="id_patronymic_rus"-->
-      <!--                    v-model="cadetNewForm.patronymic_rus"-->
-      <!--                    required-->
-      <!--                  />-->
-      <!--                </div>-->
-      <!--                <div class="mb-3">-->
-      <!--                  <label for="id_date_of_birth" class="form-label"-->
-      <!--                  >Дата рождения</label-->
-      <!--                  >-->
-      <!--                  <input-->
-      <!--                    type="date"-->
-      <!--                    class="form-control"-->
-      <!--                    id="id_date_of_birth"-->
-      <!--                    v-model="cadetNewForm.date_of_birth"-->
-      <!--                    required-->
-      <!--                  />-->
-      <!--                </div>-->
-      <!--              </div>-->
-      <!--              <div class="modal-footer">-->
-      <!--                <button-->
-      <!--                  type="button"-->
-      <!--                  class="btn btn-secondary"-->
-      <!--                  data-bs-dismiss="modal"-->
-      <!--                  ref="cadetAddModalCloseButton"-->
-      <!--                >-->
-      <!--                  Закрыть без сохранения-->
-      <!--                </button>-->
-      <!--                <button-->
-      <!--                  type="submit"-->
-      <!--                  class="btn btn-primary"-->
-      <!--                  :disabled="isLoading"-->
-      <!--                >-->
-      <!--                  Сохранить-->
-      <!--                </button>-->
-      <!--              </div>-->
-      <!--            </form>-->
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--      </div>-->
+      <div
+        class="modal fade"
+        id="studentRecordBookModalForOneStudent"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+        ref="studentRecordBookModalForOneStudent"
+      >
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-3">
+                Номера бланков студенческих билетов
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div style="max-height: 350px; overflow-y: auto">
+                <div class="container-fluid">
+                  <div
+                    class="my-1"
+                    v-for="cardRecordBlank in cadetRecordsCardsForOneStudent.results"
+                    v-if="cadetRecordsCardsForOneStudent.results.length > 0"
+                  >
+                    <CardRecordBlank :card-data="cardRecordBlank" />
+                  </div>
+                  <div v-else>Записей нет</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </template>
 
     <template v-slot:thead>
       <tr ref="thead">
-        <th scope="col"></th>
-        <th scope="col"></th>
+        <th scope="col" class="text-center text-nowrap">Выбрать все</th>
+        <th scope="col">Фото</th>
+        <th scope="col">Подпись</th>
         <th scope="col">Фамилия</th>
         <th scope="col">Имя</th>
         <th scope="col">Отчество</th>
         <th scope="col">Группа</th>
         <th scope="col">Номер зачетной книжки</th>
-        <th scope="col">Подпись</th>
+        <th scope="col">Выданные пропуски</th>
       </tr>
       <tr>
         <th>
@@ -159,7 +150,20 @@
             />
           </div>
         </th>
-        <th></th>
+        <th>
+          <select class="form-select" v-model="searchForm.photo_exists">
+            <option value="">----</option>
+            <option value="true" key="true">Да</option>
+            <option value="false" key="false">Нет</option>
+          </select>
+        </th>
+        <th>
+          <select class="form-select" v-model="searchForm.sign_image_exists">
+            <option value="">----</option>
+            <option value="true" key="true">Да</option>
+            <option value="false" key="false">Нет</option>
+          </select>
+        </th>
         <th>
           <input
             type="text"
@@ -168,8 +172,22 @@
             style="width: 300px"
           />
         </th>
-        <th></th>
-        <th></th>
+        <th>
+          <input
+            type="text"
+            class="form-control"
+            v-model="searchForm.first_name_rus__icontains"
+            style="width: 300px"
+          />
+        </th>
+        <th>
+          <input
+            type="text"
+            class="form-control"
+            v-model="searchForm.patronymic_rus__icontains"
+            style="width: 300px"
+          />
+        </th>
         <th>
           <v-select
             v-model="searchForm.group__in"
@@ -204,7 +222,7 @@
             />
           </div>
         </td>
-        <td>
+        <td class="text-center">
           <img
             v-if="cadet.photo"
             :src="cadet.photo"
@@ -220,28 +238,38 @@
             style="width: 50px"
           />
         </td>
+        <td class="text-center">
+          <span
+            v-if="cadet.sign_image"
+            class="bg-success-subtle p-2 rounded rounded-1"
+            >да&nbsp;&nbsp;<font-awesome-icon :icon="['fas', 'check']" /></span
+          ><span v-else class="bg-warning-subtle p-2 rounded rounded-1"
+            >нет</span
+          >
+        </td>
         <td>
           <router-link
             :to="{
               name: 'pass-office-cadet-update',
               params: { id: cadet.id },
             }"
+            class="text-decoration-none"
+            title="Сделать фото или подпись"
           >
-            {{ cadet.last_name_rus }}
+            <font-awesome-icon :icon="['fas', 'camera']" />&nbsp;&nbsp;<span
+              class="text-decoration-underline"
+              >{{ cadet.last_name_rus }}</span
+            >
           </router-link>
         </td>
         <td>{{ cadet.first_name_rus }}</td>
         <td>{{ cadet.patronymic_rus }}</td>
         <td>{{ cadet.get_group }}</td>
         <td>{{ cadet.student_record_book_number }}</td>
-        <td>
-          <span
-            v-if="cadet.sign_image"
-            class="bg-success-subtle p-2 rounded rounded-1"
-            >да</span
-          ><span v-else class="bg-warning-subtle p-2 rounded rounded-1"
-            >нет</span
-          >
+        <td class="text-center">
+          <button class="btn btn-warning" @click="showCardBlanks(cadet.id)">
+            <font-awesome-icon :icon="['fas', 'ticket']" />
+          </button>
         </td>
       </tr>
     </template>
@@ -296,7 +324,8 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Печать документов
+            <font-awesome-icon :icon="['fas', 'print']" />&nbsp;&nbsp;Печать
+            документов
           </button>
           <ul class="dropdown-menu">
             <li>
@@ -304,7 +333,7 @@
                 class="dropdown-item"
                 @click="make_student_record_book()"
                 style="cursor: pointer"
-                >Зачетные книжки</a
+                >Сформировать зачетные книжки для выбранных записей</a
               >
             </li>
             <li>
@@ -312,7 +341,7 @@
                 class="dropdown-item"
                 @click="make_student_card()"
                 style="cursor: pointer"
-                >Студенческие билеты</a
+                >Сформировать студенческие билеты для выбранных записей</a
               >
             </li>
           </ul>
@@ -324,15 +353,24 @@
 
 <script>
 import { globalCadetAPIInstanceForPassOffice } from "@/api/cadet/cadetAPI.js"
+import getCadetCardBlankAPIInstance from "@/api/cadet/cadetCardBlankAPI.js"
 import { mapGetters } from "vuex"
 import { debounce } from "lodash/function.js"
 import BaseListLayoutForPassOffice from "@/components/layouts/BaseListLayoutForPassOffice.vue"
 import PassOfficeCadetItemView from "@/components/passOffice/cadet/PassOfficeCadetItemView.vue"
 import Camera from "@/components/passOffice/Camera.vue"
+import CadetRecordsBook from "@/components/passOffice/cadet/components/CadetRecordsBook.vue"
+import CardRecordBlank from "@/components/passOffice/cadet/components/CardRecordBlank.vue"
 
 export default {
   name: "PassOfficeCadetView",
-  components: { Camera, BaseListLayoutForPassOffice, PassOfficeCadetItemView },
+  components: {
+    Camera,
+    BaseListLayoutForPassOffice,
+    PassOfficeCadetItemView,
+    CadetRecordsBook,
+    CardRecordBlank,
+  },
   data() {
     return {
       cadetList: { count: 0, results: [], previous: null, next: null },
@@ -341,11 +379,14 @@ export default {
       cadetAPIInstance: globalCadetAPIInstanceForPassOffice,
       searchForm: Object.assign(
         {},
-
         globalCadetAPIInstanceForPassOffice.searchObj,
       ),
       currentCadetForUpdate: {},
       error_list: [],
+      cadetRecordsCards: [],
+      cadetRecordsCardsForOneStudent: { results: [] },
+      lastNameSearch: "",
+      cadetCardBlankAPIInstance: getCadetCardBlankAPIInstance(),
     }
   },
   async created() {
@@ -378,12 +419,33 @@ export default {
 
     async make_student_record_book() {
       this.error_list = []
-      if (this.selectedItems.length) {
+      this.cadetRecordsCards = []
+      if (!this.selectedItems.length) {
+        alert("Не выбрано ни одной записи!")
+      } else {
         let items_array = []
         this.selectedItems.map((item) => items_array.push(item.id))
-        await this.cadetAPIInstance.makeStudentRecordBook(items_array)
-      } else {
-        alert("Не выбрано ни одной записи!")
+        const validationResponse =
+          await this.cadetAPIInstance.validateDataBeforeMakingStudentRecordBook(
+            items_array,
+          )
+        if (validationResponse.data.error_list.length) {
+          this.error_list = validationResponse.data.error_list
+          let errorModal = this.$refs.printErrorModal
+          let myModal = new bootstrap.Modal(errorModal, {
+            keyboard: false,
+          })
+          myModal.show()
+        } else {
+          const response =
+            await this.cadetAPIInstance.makeStudentRecordBook(items_array)
+          const url = window.URL.createObjectURL(new Blob([response.data]))
+          const link = document.createElement("a")
+          link.href = url
+          link.setAttribute("download", "students_records_books.pdf")
+          document.body.appendChild(link)
+          link.click()
+        }
       }
     },
 
@@ -394,22 +456,37 @@ export default {
       } else {
         let items_array = []
         this.selectedItems.map((item) => items_array.push(item.id))
-        const response =
-          await this.cadetAPIInstance.makeStudentCard(items_array)
-        if (response.data.error_list) {
-          this.error_list = response.data.error_list
+
+        const validationResponse =
+          await this.cadetAPIInstance.validateDataBeforeMakingStudentCard(
+            items_array,
+          )
+        if (validationResponse.data.error_list.length) {
+          this.error_list = validationResponse.data.error_list
           let errorModal = this.$refs.printErrorModal
           let myModal = new bootstrap.Modal(errorModal, {
             keyboard: false,
           })
           myModal.show()
         } else {
+          const response =
+            await this.cadetAPIInstance.makeStudentCard(items_array)
           const url = window.URL.createObjectURL(new Blob([response.data]))
           const link = document.createElement("a")
           link.href = url
           link.setAttribute("download", "students_cards.pdf")
           document.body.appendChild(link)
           link.click()
+
+          this.cadetRecordsCards = this.cadetList.results.filter((cadet) =>
+            items_array.includes(cadet.id),
+          )
+
+          let studentRecordBookModal = this.$refs.studentRecordBookModal
+          let myModal = new bootstrap.Modal(studentRecordBookModal, {
+            keyboard: false,
+          })
+          myModal.show()
         }
       }
     },
@@ -452,6 +529,23 @@ export default {
         }))
       }
     },
+    async showCardBlanks(cadetId) {
+      try {
+        this.cadetRecordsCardsForOneStudent = []
+        this.cadetCardBlankAPIInstance.searchObj.cadet = cadetId
+        const response = await this.cadetCardBlankAPIInstance.getItemsList()
+        this.cadetRecordsCardsForOneStudent = response.data
+
+        let studentRecordBookModalForOneStudent =
+          this.$refs.studentRecordBookModalForOneStudent
+        let myModal = new bootstrap.Modal(studentRecordBookModalForOneStudent, {
+          keyboard: false,
+        })
+        myModal.show()
+      } catch (e) {
+      } finally {
+      }
+    },
   },
   computed: {
     orderedCadets() {
@@ -471,9 +565,15 @@ export default {
     selectedItems() {
       return this.cadetList.results.filter((item) => item.isSelected)
     },
-
     selectedItemsCount() {
       return this.selectedItems.length
+    },
+    filteredCadetRecordsCards() {
+      return this.cadetRecordsCards.filter((record) =>
+        record.last_name_rus
+          .toLowerCase()
+          .includes(this.lastNameSearch.toLowerCase()),
+      )
     },
     ...mapGetters({
       groups: "groups/getList",

@@ -81,7 +81,40 @@
     </div>
   </div>
 
-  <!--  documents modal-->
+  <div
+    class="modal fade"
+    id="libraryCardErrorModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+    ref="libraryCardErrorModal"
+  >
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">
+            Исправте следующие ошибки для формирования документа:
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div style="max-height: 350px; overflow-y: auto">
+            <div
+              class="alert alert-danger my-1"
+              v-for="error in library_cards_error_array"
+            >
+              {{ error }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="container-fluid">
     <div class="my-3"></div>
@@ -100,6 +133,37 @@
     >
       <div class="m-0 p-0"></div>
       <div class="d-flex flex-row">
+        <div class="dropdown">
+          <button
+            class="btn btn-secondary dropdown-toggle me-3"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Выходные документы&nbsp;&nbsp;<font-awesome-icon
+              :icon="['fas', 'print']"
+            />
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a
+                class="dropdown-item"
+                @click="make_txt()"
+                style="cursor: pointer"
+                >txt для импорта в ALIS (по фильтру)
+              </a>
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                @click="make_library_card()"
+                style="cursor: pointer"
+                >Читатательский билет (по выбранным записям)</a
+              >
+            </li>
+          </ul>
+        </div>
+
         <button class="btn btn-secondary me-3" @click="showExportDataModal">
           Экспорт&nbsp;&nbsp;<font-awesome-icon
             :icon="['fas', 'file-export']"
@@ -124,6 +188,7 @@
       <table class="table table-hover table-responsive" style="overflow: auto">
         <thead ref="thead">
           <tr>
+            <th></th>
             <th scope="col" class="text-center">№п.п.</th>
             <th scope="col">Активный</th>
             <th scope="col">
@@ -160,6 +225,42 @@
               </div>
             </th>
             <th scope="col" class="text-center">ФПК / МАГ</th>
+            <th scope="col" class="text-center text-nowrap">
+              <div class="d-flex flex-row align-items-center">
+                <span class="text-nowrap">Группа</span>
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('group__group_name')"
+                      >
+                        А -> Я
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('-group__group_name')"
+                      >
+                        Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
+            <th scope="col" style="min-width: 450px">
+              <div class="d-flex flex-row align-items-center">
+                <span class="text-nowrap">Специальность</span>
+              </div>
+            </th>
             <th scope="col" style="min-width: 450px">
               <div class="d-flex flex-row align-items-center">
                 <span class="text-nowrap">Комплектующий орган</span>
@@ -226,7 +327,6 @@
                 </div>
               </div>
             </th>
-
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
                 <span class="text-nowrap">Пол</span>
@@ -258,19 +358,16 @@
                 </div>
               </div>
             </th>
-
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
                 <span class="text-nowrap">Примечания для отдела кадров</span>
               </div>
             </th>
-
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
                 <span class="text-nowrap">Замечания по личному делу</span>
               </div>
             </th>
-
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
                 <span class="text-nowrap">Фамилия</span>
@@ -997,6 +1094,17 @@
             </th>
           </tr>
           <tr>
+            <th>
+              <div
+                class="form-check d-flex align-items-center justify-content-center"
+              >
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  @change="checkAllHandler($event)"
+                />
+              </div>
+            </th>
             <th></th>
             <th>
               <select class="form-select" v-model="searchForm.is_active">
@@ -1028,6 +1136,26 @@
                 <option :value="1" key="1">ФПКиПРК</option>
                 <option :value="2" key="2">Маг</option>
               </select>
+            </th>
+
+            <th>
+              <v-select
+                v-model="searchForm.group__in"
+                :options="orderedGroups"
+                label="group_name"
+                :reduce="(group) => group.id"
+                multiple
+                style="width: 200px"
+              />
+            </th>
+            <th>
+              <v-select
+                v-model="searchForm.current_speciality__in"
+                :options="orderedSpecialities"
+                label="speciality_name"
+                :reduce="(speciality) => speciality.id"
+                multiple
+              />
             </th>
 
             <th>
@@ -1374,6 +1502,17 @@
               })
             "
           >
+            <td>
+              <div
+                class="form-check d-flex align-items-center justify-content-center"
+              >
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  v-model="fpkprk.isSelected"
+                />
+              </div>
+            </td>
             <td class="text-center">{{ fpkprk.serial_number }}</td>
             <td v-if="fpkprk.is_active"></td>
 
@@ -1382,6 +1521,8 @@
             </td>
             <td class="text-center">{{ fpkprk.entrance_year }}</td>
             <td class="text-center">{{ fpkprk.get_fpk_mag_choice }}</td>
+            <td class="text-center">{{ fpkprk.get_group }}</td>
+            <td class="text-center">{{ fpkprk.get_speciality }}</td>
             <td>{{ fpkprk.get_component_organ }}</td>
             <td>{{ fpkprk.get_arrived_from_go_rovd }}</td>
             <td class="text-center">{{ fpkprk.get_gender }}</td>
@@ -1565,6 +1706,7 @@ export default {
       BACKEND_PORT: import.meta.env.VITE_APP_BACKEND_PORT,
       fpkprkList: { count: 0, results: [], previous: null, next: null },
       fpkprkAPIInstance: globalFPKPRKStudentAPIInstance,
+      library_cards_error_array: [],
     }
   },
   async created() {
@@ -1647,7 +1789,6 @@ export default {
       this.selectedFieldsForDataExport = []
     },
     async exportData(destination) {
-      console.log(destination)
       if (this.selectedFieldsForDataExport.length === 0) {
         alert("Выберите хотя бы одно поле для экспорта!")
       } else {
@@ -1681,8 +1822,99 @@ export default {
     setOrdering(fieldName) {
       this.searchForm.ordering = fieldName
     },
+    async make_txt() {
+      try {
+        let export_data = {}
+        export_data.query_string = getQueryStringFromSearchForm(this.searchForm)
+        this.fpkprkAPIInstance.txt_export(export_data).then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]))
+          const link = document.createElement("a")
+          link.href = url
+          link.setAttribute("download", `fpk_prk_export.txt`)
+          document.body.appendChild(link)
+          link.click()
+          this.isExporting = false
+        })
+      } catch (e) {
+      } finally {
+      }
+    },
+    checkAllHandler(e) {
+      if (e.target.checked) {
+        this.fpkprkList.results = this.fpkprkList.results.map((item) => ({
+          ...item,
+          isSelected: true,
+        }))
+      } else {
+        this.fpkprkList.results = this.fpkprkList.results.map((item) => ({
+          ...item,
+          isSelected: false,
+        }))
+      }
+    },
+    async make_library_card() {
+      this.library_cards_error_array = []
+      this.selectedItems.map((fpk_student) => {
+        if (!fpk_student.subdivision) {
+          this.library_cards_error_array.push(
+            fpk_student.last_name_rus + " - не указан факультет",
+          )
+        }
+        if (!fpk_student.date_of_birth) {
+          this.library_cards_error_array.push(
+            fpk_student.last_name_rus + " - не указана дата рождения",
+          )
+        }
+        if (!fpk_student.year) {
+          this.library_cards_error_array.push(
+            fpk_student.last_name_rus + " - не указан курс",
+          )
+        }
+        if (!fpk_student.academy_start_date) {
+          this.library_cards_error_array.push(
+            fpk_student.last_name_rus + " - не указана дата начала обучения",
+          )
+        }
+        if (!fpk_student.fpk_mag_choice) {
+          this.library_cards_error_array.push(
+            fpk_student.last_name_rus +
+              " - не указана категория фпк/магистратура",
+          )
+        }
+      })
+
+      if (this.library_cards_error_array.length) {
+        let errorModal = this.$refs.libraryCardErrorModal
+        let myModal = new bootstrap.Modal(errorModal, {
+          keyboard: false,
+        })
+        myModal.show()
+      } else {
+        try {
+          if (!this.selectedItems.length) {
+            alert("Не выбрано ни одной записи!")
+          } else {
+            let items_array = []
+            this.selectedItems.map((item) => items_array.push(item.id))
+            const response =
+              await this.fpkprkAPIInstance.make_library_card(items_array)
+            const url = window.URL.createObjectURL(new Blob([response.data]))
+            const link = document.createElement("a")
+            link.href = url
+            link.setAttribute("download", "fpk_library_cards.docx")
+            document.body.appendChild(link)
+            link.click()
+          }
+        } catch (e) {
+        } finally {
+        }
+      }
+    },
   },
   computed: {
+    selectedItems() {
+      return this.fpkprkList.results.filter((item) => item.isSelected)
+    },
     orderedMainList() {
       return this.fpkprkList.results
     },
@@ -1698,10 +1930,18 @@ export default {
     orderedGorovds() {
       return this.gorovds.results
     },
+    orderedGroups() {
+      return this.groups.results
+    },
+    orderedSpecialities() {
+      return this.specialities.results
+    },
     ...mapGetters({
+      groups: "groups/getList",
       componentOrgans: "componentOrgans/getList",
       foreignLanguages: "foreignLanguages/getList",
       gorovds: "gorovds/getList",
+      specialities: "specialities/getList",
     }),
   },
   watch: {

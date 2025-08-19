@@ -2419,6 +2419,93 @@ export default {
       })
       myModal.show()
     },
+    async make_csv() {
+      try {
+        let export_data = {}
+        export_data.query_string = getQueryStringFromSearchForm(this.searchForm)
+        this.cadetAPIInstance.csv_export(export_data).then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]))
+          const link = document.createElement("a")
+          link.href = url
+          link.setAttribute("download", `cadet_export.txt`)
+          document.body.appendChild(link)
+          link.click()
+          this.isExporting = false
+        })
+      } catch (e) {
+      } finally {
+      }
+    },
+    checkAllHandler(e) {
+      if (e.target.checked) {
+        this.cadetList.results = this.cadetList.results.map((item) => ({
+          ...item,
+          isSelected: true,
+        }))
+      } else {
+        this.cadetList.results = this.cadetList.results.map((item) => ({
+          ...item,
+          isSelected: false,
+        }))
+      }
+    },
+    async make_library_card() {
+      this.library_cards_error_array = []
+      this.selectedItems.map((cadet) => {
+        if (!cadet.subdivision) {
+          this.library_cards_error_array.push(
+            cadet.last_name_rus + " - не указан факультет",
+          )
+        }
+        if (!cadet.photo) {
+          this.library_cards_error_array.push(
+            cadet.last_name_rus + " - нет фото",
+          )
+        }
+        if (!cadet.date_of_birth) {
+          this.library_cards_error_array.push(
+            cadet.last_name_rus + " - не указана дата рождения",
+          )
+        }
+        if (!cadet.year) {
+          this.library_cards_error_array.push(
+            cadet.last_name_rus + " - не указан курс",
+          )
+        }
+        if (!cadet.academy_start_date) {
+          this.library_cards_error_array.push(
+            cadet.last_name_rus + " - не указана дата начала обучения",
+          )
+        }
+      })
+
+      if (this.library_cards_error_array.length) {
+        let errorModal = this.$refs.libraryCardErrorModal
+        let myModal = new bootstrap.Modal(errorModal, {
+          keyboard: false,
+        })
+        myModal.show()
+      } else {
+        try {
+          if (!this.selectedItems.length) {
+            alert("Не выбрано ни одной записи!")
+          } else {
+            let items_array = []
+            this.selectedItems.map((item) => items_array.push(item.id))
+            const response =
+              await this.cadetAPIInstance.make_library_card(items_array)
+            const url = window.URL.createObjectURL(new Blob([response.data]))
+            const link = document.createElement("a")
+            link.href = url
+            link.setAttribute("download", "library_cards.docx")
+            document.body.appendChild(link)
+            link.click()
+          }
+        } catch (e) {
+        } finally {
+        }
+      }
+    },
   },
   computed: {
     orderedMainList() {

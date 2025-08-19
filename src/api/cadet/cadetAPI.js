@@ -63,9 +63,24 @@ class CadetAPI extends BaseAPI {
     )
   }
 
+  async validateDataBeforeMakingStudentRecordBook(items) {
+    return axios.post(
+      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/validate_data_before_making_student_record_book/`,
+      { selected_items: items },
+    )
+  }
+
   async makeStudentRecordBook(items) {
     return axios.post(
       `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/make_student_record_book/`,
+      { selected_items: items },
+      { responseType: "blob" },
+    )
+  }
+
+  async validateDataBeforeMakingStudentCard(items) {
+    return axios.post(
+      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/validate_data_before_making_student_card/`,
       { selected_items: items },
     )
   }
@@ -74,6 +89,23 @@ class CadetAPI extends BaseAPI {
     return axios.post(
       `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/make_student_card/`,
       { selected_items: items },
+      { responseType: "blob" },
+    )
+  }
+
+  async txt_export(export_data) {
+    return axios.post(
+      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/make_txt/`,
+      export_data,
+      { responseType: "blob" },
+    )
+  }
+
+  async make_library_card(items) {
+    return axios.post(
+      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/make_library_card/`,
+      { selected_items: items },
+      { responseType: "blob" },
     )
   }
 }
@@ -233,6 +265,9 @@ const searchObj = {
   took_documents: "",
   passed_medical_examination_date__gte: "",
   passed_medical_examination_date__lte: "",
+  photo_exists: "",
+  sign_image_exists: "",
+  sign_image: "",
   ordering: null,
 }
 

@@ -25,7 +25,7 @@
             <slot name="search-form-clear-button"></slot>
             <div
               class="table-responsive"
-              style="max-height: calc(100vh - 230px); overflow-y: auto"
+              style="max-height: calc(100vh - 300px); overflow-y: auto"
               ref="infinite_list"
             >
               <table class="table table-hover">
