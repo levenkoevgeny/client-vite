@@ -64,18 +64,21 @@
               ></button>
             </div>
             <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row my-3">
+                  <div class="col-10">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Поиск по фамилии"
+                      v-model="lastNameSearch"
+                    />
+                  </div>
+                </div>
+              </div>
+
               <div style="max-height: 600px; overflow-y: auto">
                 <div class="container-fluid">
-                  <div class="row my-3">
-                    <div class="col-10">
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Поиск по фамилии"
-                        v-model="lastNameSearch"
-                      />
-                    </div>
-                  </div>
                   <div class="my-1" v-for="cadet in filteredCadetRecordsCards">
                     <CadetRecordsBook :cadet-data="cadet" :key="new Date()" />
                   </div>
