@@ -150,28 +150,59 @@
     >
       <div class="m-0 p-0"></div>
       <div class="d-flex flex-row">
+        <div class="dropdown">
+          <button
+            class="btn btn-secondary dropdown-toggle me-3"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Выходные документы&nbsp;&nbsp;<font-awesome-icon
+              :icon="['fas', 'print']"
+            />
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a
+                class="dropdown-item"
+                @click="make_txt()"
+                style="cursor: pointer"
+                >txt для импорта в ALIS (по фильтру)
+              </a>
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                @click="make_library_card()"
+                style="cursor: pointer"
+                >Читатательский билет (по выбранным записям)</a
+              >
+            </li>
+          </ul>
+        </div>
+
         <button class="btn btn-secondary me-3" @click="showExportDataModal">
           Экспорт&nbsp;&nbsp;<font-awesome-icon
             :icon="['fas', 'file-export']"
           />
         </button>
-        <div class="dropdown">
-          <button
-            class="btn btn-secondary dropdown-toggle me-2"
-            type="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Доп. меню
-          </button>
-          <ul class="dropdown-menu">
-            <li>
-              <button class="dropdown-item" @click="checkTerms">
-                Проверить сроки по званиям
-              </button>
-            </li>
-          </ul>
-        </div>
+        <!--        <div class="dropdown">-->
+        <!--          <button-->
+        <!--            class="btn btn-secondary dropdown-toggle me-2"-->
+        <!--            type="button"-->
+        <!--            data-bs-toggle="dropdown"-->
+        <!--            aria-expanded="false"-->
+        <!--          >-->
+        <!--            Доп. меню-->
+        <!--          </button>-->
+        <!--          <ul class="dropdown-menu">-->
+        <!--            <li>-->
+        <!--              <button class="dropdown-item" @click="checkTerms">-->
+        <!--                Проверить сроки по званиям-->
+        <!--              </button>-->
+        <!--            </li>-->
+        <!--          </ul>-->
+        <!--        </div>-->
         <button class="btn btn-primary" @click="clearFilter">
           Сбросить фильтр
         </button>
@@ -197,6 +228,7 @@
           <tr>
             <th scope="col" class="text-center">№п.п.</th>
             <th scope="col">Активный</th>
+            <th scope="col">Год набора</th>
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
                 <nobr>Пол</nobr>
@@ -1278,6 +1310,22 @@
                 <option value="false" key="0">Нет</option>
               </select>
             </th>
+            <th>
+              <div class="d-flex justify-content-center align-items-center">
+                <input
+                  type="number"
+                  class="form-control me-2"
+                  v-model="searchForm.entrance_year__gte"
+                  style="width: 100px"
+                />
+                <input
+                  type="number"
+                  class="form-control"
+                  v-model="searchForm.entrance_year__lte"
+                  style="width: 100px"
+                />
+              </div>
+            </th>
 
             <th>
               <select class="form-select" v-model="searchForm.gender">
@@ -1831,6 +1879,8 @@
             <td v-else class="text-center">
               <font-awesome-icon :icon="['fas', 'lock']" />
             </td>
+            <td class="text-center">{{ cadet.entrance_year }}</td>
+
             <td>{{ cadet.get_gender }}</td>
             <td>{{ cadet.last_name_rus }}</td>
             <td>{{ cadet.first_name_rus }}</td>
@@ -2419,11 +2469,11 @@ export default {
       })
       myModal.show()
     },
-    async make_csv() {
+    async make_txt() {
       try {
         let export_data = {}
         export_data.query_string = getQueryStringFromSearchForm(this.searchForm)
-        this.cadetAPIInstance.csv_export(export_data).then((response) => {
+        this.cadetAPIInstance.txt_export(export_data).then((response) => {
           const url = window.URL.createObjectURL(new Blob([response.data]))
           const link = document.createElement("a")
           link.href = url

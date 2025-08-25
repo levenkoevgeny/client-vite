@@ -6,9 +6,9 @@
           <input
             type="number"
             class="form-control form-control-sm fs-5"
-            id="id_card_blank_number"
+            id="id_blank_number"
             placeholder="Номер бланка"
-            v-model="cardDataLocal.card_blank_number"
+            v-model="cardDataLocal.blank_number"
             min="1"
             required
           />
@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import getCadetCardBlankAPIInstance from "@/api/cadet/cadetCardBlankAPI.js"
+import getCadetCardBlankAPIInstance from "@/api/student/studentCardBlankAPI.js"
 export default {
   name: "StudentRecordsBlank",
   props: {

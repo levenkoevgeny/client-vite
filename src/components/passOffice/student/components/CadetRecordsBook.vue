@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="saveCadetCardForm">
-    <div class="border-top border-bottom border-2 py-3">
+    <div class="border-top border-2 py-3">
       <div class="row fs-4">
         <div class="col-lg-2 d-flex align-items-center justify-content-center">
           {{ cadetData.last_name_rus }}
@@ -15,9 +15,9 @@
           <input
             type="number"
             class="form-control form-control-sm fs-5"
-            id="id_card_blank_number"
+            id="id_blank_number"
             placeholder="Номер бланка"
-            v-model="newCadetCardForm.card_blank_number"
+            v-model="newCadetCardForm.blank_number"
             min="1"
             required
           />
@@ -72,9 +72,9 @@
 </template>
 
 <script>
-import getCadetCardBlankAPIInstance from "@/api/cadet/cadetCardBlankAPI.js"
+import getCadetCardBlankAPIInstance from "@/api/student/studentCardBlankAPI.js"
 export default {
-  name: "StudentRecordsBook",
+  name: "CadetRecordsBook",
   props: {
     cadetData: { type: Object, required: true },
   },
@@ -83,8 +83,8 @@ export default {
       isSaving: false,
       isError: false,
       newCadetCardForm: {
-        cadet: this.cadetData.id,
-        card_blank_number: "",
+        student: this.cadetData.id,
+        blank_number: "",
       },
       cadetCardBlankAPIInstance: getCadetCardBlankAPIInstance(),
     }

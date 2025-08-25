@@ -78,21 +78,6 @@ class CadetAPI extends BaseAPI {
     )
   }
 
-  async validateDataBeforeMakingStudentCard(items) {
-    return axios.post(
-      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/validate_data_before_making_student_card/`,
-      { selected_items: items },
-    )
-  }
-
-  async makeStudentCard(items) {
-    return axios.post(
-      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/make_student_card/`,
-      { selected_items: items },
-      { responseType: "blob" },
-    )
-  }
-
   async txt_export(export_data) {
     return axios.post(
       `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/make_txt/`,
@@ -268,6 +253,8 @@ const searchObj = {
   photo_exists: "",
   sign_image_exists: "",
   sign_image: "",
+  entrance_year__gte: "",
+  entrance_year__lte: "",
   ordering: null,
 }
 

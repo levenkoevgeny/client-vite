@@ -41,101 +41,6 @@
           </div>
         </div>
       </div>
-
-      <div
-        class="modal fade"
-        id="studentRecordBookModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-        ref="studentRecordBookModal"
-      >
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-3">
-                Заполните номера бланков студенческих билетов
-              </h1>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <div style="max-height: 600px; overflow-y: auto">
-                <div class="container-fluid">
-                  <div class="row my-3">
-                    <div class="col-10">
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Поиск по фамилии"
-                        v-model="lastNameSearch"
-                      />
-                    </div>
-                  </div>
-                  <div class="my-1" v-for="cadet in filteredCadetRecordsCards">
-                    <CadetRecordsBook :cadet-data="cadet" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div
-        class="modal fade"
-        id="studentRecordBookModalForOneStudent"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-        ref="studentRecordBookModalForOneStudent"
-      >
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-3">
-                Номера бланков студенческих билетов
-              </h1>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <div style="max-height: 600px; overflow-y: auto">
-                <div class="container-fluid">
-                  <div
-                    class="d-flex justify-content-end align-items-center my-3"
-                  >
-                    <button
-                      class="btn btn-primary"
-                      @click="addNewEmptyCardBlank"
-                    >
-                      <font-awesome-icon
-                        :icon="['fas', 'address-card']"
-                      />&nbsp;&nbsp;Добавить запись
-                    </button>
-                  </div>
-                  <div
-                    class="my-1"
-                    v-for="cardRecordBlank in cadetRecordsCardsForOneStudent.results"
-                    v-if="cadetRecordsCardsForOneStudent.results.length > 0"
-                  >
-                    <CardRecordBlank :card-data="cardRecordBlank" />
-                  </div>
-                  <div v-else>Записей нет</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </template>
 
     <template v-slot:thead>
@@ -148,7 +53,6 @@
         <th scope="col">Отчество</th>
         <th scope="col">Группа</th>
         <th scope="col">Номер зачетной книжки</th>
-        <th scope="col">Выданные пропуски</th>
       </tr>
       <tr>
         <th>
@@ -217,7 +121,6 @@
             v-model="searchForm.student_record_book_number__icontains"
           />
         </th>
-        <th></th>
       </tr>
     </template>
 
@@ -278,11 +181,6 @@
         <td>{{ cadet.patronymic_rus }}</td>
         <td>{{ cadet.get_group }}</td>
         <td>{{ cadet.student_record_book_number }}</td>
-        <td class="text-center">
-          <button class="btn btn-warning" @click="showCardBlanks(cadet.id)">
-            <font-awesome-icon :icon="['fas', 'address-card']" />
-          </button>
-        </td>
       </tr>
     </template>
     <template v-slot:search-form>
@@ -349,26 +247,7 @@
                 >Сформировать зачетные книжки для выбранных записей</a
               >
             </li>
-            <li>
-              <a
-                class="dropdown-item"
-                @click="make_student_card()"
-                style="cursor: pointer"
-                >Сформировать студенческие билеты для выбранных записей</a
-              >
-            </li>
           </ul>
-        </div>
-
-        <div class="me-2">
-          <button
-            type="button"
-            class="btn btn-warning my-4"
-            @click="$router.push({ name: 'pass-office-cadet-card-blanks' })"
-          >
-            <font-awesome-icon :icon="['fas', 'address-card']" />&nbsp;&nbsp;
-            Список использованных бланков студенческих билетов
-          </button>
         </div>
       </div>
     </template>
@@ -377,14 +256,12 @@
 
 <script>
 import { globalCadetAPIInstanceForPassOffice } from "@/api/cadet/cadetAPI.js"
-import getCadetCardBlankAPIInstance from "@/api/cadet/cadetCardBlankAPI.js"
+import getCadetCardBlankAPIInstance from "@/api/student/studentCardBlankAPI.js"
 import { mapGetters } from "vuex"
 import { debounce } from "lodash/function.js"
 import BaseListLayoutForPassOffice from "@/components/layouts/BaseListLayoutForPassOffice.vue"
 import PassOfficeCadetItemView from "@/components/passOffice/cadet/PassOfficeCadetItemView.vue"
 import Camera from "@/components/passOffice/Camera.vue"
-import CadetRecordsBook from "@/components/passOffice/cadet/components/CadetRecordsBook.vue"
-import CardRecordBlank from "@/components/passOffice/cadet/components/CardRecordBlank.vue"
 
 export default {
   name: "PassOfficeCadetView",
@@ -392,8 +269,6 @@ export default {
     Camera,
     BaseListLayoutForPassOffice,
     PassOfficeCadetItemView,
-    CadetRecordsBook,
-    CardRecordBlank,
   },
   data() {
     return {
@@ -474,48 +349,6 @@ export default {
       }
     },
 
-    async make_student_card() {
-      this.error_list = []
-      if (!this.selectedItems.length) {
-        alert("Не выбрано ни одной записи!")
-      } else {
-        let items_array = []
-        this.selectedItems.map((item) => items_array.push(item.id))
-
-        const validationResponse =
-          await this.cadetAPIInstance.validateDataBeforeMakingStudentCard(
-            items_array,
-          )
-        if (validationResponse.data.error_list.length) {
-          this.error_list = validationResponse.data.error_list
-          let errorModal = this.$refs.printErrorModal
-          let myModal = new bootstrap.Modal(errorModal, {
-            keyboard: false,
-          })
-          myModal.show()
-        } else {
-          const response =
-            await this.cadetAPIInstance.makeStudentCard(items_array)
-          const url = window.URL.createObjectURL(new Blob([response.data]))
-          const link = document.createElement("a")
-          link.href = url
-          link.setAttribute("download", "students_cards.pdf")
-          document.body.appendChild(link)
-          link.click()
-
-          this.cadetRecordsCards = this.cadetList.results.filter((cadet) =>
-            items_array.includes(cadet.id),
-          )
-
-          let studentRecordBookModal = this.$refs.studentRecordBookModal
-          let myModal = new bootstrap.Modal(studentRecordBookModal, {
-            keyboard: false,
-          })
-          myModal.show()
-        }
-      }
-    },
-
     async loadMoreData(entries, observer) {
       if (entries[0].isIntersecting) {
         if (this.cadetList) {
@@ -554,30 +387,6 @@ export default {
         }))
       }
     },
-    async showCardBlanks(cadetId) {
-      this.currentCadetForRecordsCardsForOneStudent = cadetId
-      try {
-        this.cadetRecordsCardsForOneStudent = { results: [] }
-        this.cadetCardBlankAPIInstance.searchObj.cadet = cadetId
-        const response = await this.cadetCardBlankAPIInstance.getItemsList()
-        this.cadetRecordsCardsForOneStudent = response.data
-
-        let studentRecordBookModalForOneStudent =
-          this.$refs.studentRecordBookModalForOneStudent
-        let myModal = new bootstrap.Modal(studentRecordBookModalForOneStudent, {
-          keyboard: false,
-        })
-        myModal.show()
-      } catch (e) {
-      } finally {
-      }
-    },
-    addNewEmptyCardBlank() {
-      this.cadetRecordsCardsForOneStudent.results.push({
-        cadet: this.currentCadetForRecordsCardsForOneStudent,
-        card_blank_number: "",
-      })
-    },
   },
   computed: {
     orderedCadets() {
@@ -599,13 +408,6 @@ export default {
     },
     selectedItemsCount() {
       return this.selectedItems.length
-    },
-    filteredCadetRecordsCards() {
-      return this.cadetRecordsCards.filter((record) =>
-        record.last_name_rus
-          .toLowerCase()
-          .includes(this.lastNameSearch.toLowerCase()),
-      )
     },
     ...mapGetters({
       groups: "groups/getList",

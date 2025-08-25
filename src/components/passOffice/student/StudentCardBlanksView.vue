@@ -39,9 +39,9 @@
                     <input
                       type="number"
                       class="form-control form-control-sm fs-5"
-                      id="id_card_blank_number"
+                      id="id_blank_number"
                       placeholder="Номер бланка"
-                      v-model="currentCardBlank.card_blank_number"
+                      v-model="currentCardBlank.blank_number"
                       min="1"
                       required
                     />
@@ -89,7 +89,7 @@
 
         <th scope="col">
           <div class="d-flex flex-row align-items-center">
-            <span class="text-nowrap">Курсант</span>
+            <span class="text-nowrap">Студент</span>
             <div class="dropdown">
               <button
                 class="btn dropdown-toggle"
@@ -132,7 +132,7 @@
                 <li>
                   <button
                     class="dropdown-item"
-                    @click="setOrdering('card_blank_number')"
+                    @click="setOrdering('blank_number')"
                   >
                     меньщ -> больш
                   </button>
@@ -140,7 +140,7 @@
                 <li>
                   <button
                     class="dropdown-item"
-                    @click="setOrdering('-card_blank_number')"
+                    @click="setOrdering('-blank_number')"
                   >
                     больш -> меньш
                   </button>
@@ -189,7 +189,7 @@
           <input
             type="text"
             class="form-control"
-            v-model="searchForm.cadet__last_name_rus__icontains"
+            v-model="searchForm.student__last_name_rus__icontains"
           />
         </th>
         <th>
@@ -197,12 +197,12 @@
             <input
               type="number"
               class="form-control me-2"
-              v-model="searchForm.card_blank_number__gte"
+              v-model="searchForm.blank_number__gte"
             />
             <input
               type="number"
               class="form-control"
-              v-model="searchForm.card_blank_number__lte"
+              v-model="searchForm.blank_number__lte"
             />
           </div>
         </th>
@@ -234,12 +234,11 @@
         <td></td>
         <td>
           <font-awesome-icon :icon="['fas', 'user']" />&nbsp;&nbsp;
-          {{ card.cadet.last_name_rus }} {{ card.cadet.first_name_rus }}
-          {{ card.cadet.patronymic_rus || "" }}
+          {{ card.get_student_data }}
         </td>
         <td class="text-start">
           <font-awesome-icon :icon="['fas', 'address-card']" />&nbsp;&nbsp;{{
-            card.card_blank_number
+            card.blank_number
           }}
         </td>
         <td class="text-start">
@@ -276,11 +275,11 @@
           <button
             type="button"
             class="btn btn-success my-4"
-            @click="$router.push({ name: 'pass-office-cadet' })"
+            @click="$router.push({ name: 'pass-office-students' })"
           >
             <font-awesome-icon
               :icon="['fas', 'door-open']"
-            />&nbsp;&nbsp;Вернуться к списку курсантов
+            />&nbsp;&nbsp;Вернуться к списку студентов
           </button>
         </div>
       </div>
@@ -289,14 +288,14 @@
 </template>
 
 <script>
-import getCadetCardBlankAPIInstance from "@/api/cadet/cadetCardBlankAPI.js"
+import getCadetCardBlankAPIInstance from "@/api/student/studentCardBlankAPI.js"
 import BaseListLayoutForPassOffice from "@/components/layouts/BaseListLayoutForPassOffice.vue"
-import CadetRecordsBook from "@/components/passOffice/cadet/components/CadetRecordsBook.vue"
-import CardRecordBlank from "@/components/passOffice/cadet/components/CardRecordBlank.vue"
+import CadetRecordsBook from "@/components/passOffice/student/components/CadetRecordsBook.vue"
+import CardRecordBlank from "@/components/passOffice/student/components/CardRecordBlank.vue"
 import { debounce } from "lodash/function.js"
 
 export default {
-  name: "CadetCardBlanksView",
+  name: "StudentCardBlanksView",
   components: {
     CardRecordBlank,
     CadetRecordsBook,

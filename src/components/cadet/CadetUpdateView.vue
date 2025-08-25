@@ -241,7 +241,7 @@
                               id="id_subdivision"
                               v-model="currentCadetData.group"
                             >
-                              <option value="" selected>---------</option>
+                              <option :value="null" selected>---------</option>
                               <option
                                 v-for="group in orderedGroups"
                                 :value="group.id"
