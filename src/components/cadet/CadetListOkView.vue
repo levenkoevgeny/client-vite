@@ -63,7 +63,7 @@
 
               <v-select
                 v-model="selectedFieldsForDataExport"
-                :options="fieldsForDataExport"
+                :options="orderedExportFieldsDict"
                 label="fieldName"
                 :reduce="(field) => field.fieldValue"
                 multiple
@@ -610,6 +610,50 @@
                 </div>
               </div>
             </th>
+
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <nobr>Примечание для отдела кадров</nobr>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <nobr>Замечания по личному делу</nobr>
+              </div>
+            </th>
+
+            <th scope="col">
+              <div class="d-flex flex-row align-items-center">
+                <nobr>Полиграф</nobr>
+                <div class="dropdown">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('has_polygraph')"
+                      >
+                        А -> Я
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        @click="setOrdering('-has_polygraph')"
+                      >
+                        Я -> А
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </th>
+
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
                 <nobr>Дата рождения</nobr>
@@ -896,8 +940,8 @@
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
                 <nobr
-                  >Колличество баллов по белорусскому языку (сертификат)</nobr
-                >
+                  >Колличество баллов по белорусскому языку (сертификат)
+                </nobr>
                 <div class="dropdown">
                   <button
                     class="btn dropdown-toggle"
@@ -1084,8 +1128,8 @@
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
                 <nobr
-                  >Колличество баллов по иностранному языку (сертификат)</nobr
-                >
+                  >Колличество баллов по иностранному языку (сертификат)
+                </nobr>
                 <div class="dropdown">
                   <button
                     class="btn dropdown-toggle"
@@ -1427,6 +1471,29 @@
                 :reduce="(component_organ) => component_organ.id"
                 multiple
               />
+            </th>
+
+            <th>
+              <input
+                type="text"
+                class="form-control"
+                v-model="searchForm.extra_data__icontains"
+              />
+            </th>
+            <th>
+              <input
+                type="text"
+                class="form-control"
+                v-model="searchForm.comments_on_personal_file__icontains"
+              />
+            </th>
+
+            <th>
+              <select class="form-select" v-model="searchForm.has_polygraph">
+                <option selected value="">-------</option>
+                <option value="true" key="1">Да</option>
+                <option value="false" key="0">Нет</option>
+              </select>
             </th>
 
             <th>
@@ -1894,6 +1961,14 @@
             <td>{{ cadet.get_speciality || "" }}</td>
             <td>{{ cadet.get_component_organ }}</td>
 
+            <td>{{ cadet.extra_data }}</td>
+            <td>{{ cadet.comments_on_personal_file }}</td>
+
+            <td v-if="cadet.has_polygraph" class="text-center">
+              <font-awesome-icon :icon="['fa', 'check']" />
+            </td>
+            <td v-else class="text-center"></td>
+
             <td class="text-center">{{ cadet.date_of_birth }}</td>
             <td class="text-center">{{ cadet.get_age }}</td>
             <td>{{ cadet.place_of_birth }}</td>
@@ -1921,8 +1996,24 @@
             <td>{{ cadet.mother_phone_number }}</td>
             <td>{{ cadet.get_foreign_language_was }}</td>
             <td>{{ cadet.get_foreign_language_will_be }}</td>
-            <td>{{ cadet.academy_start_date }}</td>
-            <td>{{ cadet.academy_end_date }}</td>
+            <td>
+              {{
+                new Date(cadet.academy_start_date).toLocaleString("ru-RU", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                }) || "Нет данных"
+              }}
+            </td>
+            <td>
+              {{
+                new Date(cadet.academy_end_date).toLocaleString("ru-RU", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                }) || "Нет данных"
+              }}
+            </td>
             <td>{{ cadet.get_graduation_reason }}</td>
             <td>{{ cadet.graduation_reason_article }}</td>
 
@@ -1980,17 +2071,36 @@ export default {
           fieldValue: "is_active",
         },
         { fieldName: "Пол", fieldValue: "get_gender" },
-        { fieldName: "Фамилия (рус)", fieldValue: "last_name_rus" },
+        {
+          fieldName: "Фамилия (рус)",
+          fieldValue: "last_name_rus",
+        },
         { fieldName: "Имя (рус)", fieldValue: "first_name_rus" },
-        { fieldName: "Отчество (рус)", fieldValue: "patronymic_rus" },
+        {
+          fieldName: "Отчество (рус)",
+          fieldValue: "patronymic_rus",
+        },
         { fieldName: "Фамилия (бел)", fieldValue: "last_name_bel" },
-        { fieldName: "Имя (бел)", fieldValue: "first_name_bel" },
+        {
+          fieldName: "Имя (бел)",
+          fieldValue: "first_name_bel",
+        },
         { fieldName: "Отчество (бел)", fieldValue: "patronymic_bel" },
-        { fieldName: "Дата рождения", fieldValue: "get_date_of_birth" },
-        { fieldName: "Место рождения", fieldValue: "place_of_birth" },
+        {
+          fieldName: "Дата рождения",
+          fieldValue: "get_date_of_birth",
+        },
+        {
+          fieldName: "Место рождения",
+          fieldValue: "place_of_birth",
+        },
         {
           fieldName: "Место жительства (проживания)",
           fieldValue: "address_residence",
+        },
+        {
+          fieldName: "Место жительства (регистрация)",
+          fieldValue: "address_registration",
         },
         { fieldName: "Номер телефона", fieldValue: "phone_number" },
         {
@@ -1998,7 +2108,10 @@ export default {
           fieldValue: "personal_number_mvd",
         },
         { fieldName: "Семейное положение", fieldValue: "get_marital_status" },
-        { fieldName: "Тип паспорта", fieldValue: "get_passport_document_type" },
+        {
+          fieldName: "Тип паспорта",
+          fieldValue: "get_passport_document_type",
+        },
         { fieldName: "Номер паспорта", fieldValue: "passport_number" },
         {
           fieldName: "Дата выдачи паспорта",
@@ -2009,10 +2122,6 @@ export default {
           fieldValue: "passport_validity_period",
         },
         {
-          fieldName: "Орган выдачи паспорта",
-          fieldValue: "get_passport_issue_authority",
-        },
-        {
           fieldName: "Орган выдачи паспорта (текстом)",
           fieldValue: "passport_issue_authority_text",
         },
@@ -2020,15 +2129,25 @@ export default {
           fieldName: "Идентификационный номер",
           fieldValue: "identification_number",
         },
-        { fieldName: "Факультет", fieldValue: "get_subdivision" },
+        {
+          fieldName: "Факультет",
+          fieldValue: "get_subdivision",
+        },
         { fieldName: "Звание", fieldValue: "get_rank" },
-        { fieldName: "Должность", fieldValue: "get_position" },
+        {
+          fieldName: "Должность",
+          fieldValue: "get_position",
+        },
+        { fieldName: "Возраст", fieldValue: "get_age" },
         {
           fieldName: "Номер зачетной книжки",
           fieldValue: "student_record_book_number",
         },
         { fieldName: "Отец - фамилия", fieldValue: "father_last_name" },
-        { fieldName: "Отец - имя", fieldValue: "father_first_name" },
+        {
+          fieldName: "Отец - имя",
+          fieldValue: "father_first_name",
+        },
         { fieldName: "Отец - отчество", fieldValue: "father_patronymic" },
         {
           fieldName: "Отец - дата рождения",
@@ -2051,7 +2170,10 @@ export default {
           fieldValue: "father_address_registration",
         },
         { fieldName: "Мать - фамилия", fieldValue: "mother_last_name" },
-        { fieldName: "Мать - имя", fieldValue: "mother_first_name" },
+        {
+          fieldName: "Мать - имя",
+          fieldValue: "mother_first_name",
+        },
         { fieldName: "Мать - отчество", fieldValue: "mother_patronymic" },
         {
           fieldName: "Мать - дата рождения",
@@ -2090,20 +2212,18 @@ export default {
           fieldValue: "get_foreign_language_will_be",
         },
         { fieldName: "Группа", fieldValue: "get_group" },
-        { fieldName: "Дата поступления", fieldValue: "get_academy_start_date" },
+        {
+          fieldName: "Дата поступления",
+          fieldValue: "get_academy_start_date",
+        },
         { fieldName: "Дата окончания", fieldValue: "get_academy_end_date" },
         {
-          fieldName: "Причина окончания (Статья)",
-          fieldValue: "graduation_reason_article",
+          fieldName: "Специализация",
+          fieldValue: "get_specialization",
         },
-        {
-          fieldName: "Причина окончания (доп. данные)",
-          fieldValue: "graduation_extra_data",
-        },
-        { fieldName: "Специализация", fieldValue: "get_specialization" },
         { fieldName: "Направление ОРД", fieldValue: "get_direction_ord" },
         {
-          fieldName: "Специальность (обучается)",
+          fieldName: "Текущая специальность",
           fieldValue: "get_speciality",
         },
         { fieldName: "Год набора", fieldValue: "entrance_year" },
@@ -2112,12 +2232,12 @@ export default {
           fieldValue: "application_has_been_printed",
         },
         {
-          fieldName: "Дата и время отпечатки заявления",
+          fieldName: "Заявление было отпечатано (Дата и время)",
           fieldValue: "get_application_has_been_printed_date",
         },
         { fieldName: "Комплектующий орган", fieldValue: "get_component_organ" },
         {
-          fieldName: "В чьих интересах обучается",
+          fieldName: "В чьих интересах",
           fieldValue: "get_in_whose_interests",
         },
         {
@@ -2128,15 +2248,25 @@ export default {
           fieldName: "Прибыл из ГО-РОВД",
           fieldValue: "get_arrived_from_go_rovd",
         },
-        { fieldName: "Социальный статус", fieldValue: "get_social_status" },
+        {
+          fieldName: "Социальный статус",
+          fieldValue: "get_social_status",
+        },
         {
           fieldName: "Область (для прохождения мед. комиссии)",
           fieldValue: "get_region_for_medical_examination",
         },
-        { fieldName: "Военкомат", fieldValue: "get_military_office" },
+        {
+          fieldName: "Военкомат",
+          fieldValue: "get_military_office",
+        },
         {
           fieldName: "Военкомат (дополнительные данные)",
           fieldValue: "military_office_extra_data",
+        },
+        {
+          fieldName: "Примечание для отдела кадров",
+          fieldValue: "extra_data",
         },
         {
           fieldName: "Замечания по личному делу",
@@ -2147,7 +2277,7 @@ export default {
           fieldValue: "get_educational_institution",
         },
         {
-          fieldName: "Место службы в армии",
+          fieldName: "Служба в армии (место прохождения)",
           fieldValue: "military_organization",
         },
         {
@@ -2162,7 +2292,10 @@ export default {
           fieldName: "Служба в армии (должность)",
           fieldValue: "military_position",
         },
-        { fieldName: "Служба в МВД", fieldValue: "mvd_organization" },
+        {
+          fieldName: "Служба в МВД (место прохождения)",
+          fieldValue: "mvd_organization",
+        },
         {
           fieldName: "Служба в МВД (начало)",
           fieldValue: "get_mvd_service_start",
@@ -2171,28 +2304,45 @@ export default {
           fieldName: "Служба в МВД (окончание)",
           fieldValue: "get_mvd_service_end",
         },
-        { fieldName: "Служба в МВД (должность)", fieldValue: "mvd_position" },
         {
-          fieldName: "Вид учреждения образования",
+          fieldName: "Служба в МВД (должность)",
+          fieldValue: "mvd_position",
+        },
+        {
+          fieldName: "Вид учреждения образования (окончил до Академии)",
           fieldValue: "get_education_kind",
         },
-        { fieldName: "Уровень образования", fieldValue: "get_education_level" },
         {
-          fieldName: "Наименование учебного заведения",
+          fieldName: "Уровень образования",
+          fieldValue: "get_education_level",
+        },
+        {
+          fieldName: "Наименование учебного заведения (окончил до Академии)",
           fieldValue: "education_graduated",
         },
         {
-          fieldName: "Год поступления в учебное заведение",
-          fieldValue: "education_graduating_start_year",
-        },
-        {
-          fieldName: "Год окончания учебного заведения",
+          fieldName: "Год окончания (УО до Академии)",
           fieldValue: "education_graduating_end_year",
         },
-        { fieldName: "Средний бал", fieldValue: "education_average_score" },
         {
-          fieldName: "Вид населенного пункта",
+          fieldName: "Средний бал (УО до Академии)",
+          fieldValue: "education_average_score",
+        },
+        {
+          fieldName: "Средний бал (расчет по аттестату)",
+          fieldValue: "education_average_score_calculation",
+        },
+        {
+          fieldName: "Сумма балов (УО до Академии)",
+          fieldValue: "score_sum",
+        },
+        {
+          fieldName: "Вид населенного пункта (УО до Академии)",
           fieldValue: "get_education_location_kind",
+        },
+        {
+          fieldName: "УО расположено в г. Минске",
+          fieldValue: "is_located_in_Minsk",
         },
         {
           fieldName: "Номер сертификата по русскому / белорусскому языку",
@@ -2255,24 +2405,87 @@ export default {
           fieldValue: "foreign_lang_score_cert",
         },
         { fieldName: "Специальность 1", fieldValue: "get_speciality_1" },
-        { fieldName: "Специальность 2", fieldValue: "get_speciality_2" },
+        {
+          fieldName: "Специальность 2",
+          fieldValue: "get_speciality_2",
+        },
         { fieldName: "Специальность 3", fieldValue: "get_speciality_3" },
-        { fieldName: "Специальность 4", fieldValue: "get_speciality_4" },
+        {
+          fieldName: "Специальность 4",
+          fieldValue: "get_speciality_4",
+        },
         { fieldName: "Специальность 5", fieldValue: "get_speciality_5" },
-        { fieldName: "Специальность 6", fieldValue: "get_speciality_6" },
+        {
+          fieldName: "Специальность 6",
+          fieldValue: "get_speciality_6",
+        },
         { fieldName: "Специальность 7", fieldValue: "get_speciality_7" },
-        { fieldName: "Специальность 8", fieldValue: "get_speciality_8" },
+        {
+          fieldName: "Специальность 8",
+          fieldValue: "get_speciality_8",
+        },
         { fieldName: "Специальность 9", fieldValue: "get_speciality_9" },
-        { fieldName: "Льгота 1", fieldValue: "get_privilege_1" },
+        {
+          fieldName: "Льгота 1",
+          fieldValue: "get_privilege_1",
+        },
         { fieldName: "Льгота 2", fieldValue: "get_privilege_2" },
-        { fieldName: "Льгота 3", fieldValue: "get_privilege_3" },
+        {
+          fieldName: "Льгота 3",
+          fieldValue: "get_privilege_3",
+        },
         { fieldName: "Льгота 4", fieldValue: "get_privilege_4" },
-        { fieldName: "Льгота 5", fieldValue: "get_privilege_5" },
+        {
+          fieldName: "Льгота 5",
+          fieldValue: "get_privilege_5",
+        },
         { fieldName: "Льгота 6", fieldValue: "get_privilege_6" },
-        { fieldName: "Льгота 7", fieldValue: "get_privilege_7" },
+        {
+          fieldName: "Льгота 7",
+          fieldValue: "get_privilege_7",
+        },
         { fieldName: "Льгота 8", fieldValue: "get_privilege_8" },
-        { fieldName: "Льгота 9", fieldValue: "get_privilege_9" },
-        { fieldName: "Группа здоровья", fieldValue: "get_health_group" },
+        {
+          fieldName: "Льгота 9",
+          fieldValue: "get_privilege_9",
+        },
+        { fieldName: "Военно-патриотический клуб", fieldValue: "get_vpk" },
+        {
+          fieldName: "Данные о ВПК",
+          fieldValue: "vpk_data",
+        },
+        {
+          fieldName: "Претендует на диплом с отличием",
+          fieldValue: "aims_to_graduate_with_honors",
+        },
+        {
+          fieldName: "Класс военно-патриотической направленности",
+          fieldValue: "is_class_vpn",
+        },
+        {
+          fieldName: "Класс правовой направленности",
+          fieldValue: "is_class_pn",
+        },
+        {
+          fieldName: "Класс иной направленности",
+          fieldValue: "is_class_other",
+        },
+        {
+          fieldName: "Класс иной направленности (доп. данные)",
+          fieldValue: "class_other_extra_data",
+        },
+        {
+          fieldName: "Достижения в спорте",
+          fieldValue: "has_achievements_in_sports",
+        },
+        {
+          fieldName: "Победитель республиканских или регионалоных олимпиад",
+          fieldValue: "is_olympiad_winner",
+        },
+        {
+          fieldName: "Группа здоровья",
+          fieldValue: "get_health_group",
+        },
         {
           fieldName: "Категория профессионального соответствия",
           fieldValue: "get_ppfl_test",
@@ -2283,7 +2496,7 @@ export default {
         },
         {
           fieldName: "Окончательное медицинское освидетельствование",
-          fieldValue: "passed_medical_examination",
+          fieldValue: "get_passed_medical_examination",
         },
         {
           fieldName: "Дата прохождения медицинской комиссии",
@@ -2293,7 +2506,89 @@ export default {
           fieldName: "Медицинская комиссия (доп. данные)",
           fieldValue: "passed_medical_examination_extra_data",
         },
-        { fieldName: "Возраст", fieldValue: "get_age" },
+        {
+          fieldName: "Годен к службе",
+          fieldValue: "get_fit_for_service",
+        },
+        {
+          fieldName: "Требует повышенного внимания",
+          fieldValue: "needs_increased_attention",
+        },
+        {
+          fieldName: "Требует психологического сопровождения",
+          fieldValue: "needs_psychological_support",
+        },
+        { fieldName: "Группа риска", fieldValue: "is_risk_group" },
+        {
+          fieldName: "Имеет судимость",
+          fieldValue: "has_conviction",
+        },
+        { fieldName: "Имеет дактокарту", fieldValue: "has_dactocard" },
+        {
+          fieldName: "Имеет проверку ГУСБ",
+          fieldValue: "has_gusb_check",
+        },
+        {
+          fieldName: "Имеет сотрудников в семье",
+          fieldValue: "has_employee_in_family",
+        },
+        {
+          fieldName: "Сирота",
+          fieldValue: "is_orphan",
+        },
+        {
+          fieldName: "Сертификат 100 идей для Беларуси",
+          fieldValue: "has_certificate_ideas_for_Belarus",
+        },
+        {
+          fieldName: "Сертификат Доброе сердце",
+          fieldValue: "has_certificate_kind_heart",
+        },
+        { fieldName: "Является сотрудником", fieldValue: "is_employee" },
+        {
+          fieldName: "Правовой класс",
+          fieldValue: "is_law_class",
+        },
+        { fieldName: "Охрана правопорядка", fieldValue: "is_law_enforcement" },
+        {
+          fieldName: "Полиграф",
+          fieldValue: "has_polygraph",
+        },
+        { fieldName: "Резерв", fieldValue: "is_reserve" },
+        {
+          fieldName: "Уволен",
+          fieldValue: "is_fired",
+        },
+        { fieldName: "Забрал документы", fieldValue: "took_documents" },
+        {
+          fieldName: "ВВ",
+          fieldValue: "is_vv",
+        },
+        { fieldName: "ФП", fieldValue: "is_fp" },
+        {
+          fieldName: "Зачислен на специальность",
+          fieldValue: "get_enrolled_speciality",
+        },
+        {
+          fieldName: "Льгота, которой воспользовался",
+          fieldValue: "get_enrolled_privilege",
+        },
+        {
+          fieldName: "Предварительно зачислен",
+          fieldValue: "is_enrolled_1",
+        },
+        {
+          fieldName: "Окончательно зачислен",
+          fieldValue: "is_enrolled_2",
+        },
+        {
+          fieldName: "Зачислен на специальность",
+          fieldValue: "get_enrolled_speciality_2",
+        },
+        {
+          fieldName: "Льгота, которой воспользовался",
+          fieldValue: "get_enrolled_privilege_2",
+        },
       ],
       selectedFieldsForDataExport: ["last_name_rus", "first_name_rus"],
       cadetList: {
@@ -2606,6 +2901,11 @@ export default {
     orderedGraduationReasons() {
       return this.graduationReasons.results
     },
+    orderedExportFieldsDict() {
+      return this.fieldsForDataExport.sort((a, b) =>
+        a.fieldName.toLowerCase().localeCompare(b.fieldName.toLowerCase()),
+      )
+    },
     ...mapGetters({
       groups: "groups/getList",
       ranks: "ranks/getList",
@@ -2651,6 +2951,7 @@ input,
 select {
   min-width: 200px;
 }
+
 z-index-select {
   z-index: 1000;
 }

@@ -97,10 +97,14 @@
     <template v-slot:thead>
       <tr ref="thead">
         <th scope="col"></th>
+        <th scope="col">Звание</th>
         <th scope="col">Фамилия, имя, отчество</th>
+        <th scope="col">Должность</th>
+        <th scope="col">Дата рождения</th>
         <th scope="col">Факультет</th>
         <th scope="col">Группа</th>
         <th scope="col">Специальность</th>
+        <th scope="col">Комплектующий орган</th>
         <th scope="col">Период обучения</th>
       </tr>
     </template>
@@ -129,26 +133,42 @@
             style="width: 50px"
           />
         </td>
+        <td>{{ cadet.get_rank }}</td>
         <td>
           {{ cadet.last_name_rus }}<br />
           {{ cadet.first_name_rus }}<br />{{ cadet.patronymic_rus }}
-
-          <!--          <router-link-->
-          <!--            :to="{-->
-          <!--              name: 'cadet-view',-->
-          <!--              params: { id: cadet.id },-->
-          <!--            }"-->
-          <!--          >-->
-          <!--            {{ cadet.last_name_rus }}<br />-->
-          <!--            {{ cadet.first_name_rus }}<br />{{ cadet.patronymic_rus }}-->
-          <!--          </router-link>-->
+        </td>
+        <td>{{ cadet.get_position }}</td>
+        <td>
+          {{
+            new Date(cadet.date_of_birth).toLocaleString("ru-RU", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            }) || "Нет данных"
+          }}
         </td>
         <td>{{ cadet.get_subdivision }}</td>
         <td>{{ cadet.get_group }}</td>
         <td>{{ cadet.get_speciality }}</td>
+        <td>{{ cadet.get_component_organ }}</td>
         <td>
-          {{ cadet.academy_start_date }} - <br />
-          {{ cadet.academy_end_date }}
+          {{
+            new Date(cadet.academy_start_date).toLocaleString("ru-RU", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            }) || "Нет данных"
+          }}
+          - <br />
+
+          {{
+            new Date(cadet.academy_end_date).toLocaleString("ru-RU", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            }) || "Нет данных"
+          }}
         </td>
       </tr>
     </template>

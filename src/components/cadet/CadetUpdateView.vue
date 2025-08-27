@@ -388,7 +388,7 @@
                 <div class="card-body">
                   <h5 class="card-title">Паспортные данные</h5>
                   <div class="row">
-                    <div class="col-3">
+                    <div class="col-xl-2">
                       <div class="mb-3">
                         <label class="form-label" for="id_passport_number"
                           >Номер паспорта</label
@@ -403,7 +403,7 @@
                         />
                       </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-xl-2">
                       <div class="mb-3">
                         <label class="form-label" for="id_identification_number"
                           >Идентификационный номер</label
@@ -418,7 +418,7 @@
                         />
                       </div>
                     </div>
-                    <div class="col-2">
+                    <div class="col-xl-2">
                       <div class="mb-3">
                         <label class="form-label" for="id_passport_issue_date"
                           >Дата выдачи паспорта:</label
@@ -433,7 +433,7 @@
                         />
                       </div>
                     </div>
-                    <div class="col-2">
+                    <div class="col-xl-2">
                       <div class="mb-3">
                         <label
                           class="form-label"
@@ -450,30 +450,23 @@
                         />
                       </div>
                     </div>
-                    <div class="col-2">
+                    <div class="col-xl-4">
                       <div class="mb-3">
                         <label
                           class="form-label"
                           for="id_passport_issue_authority"
                           >Орган выдачи паспорта:</label
                         >
-                        <select
-                          class="form-select"
+
+                        <input
+                          type="text"
+                          class="form-control"
                           name="passport_issue_authority"
                           id="id_passport_issue_authority"
-                          v-model="currentCadetData.passport_issue_authority"
-                        >
-                          <option value="" selected>---------</option>
-
-                          <option
-                            v-for="passportIssueAuthority in orderedPassportIssueAuthorities"
-                            :value="passportIssueAuthority.id"
-                          >
-                            {{
-                              passportIssueAuthority.passport_issue_authority
-                            }}
-                          </option>
-                        </select>
+                          v-model="
+                            currentCadetData.passport_issue_authority_text
+                          "
+                        />
                       </div>
                     </div>
                   </div>
