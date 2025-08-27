@@ -100,23 +100,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-lg-4">
-                          <div class="mb-3">
-                            <label class="form-label" for="id_id"
-                              >Номер в базе</label
-                            >
-                            <input
-                              type="text"
-                              class="form-control"
-                              name="last_name_rus"
-                              maxlength="30"
-                              required
-                              id="id_id"
-                              disabled
-                              v-model="currentCadetData.id"
-                            />
-                          </div>
-                        </div>
+                        <div class="col-lg-4"></div>
                       </div>
                       <div class="row">
                         <div class="col-lg-4">
@@ -421,6 +405,21 @@
                     </div>
                     <div class="col-3">
                       <div class="mb-3">
+                        <label class="form-label" for="id_identification_number"
+                          >Идентификационный номер</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="identification_number"
+                          maxlength="100"
+                          id="id_identification_number"
+                          v-model="currentCadetData.identification_number"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-2">
+                      <div class="mb-3">
                         <label class="form-label" for="id_passport_issue_date"
                           >Дата выдачи паспорта:</label
                         >
@@ -434,7 +433,7 @@
                         />
                       </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-2">
                       <div class="mb-3">
                         <label
                           class="form-label"
@@ -451,7 +450,7 @@
                         />
                       </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-2">
                       <div class="mb-3">
                         <label
                           class="form-label"
@@ -985,6 +984,1266 @@
               :order-owners-list="orderOwners"
             />
             <RelativesCadetComponent :cadet-id="$route.params.id" />
+
+            <div class="shadow p-3 mb-3" id="simple-list-anketa">
+              <div class="card border-0">
+                <div class="card-body">
+                  <h5 class="card-title mb-3">Анкета</h5>
+                  <div class="row">
+                    <div class="col-xl-6">
+                      <div class="form-floating mb-3">
+                        <select
+                          id="id_vpk"
+                          class="form-select"
+                          v-model="currentCadetData.vpk"
+                        >
+                          <option :value="null">---------</option>
+                          <option
+                            :value="vpk.id"
+                            v-for="vpk in orderedVpkCategories"
+                          >
+                            {{ vpk.category }}
+                          </option>
+                        </select>
+                        <label for="id_vpk">Военно-патриотический клуб</label>
+                      </div>
+                    </div>
+                    <div class="col-xl-6">
+                      <div class="form-floating mb-3">
+                        <input
+                          id="id_vpk_data"
+                          type="text"
+                          class="form-control form-control-sm"
+                          placeholder="Данные по ВПК"
+                          v-model="currentCadetData.vpk_data"
+                        />
+                        <label for="id_vpk_data">Данные по ВПК</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-3">
+                      <div class="form-check mb-3">
+                        <input
+                          id="id_aims_to_graduate_with_honors"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="
+                            currentCadetData.aims_to_graduate_with_honors
+                          "
+                        />
+                        <label
+                          class="form-check-label"
+                          for="id_aims_to_graduate_with_honors"
+                        >
+                          Претендует на аттестат с отличием
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-xl-3">
+                      <div class="form-check mb-3">
+                        <input
+                          id="id_is_olympiad_winner"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="currentCadetData.is_olympiad_winner"
+                        />
+                        <label
+                          class="form-check-label"
+                          for="id_is_olympiad_winner"
+                        >
+                          Победитель республиканских или региональных олимпиад
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-3">
+                      <div class="form-check mb-3">
+                        <input
+                          id="id_has_achievements_in_sports"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="currentCadetData.has_achievements_in_sports"
+                        />
+                        <label
+                          class="form-check-label"
+                          for="id_has_achievements_in_sports"
+                        >
+                          Достижения в спорте
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-3">
+                      <div class="form-check mb-3">
+                        <input
+                          id="id_is_class_vpn"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="currentCadetData.is_class_vpn"
+                        />
+                        <label class="form-check-label" for="id_is_class_vpn">
+                          Класс военно-патриотической направленности
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-xl-3">
+                      <div class="form-check mb-3">
+                        <input
+                          id="id_is_class_pn"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="currentCadetData.is_class_pn"
+                        />
+                        <label class="form-check-label" for="id_is_class_pn">
+                          Класс правовой направленности
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-xl-3">
+                      <div class="form-check mb-3">
+                        <input
+                          id="id_is_class_other"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="currentCadetData.is_class_other"
+                        />
+                        <label class="form-check-label" for="id_is_class_other">
+                          Профильный класс иной направленности
+                        </label>
+                      </div>
+                      <div class="form-floating mb-3">
+                        <input
+                          id="id_class_other_extra_data"
+                          type="text"
+                          class="form-control form-control-sm"
+                          placeholder="Доп. данные к классу иной
+                              направленности"
+                          v-model="currentCadetData.class_other_extra_data"
+                        />
+                        <label for="id_class_other_extra_data"
+                          >Доп. данные к классу иной направленности</label
+                        >
+                      </div>
+                    </div>
+                    <div class="col-xl-3"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="shadow p-3 mb-3" id="simple-list-med">
+              <div class="card border-0">
+                <div class="card-body">
+                  <h5 class="card-title mb-3">Данные мед. освидет.</h5>
+                  <div class="row">
+                    <div class="col-xl-4">
+                      <div class="form-floating mb-3">
+                        <select
+                          id="id_health_group"
+                          class="form-select"
+                          v-model="currentCadetData.health_group"
+                        >
+                          <option :value="null">---------</option>
+                          <option
+                            :value="health_group.id"
+                            v-for="health_group in orderedHealthGroups"
+                          >
+                            {{ health_group.health_group }}
+                          </option>
+                        </select>
+                        <label for="id_health_group"
+                          >Группа предназначения</label
+                        >
+                      </div>
+                    </div>
+                    <div class="col-xl-4">
+                      <div class="form-floating mb-3">
+                        <select
+                          id="id_ppfl_test"
+                          class="form-select"
+                          v-model="currentCadetData.ppfl_test"
+                        >
+                          <option :value="null">---------</option>
+                          <option
+                            :value="ppfl.id"
+                            v-for="ppfl in orderedPpflCategories"
+                          >
+                            {{ ppfl.category }}
+                          </option>
+                        </select>
+                        <label for="id_ppfl_test"
+                          >Категория профессионального соответствия</label
+                        >
+                      </div>
+                    </div>
+                    <div class="col-xl-4">
+                      <div class="form-floating mb-3">
+                        <select
+                          id="id_medical_age_group"
+                          class="form-select"
+                          aria-label="Floating label select example"
+                          v-model="currentCadetData.medical_age_group"
+                        >
+                          <option :value="null">---------</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                        </select>
+                        <label for="id_medical_age_group"
+                          >Медико-возрастная группа</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-2">
+                      <div class="form-check">
+                        <input
+                          id="id_passed_medical_examination"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="currentCadetData.passed_medical_examination"
+                        />
+                        <label
+                          class="form-check-label"
+                          for="id_passed_medical_examination"
+                        >
+                          Окончательное мед. освидетельствование
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-xl-2">
+                      <div class="form-check">
+                        <input
+                          id="id_passed_medical_examination"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="currentCadetData.fit_for_service"
+                        />
+                        <label
+                          class="form-check-label"
+                          for="id_passed_medical_examination"
+                        >
+                          Годен к службе
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-xl-2">
+                      <div class="form-floating mb-3">
+                        <input
+                          id="id_passed_medical_examination_date"
+                          class="form-control"
+                          name="passed_medical_examination_date"
+                          placeholder="Дата прохождения"
+                          type="date"
+                          v-model="
+                            currentCadetData.passed_medical_examination_date
+                          "
+                          @input="makeInputDefaultNullValueIfEmpty"
+                        />
+                        <label
+                          class="form-check-label"
+                          for="id_passed_medical_examination_date"
+                          >Дата прохождения
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-xl-6">
+                      <div class="form-floating mb-3">
+                        <textarea
+                          id="id_passed_medical_examination_extra_data"
+                          class="form-control"
+                          placeholder="Примечание по медицинской комиссии"
+                          rows="2"
+                          v-model="
+                            currentCadetData.passed_medical_examination_extra_data
+                          "
+                        ></textarea>
+                        <label for="id_passed_medical_examination_extra_data"
+                          >Примечание по медицинской комиссии</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="shadow p-3 mb-3" id="simple-list-entrance">
+              <div class="card border-0">
+                <div class="card-body">
+                  <h5 class="card-title mb-3">
+                    Сведения из вступительной кампании
+                  </h5>
+                  <div class="row">
+                    <div class="col-xl-4">
+                      <div class="form-check mb-3">
+                        <input
+                          id="id_needs_increased_attention"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="currentCadetData.needs_increased_attention"
+                        />
+                        <label
+                          class="form-check-label"
+                          for="id_needs_increased_attention"
+                        >
+                          Требует повышенного внимания
+                        </label>
+                      </div>
+                      <div class="form-check mb-3">
+                        <input
+                          id="id_needs_psychological_support"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="currentCadetData.needs_psychological_support"
+                        />
+                        <label
+                          class="form-check-label"
+                          for="id_needs_psychological_support"
+                        >
+                          Требует психологического сопровождения
+                        </label>
+                      </div>
+                      <div class="form-check mb-3">
+                        <input
+                          id="id_is_risk_group"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="currentCadetData.is_risk_group"
+                        />
+                        <label class="form-check-label" for="id_is_risk_group"
+                          >Группа риска</label
+                        >
+                      </div>
+                      <div class="form-check mb-3">
+                        <input
+                          id="id_has_conviction"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="currentCadetData.has_conviction"
+                        />
+                        <label class="form-check-label" for="id_has_conviction"
+                          >Судимость</label
+                        >
+                      </div>
+                      <div class="form-check mb-3">
+                        <input
+                          id="id_has_dactocard"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="currentCadetData.has_dactocard"
+                        />
+                        <label class="form-check-label" for="id_has_dactocard"
+                          >Дактилоскопирование</label
+                        >
+                      </div>
+                      <div class="form-check mb-3">
+                        <input
+                          id="id_has_gusb_check"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="currentCadetData.has_gusb_check"
+                        />
+                        <label class="form-check-label" for="id_has_gusb_check"
+                          >Проверка ГУСБ</label
+                        >
+                      </div>
+                      <div class="form-check mb-3">
+                        <input
+                          id="id_has_employee_in_family"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="currentCadetData.has_employee_in_family"
+                        />
+                        <label
+                          class="form-check-label"
+                          for="id_has_employee_in_family"
+                          >Сотрудники в семье</label
+                        >
+                      </div>
+                      <div class="form-check mb-3">
+                        <input
+                          id="is_is_orphan"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="currentCadetData.is_orphan"
+                        />
+                        <label class="form-check-label" for="is_is_orphan"
+                          >Сирота</label
+                        >
+                      </div>
+                      <div class="form-check mb-3">
+                        <input
+                          id="id_is_employee"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="currentCadetData.is_employee"
+                        />
+                        <label class="form-check-label" for="id_is_employee"
+                          >Сотрудник</label
+                        >
+                      </div>
+                    </div>
+                    <div class="col-xl-4">
+                      <p>Сертификаты</p>
+                      <div class="form-check mb-3">
+                        <input
+                          id="id_has_certificate_ideas_for_Belarus"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="
+                            currentCadetData.has_certificate_ideas_for_Belarus
+                          "
+                        />
+                        <label
+                          class="form-check-label"
+                          for="id_has_certificate_ideas_for_Belarus"
+                          >100 идей для Беларуси</label
+                        >
+                      </div>
+                      <div class="form-check mb-3">
+                        <input
+                          id="id_has_certificate_kind_heart"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="currentCadetData.has_certificate_kind_heart"
+                        />
+                        <label
+                          class="form-check-label"
+                          for="id_has_certificate_kind_heart"
+                          >Доброе сердце</label
+                        >
+                      </div>
+
+                      <div class="form-check mb-3">
+                        <input
+                          id="id_has_polygraph"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="currentCadetData.has_polygraph"
+                        />
+                        <label class="form-check-label" for="id_has_polygraph"
+                          >Полиграф</label
+                        >
+                      </div>
+                    </div>
+                    <div class="col-xl-4">
+                      <div class="form-check mb-3">
+                        <input
+                          id="id_is_law_class"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="currentCadetData.is_law_class"
+                        />
+                        <label class="form-check-label" for="id_is_law_class"
+                          >Правовой класс</label
+                        >
+                      </div>
+                      <div class="form-check mb-3">
+                        <input
+                          id="id_is_law_enforcement"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="currentCadetData.is_law_enforcement"
+                        />
+                        <label
+                          class="form-check-label"
+                          for="id_is_law_enforcement"
+                          >Охрана правопорядка</label
+                        >
+                      </div>
+                      <div class="form-check mb-3">
+                        <input
+                          id="id_is_fired"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="currentCadetData.is_fired"
+                        />
+                        <label class="form-check-label" for="id_is_fired"
+                          >Уволен</label
+                        >
+                      </div>
+                      <div class="form-check mb-3">
+                        <input
+                          id="id_took_documents"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="currentCadetData.took_documents"
+                        />
+                        <label class="form-check-label" for="id_took_documents"
+                          >Забрал документы</label
+                        >
+                      </div>
+
+                      <div class="form-check mb-3">
+                        <input
+                          id="id_is_vv"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="currentCadetData.is_vv"
+                        />
+                        <label class="form-check-label" for="id_is_vv"
+                          >ВВ</label
+                        >
+                      </div>
+                      <div class="form-check mb-3">
+                        <input
+                          id="id_is_fp"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="currentCadetData.is_fp"
+                        />
+                        <label class="form-check-label" for="id_is_fp"
+                          >ФП</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="border border-1 my-4"></div>
+
+                  <div class="row">
+                    <div class="col-xxl-6">
+                      <h6>Выбор специальностей</h6>
+                      <div class="row">
+                        <div class="col-6">
+                          <div class="form-floating mb-3">
+                            <select
+                              id="id_s1"
+                              class="form-select"
+                              v-model="currentCadetData.speciality_1"
+                              disabled
+                            >
+                              <option :value="null">---------</option>
+                              <option
+                                :value="quota.id"
+                                v-for="quota in orderedAdmissionQuotes_select_1"
+                              >
+                                {{ quota.quota_verbose_name }}
+                              </option>
+                            </select>
+                            <label for="id_s1">Специальность 1</label>
+                          </div>
+                          <div class="form-floating mb-3">
+                            <select
+                              id="id_s2"
+                              class="form-select"
+                              v-model="currentCadetData.speciality_2"
+                              disabled
+                            >
+                              <option :value="null">---------</option>
+                              <option
+                                :value="quota.id"
+                                v-for="quota in orderedAdmissionQuotes_select_2"
+                              >
+                                {{ quota.quota_verbose_name }}
+                              </option>
+                            </select>
+                            <label for="id_s2">Специальность 2</label>
+                          </div>
+                          <div class="form-floating mb-3">
+                            <select
+                              id="id_s3"
+                              class="form-select"
+                              v-model="currentCadetData.speciality_3"
+                              disabled
+                            >
+                              <option :value="null">---------</option>
+                              <option
+                                :value="quota.id"
+                                v-for="quota in orderedAdmissionQuotes_select_3"
+                              >
+                                {{ quota.quota_verbose_name }}
+                              </option>
+                            </select>
+                            <label for="id_s3">Специальность 3</label>
+                          </div>
+                          <div class="form-floating mb-3">
+                            <select
+                              id="id_s4"
+                              class="form-select"
+                              v-model="currentCadetData.speciality_4"
+                              disabled
+                            >
+                              <option :value="null">---------</option>
+                              <option
+                                :value="quota.id"
+                                v-for="quota in orderedAdmissionQuotes_select_4"
+                              >
+                                {{ quota.quota_verbose_name }}
+                              </option>
+                            </select>
+                            <label for="id_s4">Специальность 4</label>
+                          </div>
+                          <div class="form-floating mb-3">
+                            <select
+                              id="id_s5"
+                              class="form-select"
+                              v-model="currentCadetData.speciality_5"
+                              disabled
+                            >
+                              <option :value="null">---------</option>
+                              <option
+                                :value="quota.id"
+                                v-for="quota in orderedAdmissionQuotes_select_5"
+                              >
+                                {{ quota.quota_verbose_name }}
+                              </option>
+                            </select>
+                            <label for="id_s5">Специальность 5</label>
+                          </div>
+                          <div class="form-floating mb-3">
+                            <select
+                              id="id_s6"
+                              class="form-select"
+                              v-model="currentCadetData.speciality_6"
+                              disabled
+                            >
+                              <option :value="null">---------</option>
+                              <option
+                                :value="quota.id"
+                                v-for="quota in orderedAdmissionQuotes_select_6"
+                              >
+                                {{ quota.quota_verbose_name }}
+                              </option>
+                            </select>
+                            <label for="id_s6">Специальность 6</label>
+                          </div>
+                          <div class="form-floating mb-3">
+                            <select
+                              id="id_s7"
+                              class="form-select"
+                              v-model="currentCadetData.speciality_7"
+                              disabled
+                            >
+                              <option :value="null">---------</option>
+                              <option
+                                :value="quota.id"
+                                v-for="quota in orderedAdmissionQuotes_select_7"
+                              >
+                                {{ quota.quota_verbose_name }}
+                              </option>
+                            </select>
+                            <label for="id_s7">Специальность 7</label>
+                          </div>
+                          <div class="form-floating mb-3">
+                            <select
+                              id="id_s8"
+                              class="form-select"
+                              v-model="currentCadetData.speciality_8"
+                              disabled
+                            >
+                              <option :value="null">---------</option>
+                              <option
+                                :value="quota.id"
+                                v-for="quota in orderedAdmissionQuotes_select_8"
+                              >
+                                {{ quota.quota_verbose_name }}
+                              </option>
+                            </select>
+                            <label for="id_s7">Специальность 8</label>
+                          </div>
+                          <div class="form-floating mb-3">
+                            <select
+                              id="id_s9"
+                              class="form-select"
+                              v-model="currentCadetData.speciality_9"
+                              disabled
+                            >
+                              <option :value="null">---------</option>
+                              <option
+                                :value="quota.id"
+                                v-for="quota in orderedAdmissionQuotes_select_9"
+                              >
+                                {{ quota.quota_verbose_name }}
+                              </option>
+                            </select>
+                            <label for="id_s7">Специальность 9</label>
+                          </div>
+                        </div>
+
+                        <div class="col-6">
+                          <div class="form-floating mb-3">
+                            <select
+                              id="id_privilege"
+                              class="form-select"
+                              v-model="currentCadetData.privilege_1"
+                              disabled
+                            >
+                              <option :value="null">---------</option>
+                              <option
+                                :value="privilege.id"
+                                v-for="privilege in orderedPrivileges"
+                              >
+                                {{ privilege.privilege }}
+                              </option>
+                            </select>
+                            <label for="id_privilege">Льгота 1</label>
+                          </div>
+                          <div class="form-floating mb-3">
+                            <select
+                              id="id_privilege"
+                              class="form-select"
+                              v-model="currentCadetData.privilege_2"
+                              disabled
+                            >
+                              <option :value="null">---------</option>
+                              <option
+                                :value="privilege.id"
+                                v-for="privilege in orderedPrivileges"
+                              >
+                                {{ privilege.privilege }}
+                              </option>
+                            </select>
+                            <label for="id_privilege">Льгота 2</label>
+                          </div>
+                          <div class="form-floating mb-3">
+                            <select
+                              id="id_privilege"
+                              class="form-select"
+                              v-model="currentCadetData.privilege_3"
+                              disabled
+                            >
+                              <option :value="null">---------</option>
+                              <option
+                                :value="privilege.id"
+                                v-for="privilege in orderedPrivileges"
+                              >
+                                {{ privilege.privilege }}
+                              </option>
+                            </select>
+                            <label for="id_privilege">Льгота 3</label>
+                          </div>
+                          <div class="form-floating mb-3">
+                            <select
+                              id="id_privilege"
+                              class="form-select"
+                              v-model="currentCadetData.privilege_4"
+                              disabled
+                            >
+                              <option :value="null">---------</option>
+                              <option
+                                :value="privilege.id"
+                                v-for="privilege in orderedPrivileges"
+                              >
+                                {{ privilege.privilege }}
+                              </option>
+                            </select>
+                            <label for="id_privilege">Льгота 4</label>
+                          </div>
+                          <div class="form-floating mb-3">
+                            <select
+                              id="id_privilege"
+                              class="form-select"
+                              v-model="currentCadetData.privilege_5"
+                              disabled
+                            >
+                              <option :value="null">---------</option>
+                              <option
+                                :value="privilege.id"
+                                v-for="privilege in orderedPrivileges"
+                              >
+                                {{ privilege.privilege }}
+                              </option>
+                            </select>
+                            <label for="id_privilege">Льгота 5</label>
+                          </div>
+                          <div class="form-floating mb-3">
+                            <select
+                              id="id_privilege"
+                              class="form-select"
+                              v-model="currentCadetData.privilege_6"
+                              disabled
+                            >
+                              <option :value="null">---------</option>
+                              <option
+                                :value="privilege.id"
+                                v-for="privilege in orderedPrivileges"
+                              >
+                                {{ privilege.privilege }}
+                              </option>
+                            </select>
+                            <label for="id_privilege">Льгота 6</label>
+                          </div>
+                          <div class="form-floating mb-3">
+                            <select
+                              id="id_privilege"
+                              class="form-select"
+                              v-model="currentCadetData.privilege_7"
+                              disabled
+                            >
+                              <option :value="null">---------</option>
+                              <option
+                                :value="privilege.id"
+                                v-for="privilege in orderedPrivileges"
+                              >
+                                {{ privilege.privilege }}
+                              </option>
+                            </select>
+                            <label for="id_privilege">Льгота 7</label>
+                          </div>
+                          <div class="form-floating mb-3">
+                            <select
+                              id="id_privilege"
+                              class="form-select"
+                              v-model="currentCadetData.privilege_8"
+                              disabled
+                            >
+                              <option :value="null">---------</option>
+                              <option
+                                :value="privilege.id"
+                                v-for="privilege in orderedPrivileges"
+                              >
+                                {{ privilege.privilege }}
+                              </option>
+                            </select>
+                            <label for="id_privilege">Льгота 8</label>
+                          </div>
+                          <div class="form-floating mb-3">
+                            <select
+                              id="id_privilege"
+                              class="form-select"
+                              v-model="currentCadetData.privilege_9"
+                              disabled
+                            >
+                              <option :value="null">---------</option>
+                              <option
+                                :value="privilege.id"
+                                v-for="privilege in orderedPrivileges"
+                              >
+                                {{ privilege.privilege }}
+                              </option>
+                            </select>
+                            <label for="id_privilege">Льгота 9</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xxl-6">
+                      <h5>Набранные баллы</h5>
+                      <div>
+                        <p class="fw-bold">
+                          Сертификаты централизованного тестирования
+                        </p>
+                        <h3>Сумма баллов - {{ get_score_sum }}</h3>
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th class="text-center table-primary">Русский</th>
+                              <th class="text-center table-primary">
+                                Белорусский
+                              </th>
+                              <th class="text-center table-warning">
+                                Обществоведение
+                              </th>
+                              <th class="text-center table-success">
+                                Иностранный язык
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td colspan="2" class="text-center table-primary">
+                                <label for="id_rus_bel_cert_number"
+                                  >№ сертификата</label
+                                >
+                                <input
+                                  id="id_rus_bel_cert_number"
+                                  type="text"
+                                  class="form-control text-center"
+                                  v-model="currentCadetData.rus_bel_ct_number"
+                                  disabled
+                                />
+                              </td>
+                              <td class="text-center table-warning">
+                                <label for="id_social_science_cert_number"
+                                  >№ сертификата</label
+                                >
+                                <input
+                                  id="id_social_science_cert_number"
+                                  type="text"
+                                  class="form-control text-center"
+                                  v-model="
+                                    currentCadetData.social_science_ct_number
+                                  "
+                                  disabled
+                                />
+                              </td>
+                              <td class="text-center table-success">
+                                <label for="id_foreign_lang_cert_number"
+                                  >№ сертификата</label
+                                >
+                                <input
+                                  id="id_foreign_lang_cert_number"
+                                  type="text"
+                                  class="form-control text-center"
+                                  v-model="
+                                    currentCadetData.foreign_lang_ct_number
+                                  "
+                                  disabled
+                                />
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="text-center table-primary">
+                                <label for="id_rus_score_ct"
+                                  >Количество баллов по сертификату</label
+                                >
+                                <input
+                                  id="id_rus_score_ct"
+                                  name="rus_score_ct"
+                                  type="number"
+                                  class="form-control text-center"
+                                  v-model="currentCadetData.rus_score_ct"
+                                  @input="makeInputDefaultNullValueIfEmpty"
+                                  disabled
+                                />
+                                <span class="text-center table-success"
+                                  >Минимум 10</span
+                                >
+                              </td>
+                              <td class="text-center table-primary">
+                                <label for="id_bel_score_ct"
+                                  >Количество баллов по сертификату</label
+                                >
+                                <input
+                                  id="id_bel_score_ct"
+                                  name="bel_score_ct"
+                                  type="number"
+                                  class="form-control text-center"
+                                  v-model="currentCadetData.bel_score_ct"
+                                  @input="makeInputDefaultNullValueIfEmpty"
+                                  disabled
+                                />
+                                <span class="text-center table-success"
+                                  >Минимум 10</span
+                                >
+                              </td>
+                              <td class="text-center table-warning">
+                                <label for="id_social_science_ct"
+                                  >Количество баллов по сертификату</label
+                                >
+                                <input
+                                  id="id_social_science_ct"
+                                  name="social_science_score_ct"
+                                  type="number"
+                                  class="form-control text-center"
+                                  v-model="
+                                    currentCadetData.social_science_score_ct
+                                  "
+                                  @input="makeInputDefaultNullValueIfEmpty"
+                                  disabled
+                                />
+                                <span class="text-center table-success"
+                                  >Минимум 25</span
+                                >
+                              </td>
+                              <td class="text-center table-success">
+                                <label for="id_foreign_lang_ct"
+                                  >Количество баллов по сертификату</label
+                                >
+                                <input
+                                  id="id_foreign_lang_ct"
+                                  name="foreign_lang_score_ct"
+                                  type="number"
+                                  class="form-control text-center"
+                                  v-model="
+                                    currentCadetData.foreign_lang_score_ct
+                                  "
+                                  @input="makeInputDefaultNullValueIfEmpty"
+                                  disabled
+                                />
+                                <span class="text-center table-success"
+                                  >Минимум 15</span
+                                >
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="text-center table-primary">
+                                <select
+                                  class="form-select"
+                                  v-model="currentCadetData.rus_ct_choice"
+                                  disabled
+                                >
+                                  <option selected class="text-center" value="">
+                                    ----------
+                                  </option>
+                                  <option value="2024 ЦЭ" class="text-center">
+                                    2024 ЦЭ
+                                  </option>
+                                  <option value="2024 ЦТ" class="text-center">
+                                    2024 ЦТ
+                                  </option>
+                                  <option value="2025 ЦЭ" class="text-center">
+                                    2025 ЦЭ
+                                  </option>
+                                  <option value="2025 ЦТ" class="text-center">
+                                    2025 ЦТ
+                                  </option>
+                                </select>
+                              </td>
+                              <td class="text-center table-primary">
+                                <select
+                                  class="form-select"
+                                  v-model="currentCadetData.bel_ct_choice"
+                                  disabled
+                                >
+                                  <option selected class="text-center" value="">
+                                    ----------
+                                  </option>
+                                  <option value="2024 ЦЭ" class="text-center">
+                                    2024 ЦЭ
+                                  </option>
+                                  <option value="2024 ЦТ" class="text-center">
+                                    2024 ЦТ
+                                  </option>
+                                  <option value="2025 ЦЭ" class="text-center">
+                                    2025 ЦЭ
+                                  </option>
+                                  <option value="2025 ЦТ" class="text-center">
+                                    2025 ЦТ
+                                  </option>
+                                </select>
+                              </td>
+                              <td class="text-center table-warning">
+                                <select
+                                  class="form-select"
+                                  v-model="
+                                    currentCadetData.social_science_ct_choice
+                                  "
+                                  disabled
+                                >
+                                  <option selected class="text-center" value="">
+                                    ----------
+                                  </option>
+                                  <option value="2024 ЦЭ" class="text-center">
+                                    2024 ЦЭ
+                                  </option>
+                                  <option value="2024 ЦТ" class="text-center">
+                                    2024 ЦТ
+                                  </option>
+                                  <option value="2025 ЦЭ" class="text-center">
+                                    2025 ЦЭ
+                                  </option>
+                                  <option value="2025 ЦТ" class="text-center">
+                                    2025 ЦТ
+                                  </option>
+                                </select>
+                              </td>
+                              <td class="text-center table-success">
+                                <select
+                                  class="form-select"
+                                  v-model="
+                                    currentCadetData.foreign_lang_ct_choice
+                                  "
+                                  disabled
+                                >
+                                  <option selected class="text-center" value="">
+                                    ----------
+                                  </option>
+                                  <option value="2024 ЦЭ" class="text-center">
+                                    2024 ЦЭ
+                                  </option>
+                                  <option value="2024 ЦТ" class="text-center">
+                                    2024 ЦТ
+                                  </option>
+                                  <option value="2025 ЦЭ" class="text-center">
+                                    2025 ЦЭ
+                                  </option>
+                                  <option value="2025 ЦТ" class="text-center">
+                                    2025 ЦТ
+                                  </option>
+                                </select>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <div class="border-bottom border-4 my-3"></div>
+
+                        <div
+                          class="d-flex flex-row justify-content-between align-items-end"
+                        >
+                          <p class="fw-bold">Аттестат, 10 / 10 /100</p>
+                        </div>
+
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th class="text-center table-primary">Русский</th>
+                              <th class="text-center table-primary">
+                                Белорусский
+                              </th>
+                              <th class="text-center table-warning">
+                                Обществоведение
+                              </th>
+                              <th class="text-center table-success">
+                                Иностранный язык
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td class="text-center table-primary">
+                                <input
+                                  name="rus_score_cert"
+                                  type="number"
+                                  class="form-control text-center"
+                                  v-model="currentCadetData.rus_score_cert"
+                                  @input="makeInputDefaultNullValueIfEmpty"
+                                  disabled
+                                />
+                              </td>
+                              <td class="text-center table-primary">
+                                <input
+                                  name="bel_score_cert"
+                                  type="number"
+                                  class="form-control text-center"
+                                  v-model="currentCadetData.bel_score_cert"
+                                  @input="makeInputDefaultNullValueIfEmpty"
+                                  disabled
+                                />
+                              </td>
+                              <td class="text-center table-warning">
+                                <input
+                                  name="social_science_score_cert"
+                                  type="number"
+                                  class="form-control text-center"
+                                  v-model="
+                                    currentCadetData.social_science_score_cert
+                                  "
+                                  @input="makeInputDefaultNullValueIfEmpty"
+                                  disabled
+                                />
+                              </td>
+                              <td class="text-center table-success">
+                                <input
+                                  name="foreign_lang_score_cert"
+                                  type="number"
+                                  class="form-control text-center"
+                                  v-model="
+                                    currentCadetData.foreign_lang_score_cert
+                                  "
+                                  @input="makeInputDefaultNullValueIfEmpty"
+                                  disabled
+                                />
+                              </td>
+                            </tr>
+                            <tr>
+                              <td
+                                colspan="2"
+                                class="text-center table-primary fw-bold"
+                              >
+                                Средний балл (аттестата)
+                              </td>
+                              <td
+                                colspan="2"
+                                class="text-center table-primary fw-bold"
+                              >
+                                Сумма (рус. + бел.)
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colspan="2" class="text-center table-primary">
+                                <div class="d-flex flex-row">
+                                  <input
+                                    type="number"
+                                    class="form-control text-center"
+                                    name="education_average_score"
+                                    v-model="
+                                      currentCadetData.education_average_score
+                                    "
+                                    @input="makeInputDefaultNullValueIfEmpty"
+                                    disabled
+                                  />
+                                </div>
+                              </td>
+                              <td colspan="2" class="text-center table-primary">
+                                <input
+                                  type="number"
+                                  class="form-control text-center"
+                                  :value="getARussianAndBelorussianSumScore"
+                                  disabled
+                                />
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+
+                        <div class="my-3"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="shadow p-3 mb-3" id="simple-list-ok">
+              <div class="card border-0">
+                <div class="card-body">
+                  <h5 class="card-title mb-3">Примечания / замечания для ОК</h5>
+                  <div class="mb-3">
+                    <label class="form-label" for="id_extra_data"
+                      >Примечание для отдела кадров</label
+                    >
+                    <textarea
+                      id="id_extra_data"
+                      class="form-control"
+                      rows="2"
+                      v-model="currentCadetData.extra_data"
+                    ></textarea>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="id_comments_on_personal_file"
+                      >Замечания по личному делу</label
+                    >
+                    <textarea
+                      id="id_comments_on_personal_file"
+                      class="form-control"
+                      rows="3"
+                      v-model="currentCadetData.comments_on_personal_file"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="shadow p-3 mb-3 rounded" id="simple-list-docs">
+              <div class="card border-0">
+                <div class="card-body">
+                  <h5 class="card-title mb-3">Отсканированные документы</h5>
+                  <div class="m-3">
+                    <div v-if="currentCadetData.attached_documents">
+                      <div class="d-flex flex-row my-2"></div>
+
+                      <object
+                        :data="currentCadetData.attached_documents"
+                        type="application/pdf"
+                        ref="objectWithDocument"
+                        width="100%"
+                        height="700"
+                      >
+                        <p>
+                          <b>Ошибка загрузки pdf документа.</b> Попробуйте
+                          скачать его
+                          <a :href="currentCadetData.attached_documents"
+                            >отсюда</a
+                          >.
+                        </p>
+                      </object>
+                    </div>
+
+                    <div v-else class="mb-3"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-2">
@@ -999,6 +2258,7 @@
               <div class="card border-0">
                 <div class="card-body">
                   <div class="list-group">
+                    <h3>Навигация по разделам</h3>
                     <a
                       class="list-group-item list-group-item-action rounded-1"
                       href="#simple-list-personal-data"
@@ -1040,11 +2300,6 @@
                       href="#simple-list-foreign-language-data"
                       >Иностранные языки</a
                     >
-                    <!--                  <a-->
-                    <!--                    class="p-1 rounded"-->
-                    <!--                    href="#simple-list-scientific-works-data"-->
-                    <!--                    >Научные труды и изобретения</a-->
-                    <!--                  >-->
                     <a
                       class="list-group-item list-group-item-action rounded-1"
                       href="#simple-list-job-data"
@@ -1090,6 +2345,31 @@
                       href="#simple-list-marital-status-data"
                       >Семейное положение</a
                     >
+                    <a
+                      class="list-group-item list-group-item-action rounded-1"
+                      href="#simple-list-anketa"
+                      >Анкета</a
+                    >
+                    <a
+                      class="list-group-item list-group-item-action rounded-1"
+                      href="#simple-list-med"
+                      >Данные мед. освидет
+                    </a>
+                    <a
+                      class="list-group-item list-group-item-action rounded-1"
+                      href="#simple-list-entrance"
+                      >Сведения из вступительной</a
+                    >
+                    <a
+                      class="list-group-item list-group-item-action rounded-1"
+                      href="#simple-list-ok"
+                      >Примечания / замечания ОК
+                    </a>
+                    <a
+                      class="list-group-item list-group-item-action rounded-1"
+                      href="#simple-list-docs"
+                      >Отсканированные документы
+                    </a>
                   </div>
                 </div>
               </div>
@@ -1252,6 +2532,25 @@ export default {
         has_certificate_ideas_for_Belarus: "",
         has_certificate_kind_heart: "",
         is_employee: "",
+        speciality_1: "",
+        speciality_2: "",
+        speciality_3: "",
+        speciality_4: "",
+        speciality_5: "",
+        speciality_6: "",
+        speciality_7: "",
+        speciality_8: "",
+        speciality_9: "",
+        privilege_1: "",
+        privilege_2: "",
+        privilege_3: "",
+        privilege_4: "",
+        privilege_5: "",
+        privilege_6: "",
+        privilege_7: "",
+        privilege_8: "",
+        privilege_9: "",
+        get_score_sum: "",
       },
       cadetAPIInstance: getCadetAPIInstance(),
       BACKEND_PROTOCOL: import.meta.env.VITE_APP_BACKEND_PROTOCOL,
@@ -1330,6 +2629,233 @@ export default {
     orderedGraduationReasons() {
       return this.graduationReasons.results
     },
+    orderedVpkCategories() {
+      return this.vpkCategories.results
+    },
+    orderedHealthGroups() {
+      return this.healthGroups.results
+        .filter((healthGroup) => healthGroup.ownership_category === "1")
+        .sort((a, b) => {
+          const healthGroupA = a.health_group.toUpperCase()
+          const healthGroupB = b.health_group.toUpperCase()
+          if (healthGroupA < healthGroupB) {
+            return -1
+          }
+          if (healthGroupA > healthGroupB) {
+            return 1
+          }
+          return 0
+        })
+    },
+    orderedPpflCategories() {
+      return this.ppflCategories.results.filter(
+        (ppfl) => ppfl.ownership_category === "1",
+      )
+    },
+    orderedAdmissionQuotes_select_1() {
+      if (this.currentCadetData.speciality_2 === 12) {
+        return this.orderedAdmissionQuotes.filter((item) => item.id === 10)
+      } else if (this.currentCadetData.speciality_2 === 10) {
+        return this.orderedAdmissionQuotes.filter((item) => item.id === 12)
+      } else {
+        return this.orderedAdmissionQuotes.filter(
+          (item) =>
+            item.id !== this.currentCadetData.speciality_2 &&
+            item.id !== this.currentCadetData.speciality_3 &&
+            item.id !== this.currentCadetData.speciality_4 &&
+            item.id !== this.currentCadetData.speciality_5 &&
+            item.id !== this.currentCadetData.speciality_6 &&
+            item.id !== this.currentCadetData.speciality_7 &&
+            item.id !== this.currentCadetData.speciality_8 &&
+            item.id !== this.currentCadetData.speciality_9,
+        )
+      }
+    },
+    orderedAdmissionQuotes_select_2() {
+      if (this.currentCadetData.speciality_1 === 10) {
+        return this.orderedAdmissionQuotes.filter((item) => item.id === 12)
+      } else if (this.currentCadetData.speciality_1 === 12) {
+        return this.orderedAdmissionQuotes.filter((item) => item.id === 10)
+      } else {
+        return this.orderedAdmissionQuotes.filter(
+          (item) =>
+            item.id !== this.currentCadetData.speciality_1 &&
+            item.id !== this.currentCadetData.speciality_3 &&
+            item.id !== this.currentCadetData.speciality_4 &&
+            item.id !== this.currentCadetData.speciality_5 &&
+            item.id !== this.currentCadetData.speciality_6 &&
+            item.id !== this.currentCadetData.speciality_7 &&
+            item.id !== this.currentCadetData.speciality_8 &&
+            item.id !== this.currentCadetData.speciality_9,
+        )
+      }
+    },
+    orderedAdmissionQuotes_select_3() {
+      return this.orderedAdmissionQuotes.filter(
+        (item) =>
+          item.id !== this.currentCadetData.speciality_1 &&
+          item.id !== this.currentCadetData.speciality_2 &&
+          item.id !== this.currentCadetData.speciality_4 &&
+          item.id !== this.currentCadetData.speciality_5 &&
+          item.id !== this.currentCadetData.speciality_6 &&
+          item.id !== this.currentCadetData.speciality_7 &&
+          item.id !== this.currentCadetData.speciality_8 &&
+          item.id !== this.currentCadetData.speciality_9,
+      )
+    },
+    orderedAdmissionQuotes_select_4() {
+      return this.orderedAdmissionQuotes.filter(
+        (item) =>
+          item.id !== this.currentCadetData.speciality_1 &&
+          item.id !== this.currentCadetData.speciality_2 &&
+          item.id !== this.currentCadetData.speciality_3 &&
+          item.id !== this.currentCadetData.speciality_5 &&
+          item.id !== this.currentCadetData.speciality_6 &&
+          item.id !== this.currentCadetData.speciality_7 &&
+          item.id !== this.currentCadetData.speciality_8 &&
+          item.id !== this.currentCadetData.speciality_9,
+      )
+    },
+    orderedAdmissionQuotes_select_5() {
+      return this.orderedAdmissionQuotes.filter(
+        (item) =>
+          item.id !== this.currentCadetData.speciality_1 &&
+          item.id !== this.currentCadetData.speciality_2 &&
+          item.id !== this.currentCadetData.speciality_3 &&
+          item.id !== this.currentCadetData.speciality_4 &&
+          item.id !== this.currentCadetData.speciality_6 &&
+          item.id !== this.currentCadetData.speciality_7 &&
+          item.id !== this.currentCadetData.speciality_8 &&
+          item.id !== this.currentCadetData.speciality_9,
+      )
+    },
+    orderedAdmissionQuotes_select_6() {
+      return this.orderedAdmissionQuotes.filter(
+        (item) =>
+          item.id !== this.currentCadetData.speciality_1 &&
+          item.id !== this.currentCadetData.speciality_2 &&
+          item.id !== this.currentCadetData.speciality_3 &&
+          item.id !== this.currentCadetData.speciality_4 &&
+          item.id !== this.currentCadetData.speciality_5 &&
+          item.id !== this.currentCadetData.speciality_7 &&
+          item.id !== this.currentCadetData.speciality_8 &&
+          item.id !== this.currentCadetData.speciality_9,
+      )
+    },
+    orderedAdmissionQuotes_select_7() {
+      return this.orderedAdmissionQuotes.filter(
+        (item) =>
+          item.id !== this.currentCadetData.speciality_1 &&
+          item.id !== this.currentCadetData.speciality_2 &&
+          item.id !== this.currentCadetData.speciality_3 &&
+          item.id !== this.currentCadetData.speciality_4 &&
+          item.id !== this.currentCadetData.speciality_5 &&
+          item.id !== this.currentCadetData.speciality_6 &&
+          item.id !== this.currentCadetData.speciality_8 &&
+          item.id !== this.currentCadetData.speciality_9,
+      )
+    },
+    orderedAdmissionQuotes_select_8() {
+      return this.orderedAdmissionQuotes.filter(
+        (item) =>
+          item.id !== this.currentCadetData.speciality_1 &&
+          item.id !== this.currentCadetData.speciality_2 &&
+          item.id !== this.currentCadetData.speciality_3 &&
+          item.id !== this.currentCadetData.speciality_4 &&
+          item.id !== this.currentCadetData.speciality_5 &&
+          item.id !== this.currentCadetData.speciality_6 &&
+          item.id !== this.currentCadetData.speciality_7 &&
+          item.id !== this.currentCadetData.speciality_9,
+      )
+    },
+    orderedAdmissionQuotes_select_9() {
+      return this.orderedAdmissionQuotes.filter(
+        (item) =>
+          item.id !== this.currentCadetData.speciality_1 &&
+          item.id !== this.currentCadetData.speciality_2 &&
+          item.id !== this.currentCadetData.speciality_3 &&
+          item.id !== this.currentCadetData.speciality_4 &&
+          item.id !== this.currentCadetData.speciality_5 &&
+          item.id !== this.currentCadetData.speciality_6 &&
+          item.id !== this.currentCadetData.speciality_7 &&
+          item.id !== this.currentCadetData.speciality_8,
+      )
+    },
+    orderedAdmissionQuotes() {
+      return this.admissionQuota.results
+        .filter((quota) => quota.ownership_category === "1")
+        .sort((a, b) => {
+          const admission_codeA = a.quota_verbose_name
+          const admission_codeB = b.quota_verbose_name
+          if (admission_codeA < admission_codeB) {
+            return -1
+          }
+          if (admission_codeA > admission_codeB) {
+            return 1
+          }
+          return 0
+        })
+    },
+    orderedPrivileges() {
+      return this.privileges.results
+    },
+    get_score_sum() {
+      let education_average_score = this.currentCadetData
+        .education_average_score
+        ? parseInt(this.currentCadetData.education_average_score)
+        : 0
+      let rus_score_ct = this.currentCadetData.rus_score_ct
+        ? this.currentCadetData.rus_score_ct
+        : 0
+      let bel_score_ct = this.currentCadetData.bel_score_ct
+        ? this.currentCadetData.bel_score_ct
+        : 0
+      let social_science_score_ct = this.currentCadetData
+        .social_science_score_ct
+        ? this.currentCadetData.social_science_score_ct
+        : 0
+      let foreign_lang_score_ct = this.currentCadetData.foreign_lang_score_ct
+        ? this.currentCadetData.foreign_lang_score_ct
+        : 0
+
+      return (
+        education_average_score +
+        rus_score_ct +
+        bel_score_ct +
+        social_science_score_ct +
+        foreign_lang_score_ct
+      )
+    },
+    getAverageScore() {
+      let counter = 0
+      this.average_score_calculation.certificate.forEach((item) => {
+        if (item.selectValue !== 0 && item.selectValue !== "") {
+          counter = counter + parseInt(item.selectValue)
+        }
+      })
+      this.average_score_calculation.diploma.forEach((item) => {
+        if (item.selectValue !== 0 && item.selectValue !== "") {
+          counter = counter + parseInt(item.selectValue)
+        }
+      })
+      if (this.getAverageScoreCount() > 0) {
+        return ((counter / this.getAverageScoreCount()) * 10).toFixed()
+      } else return 0
+    },
+    getARussianAndBelorussianSumScore() {
+      let scoreSum = ""
+      if (
+        isFinite(this.currentCadetData.rus_score_cert) &&
+        this.currentCadetData.rus_score_cert !== null &&
+        isFinite(this.currentCadetData.bel_score_cert)
+      ) {
+        scoreSum =
+          this.currentCadetData.rus_score_cert +
+          this.currentCadetData.bel_score_cert
+        return scoreSum
+      }
+      return scoreSum
+    },
     getCadetStatus() {
       return ""
       // if (this.currentCadetData.academy_end_date) {
@@ -1353,8 +2879,13 @@ export default {
       militaryOffices: "militaryOffices/getList",
       graduationReasons: "graduationReasons/getList",
       passportIssueAuthorities: "passportAuthorities/getList",
+      vpkCategories: "vpkCategories/getList",
       token: "auth/getToken",
       isCommonLoading: "common/getIsCommonLoading",
+      healthGroups: "healthGroup/getList",
+      ppflCategories: "ppflCategories/getList",
+      admissionQuota: "admissionQuota/getList",
+      privileges: "privileges/getList",
     }),
   },
   watch: {

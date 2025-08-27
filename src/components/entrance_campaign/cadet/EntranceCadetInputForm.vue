@@ -622,7 +622,7 @@
           </div>
         </div>
       </div>
-      <div style="max-height: calc(100vh - 400px); overflow-y: auto">
+      <div style="max-height: calc(100vh - 500px); overflow-y: auto">
         <div style="max-width: 99%">
           <div class="form-check form-switch mb-3" style="font-size: 20px">
             <input
@@ -2268,7 +2268,6 @@
                     v-model="currentCadetData.extra_data"
                   ></textarea>
                 </div>
-                <!--                <div class="border-bottom border-4 my-3"></div>-->
                 <div class="mb-3">
                   <label class="form-label" for="id_comments_on_personal_file"
                     >Замечания по личному делу</label
@@ -2423,6 +2422,18 @@
                         class="form-check-label"
                         for="id_has_certificate_kind_heart"
                         >Доброе сердце</label
+                      >
+                    </div>
+
+                    <div class="form-check mb-3">
+                      <input
+                        id="id_has_polygraph"
+                        class="form-check-input"
+                        type="checkbox"
+                        v-model="currentCadetData.has_polygraph"
+                      />
+                      <label class="form-check-label" for="id_has_polygraph"
+                        >Полиграф</label
                       >
                     </div>
                   </div>
@@ -3583,6 +3594,7 @@ export default {
         is_orphan: "",
         has_certificate_ideas_for_Belarus: "",
         has_certificate_kind_heart: "",
+        has_polygraph: "",
         is_employee: "",
         is_law_class: "",
         is_law_enforcement: "",

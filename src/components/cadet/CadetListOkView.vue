@@ -1956,7 +1956,6 @@
 </template>
 
 <script>
-import getCadetAPIInstance from "@/api/cadet/cadetAPI"
 import { globalCadetAPIInstance } from "@/api/cadet/cadetAPI"
 
 import {
@@ -2303,7 +2302,7 @@ export default {
         previous: null,
         next: null,
       },
-      searchForm: Object.assign({}, getCadetAPIInstance().searchObj),
+      searchForm: Object.assign({}, globalCadetAPIInstance.searchObj),
       cadetAPIInstance: globalCadetAPIInstance,
       BACKEND_PROTOCOL: import.meta.env.VITE_APP_BACKEND_PROTOCOL,
       BACKEND_HOST: import.meta.env.VITE_APP_BACKEND_HOST,
