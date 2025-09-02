@@ -255,6 +255,7 @@ const searchObj = {
   sign_image: "",
   entrance_year__gte: "",
   entrance_year__lte: "",
+  entrance_year__exact: "",
   has_polygraph: "",
   ordering: null,
 }

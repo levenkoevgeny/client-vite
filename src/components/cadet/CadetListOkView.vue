@@ -133,6 +133,41 @@
     </div>
   </div>
 
+  <div
+    class="modal fade"
+    id="libraryCardErrorModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+    ref="libraryCardErrorModal"
+  >
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">
+            Исправте следующие ошибки для формирования документа:
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div style="max-height: 350px; overflow-y: auto">
+            <div
+              class="alert alert-danger my-1"
+              v-for="error in library_cards_error_array"
+            >
+              {{ error }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="container-fluid">
     <div class="my-3"></div>
     <ul class="nav nav-links my-3 mb-lg-2 mx-n3">
@@ -226,6 +261,7 @@
       >
         <thead ref="thead">
           <tr>
+            <th></th>
             <th scope="col" class="text-center">№п.п.</th>
             <th scope="col">Активный</th>
             <th scope="col">Год набора</th>
@@ -1346,6 +1382,17 @@
             </th>
           </tr>
           <tr>
+            <th>
+              <div
+                class="form-check d-flex align-items-center justify-content-center"
+              >
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  @change="checkAllHandler($event)"
+                />
+              </div>
+            </th>
             <th></th>
             <th>
               <select class="form-select" v-model="searchForm.is_active">
@@ -1941,6 +1988,17 @@
               $router.push({ name: 'cadet-update', params: { id: cadet.id } })
             "
           >
+            <td>
+              <div
+                class="form-check d-flex align-items-center justify-content-center"
+              >
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  v-model="cadet.isSelected"
+                />
+              </div>
+            </td>
             <td class="text-center">{{ cadet.serial_number }}</td>
             <td v-if="cadet.is_active"></td>
             <td v-else class="text-center">
@@ -2603,6 +2661,7 @@ export default {
       BACKEND_HOST: import.meta.env.VITE_APP_BACKEND_HOST,
       BACKEND_PORT: import.meta.env.VITE_APP_BACKEND_PORT,
       rankTermsList: [],
+      library_cards_error_array: [],
     }
   },
   async created() {
@@ -2841,7 +2900,7 @@ export default {
             const url = window.URL.createObjectURL(new Blob([response.data]))
             const link = document.createElement("a")
             link.href = url
-            link.setAttribute("download", "library_cards.docx")
+            link.setAttribute("download", "cadet_library_cards.docx")
             document.body.appendChild(link)
             link.click()
           }
@@ -2852,6 +2911,9 @@ export default {
     },
   },
   computed: {
+    selectedItems() {
+      return this.cadetList.results.filter((item) => item.isSelected)
+    },
     orderedMainList() {
       return this.cadetList.results
     },
@@ -2947,7 +3009,7 @@ thead {
   top: 0;
 }
 
-input,
+input:not([type="checkbox"]),
 select {
   min-width: 200px;
 }

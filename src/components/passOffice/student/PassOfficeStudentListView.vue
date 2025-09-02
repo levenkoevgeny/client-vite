@@ -148,10 +148,11 @@
         <th scope="col">Фамилия</th>
         <th scope="col">Имя</th>
         <th scope="col">Отчество</th>
-        <th scope="col">Группа</th>
-        <th scope="col">Номер зачетной книжки</th>
-        <th scope="col">Подпись</th>
-        <th scope="col">Выданные студенческие билеты</th>
+        <th scope="col" class="text-center">Год набора</th>
+        <th scope="col" class="text-center">Группа</th>
+        <th scope="col" class="text-center">Номер зачетной книжки</th>
+        <th scope="col" class="text-center">Подпись</th>
+        <th scope="col" class="text-center">Выданные студенческие билеты</th>
       </tr>
       <tr>
         <th>
@@ -176,7 +177,14 @@
         </th>
         <th></th>
         <th></th>
-        <th>
+        <th class="text-center" style="width: 200px">
+          <input
+            type="text"
+            class="form-control"
+            v-model="searchForm.entrance_year__exact"
+          />
+        </th>
+        <th style="width: 300px">
           <v-select
             v-model="searchForm.group__in"
             :options="orderedGroups"
@@ -185,7 +193,7 @@
             multiple
           />
         </th>
-        <th>
+        <th class="text-center">
           <input
             type="text"
             id="last_name_rus_search"
@@ -239,9 +247,10 @@
         </td>
         <td>{{ cadet.first_name_rus }}</td>
         <td>{{ cadet.patronymic_rus }}</td>
-        <td>{{ cadet.get_group }}</td>
-        <td>{{ cadet.student_record_book_number }}</td>
-        <td>
+        <td class="text-center">{{ cadet.entrance_year }}</td>
+        <td class="text-center">{{ cadet.get_group }}</td>
+        <td class="text-center">{{ cadet.student_record_book_number }}</td>
+        <td class="text-center">
           <span
             v-if="cadet.sign_image"
             class="bg-success-subtle p-2 rounded rounded-1"
