@@ -336,6 +336,145 @@
               </div>
             </div>
 
+            <div class="shadow p-3 mb-3" id="simple-list-education">
+              <div class="card border-0">
+                <div class="card-body">
+                  <h5 class="card-title">Образование</h5>
+
+                  <div class="row">
+                    <div class="col-xl-3">
+                      <div class="form-floating mb-3">
+                        <select
+                          id="id_education_kind"
+                          class="form-select"
+                          v-model="currentFPKData.education_kind"
+                        >
+                          <option :value="null">---------</option>
+                          <option
+                            :value="educationKind.id"
+                            v-for="educationKind in orderedEducationKinds"
+                          >
+                            {{ educationKind.education }}
+                          </option>
+                        </select>
+                        <label for="id_education_kind">Образование</label>
+                      </div>
+                    </div>
+                    <div class="col-xl-3">
+                      <div class="form-floating mb-3">
+                        <select
+                          id="id_education_level"
+                          class="form-select"
+                          v-model="currentFPKData.education_level"
+                        >
+                          <option :value="null">---------</option>
+                          <option
+                            :value="educationLevel.id"
+                            v-for="educationLevel in orderedEducationLevels"
+                          >
+                            {{ educationLevel.education_level }}
+                          </option>
+                        </select>
+                        <label for="id_education_level"
+                          >Уровень образования</label
+                        >
+                      </div>
+                    </div>
+                    <div class="col-xl-3">
+                      <div class="form-floating mb-3">
+                        <input
+                          type="number"
+                          id="id_education_graduating_end_year"
+                          name="education_graduating_end_year"
+                          class="form-control form-control-sm"
+                          placeholder="Год окончания"
+                          v-model="currentFPKData.education_graduating_end_year"
+                          @input="makeInputDefaultNullValueIfEmpty"
+                        />
+                        <label for="id_education_graduating_end_year"
+                          >Год окончания</label
+                        >
+                      </div>
+                    </div>
+                    <div class="col-xl-3">
+                      <div class="form-floating mb-3">
+                        <select
+                          id="id_medal"
+                          class="form-select"
+                          v-model="currentFPKData.medal"
+                        >
+                          <option :value="null">---------</option>
+                          <option
+                            :value="medal.id"
+                            v-for="medal in orderedMedals"
+                          >
+                            {{ medal.medal_kind }}
+                          </option>
+                        </select>
+                        <label for="id_medal">Медаль</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-6">
+                      <div class="form-floating mb-3">
+                        <textarea
+                          id="id_education_graduated"
+                          rows="2"
+                          class="form-control form-control-sm"
+                          v-model="currentFPKData.education_graduated"
+                          placeholder="Наименование УО"
+                        ></textarea>
+                        <label for="id_education_graduated"
+                          >Наименование УО</label
+                        >
+                      </div>
+                    </div>
+                    <div class="col-xl-3">
+                      <div class="form-floating mb-3">
+                        <select
+                          id="id_education_location_kind"
+                          class="form-select"
+                          v-model="currentFPKData.education_location_kind"
+                        >
+                          <option :value="null">---------</option>
+                          <option
+                            :value="educationLocalityKind.id"
+                            v-for="educationLocalityKind in orderedEducationLocalityKinds"
+                          >
+                            {{ educationLocalityKind.education_location_kind }}
+                          </option>
+                        </select>
+                        <label for="id_education_location_kind"
+                          >Город/село</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="form-check mb-3">
+                        <input
+                          id="id_is_located_in_Minsk"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="currentFPKData.is_located_in_Minsk"
+                        />
+                        <label
+                          class="form-check-label"
+                          for="id_is_located_in_Minsk"
+                        >
+                          УО расположено в г. Минск
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div class="shadow p-3 mb-3" id="simple-list-academy-data">
               <div class="card border-0">
                 <div class="card-body">
@@ -395,6 +534,11 @@
                       class="list-group-item list-group-item-action rounded-1"
                       href="#simple-list-academy-data"
                       >Обучение в Академии МВД</a
+                    >
+                    <a
+                      class="list-group-item list-group-item-action rounded-1"
+                      href="#simple-list-education"
+                      >Образование</a
                     >
                     <!--                    <a-->
                     <!--                      class="list-group-item list-group-item-action rounded-1"-->
@@ -529,6 +673,11 @@ export default {
         photo: response.data.photo,
       }
     },
+    makeInputDefaultNullValueIfEmpty(event) {
+      if (event.target.value.trim().length === 0) {
+        this.currentFPKPRKData[event.target.name] = null
+      }
+    },
   },
   computed: {
     orderedGroups() {
@@ -536,6 +685,18 @@ export default {
     },
     orderedRanks() {
       return this.ranks.results
+    },
+    orderedEducationKinds() {
+      return this.educationKinds.results
+    },
+    orderedEducationLevels() {
+      return this.educationLevels.results
+    },
+    orderedMedals() {
+      return this.medals.results
+    },
+    orderedEducationLocalityKinds() {
+      return this.educationLocalityKinds.results
     },
     ...mapGetters({
       groups: "groups/getList",
@@ -547,7 +708,11 @@ export default {
       positions: "positions/getList",
       graduationReasons: "graduationReasons/getList",
       passportIssueAuthorities: "passportAuthorities/getList",
+      educationKinds: "educationKind/getList",
+      educationLevels: "educationLevel/getList",
+      medals: "medals/getList",
       token: "auth/getToken",
+      educationLocalityKinds: "educationLocalityKind/getList",
       isCommonLoading: "common/getIsCommonLoading",
     }),
   },

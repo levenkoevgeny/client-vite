@@ -416,8 +416,8 @@
           v-model="searchForm.is_active"
         >
           <option selected value="">Все</option>
-          <option value="1">Да</option>
-          <option value="0">Нет</option>
+          <option value="true" key="1">Да</option>
+          <option value="false" key="0">Нет</option>
         </select>
       </div>
       <div class="mb-3">
