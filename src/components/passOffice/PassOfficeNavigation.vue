@@ -45,6 +45,15 @@
           </router-link>
         </div>
       </div>
+      <div class="card me-4 mb-4 border-0" style="width: 24rem">
+        <div class="card-body">
+          <h5 class="card-title">Сотрудники и гражданский персонал</h5>
+          <p class="card-text">
+            Фотографирование, изготовление пропусков, зачетных книжек
+          </p>
+          <router-link class="btn btn-primary"> Перейти </router-link>
+        </div>
+      </div>
     </div>
     <div class="my-4"></div>
     <!--    <router-view></router-view>-->

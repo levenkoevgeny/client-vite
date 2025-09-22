@@ -265,10 +265,10 @@ export default function getCadetAPIInstance() {
 }
 
 export const globalCadetAPIInstance = getCadetAPIInstance()
-export const globalCadetAPIInstanceForPassOffice = new CadetAPI(
-  "cadet",
-  searchObj,
-)
+export const globalCadetAPIInstanceForPassOffice = new CadetAPI("cadet", {
+  ...searchObj,
+  category__in: [4, 5],
+})
 export const globalCadetAPIForEntranceInstance = new CadetAPI("cadet", {
   ...searchObj,
   category: 3,

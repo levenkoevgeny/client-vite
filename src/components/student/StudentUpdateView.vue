@@ -141,7 +141,7 @@
                             </select>
                           </div>
                         </div>
-                        <div class="col-xl-3">
+                        <div class="col-xl-2">
                           <div class="mb-3">
                             <label class="form-label" for="id_subdivision"
                               >Дата начала обучения</label
@@ -150,13 +150,13 @@
                               type="date"
                               class="form-control"
                               v-model="currentStudentData.academy_start_date"
-                              id="id_subdivision"
+                              id="id_academy_start_date"
                               name="academy_start_date"
                               @input="makeInputDefaultNullValueIfEmpty"
                             />
                           </div>
                         </div>
-                        <div class="col-xl-3">
+                        <div class="col-xl-2">
                           <div class="mb-3">
                             <label class="form-label" for="id_subdivision"
                               >Дата окончания обучения</label
@@ -165,8 +165,25 @@
                               type="date"
                               class="form-control"
                               v-model="currentStudentData.academy_end_date"
-                              id="id_subdivision"
+                              id="id_academy_end_date"
                               name="academy_end_date"
+                              @input="makeInputDefaultNullValueIfEmpty"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-xl-2">
+                          <div class="mb-3">
+                            <label class="form-label" for="id_subdivision"
+                              >Дата выдачи зачетной книжки
+                            </label>
+                            <input
+                              type="date"
+                              class="form-control"
+                              v-model="
+                                currentStudentData.student_record_book_date_issue
+                              "
+                              id="id_student_record_book_date_issue"
+                              name="student_record_book_date_issue"
                               @input="makeInputDefaultNullValueIfEmpty"
                             />
                           </div>
