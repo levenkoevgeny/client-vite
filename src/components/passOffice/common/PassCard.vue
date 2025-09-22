@@ -129,16 +129,13 @@ export default {
     },
 
     async readCardUIDAndCheck() {
+      await this.readCardUID()
       if (this.cardUID !== "") {
         this.isCardReading = true
-        await this.readCardUID()
-
         this.passCardAPIInstance.searchObj.card_uuid = this.cardUID
         const passCardsListResponse =
           await this.passCardAPIInstance.getItemsList()
-
         const foundPassCardData = passCardsListResponse.data
-
         if (foundPassCardData.results) {
           if (foundPassCardData.results.length > 0) {
             this.foundCard = foundPassCardData.results[0]
