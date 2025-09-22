@@ -125,7 +125,7 @@ export default {
       //   : "Карта не найдена"
       this.cardUID = "FF000"
 
-      this.foundCard = { card_uuid: "FF000" }
+      this.foundCard = { card_uuid: this.cardUID }
     },
 
     async readCardUIDAndCheck() {
