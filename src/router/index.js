@@ -69,6 +69,7 @@ import {
   PassOfficeEmployeeListView,
   PassOfficeFPKPRKListView,
   PassOfficeFPKPRKItemView,
+  PassOfficeEmployeeItemView,
   PassOfficeCadetItemView,
   PassOfficeStudentItemView,
 } from "@/components/passOffice/index.js"
@@ -121,6 +122,11 @@ const routes = [
             path: "employees",
             component: PassOfficeEmployeeListView,
             name: "pass-office-employees",
+          },
+          {
+            path: "employees/:id/update",
+            component: PassOfficeEmployeeItemView,
+            name: "pass-office-employee-update",
           },
           {
             path: "students",

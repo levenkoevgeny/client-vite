@@ -7,3 +7,4 @@ export { default as PassOfficeEmployeeListView } from "./employee/PassOfficeEmpl
 export { default as PassOfficeFPKPRKListView } from "./fpkprk/PassOfficeFPKPRKListView.vue"
 export { default as PassOfficeFPKPRKItemView } from "./fpkprk/PassOfficeFPKPRKItemView.vue"
 export { default as PassOfficeNavigation } from "./PassOfficeNavigation.vue"
+export { default as PassOfficeEmployeeItemView } from "./employee/PassOfficeEmployeeItemView.vue"
