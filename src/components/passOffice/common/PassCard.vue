@@ -5,12 +5,6 @@
     </h1>
     <div v-if="passCardData">
       <h3 class="card-title my-2 text-secondary-emphasis fst-italic">
-        Номер карты -
-        <span class="fw-bold">{{
-          passCardData.card_number || "Нет данных"
-        }}</span>
-      </h3>
-      <h3 class="card-title my-2 text-secondary-emphasis fst-italic">
         UID карты -
         <span class="fw-bold">{{ passCardData.card_uuid }}</span>
       </h3>
@@ -25,7 +19,7 @@
         <label for="exampleInputEmail1" class="form-label"
           >UID карты приложенной к считывателю</label
         >
-        <input type="text" class="form-control" v-model="cardUID" />
+        <input type="text" class="form-control" v-model="cardUID" disabled />
       </div>
       <div>
         <button class="btn btn-success me-2" @click="readCardUIDAndCheck">
@@ -35,12 +29,13 @@
         <button
           class="btn btn-primary"
           @click="writePassCard"
-          :disabled="cardUID.length === 0"
+          :disabled="cardUID.length === 0 || this.isCardWriting"
         >
-          <span v-if="isCardReading">... Запись карты</span>
-          <span v-else>Перезаписать карту</span>
+          <span v-if="isCardWriting">... Запись карты</span>
+          <span v-else>Записать карту</span>
         </button>
       </div>
+
       <div v-if="foundCard && getPassCardOwner" class="my-4">
         <div
           v-if="getPassCardOwner.id === currentItem.id"
@@ -129,6 +124,8 @@ export default {
       //   ? "0000" + this.splitCard(regex[1])
       //   : "Карта не найдена"
       this.cardUID = "FF000"
+
+      this.foundCard = { card_uuid: "FF000" }
     },
 
     async readCardUIDAndCheck() {
@@ -146,34 +143,40 @@ export default {
           this.foundCard = foundPassCardData.results[0]
         }
       }
-
       this.isCardReading = false
     },
 
     async writePassCard() {
       this.isCardWriting = true
+
       const response = await this.passCardAPIInstance.savePassCard(
         this.foundCard.card_uuid,
         this.category,
         this.currentItem.id,
       )
+
       this.foundCard = response.data
       this.isCardWriting = false
     },
   },
   computed: {
     getPassCardOwner() {
-      if (this.foundCard.cadet) {
-        return { ...this.foundCard.cadet, category: "Курсант" }
-      } else if (this.foundCard.student) {
-        return { ...this.foundCard.student, category: "Студент" }
-      } else if (this.foundCard.employee) {
-        return {
-          ...this.foundCard.employee,
-          category: "Сотрудник или гражданский персонал",
-        }
-      } else if (this.foundCard.fpk_prk) {
-        return { ...this.foundCard.fpk_prk, category: "ФПКиПРК / Магистратура" }
+      if (this.foundCard) {
+        if (this.foundCard.cadet) {
+          return { ...this.foundCard.cadet, category: "Курсант" }
+        } else if (this.foundCard.student) {
+          return { ...this.foundCard.student, category: "Студент" }
+        } else if (this.foundCard.employee) {
+          return {
+            ...this.foundCard.employee,
+            category: "Сотрудник или гражданский персонал",
+          }
+        } else if (this.foundCard.fpk_prk) {
+          return {
+            ...this.foundCard.fpk_prk,
+            category: "ФПКиПРК / Магистратура",
+          }
+        } else return undefined
       } else return undefined
     },
   },

@@ -86,6 +86,14 @@
                 }}</span
                 ><span v-else class="fw-bold">Нет данных</span>
               </h3>
+              <div class="border border-2 my-3"></div>
+              <div>
+                <PassCard
+                  :pass-card-data="passCard"
+                  :current-item="currentCadetData"
+                  category="Курсант"
+                />
+              </div>
             </div>
             <div class="col-xxl-4">
               <div>
@@ -171,10 +179,12 @@ import { globalCadetAPIInstanceForPassOffice } from "@/api/cadet/cadetAPI.js"
 import { mapGetters } from "vuex"
 import Camera from "@/components/passOffice/Camera.vue"
 import Signature from "@/components/passOffice/signature/Signature.vue"
+import PassCard from "@/components/passOffice/common/PassCard.vue"
+import getPassCardAPIInstance from "@/api/passOffice/passCardAPI.js"
 
 export default {
   name: "PassOfficeCadetItemView",
-  components: { Signature, Camera },
+  components: { PassCard, Signature, Camera },
   data() {
     return {
       isLoading: true,
@@ -191,6 +201,9 @@ export default {
         group: "",
         date_of_birth: "",
       },
+      passCard: null,
+      passCardAPIInstance: getPassCardAPIInstance(),
+      passCardSearchForm: Object.assign({}, getPassCardAPIInstance().searchObj),
     }
   },
   async created() {
@@ -201,6 +214,12 @@ export default {
       try {
         const res = await this.cadetAPIInstance.getItemData(cadetId)
         this.currentCadetData = await res.data
+        if (this.currentCadetData.pass_card) {
+          const passCardResponse = await this.passCardAPIInstance.getItemData(
+            this.currentCadetData.pass_card,
+          )
+          this.passCard = passCardResponse.data
+        }
       } catch (error) {
       } finally {
         this.isLoading = false
