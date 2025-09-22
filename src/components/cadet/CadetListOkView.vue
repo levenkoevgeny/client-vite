@@ -2860,11 +2860,11 @@ export default {
             cadet.last_name_rus + " - не указан факультет",
           )
         }
-        if (!cadet.photo) {
-          this.library_cards_error_array.push(
-            cadet.last_name_rus + " - нет фото",
-          )
-        }
+        // if (!cadet.photo) {
+        //   this.library_cards_error_array.push(
+        //     cadet.last_name_rus + " - нет фото",
+        //   )
+        // }
         if (!cadet.date_of_birth) {
           this.library_cards_error_array.push(
             cadet.last_name_rus + " - не указана дата рождения",

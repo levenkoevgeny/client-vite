@@ -635,6 +635,20 @@
                     </div>
                   </div>
                   <div class="row">
+                    <div class="col-lg-6">
+                      <div class="mb-3">
+                        <label class="form-label" for="id_subdivision"
+                          >Номер зачетной книжки</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          v-model="currentCadetData.student_record_book_number"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
                     <div class="col-12">
                       <div class="mb-3">
                         <label class="form-label" for="id_subdivision"
@@ -2462,6 +2476,7 @@ export default {
         address_residence: "",
         address_registration: "",
         phone_number: "",
+        student_record_book_number: "",
         personal_number_mvd: "",
         marital_status: "",
         passport_number: "",
