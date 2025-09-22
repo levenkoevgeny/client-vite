@@ -45,6 +45,7 @@
     </div>
 
     <div v-else>
+      <h1>ФПК и ПРК</h1>
       <div class="card shadow-lg p-3 mb-5 rounded bg-body-secondary-phoenix">
         <div class="card-body">
           <div class="row">
@@ -81,9 +82,17 @@
               </h3>
               <h3 class="card-title my-2 text-secondary-emphasis fst-italic">
                 Дата рождения -
-                <span v-if="currentCadetData.date_of_birth" class="fw-bold">{{
-                  currentCadetData.date_of_birth
-                }}</span
+                <span v-if="currentCadetData.date_of_birth" class="fw-bold">
+                  {{
+                    new Date(currentCadetData.date_of_birth).toLocaleString(
+                      "ru-RU",
+                      {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                      },
+                    )
+                  }} </span
                 ><span v-else class="fw-bold">Нет данных</span>
               </h3>
               <div class="border border-2 my-3"></div>

@@ -51,7 +51,12 @@
           <p class="card-text">
             Фотографирование, изготовление пропусков, зачетных книжек
           </p>
-          <router-link class="btn btn-primary"> Перейти </router-link>
+          <router-link
+            class="btn btn-primary"
+            :to="{ name: 'pass-office-employees' }"
+          >
+            Перейти
+          </router-link>
         </div>
       </div>
     </div>
