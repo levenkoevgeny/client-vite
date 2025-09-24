@@ -159,7 +159,7 @@
                         <div class="col-xl-2">
                           <div class="mb-3">
                             <label class="form-label" for="id_subdivision"
-                              >Дата окончания обучения</label
+                              >Дата оконч. обуч.</label
                             >
                             <input
                               type="date"
@@ -174,7 +174,7 @@
                         <div class="col-xl-2">
                           <div class="mb-3">
                             <label class="form-label" for="id_subdivision"
-                              >Дата выдачи зачетной книжки
+                              >Дата выдачи зач. кн.
                             </label>
                             <input
                               type="date"

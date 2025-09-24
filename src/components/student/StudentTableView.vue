@@ -2268,6 +2268,10 @@ export default {
           fieldName: "Место жительства (проживания)",
           fieldValue: "address_residence",
         },
+        {
+          fieldName: "Место жительства (регистрация)",
+          fieldValue: "address_registration",
+        },
         { fieldName: "Номер телефона", fieldValue: "phone_number" },
         { fieldName: "Тип паспорта", fieldValue: "get_passport_document_type" },
         { fieldName: "Номер паспорта", fieldValue: "passport_number" },

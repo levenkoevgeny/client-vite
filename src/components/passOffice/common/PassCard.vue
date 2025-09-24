@@ -168,7 +168,7 @@ export default {
         } else if (this.foundCard.employee) {
           return {
             ...this.foundCard.employee,
-            category: "Сотрудник или гражданский персонал",
+            category: "Сотрудники или гражданский персонал",
           }
         } else if (this.foundCard.fpk_prk) {
           return {
