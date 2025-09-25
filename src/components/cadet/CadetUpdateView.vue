@@ -2649,7 +2649,10 @@ export default {
       if (index !== -1) {
         ids_array.splice(index, 1)
       }
-      globalCadetAPIInstance.searchObj.ids = ids_array.join(",")
+      if (ids_array.length > 0) {
+        globalCadetAPIInstance.searchObj.ids = ids_array.join(",")
+      } else
+        globalCadetAPIInstance.searchObj.ids = "1111111111111111111111111111111"
     },
   },
   computed: {
