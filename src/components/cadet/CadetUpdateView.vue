@@ -12,10 +12,38 @@
     </div>
 
     <div v-else>
-      <h1 class="my-2 text-decoration-underline">
-        Личное дело ({{ currentCadetData.last_name_rus }}
-        {{ currentCadetData.first_name_rus }})
-      </h1>
+      <div class="d-flex flex-row align-items-end justify-content-start">
+        <div
+          style="height: 70px"
+          class="d-flex flex-row align-items-center justify-content-start"
+        >
+          <h1 class="text-decoration-underline me-4">
+            Личное дело ({{ currentCadetData.last_name_rus }}
+            {{ currentCadetData.first_name_rus }})
+          </h1>
+        </div>
+
+        <div
+          style="height: 70px"
+          class="d-flex flex-row align-items-center justify-content-start"
+          title="В избранное"
+        >
+          <label class="heart-checkbox">
+            <input
+              type="checkbox"
+              id="isFavoriteCadet"
+              :checked="getIfThisCadetIsInFavorite"
+              @change="favoriteCheckBoxChanged"
+            />
+            <font-awesome-icon
+              :icon="['fas', 'bookmark']"
+              class="heart-icon"
+              style="font-size: 2rem"
+            />
+          </label>
+        </div>
+      </div>
+
       <div class="mb-3"></div>
       <div class="row">
         <div class="col-10">
@@ -2390,6 +2418,7 @@
 
 <script>
 import getCadetAPIInstance from "@/api/cadet/cadetAPI"
+import { globalCadetAPIInstance } from "@/api/cadet/cadetAPI"
 
 import { debounce } from "lodash/function"
 import { defineAsyncComponent } from "vue"
@@ -2561,6 +2590,7 @@ export default {
         get_score_sum: "",
       },
       cadetAPIInstance: getCadetAPIInstance(),
+      globalCadetAPIInstance: globalCadetAPIInstance,
       BACKEND_PROTOCOL: import.meta.env.VITE_APP_BACKEND_PROTOCOL,
       BACKEND_HOST: import.meta.env.VITE_APP_BACKEND_HOST,
       BACKEND_PORT: import.meta.env.VITE_APP_BACKEND_PORT,
@@ -2608,6 +2638,18 @@ export default {
       if (event.target.value.trim().length === 0) {
         this.currentStudentData[event.target.name] = null
       }
+    },
+    favoriteCheckBoxChanged(event) {
+      this.$store.dispatch("favoriteCadets/actionAddOrDeleteFromFavorites", {
+        cadet: this.currentCadetData.id,
+        checked: event.target.checked,
+      })
+      let ids_array = globalCadetAPIInstance.searchObj.ids.split(",")
+      let index = ids_array.indexOf(this.currentCadetData.id.toString())
+      if (index !== -1) {
+        ids_array.splice(index, 1)
+      }
+      globalCadetAPIInstance.searchObj.ids = ids_array.join(",")
     },
   },
   computed: {
@@ -2874,6 +2916,11 @@ export default {
       //   статья - ${this.currentCadetData.graduation_reason_article || "Нет данных"}`
       // } else return "Нет данных о дате отчисления"
     },
+    getIfThisCadetIsInFavorite() {
+      return this.favoriteCadetsIdsInString.includes(
+        this.currentCadetData.id.toString(),
+      )
+    },
     ...mapGetters({
       groups: "groups/getList",
       ranks: "ranks/getList",
@@ -2894,6 +2941,8 @@ export default {
       ppflCategories: "ppflCategories/getList",
       admissionQuota: "admissionQuota/getList",
       privileges: "privileges/getList",
+      favoriteCadets: "favoriteCadets/getList",
+      favoriteCadetsIdsInString: "favoriteCadets/getMainListIdsInString",
     }),
   },
   watch: {

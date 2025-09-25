@@ -11,14 +11,17 @@
       </button>
     </template>
     <template v-slot:table-mode-button>
-      <router-link
-        :to="{ name: 'cadet-full' }"
-        class="fs-3 fw-light link-secondary"
-        title="Табличный режим"
-      >
-        <font-awesome-icon :icon="['fas', 'table']" />
-      </router-link>
+      <div class="d-flex flex-row align-items-center justify-content-start">
+        <router-link
+          :to="{ name: 'cadet-full' }"
+          class="fs-3 fw-light link-secondary me-4 my-0"
+          title="Табличный режим"
+        >
+          <font-awesome-icon :icon="['fas', 'table']" />
+        </router-link>
+      </div>
     </template>
+
     <template v-slot:modals>
       <div
         class="modal fade"
@@ -133,13 +136,17 @@
             style="width: 50px"
           />
         </td>
-        <td>{{ cadet.get_rank }}</td>
-        <td>
+        <td :class="{ 'text-primary': getIfThisCadetIsInFavorite(cadet.id) }">
+          {{ cadet.get_rank }}
+        </td>
+        <td :class="{ 'text-primary': getIfThisCadetIsInFavorite(cadet.id) }">
           {{ cadet.last_name_rus }}<br />
           {{ cadet.first_name_rus }}<br />{{ cadet.patronymic_rus }}
         </td>
-        <td>{{ cadet.get_position }}</td>
-        <td>
+        <td :class="{ 'text-primary': getIfThisCadetIsInFavorite(cadet.id) }">
+          {{ cadet.get_position }}
+        </td>
+        <td :class="{ 'text-primary': getIfThisCadetIsInFavorite(cadet.id) }">
           {{
             new Date(cadet.date_of_birth).toLocaleString("ru-RU", {
               day: "numeric",
@@ -172,8 +179,22 @@
         </td>
       </tr>
     </template>
-    <template v-slot:paginator> </template>
+    <template v-slot:paginator></template>
     <template v-slot:search-form>
+      <div class="mb-3">
+        <label class="heart-checkbox fs-3 fw-light link-secondary">
+          <input
+            type="checkbox"
+            @change="setFavoriteList"
+            v-model="searchForm.isFavoriteOn"
+          />
+          <font-awesome-icon
+            :icon="['fas', 'bookmark']"
+            class="heart-icon"
+            style="font-size: 1.5rem"
+          />
+        </label>
+      </div>
       <div class="mb-3">
         <label for="last_name_rus" class="form-label">Активная запись</label>
         <select
@@ -446,7 +467,6 @@ export default {
         this.isLoading = false
       }
     },
-
     async loadMoreData(entries, observer) {
       if (entries[0].isIntersecting) {
         if (this.cadetList) {
@@ -471,6 +491,16 @@ export default {
           }
         }
       }
+    },
+    async setFavoriteList(event) {
+      if (event.target.checked) {
+        this.searchForm.ids = this.favoriteCadetsIdsInString
+      } else {
+        this.searchForm.ids = ""
+      }
+    },
+    getIfThisCadetIsInFavorite(cadetId) {
+      return this.favoriteCadetsIdsInString.includes(cadetId.toString())
     },
   },
 
@@ -503,6 +533,8 @@ export default {
       subdivisions: "subdivisions/getList",
       specialities: "specialities/getList",
       positions: "positions/getList",
+      favoriteCadets: "favoriteCadets/getList",
+      favoriteCadetsIdsInString: "favoriteCadets/getMainListIdsInString",
     }),
   },
   watch: {

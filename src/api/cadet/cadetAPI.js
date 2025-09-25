@@ -96,6 +96,7 @@ class CadetAPI extends BaseAPI {
 }
 
 const searchObj = {
+  ids: "",
   is_active: "true",
   category: "",
   category__in: "",
@@ -257,6 +258,7 @@ const searchObj = {
   entrance_year__lte: "",
   entrance_year__exact: "",
   has_polygraph: "",
+  isFavoriteOn: "",
   ordering: null,
 }
 

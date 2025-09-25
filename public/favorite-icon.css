@@ -1,0 +1,16 @@
+.heart-checkbox {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.heart-checkbox input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.heart-checkbox input[type="checkbox"]:checked ~ .heart-icon {
+    color: #0a53be;
+}

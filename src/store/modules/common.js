@@ -55,6 +55,7 @@ const actions = {
       root: true,
     })
     await dispatch("admissionQuota/actionGetList", null, { root: true })
+    await dispatch("favoriteCadets/actionGetList", null, { root: true })
     commit("setIsCommonLoading", false)
   },
 }
