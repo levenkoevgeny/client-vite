@@ -2520,6 +2520,10 @@ export default {
           fieldName: "Из многодетной семьи",
           fieldValue: "is_from_large_family",
         },
+        {
+          fieldName: "Льгота",
+          fieldValue: "get_privilege_1",
+        },
       ],
       selectedFieldsForDataExport: ["last_name_rus", "first_name_rus"],
       searchForm: Object.assign({}, globalStudentAPIInstance.searchObj),

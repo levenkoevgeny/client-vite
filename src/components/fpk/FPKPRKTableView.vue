@@ -1698,6 +1698,10 @@ export default {
           fieldName: "Иностранный язык - аттестат - количество баллов",
           fieldValue: "foreign_lang_score_cert",
         },
+        {
+          fieldName: "Сумма баллов",
+          fieldValue: "score_sum",
+        },
       ],
       selectedFieldsForDataExport: ["last_name_rus", "first_name_rus"],
       searchForm: Object.assign({}, globalFPKPRKStudentAPIInstance.searchObj),
