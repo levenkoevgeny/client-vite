@@ -414,7 +414,19 @@
             </div>
 
             <OrderHistoryStudentComponent :student-id="$route.params.id" />
-
+            <div class="shadow p-3 mb-3" id="simple-list-passport-data">
+              <div class="card border-0">
+                <div class="card-body">
+                  <h5 class="card-title">Поле "примечание" из старой базы</h5>
+                  <div v-if="currentStudentData.access_data">
+                    {{
+                      JSON.parse(currentStudentData.access_data).primechanie ||
+                      "Нет данных"
+                    }}
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="shadow p-3 mb-3" id="simple-list-passport-data">
               <div class="card border-0">
                 <div class="card-body">
