@@ -76,7 +76,7 @@
               <h3 class="card-title my-2 text-secondary-emphasis fst-italic">
                 Группа -
                 <span v-if="currentCadetData.group" class="fw-bold">{{
-                  currentCadetData.group
+                  currentCadetData.get_group
                 }}</span
                 ><span v-else class="fw-bold">Нет данных</span>
               </h3>
