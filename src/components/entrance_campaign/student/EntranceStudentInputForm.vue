@@ -1630,149 +1630,6 @@
                             <div class="col-xl-3">
                               <div class="form-check mb-3">
                                 <input
-                                  id="id_is_class_vpn"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="currentStudentData.is_class_vpn"
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_is_class_vpn"
-                                >
-                                  Класс военно-патриотической направленности
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_class_vpn_extra_data"
-                                  type="text"
-                                  class="form-control"
-                                  placeholder="Претендует на аттестат с отличием (доп.)"
-                                  v-model="
-                                    currentStudentData.class_vpn_extra_data
-                                  "
-                                />
-                                <label for="id_class_vpn_extra_data"
-                                  >Класс военно-патриотической направленности
-                                  (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_is_class_pn"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="currentStudentData.is_class_pn"
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_is_class_pn"
-                                >
-                                  Класс правовой направленности
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_class_pn_extra_data"
-                                  type="text"
-                                  class="form-control"
-                                  placeholder="Претендует на аттестат с отличием (доп.)"
-                                  v-model="
-                                    currentStudentData.class_pn_extra_data
-                                  "
-                                />
-                                <label for="id_class_pn_extra_data"
-                                  >Класс правовой направленности (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_is_class_other"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="currentStudentData.is_class_other"
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_is_class_other"
-                                >
-                                  Профильный класс иной направленности
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_class_other_extra_data"
-                                  type="text"
-                                  class="form-control form-control-sm"
-                                  placeholder="Профильный класс иной направленности
-                              (доп.)"
-                                  v-model="
-                                    currentStudentData.class_other_extra_data
-                                  "
-                                />
-                                <label for="id_class_other_extra_data"
-                                  >Профильный класс иной направленности
-                                  (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_victims_of_the_Chernobyl_disaster"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="
-                                    currentStudentData.victims_of_the_Chernobyl_disaster
-                                  "
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_victims_of_the_Chernobyl_disaster"
-                                >
-                                  Пострадавшие от катастрофы на ЧАЭС
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_victims_of_the_Chernobyl_disaster_extra_data"
-                                  type="text"
-                                  class="form-control form-control-sm"
-                                  placeholder="Пострадавшие от катастрофы на ЧАЭС (доп.)"
-                                  v-model="
-                                    currentStudentData.victims_of_the_Chernobyl_disaster_extra_data
-                                  "
-                                />
-                                <label
-                                  for="id_victims_of_the_Chernobyl_disaster_extra_data"
-                                  >Пострадавшие от катастрофы на ЧАЭС
-                                  (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
                                   id="id_is_brsm_member"
                                   class="form-check-input"
                                   type="checkbox"
@@ -1845,6 +1702,44 @@
                             <div class="col-xl-3">
                               <div class="form-check mb-3">
                                 <input
+                                  id="id_victims_of_the_Chernobyl_disaster"
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  v-model="
+                                    currentStudentData.victims_of_the_Chernobyl_disaster
+                                  "
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="id_victims_of_the_Chernobyl_disaster"
+                                >
+                                  Пострадавшие от катастрофы на ЧАЭС
+                                </label>
+                              </div>
+                            </div>
+                            <div class="col-xl-9">
+                              <div class="form-floating mb-3">
+                                <input
+                                  id="id_victims_of_the_Chernobyl_disaster_extra_data"
+                                  type="text"
+                                  class="form-control form-control-sm"
+                                  placeholder="Пострадавшие от катастрофы на ЧАЭС (доп.)"
+                                  v-model="
+                                    currentStudentData.victims_of_the_Chernobyl_disaster_extra_data
+                                  "
+                                />
+                                <label
+                                  for="id_victims_of_the_Chernobyl_disaster_extra_data"
+                                  >Пострадавшие от катастрофы на ЧАЭС
+                                  (доп.)</label
+                                >
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row d-flex flex-row align-items-center">
+                            <div class="col-xl-3">
+                              <div class="form-check mb-3">
+                                <input
                                   id="id_is_from_large_family"
                                   class="form-check-input"
                                   type="checkbox"
@@ -1877,7 +1772,229 @@
                               </div>
                             </div>
                           </div>
+                          <div class="row d-flex flex-row align-items-center">
+                            <div class="col-xl-3">
+                              <div class="form-check mb-3">
+                                <input
+                                  id="id_is_from_low_income_families"
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  v-model="
+                                    currentStudentData.is_from_low_income_families
+                                  "
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="id_is_from_low_income_families"
+                                >
+                                  Из малообеспеченной семьи
+                                </label>
+                              </div>
+                            </div>
+                            <div class="col-xl-9">
+                              <div class="form-floating mb-3">
+                                <input
+                                  id="id_from_low_income_families_extra_data"
+                                  type="text"
+                                  class="form-control form-control-sm"
+                                  placeholder="Из малообеспеченной семьи (доп.)"
+                                  v-model="
+                                    currentStudentData.from_low_income_families_extra_data
+                                  "
+                                />
+                                <label
+                                  for="id_from_low_income_families_extra_data"
+                                  >Из малообеспеченной семьи (доп.)</label
+                                >
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row d-flex flex-row align-items-center">
+                            <div class="col-xl-3">
+                              <div class="form-check mb-3">
+                                <input
+                                  id="id_from_single_parent_family"
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  v-model="
+                                    currentStudentData.from_single_parent_family
+                                  "
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="id_from_single_parent_family"
+                                >
+                                  Из неполной семьи
+                                </label>
+                              </div>
+                            </div>
+                            <div class="col-xl-9">
+                              <div class="form-floating mb-3">
+                                <input
+                                  id="id_from_single_parent_family_extra_data"
+                                  type="text"
+                                  class="form-control"
+                                  placeholder="Из неполной семьи (доп.)"
+                                  v-model="
+                                    currentStudentData.from_single_parent_family_extra_data
+                                  "
+                                />
+                                <label
+                                  for="id_from_single_parent_family_extra_data"
+                                  >Из неполной семьи (доп.)</label
+                                >
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row d-flex flex-row align-items-center">
+                            <div class="col-xl-3">
+                              <div class="form-check mb-3">
+                                <input
+                                  id="id_is_orphan"
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  v-model="currentStudentData.is_orphan"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="id_is_orphan"
+                                >
+                                  Из числа детей-сирот
+                                </label>
+                              </div>
+                            </div>
+                            <div class="col-xl-9">
+                              <div class="form-floating mb-3">
+                                <input
+                                  id="id_is_orphan_extra_data"
+                                  type="text"
+                                  class="form-control"
+                                  placeholder="Из числа детей-сирот (доп.)"
+                                  v-model="
+                                    currentStudentData.is_orphan_extra_data
+                                  "
+                                />
+                                <label for="id_is_orphan_extra_data"
+                                  >Из числа детей-сирот (доп.)</label
+                                >
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row d-flex flex-row align-items-center">
+                            <div class="col-xl-3">
+                              <div class="form-check mb-3">
+                                <input
+                                  id="id_is_children_left_without_parental_care"
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  v-model="
+                                    currentStudentData.is_children_left_without_parental_care
+                                  "
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="id_is_children_left_without_parental_care"
+                                >
+                                  Из числа детей, оставшихся без попечения
+                                  родителей
+                                </label>
+                              </div>
+                            </div>
+                            <div class="col-xl-9">
+                              <div class="form-floating mb-3">
+                                <input
+                                  id="id_is_children_left_without_parental_care_extra_data"
+                                  type="text"
+                                  class="form-control"
+                                  placeholder="Из числа детей, оставшихся без попечения
+                                  родителей (доп.)"
+                                  v-model="
+                                    currentStudentData.is_children_left_without_parental_care_extra_data
+                                  "
+                                />
+                                <label
+                                  for="id_is_children_left_without_parental_care_extra_data"
+                                  >Из числа детей, оставшихся без попечения
+                                  родителей (доп.)</label
+                                >
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row d-flex flex-row align-items-center">
+                            <div class="col-xl-3">
+                              <div class="form-check mb-3">
+                                <input
+                                  id="id_has_own_family"
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  v-model="currentStudentData.has_own_family"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="id_has_own_family"
+                                >
+                                  Из числа имеющих семьи
+                                </label>
+                              </div>
+                            </div>
+                            <div class="col-xl-9">
+                              <div class="form-floating mb-3">
+                                <input
+                                  id="id_has_own_family_extra_data"
+                                  type="text"
+                                  class="form-control"
+                                  placeholder="Из числа имеющих семьи (доп.)"
+                                  v-model="
+                                    currentStudentData.has_own_family_extra_data
+                                  "
+                                />
+                                <label for="id_has_own_family_extra_data"
+                                  >Из числа имеющих семьи (доп.)</label
+                                >
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row d-flex flex-row align-items-center">
+                            <div class="col-xl-3">
+                              <div class="form-check mb-3">
+                                <input
+                                  id="id_have_dependent_children_parents"
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  v-model="
+                                    currentStudentData.have_dependent_children_parents
+                                  "
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="id_have_dependent_children_parents"
+                                >
+                                  Имеют на иждивении детей и / или родителей
+                                </label>
+                              </div>
+                            </div>
+                            <div class="col-xl-9">
+                              <div class="form-floating mb-3">
+                                <input
+                                  id="id_have_dependent_children_parents_extra_data"
+                                  type="text"
+                                  class="form-control form-control-sm"
+                                  placeholder="Имеют на иждевении детей и / или родителей (доп.)"
+                                  v-model="
+                                    currentStudentData.have_dependent_children_parents_extra_data
+                                  "
+                                />
+                                <label
+                                  for="id_have_dependent_children_parents_extra_data"
+                                  >Имеют на иждевении детей и / или родителей
+                                  (доп.)</label
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
 
+                        <div class="col-xl-6">
                           <div class="row d-flex flex-row align-items-center">
                             <div class="col-xl-3">
                               <div class="form-check mb-3">
@@ -1916,7 +2033,6 @@
                               </div>
                             </div>
                           </div>
-
                           <div class="row d-flex flex-row align-items-center">
                             <div class="col-xl-3">
                               <div class="form-check mb-3">
@@ -1961,84 +2077,6 @@
                             <div class="col-xl-3">
                               <div class="form-check mb-3">
                                 <input
-                                  id="id_is_from_low_income_families"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="
-                                    currentStudentData.is_from_low_income_families
-                                  "
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_is_from_low_income_families"
-                                >
-                                  Из малообеспеченной семьи
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_from_low_income_families_extra_data"
-                                  type="text"
-                                  class="form-control form-control-sm"
-                                  placeholder="Из малообеспеченной семьи (доп.)"
-                                  v-model="
-                                    currentStudentData.from_low_income_families_extra_data
-                                  "
-                                />
-                                <label
-                                  for="id_from_low_income_families_extra_data"
-                                  >Из малообеспеченной семьи (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-xl-6">
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_have_dependent_children_parents"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="
-                                    currentStudentData.have_dependent_children_parents
-                                  "
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_have_dependent_children_parents"
-                                >
-                                  Имеют на иждивении детей и / или родителей
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_have_dependent_children_parents_extra_data"
-                                  type="text"
-                                  class="form-control form-control-sm"
-                                  placeholder="Имеют на иждевении детей и / или родителей (доп.)"
-                                  v-model="
-                                    currentStudentData.have_dependent_children_parents_extra_data
-                                  "
-                                />
-                                <label
-                                  for="id_have_dependent_children_parents_extra_data"
-                                  >Имеют на иждевении детей и / или родителей
-                                  (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
                                   id="id_has_achievements_in_sports"
                                   class="form-check-input"
                                   type="checkbox"
@@ -2068,43 +2106,6 @@
                                 <label
                                   for="id_has_achievements_in_sports_extra_data"
                                   >Достижения в спорте (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_from_single_parent_family"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="
-                                    currentStudentData.from_single_parent_family
-                                  "
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_from_single_parent_family"
-                                >
-                                  Из неполной семьи
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_from_single_parent_family_extra_data"
-                                  type="text"
-                                  class="form-control"
-                                  placeholder="Из неполной семьи (доп.)"
-                                  v-model="
-                                    currentStudentData.from_single_parent_family_extra_data
-                                  "
-                                />
-                                <label
-                                  for="id_from_single_parent_family_extra_data"
-                                  >Из неполной семьи (доп.)</label
                                 >
                               </div>
                             </div>
@@ -2257,113 +2258,74 @@
                               </div>
                             </div>
                           </div>
-
                           <div class="row d-flex flex-row align-items-center">
                             <div class="col-xl-3">
                               <div class="form-check mb-3">
                                 <input
-                                  id="id_is_orphan"
+                                  id="id_has_drivers_licence"
                                   class="form-check-input"
                                   type="checkbox"
-                                  v-model="currentStudentData.is_orphan"
+                                  v-model="
+                                    currentStudentData.has_drivers_licence
+                                  "
                                 />
                                 <label
                                   class="form-check-label"
-                                  for="id_is_orphan"
+                                  for="id_has_drivers_licence"
                                 >
-                                  Из числа детей-сирот
+                                  Имеет водительское удостоверение
                                 </label>
                               </div>
                             </div>
                             <div class="col-xl-9">
                               <div class="form-floating mb-3">
                                 <input
-                                  id="id_is_orphan_extra_data"
+                                  id="id_has_drivers_licence_extra_data"
                                   type="text"
                                   class="form-control"
-                                  placeholder="Из числа детей-сирот (доп.)"
+                                  placeholder="Имеет водительское удостоверение (доп.)"
                                   v-model="
-                                    currentStudentData.is_orphan_extra_data
+                                    currentStudentData.has_drivers_licence_extra_data
                                   "
                                 />
-                                <label for="id_is_orphan_extra_data"
-                                  >Из числа детей-сирот (доп.)</label
+                                <label for="id_has_drivers_licence_extra_data"
+                                  >Имеет водительское удостоверение
+                                  (доп.)</label
                                 >
                               </div>
                             </div>
                           </div>
-
                           <div class="row d-flex flex-row align-items-center">
                             <div class="col-xl-3">
                               <div class="form-check mb-3">
                                 <input
-                                  id="id_is_children_left_without_parental_care"
+                                  id="id_drives_vehicle"
                                   class="form-check-input"
                                   type="checkbox"
-                                  v-model="
-                                    currentStudentData.is_children_left_without_parental_care
-                                  "
+                                  v-model="currentStudentData.drives_vehicle"
                                 />
                                 <label
                                   class="form-check-label"
-                                  for="id_is_children_left_without_parental_care"
+                                  for="id_drives_vehicle"
                                 >
-                                  Из числа детей, оставшихся без попечения
-                                  родителей
+                                  Управляет транспортным средством
                                 </label>
                               </div>
                             </div>
                             <div class="col-xl-9">
                               <div class="form-floating mb-3">
                                 <input
-                                  id="id_is_children_left_without_parental_care_extra_data"
+                                  id="id_drives_vehicle_extra_data"
                                   type="text"
                                   class="form-control"
-                                  placeholder="Из числа детей, оставшихся без попечения
-                                  родителей (доп.)"
+                                  placeholder="Управляет транспортным средством (доп.)"
                                   v-model="
-                                    currentStudentData.is_children_left_without_parental_care_extra_data
+                                    currentStudentData.drives_vehicle_extra_data
                                   "
                                 />
-                                <label
-                                  for="id_is_children_left_without_parental_care_extra_data"
-                                  >Из числа детей, оставшихся без попечения
-                                  родителей (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_has_own_family"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="currentStudentData.has_own_family"
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_has_own_family"
-                                >
-                                  Из числа имеющих семьи
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_has_own_family_extra_data"
-                                  type="text"
-                                  class="form-control"
-                                  placeholder="Из числа имеющих семьи (доп.)"
-                                  v-model="
-                                    currentStudentData.has_own_family_extra_data
-                                  "
-                                />
-                                <label for="id_has_own_family_extra_data"
-                                  >Из числа имеющих семьи (доп.)</label
+                                <label for="id_drives_vehicle_extra_data"
+                                  >Управляет транспортным средством
+                                  (доп.)</label
                                 >
                               </div>
                             </div>

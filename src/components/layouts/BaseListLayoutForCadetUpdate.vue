@@ -1,8 +1,8 @@
 <template>
   <div class="card border-0">
     <div class="card-body">
-      <h5 class="card-title">
-        {{ title }}
+      <h5 class="card-title fw-bold">
+        {{ title.toUpperCase() }}
       </h5>
 
       <div class="d-flex align-items-center justify-content-end mb-4">

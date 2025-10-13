@@ -42,6 +42,7 @@ import healthGroup from "@/store/modules/healthGroup.js"
 import profiling from "@/store/modules/profiling.js"
 import admissionQuota from "@/store/modules/admissionQuota.js"
 import favoriteCadets from "@/store/modules/favoriteCadets.js"
+import classProfiles from "@/store/modules/classProfiles.js"
 
 const store = createStore({
   modules: {
@@ -88,6 +89,7 @@ const store = createStore({
     profiling,
     admissionQuota,
     favoriteCadets,
+    classProfiles,
   },
 })
 
