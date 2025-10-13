@@ -14,3 +14,9 @@
 .heart-checkbox input[type="checkbox"]:checked ~ .heart-icon {
     color: #0a53be;
 }
+
+.heart-checkbox input[type="checkbox"]:checked ~ .heart-icon-red {
+    color: red;
+}
+
+
