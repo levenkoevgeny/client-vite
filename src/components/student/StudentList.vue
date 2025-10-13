@@ -230,6 +230,38 @@
         </th>
         <th scope="col">
           <div class="d-flex flex-row align-items-center">
+            <span class="text-nowrap">Год набора</span>
+            <div class="dropdown">
+              <button
+                class="btn dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              ></button>
+              <ul class="dropdown-menu">
+                <li>
+                  <button
+                    class="dropdown-item"
+                    @click="setOrdering('entrance_year')"
+                  >
+                    меньш. -> больш.
+                  </button>
+                </li>
+                <li>
+                  <button
+                    class="dropdown-item"
+                    @click="setOrdering('-entrance_year')"
+                  >
+                    больш. -> меньш.
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </th>
+
+        <th scope="col">
+          <div class="d-flex flex-row align-items-center">
             <span class="text-nowrap">Группа</span>
             <div class="dropdown">
               <button
@@ -259,6 +291,7 @@
             </div>
           </div>
         </th>
+
         <th scope="col">
           <div class="d-flex flex-row align-items-center">
             <span class="text-nowrap">Курс</span>
@@ -396,6 +429,9 @@
         <td>
           {{ student.patronymic_rus }}
         </td>
+        <td>
+          {{ student.entrance_year }}
+        </td>
         <td>{{ student.get_group }}</td>
         <td>{{ student.year }}</td>
         <td>{{ student.year_litera }}</td>
@@ -429,6 +465,35 @@
           v-model="searchForm.last_name_rus__icontains"
           autocomplete="false"
         />
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <div class="mb-3">
+            <label for="entrance_year__gte" class="form-label"
+              >Год набора (с)</label
+            >
+            <input
+              type="number"
+              class="form-control"
+              id="entrance_year__gte"
+              v-model="searchForm.entrance_year__gte"
+            />
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="mb-3">
+            <label for="entrance_year__lte" class="form-label"
+              >Год набора (по)</label
+            >
+            <input
+              type="number"
+              class="form-control"
+              id="entrance_year__lte"
+              v-model="searchForm.entrance_year__lte"
+            />
+          </div>
+        </div>
       </div>
 
       <div class="mb-3">

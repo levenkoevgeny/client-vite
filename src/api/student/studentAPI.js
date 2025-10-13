@@ -271,6 +271,10 @@ const searchObj = {
   has_2_ce: "",
   is_enrolled: "",
   extra_data__icontains: "",
+  wrong_status: "",
+  wrong_status_text__icontains: "",
+  class_profile_text__icontains: "",
+  class_profile: "",
   ordering: null,
 }
 
