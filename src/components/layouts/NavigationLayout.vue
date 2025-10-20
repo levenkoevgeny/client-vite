@@ -162,6 +162,9 @@ export default {
     this.htmlElement = document.documentElement
     this.currentTheme = localStorage.getItem("bsTheme") || "dark"
     this.htmlElement.setAttribute("data-bs-theme", this.currentTheme)
+    this.currentTheme === "dark"
+      ? document.documentElement.classList.add("prime-dark")
+      : document.documentElement.classList.remove("prime-dark")
   },
   methods: {
     modeChange(e) {
@@ -169,9 +172,11 @@ export default {
       if (checked) {
         this.htmlElement.setAttribute("data-bs-theme", "dark")
         localStorage.setItem("bsTheme", "dark")
+        document.documentElement.classList.add("prime-dark")
       } else {
         this.htmlElement.setAttribute("data-bs-theme", "light")
         localStorage.setItem("bsTheme", "light")
+        document.documentElement.classList.remove("prime-dark")
       }
     },
     logOut() {

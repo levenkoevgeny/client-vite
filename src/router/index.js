@@ -297,6 +297,12 @@ const routes = [
             name: "student-table-view",
           },
           {
+            path: "table-view-prime",
+            component: () =>
+              import("@/components/student/StudentTableViewPrime.vue"),
+            name: "student-table-view-prime",
+          },
+          {
             path: "reports",
             component: StudentDocsMakeView,
             name: "student-reports",

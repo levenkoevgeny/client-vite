@@ -16,7 +16,7 @@
 }
 
 .heart-checkbox input[type="checkbox"]:checked ~ .heart-icon-red {
-    color: red;
+    color: #e35d6a;
 }
 
 

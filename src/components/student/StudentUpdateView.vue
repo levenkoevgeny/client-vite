@@ -446,16 +446,9 @@
                         </div>
                       </div>
 
-                      Общественная нагрузка в период обучения
-                      <table class="table">
-                        <tbody>
-                          <tr>
-                            <th>Начало деятельности (дата)</th>
-                            <th>Окончание деятельности (дата)</th>
-                            <th>Вид деятельности (текст)</th>
-                          </tr>
-                        </tbody>
-                      </table>
+                      <StudentPublicBurdenComponent
+                        :student-id="$route.params.id"
+                      />
                     </div>
                   </div>
                 </div>
@@ -2408,6 +2401,12 @@ import { debounce } from "lodash/function"
 import "vue-select/dist/vue-select.css"
 import { mapGetters } from "vuex"
 import { defineAsyncComponent } from "vue"
+const StudentPublicBurdenComponent = defineAsyncComponent(
+  () =>
+    import(
+      "@/components/student/publicBurden/StudentPublicBurdenComponent.vue"
+    ),
+)
 
 const OrderHistoryStudentComponent = defineAsyncComponent(
   () =>
@@ -2420,6 +2419,7 @@ export default {
   name: "StudentUpdateView",
   components: {
     OrderHistoryStudentComponent,
+    StudentPublicBurdenComponent,
   },
   data() {
     return {

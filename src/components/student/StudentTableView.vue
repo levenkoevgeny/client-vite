@@ -169,6 +169,22 @@
                   >Читатательский билет (по выбранным записям)</a
                 >
               </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  @click="make_examination_sheet()"
+                  style="cursor: pointer"
+                  >Экзаменационная ведомость</a
+                >
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  @click="make_group_sheet()"
+                  style="cursor: pointer"
+                  >Список группы</a
+                >
+              </li>
             </ul>
           </div>
 
@@ -2239,6 +2255,7 @@ import { globalStudentAPIInstance } from "@/api/student/studentAPI.js"
 import { debounce } from "lodash/function"
 import { mapGetters } from "vuex"
 import getUsersAPIInstance from "@/api/auth/usersAPI.js"
+import getGroupAPIInstance from "@/api/cadet/groupAPI.js"
 import { getQueryStringFromSearchForm } from "../../.././utils.js"
 
 export default {
@@ -2530,6 +2547,7 @@ export default {
       studentList: { count: 0, results: [], previous: null, next: null },
       studentAPIInstance: globalStudentAPIInstance,
       usersAPIInstance: getUsersAPIInstance(),
+      groupAPIInstance: getGroupAPIInstance(),
       library_cards_error_array: [],
     }
   },
@@ -2723,6 +2741,42 @@ export default {
         } catch (e) {
         } finally {
         }
+      }
+    },
+    async make_examination_sheet() {
+      let groups = this.searchForm.group__in
+      if (groups.length === 0) {
+        alert("Не выбрано ни одной группы!")
+      }
+      if (groups.length > 1) {
+        alert("Выбрано более одной группы!")
+      }
+      if (groups.length === 1) {
+        const response = await this.groupAPIInstance.makeExamSheet(groups[0])
+        const url = window.URL.createObjectURL(new Blob([response.data]))
+        const link = document.createElement("a")
+        link.href = url
+        link.setAttribute("download", "exam-sheet.docx")
+        document.body.appendChild(link)
+        link.click()
+      }
+    },
+    async make_group_sheet() {
+      let groups = this.searchForm.group__in
+      if (groups.length === 0) {
+        alert("Не выбрано ни одной группы!")
+      }
+      if (groups.length > 1) {
+        alert("Выбрано более одной группы!")
+      }
+      if (groups.length === 1) {
+        const response = await this.groupAPIInstance.makeGroupSheet(groups[0])
+        const url = window.URL.createObjectURL(new Blob([response.data]))
+        const link = document.createElement("a")
+        link.href = url
+        link.setAttribute("download", "group-sheet.docx")
+        document.body.appendChild(link)
+        link.click()
       }
     },
   },
