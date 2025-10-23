@@ -172,7 +172,7 @@
                 </div>
 
                 <div class="d-flex justify-content-center">
-                  <!--                  <Signature @save-signature-event="saveSignature" />-->
+                  <Signature @save-signature-event="saveSignature" />
                 </div>
               </div>
             </div>
