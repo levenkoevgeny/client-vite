@@ -23,6 +23,7 @@ class EmployeeAPI extends BaseAPI {
 
 export default function getEmployeeAPIInstance() {
   return new EmployeeAPI("employee-3v", {
+    is_active: true,
     last_name_rus__icontains: "",
     first_name_rus__icontains: "",
     patronymic_rus__icontains: "",
