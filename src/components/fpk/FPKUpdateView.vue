@@ -502,6 +502,21 @@
                         </select>
                       </div>
                     </div>
+                    <div class="col-lg-4">
+                      <div class="mb-3">
+                        <label
+                          class="form-label"
+                          for="id_student_record_book_number"
+                          >Номер зачетной книжки</label
+                        >
+                        <input
+                          type="text"
+                          id="id_student_record_book_number"
+                          class="form-control"
+                          v-model="currentFPKData.student_record_book_number"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -630,6 +645,7 @@ export default {
         social_status: "",
         military_office: "",
         extra_data: "",
+        student_record_book_number: "",
       },
       fpkAPIInstance: getFPKPRKStudentAPIInstance(),
       BACKEND_PROTOCOL: import.meta.env.VITE_APP_BACKEND_PROTOCOL,
