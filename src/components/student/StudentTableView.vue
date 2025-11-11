@@ -2541,6 +2541,14 @@ export default {
           fieldName: "Льгота",
           fieldValue: "get_privilege_1",
         },
+        {
+          fieldName: "ID считывателя карты пропуска",
+          fieldValue: "get_pass_card_uuid",
+        },
+        {
+          fieldName: "Номер бланка студенческого билета",
+          fieldValue: "get_student_blank_number",
+        },
       ],
       selectedFieldsForDataExport: ["last_name_rus", "first_name_rus"],
       searchForm: Object.assign({}, globalStudentAPIInstance.searchObj),
