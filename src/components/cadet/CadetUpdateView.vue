@@ -675,6 +675,20 @@
                         />
                       </div>
                     </div>
+                    <div class="col-lg-3">
+                      <div class="mb-3">
+                        <label class="form-label" for="id_subdivision"
+                          >Дата выдачи зачетной книжки</label
+                        >
+                        <input
+                          type="date"
+                          class="form-control"
+                          v-model="
+                            currentCadetData.student_record_book_date_issue
+                          "
+                        />
+                      </div>
+                    </div>
                   </div>
                   <div class="row">
                     <div class="col-12">

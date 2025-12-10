@@ -632,6 +632,7 @@ export default {
       searchForm: Object.assign({}, globalStudentAPIInstance.searchObj),
       studentNewForm: {
         category: 5,
+        subdivision: 8,
         last_name_rus: "",
         first_name_rus: "",
         date_of_birth: null,
