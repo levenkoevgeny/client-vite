@@ -19,7 +19,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <h1 class="modal-title fs-5">
-                Исправте следующие ошибки для формирования документа:
+                Исправьте следующие ошибки для формирования документа:
               </h1>
               <button
                 type="button"

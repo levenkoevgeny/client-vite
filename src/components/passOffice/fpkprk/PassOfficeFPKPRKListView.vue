@@ -6,6 +6,42 @@
     title="ФПКиПРК"
     :load-more-data="loadMoreData"
   >
+    <template v-slot:modals>
+      <div
+        class="modal fade"
+        id="printErrorModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+        ref="printErrorModal"
+      >
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5">
+                Исправьте следующие ошибки для формирования документа:
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div style="max-height: 350px; overflow-y: auto">
+                <div
+                  class="alert alert-danger my-1"
+                  v-for="error in error_list"
+                >
+                  {{ error }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
     <template v-slot:thead>
       <tr ref="thead">
         <th scope="col"></th>
@@ -134,11 +170,19 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Печать документов
+            <font-awesome-icon :icon="['fas', 'print']" />&nbsp;&nbsp;Печать
+            документов
           </button>
+
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Зачетные книжки</a></li>
-            <li><a class="dropdown-item" href="#">Студенческие билеты</a></li>
+            <li>
+              <a
+                class="dropdown-item"
+                @click="make_student_record_book()"
+                style="cursor: pointer"
+                >Сформировать зачетные книжки для выбранных записей</a
+              >
+            </li>
           </ul>
         </div>
       </div>
@@ -168,6 +212,10 @@ export default {
         globalFPKPRKStudentAPIInstanceForPassOffice.searchObj,
       ),
       currentCadetForUpdate: {},
+      error_list: [],
+      cadetRecordsCards: [],
+      cadetRecordsCardsForOneStudent: { results: [] },
+      currentCadetForRecordsCardsForOneStudent: null,
     }
   },
   async created() {
@@ -197,6 +245,39 @@ export default {
         this.cadetAPIInstance.searchObjDefault,
       )
     },
+
+    async make_student_record_book() {
+      this.error_list = []
+      this.cadetRecordsCards = []
+      if (!this.selectedItems.length) {
+        alert("Не выбрано ни одной записи!")
+      } else {
+        let items_array = []
+        this.selectedItems.map((item) => items_array.push(item.id))
+        const validationResponse =
+          await this.cadetAPIInstance.validateDataBeforeMakingStudentRecordBook(
+            items_array,
+          )
+        if (validationResponse.data.error_list.length) {
+          this.error_list = validationResponse.data.error_list
+          let errorModal = this.$refs.printErrorModal
+          let myModal = new bootstrap.Modal(errorModal, {
+            keyboard: false,
+          })
+          myModal.show()
+        } else {
+          const response =
+            await this.cadetAPIInstance.makeStudentRecordBook(items_array)
+          const url = window.URL.createObjectURL(new Blob([response.data]))
+          const link = document.createElement("a")
+          link.href = url
+          link.setAttribute("download", "fpk_records_books.pdf")
+          document.body.appendChild(link)
+          link.click()
+        }
+      }
+    },
+
     async loadMoreData(entries, observer) {
       if (entries[0].isIntersecting) {
         if (this.cadetList) {
@@ -251,14 +332,11 @@ export default {
         (subdivision) => subdivision.subdivision_category === "1",
       )
     },
+    selectedItems() {
+      return this.cadetList.results.filter((item) => item.isSelected)
+    },
     selectedItemsCount() {
-      let counter = 0
-      this.cadetList.results.map((item) => {
-        if (item.isSelected) {
-          counter++
-        }
-      })
-      return counter
+      return this.selectedItems.length
     },
     ...mapGetters({
       groups: "groups/getList",

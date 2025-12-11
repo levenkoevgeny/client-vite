@@ -93,6 +93,21 @@ class FPKPRKStudentAPI extends BaseAPI {
       { responseType: "blob" },
     )
   }
+
+  async validateDataBeforeMakingStudentRecordBook(items) {
+    return axios.post(
+      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/validate_data_before_making_student_record_book/`,
+      { selected_items: items },
+    )
+  }
+
+  async makeStudentRecordBook(items) {
+    return axios.post(
+      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/make_student_record_book/`,
+      { selected_items: items },
+      { responseType: "blob" },
+    )
+  }
 }
 
 const searchObj = {
