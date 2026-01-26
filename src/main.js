@@ -67,9 +67,14 @@ import { faUser } from "@fortawesome/free-solid-svg-icons"
 import { faCalendarDays } from "@fortawesome/free-solid-svg-icons"
 import { faDoorOpen } from "@fortawesome/free-solid-svg-icons"
 import { faBookmark } from "@fortawesome/free-solid-svg-icons"
+import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons"
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons"
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons"
 import axios from "axios"
 import "../public/vue-select.css"
 import "../public/favorite-icon.css"
+import PrimeVue from "primevue/config"
+import { MyPreset } from "@/preset/primevue-preset.js"
 
 export const axiosInstance = axios.create()
 
@@ -135,6 +140,9 @@ library.add(faUser)
 library.add(faCalendarDays)
 library.add(faDoorOpen)
 library.add(faBookmark)
+library.add(faExclamationCircle)
+library.add(faChevronLeft)
+library.add(faChevronRight)
 
 axiosInstance.interceptors.request.use(
   (config) => {
@@ -236,6 +244,21 @@ const app = createApp(App)
   .component("v-select", vSelect)
   .use(router)
   .use(store)
+  .use(PrimeVue, {
+    theme: {
+      preset: MyPreset,
+      options: {
+        darkModeSelector: ".prime-dark",
+      },
+    },
+    locale: {
+      clear: "Очистить",
+      apply: "Применить",
+      addRule: "Добавить правило",
+      removeRule: "Удалить правило",
+      emptySearchMessage: "Совпадений не найдено",
+    },
+  })
 
 app.config.globalProperties.$axios = axiosInstance
 

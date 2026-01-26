@@ -142,7 +142,7 @@ const searchObj = {
   group__in: "",
   year: "",
   year_litera: "",
-  contract_number: "",
+  contract_number__icontains: "",
   academy_start_date__gte: "",
   academy_start_date__lte: "",
   academy_end_date__gte: "",
