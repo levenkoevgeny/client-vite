@@ -2520,6 +2520,7 @@ export default {
         address_registration: "",
         phone_number: "",
         student_record_book_number: "",
+        student_record_book_date_issue: "",
         personal_number_mvd: "",
         marital_status: "",
         passport_number: "",
