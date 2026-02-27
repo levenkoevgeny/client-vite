@@ -113,7 +113,7 @@
     </div>
   </div>
 
-  <div class="container-fluid">
+  <div class="container-fluid" style="height: 92%">
     <div
       v-if="isLoading || isCommonLoading"
       style="height: calc(100vh - 170px)"
@@ -123,7 +123,7 @@
         <span class="visually-hidden">Loading...</span>
       </div>
     </div>
-    <div v-else>
+    <div v-else class="h-100 d-flex flex-column">
       <ul class="nav nav-links my-3 mb-lg-2 mx-n3">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#"
@@ -204,9 +204,16 @@
         v-model:filters="filters"
         @update:filters="updateSearchFormPrime"
         paginator
-        :rows="50"
+        @page="
+          (event) => {
+            console.log(event)
+          }
+        "
+        v-model:rows="limit"
+        v-model:first="offset"
+        :rows-per-page-options="[1, 2, 3, 5, 50, 100, 200, 500]"
         scrollable
-        scrollHeight="500px"
+        scrollHeight="flex"
         filterDisplay="menu"
         selection-mode="multiple"
         @row-dblclick="
@@ -292,7 +299,15 @@
                 </template>
               </template>
               <template #body="slotProps">
-                <BodyTemplate :column="column" :slot-props="slotProps" />
+                <template v-if="column.isBooleanField">
+                  <font-awesome-icon
+                    :icon="['fas', 'check']"
+                    v-if="slotProps.data[slotProps.field]"
+                  />
+                </template>
+                <template v-else>
+                  {{ slotProps.data[slotProps.field] }}</template
+                >
               </template>
             </Column>
           </template>
@@ -306,23 +321,31 @@
               :header="column.header"
             >
               <template #body="slotProps">
-                <BodyTemplate :column="column" :slot-props="slotProps" />
+                <template v-if="column.isBooleanField">
+                  <font-awesome-icon
+                    :icon="['fas', 'check']"
+                    v-if="slotProps.data[slotProps.field]"
+                  />
+                </template>
+                <template v-else>
+                  {{ slotProps.data[slotProps.field] }}</template
+                >
               </template>
             </Column>
           </template>
         </template>
-        <template #paginatorcontainer="{ prevPageCallback, nextPageCallback }">
-          <div @click="(getPreviousStudent, prevPageCallback)" class="mt-3">
-            <button class="btn btn-light" :disabled="!studentList.previous">
-              <font-awesome-icon :icon="['fas', 'chevron-left']" />
-            </button>
-          </div>
-          <div @click="nextPageCallback" class="mt-3">
-            <button class="btn btn-light" :disabled="!studentList.next">
-              <font-awesome-icon :icon="['fas', 'chevron-right']" />
-            </button>
-          </div>
-        </template>
+        <!--        <template #paginatorcontainer="{ prevPageCallback, nextPageCallback }">-->
+        <!--          <div @click="(getPreviousStudent, prevPageCallback)" class="mt-3">-->
+        <!--            <button class="btn btn-light" :disabled="!studentList.previous">-->
+        <!--              <font-awesome-icon :icon="['fas', 'chevron-left']" />-->
+        <!--            </button>-->
+        <!--          </div>-->
+        <!--          <div @click="nextPageCallback" class="mt-3">-->
+        <!--            <button class="btn btn-light" :disabled="!studentList.next">-->
+        <!--              <font-awesome-icon :icon="['fas', 'chevron-right']" />-->
+        <!--            </button>-->
+        <!--          </div>-->
+        <!--        </template>-->
       </DataTable>
     </div>
   </div>
@@ -343,7 +366,6 @@ import { globalStudentAPIInstance } from "@/api/student/studentAPI.js"
 import { getQueryStringFromSearchForm } from "../../.././utils.js"
 import { mapGetters } from "vuex"
 import getGroupAPIInstance from "@/api/cadet/groupAPI.js"
-import BodyTemplate from "@/components/primeComponents/BodyTemplate.vue"
 import { FilterService as filterService } from "@primevue/core/api"
 
 export default {
@@ -357,13 +379,14 @@ export default {
     MultiSelect,
     Select,
     InputText,
-    BodyTemplate,
   },
   data() {
     return {
       isLoading: true,
       isExporting: false,
       isDocumentProcessing: false,
+      limit: 1,
+      offset: 0,
       fieldsForDataExport: [
         {
           fieldName: "Статус записи (активна/ неактивна)",
@@ -1367,6 +1390,8 @@ export default {
       }
       this.studentAPIInstance.searchObj = {
         ...emptyObj,
+        offset: this.offset,
+        limit: this.limit,
       }
       await this.loadData(this.studentAPIInstance.searchObj)
     },
