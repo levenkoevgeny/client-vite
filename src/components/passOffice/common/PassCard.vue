@@ -116,15 +116,11 @@ export default {
       return uid.match(/..?/g).reverse().join("")
     },
     async readCardUID() {
-      // let data_chunk = await this.connected()
-      // const decoder = new TextDecoder()
-      // data_chunk = decoder.decode(data_chunk)
-      // const regex = /\[(.*?)\]/.exec(data_chunk)
-      // this.cardUID = regex
-      //   ? "0000" + this.splitCard(regex[1])
-      //   : "Карта не найдена"
-      this.cardUID = "FF000"
-
+      let data_chunk = await this.connected()
+      const decoder = new TextDecoder()
+      data_chunk = decoder.decode(data_chunk)
+      const regex = /\[(.*?)\]/.exec(data_chunk)
+      this.cardUID = regex ? "0000" + this.splitCard(regex[1]) : ""
       this.foundCard = { card_uuid: this.cardUID }
     },
 
@@ -168,7 +164,7 @@ export default {
         } else if (this.foundCard.employee) {
           return {
             ...this.foundCard.employee,
-            category: "Сотрудники или гражданский персонал",
+            category: "Сотрудник или гражданский персонал",
           }
         } else if (this.foundCard.fpk_prk) {
           return {

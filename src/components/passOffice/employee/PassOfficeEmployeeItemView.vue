@@ -214,7 +214,7 @@ export default {
     async loadData(employeeId) {
       try {
         const res = await this.employeeAPIInstance.getItemData(employeeId)
-        this.currentEmployeeData = res.data
+        this.currentEmployeeData = await res.data
         if (this.currentEmployeeData.pass_card) {
           const passCardResponse = await this.passCardAPIInstance.getItemData(
             this.currentEmployeeData.pass_card,

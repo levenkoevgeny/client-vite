@@ -58,26 +58,26 @@
               <h3 class="card-title my-2 text-secondary-emphasis fst-italic">
                 Фамилия -
                 <span class="fw-bold">{{
-                  currentCadetData.last_name_rus
-                }}</span>
+                    currentCadetData.last_name_rus
+                  }}</span>
               </h3>
               <h3 class="card-title my-2 text-secondary-emphasis fst-italic">
                 Имя -
                 <span class="fw-bold">{{
-                  currentCadetData.first_name_rus
-                }}</span>
+                    currentCadetData.first_name_rus
+                  }}</span>
               </h3>
               <h3 class="card-title my-2 text-secondary-emphasis fst-italic">
                 Отчество -
                 <span class="fw-bold">{{
-                  currentCadetData.patronymic_rus
-                }}</span>
+                    currentCadetData.patronymic_rus
+                  }}</span>
               </h3>
               <h3 class="card-title my-2 text-secondary-emphasis fst-italic">
                 Группа -
                 <span v-if="currentCadetData.group" class="fw-bold">{{
-                  currentCadetData.get_group
-                }}</span
+                    currentCadetData.get_group
+                  }}</span
                 ><span v-else class="fw-bold">Нет данных</span>
               </h3>
               <h3 class="card-title my-2 text-secondary-emphasis fst-italic">
@@ -89,8 +89,8 @@
                       {
                         day: "numeric",
                         month: "long",
-                        year: "numeric",
-                      },
+                        year: "numeric"
+                      }
                     )
                   }} </span
                 ><span v-else class="fw-bold">Нет данных</span>
@@ -209,11 +209,11 @@ export default {
         sign_image: "",
         group: "",
         date_of_birth: "",
-        pass_card: null,
+        pass_card: null
       },
       passCard: null,
       passCardAPIInstance: getPassCardAPIInstance(),
-      passCardSearchForm: Object.assign({}, getPassCardAPIInstance().searchObj),
+      passCardSearchForm: Object.assign({}, getPassCardAPIInstance().searchObj)
     }
   },
   async created() {
@@ -226,7 +226,7 @@ export default {
         this.currentCadetData = await res.data
         if (this.currentCadetData.pass_card) {
           const passCardResponse = await this.passCardAPIInstance.getItemData(
-            this.currentCadetData.pass_card,
+            this.currentCadetData.pass_card
           )
           this.passCard = passCardResponse.data
         }
@@ -238,7 +238,7 @@ export default {
     async showItemModal(itemId) {
       let itemModal = this.$refs.itemUpdateModal
       let myModal = new bootstrap.Modal(itemModal, {
-        keyboard: false,
+        keyboard: false
       })
       myModal.show()
     },
@@ -247,11 +247,11 @@ export default {
       formData.append("photo", photoFile)
       const response = await this.cadetAPIInstance.updatePhotoOrAnyFile(
         this.currentCadetData.id,
-        formData,
+        formData
       )
       this.currentCadetData = {
         ...this.currentCadetData,
-        photo: response.data.photo,
+        photo: response.data.photo
       }
       this.$refs.cadetCameraModalCloseButton.click()
     },
@@ -261,11 +261,11 @@ export default {
       formData.append("sign_image", signFile)
       const response = await this.cadetAPIInstance.updatePhotoOrAnyFile(
         this.currentCadetData.id,
-        formData,
+        formData
       )
       this.currentCadetData = {
         ...this.currentCadetData,
-        sign_image: response.data.sign_image,
+        sign_image: response.data.sign_image
       }
     },
 
@@ -274,11 +274,11 @@ export default {
       formData.append("photo", this.$refs.uploadedPhoto.files[0])
       const response = await this.cadetAPIInstance.updatePhotoOrAnyFile(
         this.currentCadetData.id,
-        formData,
+        formData
       )
       this.currentCadetData = {
         ...this.currentCadetData,
-        photo: response.data.photo,
+        photo: response.data.photo
       }
     },
     async uploadSignature() {
@@ -286,19 +286,19 @@ export default {
       formData.append("sign_image", this.$refs.uploadedSignature.files[0])
       const response = await this.cadetAPIInstance.updatePhotoOrAnyFile(
         this.currentCadetData.id,
-        formData,
+        formData
       )
       this.currentCadetData = {
         ...this.currentCadetData,
-        sign_image: response.data.sign_image,
+        sign_image: response.data.sign_image
       }
-    },
+    }
   },
   computed: {
     ...mapGetters({
-      isCommonLoading: "common/getIsCommonLoading",
-    }),
-  },
+      isCommonLoading: "common/getIsCommonLoading"
+    })
+  }
 }
 </script>
 
