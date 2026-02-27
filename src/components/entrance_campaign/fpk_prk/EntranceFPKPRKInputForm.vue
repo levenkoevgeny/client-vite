@@ -1,12 +1,12 @@
 <template>
   <div class="container-fluid">
     <div
-      class="modal fade"
-      id="id_cadetHistoryModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-      ref="cadetHistoryModal"
+        class="modal fade"
+        id="id_cadetHistoryModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+        ref="cadetHistoryModal"
     >
       <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
@@ -15,36 +15,36 @@
               История изменений:
             </h1>
             <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
             ></button>
           </div>
 
           <div class="modal-body">
             <div
-              style="max-height: 400px; overflow-y: auto"
-              v-if="fpk_prkHistoryList.results.length > 0"
+                style="max-height: 400px; overflow-y: auto"
+                v-if="fpk_prkHistoryList.results.length > 0"
             >
               <table class="table">
                 <thead>
-                  <tr>
-                    <th>Пользователь</th>
-                    <th>Действие</th>
-                    <th>Дата и время</th>
-                  </tr>
+                <tr>
+                  <th>Пользователь</th>
+                  <th>Действие</th>
+                  <th>Дата и время</th>
+                </tr>
                 </thead>
                 <tbody>
-                  <tr
+                <tr
                     v-for="record in fpk_prkHistoryList.results"
                     :key="record.id"
-                  >
-                    <td>{{ record.get_user }}</td>
-                    <td>{{ record.action }}</td>
-                    <td>
-                      {{
-                        new Date(record.date_time_created).toLocaleString(
+                >
+                  <td>{{ record.get_user }}</td>
+                  <td>{{ record.action }}</td>
+                  <td>
+                    {{
+                      new Date(record.date_time_created).toLocaleString(
                           "ru-RU",
                           {
                             day: "numeric",
@@ -54,10 +54,10 @@
                             minute: "numeric",
                             second: "numeric",
                           },
-                        )
-                      }}
-                    </td>
-                  </tr>
+                      )
+                    }}
+                  </td>
+                </tr>
                 </tbody>
               </table>
             </div>
@@ -67,10 +67,10 @@
           </div>
           <div class="modal-footer">
             <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-              ref="cadetAddModalCloseButton"
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+                ref="cadetAddModalCloseButton"
             >
               Закрыть
             </button>
@@ -81,12 +81,12 @@
 
     <!--    Validation modal-->
     <div
-      class="modal fade"
-      id="id_validationErrorsModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-      ref="validationErrorsModal"
+        class="modal fade"
+        id="id_validationErrorsModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+        ref="validationErrorsModal"
     >
       <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
@@ -95,10 +95,10 @@
               Для сохранения данных исправте следующие ошибки:
             </h1>
             <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
             ></button>
           </div>
 
@@ -111,10 +111,10 @@
           </div>
           <div class="modal-footer">
             <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-              ref="cadetAddModalCloseButton"
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+                ref="cadetAddModalCloseButton"
             >
               Закрыть
             </button>
@@ -126,12 +126,12 @@
     <!--    Application print Validation modal-->
 
     <div
-      class="modal fade"
-      id="id_application_validationErrorsModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-      ref="application_validationErrorsModal"
+        class="modal fade"
+        id="id_application_validationErrorsModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+        ref="application_validationErrorsModal"
     >
       <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
@@ -140,10 +140,10 @@
               Для печати заявления исправте следующие ошибки:
             </h1>
             <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
             ></button>
           </div>
 
@@ -155,17 +155,17 @@
             </div>
             <div>
               <button class="btn btn-primary my-3" @click="makePrinting">
-                <font-awesome-icon :icon="['fas', 'print']" />&nbsp;&nbsp; Все
+                <font-awesome-icon :icon="['fas', 'print']"/>&nbsp;&nbsp; Все
                 равно напечатать заявление
               </button>
             </div>
           </div>
           <div class="modal-footer">
             <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-              ref="applicationValidationErrorsModalCloseButton"
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+                ref="applicationValidationErrorsModalCloseButton"
             >
               Закрыть
             </button>
@@ -176,12 +176,12 @@
 
     <!--Has to save data before printing-->
     <div
-      class="modal fade"
-      id="id_hasToSaveDataModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-      ref="hasToSaveDataModal"
+        class="modal fade"
+        id="id_hasToSaveDataModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+        ref="hasToSaveDataModal"
     >
       <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
@@ -190,10 +190,10 @@
               Несохраненные данные!
             </h1>
             <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
             ></button>
           </div>
 
@@ -204,10 +204,10 @@
           </div>
           <div class="modal-footer">
             <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-              ref="cadetAddModalCloseButton"
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+                ref="cadetAddModalCloseButton"
             >
               Закрыть
             </button>
@@ -218,12 +218,12 @@
 
     <!--Average score calculating-->
     <div
-      class="modal fade"
-      id="id_averageScoreCalculatingModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-      ref="averageScoreCalculatingModal"
+        class="modal fade"
+        id="id_averageScoreCalculatingModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+        ref="averageScoreCalculatingModal"
     >
       <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
@@ -232,11 +232,11 @@
               Калькулятор среднего балла
             </h1>
             <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-              ref="averageScoreCalculatingModalCloseButton"
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+                ref="averageScoreCalculatingModalCloseButton"
             ></button>
           </div>
 
@@ -251,9 +251,9 @@
             <div class="mt-3">
               <div class="form-floating">
                 <select
-                  class="form-select"
-                  v-model="average_score_calculation.choice"
-                  @change="average_score_calculation_select_change"
+                    class="form-select"
+                    v-model="average_score_calculation.choice"
+                    @change="average_score_calculation_select_change"
                 >
                   <option value="">-------</option>
                   <option value="cert">Школа (11 классов)</option>
@@ -269,21 +269,21 @@
                 <label for="id_privilege">Что окончил</label>
               </div>
               <div
-                class="d-flex flex-row py-2 my-3"
-                style="max-height: 400px; overflow-y: auto"
+                  class="d-flex flex-row py-2 my-3"
+                  style="max-height: 400px; overflow-y: auto"
               >
                 <div
-                  style="width: 50%"
-                  class="me-2"
-                  v-if="this.average_score_calculation.choice.includes('cert')"
+                    style="width: 50%"
+                    class="me-2"
+                    v-if="this.average_score_calculation.choice.includes('cert')"
                 >
                   <h5 class="ms-2">Школьный аттестат</h5>
                   <select
-                    class="form-select"
-                    :name="select.selectIndex"
-                    v-for="select in average_score_calculation.certificate"
-                    v-model="select.selectValue"
-                    @change="averageScoreCertificateSelectChange"
+                      class="form-select"
+                      :name="select.selectIndex"
+                      v-for="select in average_score_calculation.certificate"
+                      v-model="select.selectValue"
+                      @change="averageScoreCertificateSelectChange"
                   >
                     <option value=""></option>
                     <option value="2">2</option>
@@ -299,16 +299,16 @@
                 </div>
                 <div v-else style="width: 50%"></div>
                 <div
-                  style="width: 50%"
-                  v-if="this.average_score_calculation.choice.includes('dipl')"
+                    style="width: 50%"
+                    v-if="this.average_score_calculation.choice.includes('dipl')"
                 >
                   <h5 class="ms-2">Диплом</h5>
                   <select
-                    class="form-select"
-                    :name="select.selectIndex"
-                    v-for="select in average_score_calculation.diploma"
-                    v-model="select.selectValue"
-                    @change="averageScoreDiplomaSelectChange"
+                      class="form-select"
+                      :name="select.selectIndex"
+                      v-for="select in average_score_calculation.diploma"
+                      v-model="select.selectValue"
+                      @change="averageScoreDiplomaSelectChange"
                   >
                     <option value=""></option>
                     <option value="2">2</option>
@@ -328,9 +328,9 @@
           </div>
           <div class="modal-footer">
             <button
-              type="button"
-              class="btn btn-success"
-              @click="saveAverageScore"
+                type="button"
+                class="btn btn-success"
+                @click="saveAverageScore"
             >
               Готово
             </button>
@@ -339,9 +339,9 @@
       </div>
     </div>
     <div
-      v-if="isLoading || isCommonLoading"
-      style="height: calc(100vh - 170px)"
-      class="d-flex justify-content-center align-items-center"
+        v-if="isLoading || isCommonLoading"
+        style="height: calc(100vh - 170px)"
+        class="d-flex justify-content-center align-items-center"
     >
       <div class="spinner-grow" style="width: 3rem; height: 3rem" role="status">
         <span class="visually-hidden">Loading...</span>
@@ -351,15 +351,15 @@
       <div class="d-flex flex-row justify-content-between align-items-end pb-3">
         <div>
           <h1
-            class="fw-lighter"
-            :class="{
+              class="fw-lighter"
+              :class="{
               'bg-success-subtle':
                 currentFPKPRKData.application_has_been_printed,
             }"
           >
             Личное дело абитуриента
             <span class="fw-normal text-decoration-underline"
-              >{{ currentFPKPRKData.last_name_rus }}&nbsp;{{
+            >{{ currentFPKPRKData.last_name_rus }}&nbsp;{{
                 currentFPKPRKData.first_name_rus
               }}&nbsp;{{ currentFPKPRKData.patronymic_rus }}</span
             >
@@ -367,20 +367,20 @@
           <button class="my-3 btn btn-warning" @click="showHistory">
             История изменений&nbsp;&nbsp;<font-awesome-icon
               :icon="['fas', 'database']"
-            />
+          />
           </button>
           <div
-            v-if="currentFPKPRKData.application_has_been_printed"
-            class="my-3"
+              v-if="currentFPKPRKData.application_has_been_printed"
+              class="my-3"
           >
             <h3>
-              <font-awesome-icon :icon="['fas', 'print']" />
+              <font-awesome-icon :icon="['fas', 'print']"/>
               Заявление напечатано
               <span v-if="currentFPKPRKData.application_has_been_printed_date">
                 -
                 {{
                   new Date(
-                    currentFPKPRKData.application_has_been_printed_date,
+                      currentFPKPRKData.application_has_been_printed_date,
                   ).toLocaleString("ru-RU", {
                     day: "numeric",
                     month: "long",
@@ -396,8 +396,8 @@
         </div>
         <div class="d-flex flex-row justify-content-end align-items-center">
           <div
-            class="me-4 text-success fs-5"
-            v-if="isDataFromServerEqualChangedData"
+              class="me-4 text-success fs-5"
+              v-if="isDataFromServerEqualChangedData"
           >
             &#8226; &nbsp;Данные сохранены
           </div>
@@ -410,9 +410,9 @@
 
           <div>
             <button
-              class="btn btn-primary"
-              @click="saveEntranceForm"
-              :disabled="isDataFromServerEqualChangedData || isDataSaving"
+                class="btn btn-primary"
+                @click="saveEntranceForm"
+                :disabled="isDataFromServerEqualChangedData || isDataSaving"
             >
               Сохранить изменения
             </button>
@@ -423,15 +423,15 @@
         <div style="max-width: 99%">
           <div class="form-check form-switch mb-3" style="font-size: 20px">
             <input
-              class="form-check-input"
-              type="checkbox"
-              role="switch"
-              id="id_is_active"
-              v-model="currentFPKPRKData.is_active"
+                class="form-check-input"
+                type="checkbox"
+                role="switch"
+                id="id_is_active"
+                v-model="currentFPKPRKData.is_active"
             />
             <label class="form-check-label" for="id_is_active"
-              ><span v-if="currentFPKPRKData.is_active">Запись активна</span
-              ><span v-else>Запись в архиве</span></label
+            ><span v-if="currentFPKPRKData.is_active">Запись активна</span
+            ><span v-else>Запись в архиве</span></label
             >
           </div>
           <div class="card shadow mb-2 rounded border-0">
@@ -441,9 +441,9 @@
                 <div class="col-xl-3">
                   <div class="form-floating mb-3">
                     <select
-                      class="form-select"
-                      id="id_fpk_mag_choice"
-                      v-model="currentFPKPRKData.fpk_mag_choice"
+                        class="form-select"
+                        id="id_fpk_mag_choice"
+                        v-model="currentFPKPRKData.fpk_mag_choice"
                     >
                       <option :value="1">ФПК ПРК</option>
                       <option :value="2">Маг</option>
@@ -461,11 +461,11 @@
                 <div class="col-xl-3">
                   <div class="form-floating mb-3">
                     <input
-                      id="id_last_name_rus"
-                      type="text"
-                      class="form-control form-control-sm"
-                      placeholder="Фамилия"
-                      v-model="currentFPKPRKData.last_name_rus"
+                        id="id_last_name_rus"
+                        type="text"
+                        class="form-control form-control-sm"
+                        placeholder="Фамилия"
+                        v-model="currentFPKPRKData.last_name_rus"
                     />
                     <label for="id_last_name_rus">Фамилия (рус)</label>
                   </div>
@@ -473,11 +473,11 @@
                 <div class="col-xl-3">
                   <div class="form-floating mb-3">
                     <input
-                      id="id_first_name_rus"
-                      type="text"
-                      class="form-control"
-                      placeholder="Имя"
-                      v-model="currentFPKPRKData.first_name_rus"
+                        id="id_first_name_rus"
+                        type="text"
+                        class="form-control"
+                        placeholder="Имя"
+                        v-model="currentFPKPRKData.first_name_rus"
                     />
                     <label for="id_first_name_rus">Имя (рус)</label>
                   </div>
@@ -485,11 +485,11 @@
                 <div class="col-xl-3">
                   <div class="form-floating mb-3">
                     <input
-                      id="id_patronymic_rus"
-                      type="text"
-                      class="form-control"
-                      placeholder="Отчество"
-                      v-model="currentFPKPRKData.patronymic_rus"
+                        id="id_patronymic_rus"
+                        type="text"
+                        class="form-control"
+                        placeholder="Отчество"
+                        v-model="currentFPKPRKData.patronymic_rus"
                     />
                     <label for="id_patronymic_rus">Отчество (рус)</label>
                   </div>
@@ -497,11 +497,11 @@
                 <div class="col-xl-3">
                   <div class="form-floating mb-3">
                     <input
-                      id="id_date_of_birth"
-                      type="date"
-                      class="form-control"
-                      placeholder="Дата рождения"
-                      v-model="currentFPKPRKData.date_of_birth"
+                        id="id_date_of_birth"
+                        type="date"
+                        class="form-control"
+                        placeholder="Дата рождения"
+                        v-model="currentFPKPRKData.date_of_birth"
                     />
                     <label for="id_date_of_birth">Дата рождения</label>
                   </div>
@@ -512,9 +512,9 @@
                 <div class="col-xl-3">
                   <div class="form-floating mb-3">
                     <select
-                      id="id_gender"
-                      class="form-select"
-                      v-model="currentFPKPRKData.gender"
+                        id="id_gender"
+                        class="form-select"
+                        v-model="currentFPKPRKData.gender"
                     >
                       <option :value="null">---------</option>
                       <option value="1">Мужской</option>
@@ -526,9 +526,9 @@
                 <div class="col-xl-3">
                   <div class="form-floating mb-3">
                     <select
-                      id="id_rank"
-                      class="form-select"
-                      v-model="currentFPKPRKData.current_rank"
+                        id="id_rank"
+                        class="form-select"
+                        v-model="currentFPKPRKData.current_rank"
                     >
                       <option :value="null">---------</option>
                       <option :value="rank.id" v-for="rank in orderedRanks">
@@ -568,14 +568,14 @@
                 <div class="col-xl-3">
                   <div class="form-floating mb-3">
                     <select
-                      id="id_foreign_language"
-                      class="form-select"
-                      v-model="currentFPKPRKData.foreign_language"
+                        id="id_foreign_language"
+                        class="form-select"
+                        v-model="currentFPKPRKData.foreign_language"
                     >
                       <option :value="null">---------</option>
                       <option
-                        :value="foreign_language.id"
-                        v-for="foreign_language in orderedForeignLanguages"
+                          :value="foreign_language.id"
+                          v-for="foreign_language in orderedForeignLanguages"
                       >
                         {{ foreign_language.foreign_language }}
                       </option>
@@ -592,38 +592,38 @@
               <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                   <button
-                    class="nav-link active"
-                    id="nav-assembly-organ-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#nav-assembly-organ"
-                    type="button"
-                    role="tab"
-                    aria-controls="nav-assembly-organ"
-                    aria-selected="true"
+                      class="nav-link active"
+                      id="nav-assembly-organ-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#nav-assembly-organ"
+                      type="button"
+                      role="tab"
+                      aria-controls="nav-assembly-organ"
+                      aria-selected="true"
                   >
                     Комплектующий орган
                   </button>
                   <button
-                    class="nav-link"
-                    id="nav-education-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#nav-education"
-                    type="button"
-                    role="tab"
-                    aria-controls="nav-education"
-                    aria-selected="false"
+                      class="nav-link"
+                      id="nav-education-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#nav-education"
+                      type="button"
+                      role="tab"
+                      aria-controls="nav-education"
+                      aria-selected="false"
                   >
                     Образование
                   </button>
                   <button
-                    class="nav-link"
-                    id="nav-contact-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#nav-contact"
-                    type="button"
-                    role="tab"
-                    aria-controls="nav-contact"
-                    aria-selected="false"
+                      class="nav-link"
+                      id="nav-contact-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#nav-contact"
+                      type="button"
+                      role="tab"
+                      aria-controls="nav-contact"
+                      aria-selected="false"
                   >
                     Личная информация
                   </button>
@@ -631,11 +631,11 @@
               </nav>
               <div class="tab-content" id="nav-tabContent">
                 <div
-                  class="tab-pane fade show active"
-                  id="nav-assembly-organ"
-                  role="tabpanel"
-                  aria-labelledby="nav-assembly-organ-tab"
-                  tabindex="0"
+                    class="tab-pane fade show active"
+                    id="nav-assembly-organ"
+                    role="tabpanel"
+                    aria-labelledby="nav-assembly-organ-tab"
+                    tabindex="0"
                 >
                   <div>
                     <div class="my-3">
@@ -644,54 +644,54 @@
                         <div class="col-xl-3">
                           <div class="form-floating mb-3">
                             <select
-                              id="id_component_organ"
-                              class="form-select"
-                              v-model="currentFPKPRKData.in_whose_interests"
+                                id="id_component_organ"
+                                class="form-select"
+                                v-model="currentFPKPRKData.in_whose_interests"
                             >
                               <option :value="null">---------</option>
                               <option
-                                :value="in_whose_interests.id"
-                                v-for="in_whose_interests in orderedInWhoseInterests"
+                                  :value="in_whose_interests.id"
+                                  v-for="in_whose_interests in orderedInWhoseInterests"
                               >
                                 {{ in_whose_interests.in_whose_interests }}
                               </option>
                             </select>
                             <label for="id_component_organ"
-                              >В чьих интересах</label
+                            >В чьих интересах</label
                             >
                           </div>
                         </div>
                         <div class="col-xl-3">
                           <div class="form-floating mb-3">
                             <select
-                              id="id_component_organ"
-                              class="form-select"
-                              v-model="currentFPKPRKData.component_organ"
+                                id="id_component_organ"
+                                class="form-select"
+                                v-model="currentFPKPRKData.component_organ"
                             >
                               <option :value="null">---------</option>
                               <option
-                                :value="componentOrg.id"
-                                v-for="componentOrg in orderedComponentOrgans"
+                                  :value="componentOrg.id"
+                                  v-for="componentOrg in orderedComponentOrgans"
                               >
                                 {{ componentOrg.component_name }}
                               </option>
                             </select>
                             <label for="id_component_organ"
-                              >Комплектующий орган</label
+                            >Комплектующий орган</label
                             >
                           </div>
                         </div>
                         <div class="col-lg-3">
                           <div class="form-floating mb-3">
                             <select
-                              id="id_entrance_category"
-                              class="form-select"
-                              v-model="currentFPKPRKData.entrance_category"
+                                id="id_entrance_category"
+                                class="form-select"
+                                v-model="currentFPKPRKData.entrance_category"
                             >
                               <option :value="null">---------</option>
                               <option
-                                :value="entranceCategory.id"
-                                v-for="entranceCategory in orderedEntranceCategories"
+                                  :value="entranceCategory.id"
+                                  v-for="entranceCategory in orderedEntranceCategories"
                               >
                                 {{ entranceCategory.entrance_category_name }}
                               </option>
@@ -702,20 +702,20 @@
                         <div class="col-lg-3">
                           <div class="form-floating mb-3">
                             <select
-                              id="id_arrived_from_go_rovd"
-                              class="form-select"
-                              v-model="currentFPKPRKData.arrived_from_go_rovd"
+                                id="id_arrived_from_go_rovd"
+                                class="form-select"
+                                v-model="currentFPKPRKData.arrived_from_go_rovd"
                             >
                               <option :value="null">---------</option>
                               <option
-                                :value="go_rovd.id"
-                                v-for="go_rovd in orderedGorovds"
+                                  :value="go_rovd.id"
+                                  v-for="go_rovd in orderedGorovds"
                               >
                                 {{ go_rovd.go_rovd_name }}
                               </option>
                             </select>
                             <label for="id_arrived_from_go_rovd"
-                              >Прибыл из ГО-РОВД</label
+                            >Прибыл из ГО-РОВД</label
                             >
                           </div>
                         </div>
@@ -724,25 +724,25 @@
                   </div>
                 </div>
                 <div
-                  class="tab-pane fade"
-                  id="nav-education"
-                  role="tabpanel"
-                  aria-labelledby="nav-education-tab"
-                  tabindex="0"
+                    class="tab-pane fade"
+                    id="nav-education"
+                    role="tabpanel"
+                    aria-labelledby="nav-education-tab"
+                    tabindex="0"
                 >
                   <div class="my-3">
                     <div class="row">
                       <div class="col-xl-3">
                         <div class="form-floating mb-3">
                           <select
-                            id="id_education_kind"
-                            class="form-select"
-                            v-model="currentFPKPRKData.education_kind"
+                              id="id_education_kind"
+                              class="form-select"
+                              v-model="currentFPKPRKData.education_kind"
                           >
                             <option :value="null">---------</option>
                             <option
-                              :value="educationKind.id"
-                              v-for="educationKind in orderedEducationKinds"
+                                :value="educationKind.id"
+                                v-for="educationKind in orderedEducationKinds"
                             >
                               {{ educationKind.education }}
                             </option>
@@ -753,52 +753,52 @@
                       <div class="col-xl-3">
                         <div class="form-floating mb-3">
                           <select
-                            id="id_education_level"
-                            class="form-select"
-                            v-model="currentFPKPRKData.education_level"
+                              id="id_education_level"
+                              class="form-select"
+                              v-model="currentFPKPRKData.education_level"
                           >
                             <option :value="null">---------</option>
                             <option
-                              :value="educationLevel.id"
-                              v-for="educationLevel in orderedEducationLevels"
+                                :value="educationLevel.id"
+                                v-for="educationLevel in orderedEducationLevels"
                             >
                               {{ educationLevel.education_level }}
                             </option>
                           </select>
                           <label for="id_education_level"
-                            >Уровень образования</label
+                          >Уровень образования</label
                           >
                         </div>
                       </div>
                       <div class="col-xl-3">
                         <div class="form-floating mb-3">
                           <input
-                            type="number"
-                            id="id_education_graduating_end_year"
-                            name="education_graduating_end_year"
-                            class="form-control form-control-sm"
-                            placeholder="Год окончания"
-                            v-model="
+                              type="number"
+                              id="id_education_graduating_end_year"
+                              name="education_graduating_end_year"
+                              class="form-control form-control-sm"
+                              placeholder="Год окончания"
+                              v-model="
                               currentFPKPRKData.education_graduating_end_year
                             "
-                            @input="makeInputDefaultNullValueIfEmpty"
+                              @input="makeInputDefaultNullValueIfEmpty"
                           />
                           <label for="id_education_graduating_end_year"
-                            >Год окончания</label
+                          >Год окончания</label
                           >
                         </div>
                       </div>
                       <div class="col-xl-3">
                         <div class="form-floating mb-3">
                           <select
-                            id="id_medal"
-                            class="form-select"
-                            v-model="currentFPKPRKData.medal"
+                              id="id_medal"
+                              class="form-select"
+                              v-model="currentFPKPRKData.medal"
                           >
                             <option :value="null">---------</option>
                             <option
-                              :value="medal.id"
-                              v-for="medal in orderedMedals"
+                                :value="medal.id"
+                                v-for="medal in orderedMedals"
                             >
                               {{ medal.medal_kind }}
                             </option>
@@ -812,28 +812,28 @@
                       <div class="col-xl-3">
                         <div class="form-floating mb-3">
                           <textarea
-                            id="id_education_graduated"
-                            rows="2"
-                            class="form-control form-control-sm"
-                            v-model="currentFPKPRKData.education_graduated"
-                            placeholder="Наименование УО"
+                              id="id_education_graduated"
+                              rows="2"
+                              class="form-control form-control-sm"
+                              v-model="currentFPKPRKData.education_graduated"
+                              placeholder="Наименование УО"
                           ></textarea>
                           <label for="id_education_graduated"
-                            >Наименование УО</label
+                          >Наименование УО</label
                           >
                         </div>
                       </div>
                       <div class="col-xl-3">
                         <div class="form-floating mb-3">
                           <select
-                            id="id_education_location_kind"
-                            class="form-select"
-                            v-model="currentFPKPRKData.education_location_kind"
+                              id="id_education_location_kind"
+                              class="form-select"
+                              v-model="currentFPKPRKData.education_location_kind"
                           >
                             <option :value="null">---------</option>
                             <option
-                              :value="educationLocalityKind.id"
-                              v-for="educationLocalityKind in orderedEducationLocalityKinds"
+                                :value="educationLocalityKind.id"
+                                v-for="educationLocalityKind in orderedEducationLocalityKinds"
                             >
                               {{
                                 educationLocalityKind.education_location_kind
@@ -841,7 +841,7 @@
                             </option>
                           </select>
                           <label for="id_education_location_kind"
-                            >Город/село</label
+                          >Город/село</label
                           >
                         </div>
                       </div>
@@ -868,14 +868,14 @@
                       <div class="col-12">
                         <div class="form-check mb-3">
                           <input
-                            id="id_is_located_in_Minsk"
-                            class="form-check-input"
-                            type="checkbox"
-                            v-model="currentFPKPRKData.is_located_in_Minsk"
+                              id="id_is_located_in_Minsk"
+                              class="form-check-input"
+                              type="checkbox"
+                              v-model="currentFPKPRKData.is_located_in_Minsk"
                           />
                           <label
-                            class="form-check-label"
-                            for="id_is_located_in_Minsk"
+                              class="form-check-label"
+                              for="id_is_located_in_Minsk"
                           >
                             УО расположено в г. Минск
                           </label>
@@ -885,11 +885,11 @@
                   </div>
                 </div>
                 <div
-                  class="tab-pane fade"
-                  id="nav-contact"
-                  role="tabpanel"
-                  aria-labelledby="nav-contact-tab"
-                  tabindex="0"
+                    class="tab-pane fade"
+                    id="nav-contact"
+                    role="tabpanel"
+                    aria-labelledby="nav-contact-tab"
+                    tabindex="0"
                 >
                   <div>
                     <div class="my-3">
@@ -897,25 +897,25 @@
                         <div class="col-6">
                           <div class="form-floating mb-3">
                             <input
-                              type="text"
-                              id="id_place_of_birth"
-                              class="form-control form-control-sm"
-                              placeholder="Место рождения"
-                              v-model="currentFPKPRKData.place_of_birth"
+                                type="text"
+                                id="id_place_of_birth"
+                                class="form-control form-control-sm"
+                                placeholder="Место рождения"
+                                v-model="currentFPKPRKData.place_of_birth"
                             />
                             <label for="id_place_of_birth"
-                              >Место рождения</label
+                            >Место рождения</label
                             >
                           </div>
                         </div>
                         <div class="col-6">
                           <div class="form-floating mb-3">
                             <input
-                              type="text"
-                              id="id_phone_number"
-                              class="form-control form-control-sm"
-                              placeholder="Номер телефона"
-                              v-model="currentFPKPRKData.phone_number"
+                                type="text"
+                                id="id_phone_number"
+                                class="form-control form-control-sm"
+                                placeholder="Номер телефона"
+                                v-model="currentFPKPRKData.phone_number"
                             />
                             <label for="id_phone_number">Номер телефона</label>
                           </div>
@@ -925,29 +925,29 @@
                         <div class="col-6">
                           <div class="form-floating mb-3">
                             <input
-                              type="text"
-                              id="id_address_registration"
-                              class="form-control form-control-sm"
-                              placeholder="Место жительства (регистрация)"
-                              v-model="currentFPKPRKData.address_registration"
-                              required
+                                type="text"
+                                id="id_address_registration"
+                                class="form-control form-control-sm"
+                                placeholder="Место жительства (регистрация)"
+                                v-model="currentFPKPRKData.address_registration"
+                                required
                             />
                             <label for="id_address_registration"
-                              >Место жительства (регистрация)</label
+                            >Место жительства (регистрация)</label
                             >
                           </div>
                         </div>
                         <div class="col-6">
                           <div class="form-floating mb-3">
                             <input
-                              id="id_address_residence"
-                              type="text"
-                              class="form-control form-control-sm"
-                              placeholder="Место жительства (проживание)"
-                              v-model="currentFPKPRKData.address_residence"
+                                id="id_address_residence"
+                                type="text"
+                                class="form-control form-control-sm"
+                                placeholder="Место жительства (проживание)"
+                                v-model="currentFPKPRKData.address_residence"
                             />
                             <label for="id_address_residence"
-                              >Место жительства (проживание)</label
+                            >Место жительства (проживание)</label
                             >
                           </div>
                         </div>
@@ -956,31 +956,31 @@
                         <div class="col-6">
                           <div class="form-floating mb-3">
                             <select
-                              class="form-select"
-                              id="id_passport_document_type"
-                              v-model="currentFPKPRKData.passport_document_type"
+                                class="form-select"
+                                id="id_passport_document_type"
+                                v-model="currentFPKPRKData.passport_document_type"
                             >
                               <option :value="null">---------</option>
                               <option value="1">Паспорт</option>
                               <option value="2">Идентификационная карта</option>
                             </select>
                             <label for="id_passport_document_type"
-                              >Документ удостоверяющий личность</label
+                            >Документ удостоверяющий личность</label
                             >
                           </div>
                         </div>
                         <div class="col-3">
                           <div class="form-floating mb-3">
                             <input
-                              type="text"
-                              id="id_passport_number"
-                              class="form-control form-control-sm"
-                              placeholder="Серия и номер паспорта (номер идентификационной
+                                type="text"
+                                id="id_passport_number"
+                                class="form-control form-control-sm"
+                                placeholder="Серия и номер паспорта (номер идентификационной
                               карты)"
-                              v-model="currentFPKPRKData.passport_number"
+                                v-model="currentFPKPRKData.passport_number"
                             />
                             <label for="id_passport_number"
-                              >Серия и номер паспорта (номер идентификационной
+                            >Серия и номер паспорта (номер идентификационной
                               карты)</label
                             >
                           </div>
@@ -988,14 +988,14 @@
                         <div class="col-3">
                           <div class="form-floating mb-3">
                             <input
-                              type="text"
-                              id="id_identification_number"
-                              class="form-control form-control-sm"
-                              placeholder="Номер паспорта"
-                              v-model="currentFPKPRKData.identification_number"
+                                type="text"
+                                id="id_identification_number"
+                                class="form-control form-control-sm"
+                                placeholder="Номер паспорта"
+                                v-model="currentFPKPRKData.identification_number"
                             />
                             <label for="id_identification_number"
-                              >Идентификационный номер</label
+                            >Идентификационный номер</label
                             >
                           </div>
                         </div>
@@ -1004,45 +1004,45 @@
                         <div class="col-6">
                           <div class="form-floating mb-3">
                             <textarea
-                              class="form-control"
-                              rows="1"
-                              id="id_passport_issue_authority_text"
-                              v-model="
+                                class="form-control"
+                                rows="1"
+                                id="id_passport_issue_authority_text"
+                                v-model="
                                 currentFPKPRKData.passport_issue_authority_text
                               "
                             />
                             <label for="id_passport_issue_authority_text"
-                              >Орган выдачи</label
+                            >Орган выдачи</label
                             >
                           </div>
                         </div>
                         <div class="col-xl-3">
                           <div class="form-floating mb-3">
                             <input
-                              type="date"
-                              id="id_passport_issue_date"
-                              class="form-control form-control-sm"
-                              placeholder="Дата выдачи"
-                              v-model="currentFPKPRKData.passport_issue_date"
+                                type="date"
+                                id="id_passport_issue_date"
+                                class="form-control form-control-sm"
+                                placeholder="Дата выдачи"
+                                v-model="currentFPKPRKData.passport_issue_date"
                             />
                             <label for="id_passport_issue_date"
-                              >Дата выдачи</label
+                            >Дата выдачи</label
                             >
                           </div>
                         </div>
                         <div class="col-xl-3">
                           <div class="form-floating mb-3">
                             <input
-                              type="date"
-                              id="id_passport_validity_period"
-                              class="form-control form-control-sm"
-                              placeholder="Срок действия"
-                              v-model="
+                                type="date"
+                                id="id_passport_validity_period"
+                                class="form-control form-control-sm"
+                                placeholder="Срок действия"
+                                v-model="
                                 currentFPKPRKData.passport_validity_period
                               "
                             />
                             <label for="id_passport_validity_period"
-                              >Срок действия</label
+                            >Срок действия</label
                             >
                           </div>
                         </div>
@@ -1051,13 +1051,13 @@
                         <div class="col-12">
                           <div class="form-floating mb-3">
                             <textarea
-                              class="form-control"
-                              rows="1"
-                              id="id_place_of_work_position"
-                              v-model="currentFPKPRKData.place_of_work_position"
+                                class="form-control"
+                                rows="1"
+                                id="id_place_of_work_position"
+                                v-model="currentFPKPRKData.place_of_work_position"
                             />
                             <label for="id_place_of_work_position"
-                              >Место работы и должность</label
+                            >Место работы и должность</label
                             >
                           </div>
                         </div>
@@ -1066,24 +1066,24 @@
                   </div>
                 </div>
                 <div
-                  class="tab-pane fade"
-                  id="nav-representatives"
-                  role="tabpanel"
-                  aria-labelledby="nav-representatives-tab"
-                  tabindex="0"
+                    class="tab-pane fade"
+                    id="nav-representatives"
+                    role="tabpanel"
+                    aria-labelledby="nav-representatives-tab"
+                    tabindex="0"
                 >
                   <div class="my-3">
                     <div class="form-check mb-3">
                       <input
-                        id="id_parents_is_in_divorce"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentFPKPRKData.parents_is_in_divorce"
+                          id="id_parents_is_in_divorce"
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="currentFPKPRKData.parents_is_in_divorce"
                       />
                       <label
-                        class="form-check-label"
-                        for="id_parents_is_in_divorce"
-                        >Родители в разводе
+                          class="form-check-label"
+                          for="id_parents_is_in_divorce"
+                      >Родители в разводе
                       </label>
                     </div>
                   </div>
@@ -1094,11 +1094,11 @@
                         <div class="col-xl-3">
                           <div class="form-floating mb-3">
                             <input
-                              id="id_mother_last_name"
-                              type="text"
-                              class="form-control form-control-sm"
-                              placeholder="Мать (фамилия)"
-                              v-model="currentFPKPRKData.mother_last_name"
+                                id="id_mother_last_name"
+                                type="text"
+                                class="form-control form-control-sm"
+                                placeholder="Мать (фамилия)"
+                                v-model="currentFPKPRKData.mother_last_name"
                             />
                             <label for="id_mother_last_name">Фамилия</label>
                           </div>
@@ -1106,11 +1106,11 @@
                         <div class="col-xl-3">
                           <div class="form-floating mb-3">
                             <input
-                              id="id_mother_first_name"
-                              type="text"
-                              class="form-control form-control-sm"
-                              placeholder="Мать (имя)"
-                              v-model="currentFPKPRKData.mother_first_name"
+                                id="id_mother_first_name"
+                                type="text"
+                                class="form-control form-control-sm"
+                                placeholder="Мать (имя)"
+                                v-model="currentFPKPRKData.mother_first_name"
                             />
                             <label for="id_mother_first_name">Имя</label>
                           </div>
@@ -1118,11 +1118,11 @@
                         <div class="col-xl-3">
                           <div class="form-floating mb-3">
                             <input
-                              id="id_mother_patronymic"
-                              type="text"
-                              class="form-control form-control-sm"
-                              placeholder="Мать (отчество)"
-                              v-model="currentFPKPRKData.mother_patronymic"
+                                id="id_mother_patronymic"
+                                type="text"
+                                class="form-control form-control-sm"
+                                placeholder="Мать (отчество)"
+                                v-model="currentFPKPRKData.mother_patronymic"
                             />
                             <label for="id_mother_patronymic">Отчество</label>
                           </div>
@@ -1130,14 +1130,14 @@
                         <div class="col-xl-3">
                           <div class="form-floating mb-3">
                             <input
-                              id="id_mother_date_of_birth"
-                              type="date"
-                              class="form-control form-control-sm"
-                              placeholder="Мать (дата рождения)"
-                              v-model="currentFPKPRKData.mother_date_of_birth"
+                                id="id_mother_date_of_birth"
+                                type="date"
+                                class="form-control form-control-sm"
+                                placeholder="Мать (дата рождения)"
+                                v-model="currentFPKPRKData.mother_date_of_birth"
                             />
                             <label for="id_mother_date_of_birth"
-                              >Дата рождения</label
+                            >Дата рождения</label
                             >
                           </div>
                         </div>
@@ -1146,60 +1146,60 @@
                         <div class="col-3">
                           <div class="form-floating mb-3">
                             <input
-                              id="id_mother_address_residence"
-                              type="text"
-                              class="form-control form-control-sm"
-                              placeholder="Проживает"
-                              v-model="
+                                id="id_mother_address_residence"
+                                type="text"
+                                class="form-control form-control-sm"
+                                placeholder="Проживает"
+                                v-model="
                                 currentFPKPRKData.mother_address_residence
                               "
                             />
                             <label for="id_mother_address_residence"
-                              >Проживает</label
+                            >Проживает</label
                             >
                           </div>
                         </div>
                         <div class="col-3">
                           <div class="form-floating mb-3">
                             <input
-                              id="id_mother_address_registration"
-                              type="text"
-                              class="form-control form-control-sm"
-                              placeholder="Зарегистрирована"
-                              v-model="
+                                id="id_mother_address_registration"
+                                type="text"
+                                class="form-control form-control-sm"
+                                placeholder="Зарегистрирована"
+                                v-model="
                                 currentFPKPRKData.mother_address_registration
                               "
                             />
                             <label for="id_mother_address_registration"
-                              >Зарегистрирована</label
+                            >Зарегистрирована</label
                             >
                           </div>
                         </div>
                         <div class="col-3">
                           <div class="form-floating mb-3">
                             <input
-                              id="id_mother_place_of_work"
-                              type="text"
-                              class="form-control form-control-sm"
-                              placeholder="Место работы и должность"
-                              v-model="currentFPKPRKData.mother_place_of_work"
+                                id="id_mother_place_of_work"
+                                type="text"
+                                class="form-control form-control-sm"
+                                placeholder="Место работы и должность"
+                                v-model="currentFPKPRKData.mother_place_of_work"
                             />
                             <label for="id_mother_place_of_work"
-                              >Место работы и должность</label
+                            >Место работы и должность</label
                             >
                           </div>
                         </div>
                         <div class="col-3">
                           <div class="form-floating mb-3">
                             <input
-                              id="id_mother_phone_number"
-                              type="text"
-                              class="form-control form-control-sm"
-                              placeholder="Номер телефона"
-                              v-model="currentFPKPRKData.mother_phone_number"
+                                id="id_mother_phone_number"
+                                type="text"
+                                class="form-control form-control-sm"
+                                placeholder="Номер телефона"
+                                v-model="currentFPKPRKData.mother_phone_number"
                             />
                             <label for="id_mother_phone_number"
-                              >Номер телефона</label
+                            >Номер телефона</label
                             >
                           </div>
                         </div>
@@ -1209,11 +1209,11 @@
                         <div class="col-xl-3">
                           <div class="form-floating mb-3">
                             <input
-                              id="id_father_last_name"
-                              type="text"
-                              class="form-control form-control-sm"
-                              placeholder="Отец (фамилия)"
-                              v-model="currentFPKPRKData.father_last_name"
+                                id="id_father_last_name"
+                                type="text"
+                                class="form-control form-control-sm"
+                                placeholder="Отец (фамилия)"
+                                v-model="currentFPKPRKData.father_last_name"
                             />
                             <label for="id_father_last_name">Фамилия</label>
                           </div>
@@ -1221,11 +1221,11 @@
                         <div class="col-xl-3">
                           <div class="form-floating mb-3">
                             <input
-                              id="id_father_first_name"
-                              type="text"
-                              class="form-control form-control-sm"
-                              placeholder="Отец (имя)"
-                              v-model="currentFPKPRKData.father_first_name"
+                                id="id_father_first_name"
+                                type="text"
+                                class="form-control form-control-sm"
+                                placeholder="Отец (имя)"
+                                v-model="currentFPKPRKData.father_first_name"
                             />
                             <label for="id_father_first_name">Имя</label>
                           </div>
@@ -1233,11 +1233,11 @@
                         <div class="col-xl-3">
                           <div class="form-floating mb-3">
                             <input
-                              id="id_father_patronymic"
-                              type="text"
-                              class="form-control form-control-sm"
-                              placeholder="Отец (отчество)"
-                              v-model="currentFPKPRKData.father_patronymic"
+                                id="id_father_patronymic"
+                                type="text"
+                                class="form-control form-control-sm"
+                                placeholder="Отец (отчество)"
+                                v-model="currentFPKPRKData.father_patronymic"
                             />
                             <label for="id_father_patronymic">Отчество</label>
                           </div>
@@ -1245,14 +1245,14 @@
                         <div class="col-xl-3">
                           <div class="form-floating mb-3">
                             <input
-                              id="id_father_date_of_birth"
-                              type="date"
-                              class="form-control form-control-sm"
-                              placeholder="Отец (дата рождения)"
-                              v-model="currentFPKPRKData.father_date_of_birth"
+                                id="id_father_date_of_birth"
+                                type="date"
+                                class="form-control form-control-sm"
+                                placeholder="Отец (дата рождения)"
+                                v-model="currentFPKPRKData.father_date_of_birth"
                             />
                             <label for="id_father_date_of_birth"
-                              >Дата рождения</label
+                            >Дата рождения</label
                             >
                           </div>
                         </div>
@@ -1261,60 +1261,60 @@
                         <div class="col-3">
                           <div class="form-floating mb-3">
                             <input
-                              id="id_father_address_residence"
-                              type="text"
-                              class="form-control form-control-sm"
-                              placeholder="Проживает"
-                              v-model="
+                                id="id_father_address_residence"
+                                type="text"
+                                class="form-control form-control-sm"
+                                placeholder="Проживает"
+                                v-model="
                                 currentFPKPRKData.father_address_residence
                               "
                             />
                             <label for="id_father_address_residence"
-                              >Проживает</label
+                            >Проживает</label
                             >
                           </div>
                         </div>
                         <div class="col-3">
                           <div class="form-floating mb-3">
                             <input
-                              id="id_father_address_registration"
-                              type="text"
-                              class="form-control form-control-sm"
-                              placeholder="Зарегистрирован"
-                              v-model="
+                                id="id_father_address_registration"
+                                type="text"
+                                class="form-control form-control-sm"
+                                placeholder="Зарегистрирован"
+                                v-model="
                                 currentFPKPRKData.father_address_registration
                               "
                             />
                             <label for="id_father_address_registration"
-                              >Зарегистрирован</label
+                            >Зарегистрирован</label
                             >
                           </div>
                         </div>
                         <div class="col-3">
                           <div class="form-floating mb-3">
                             <input
-                              id="id_father_place_of_work"
-                              type="text"
-                              class="form-control form-control-sm"
-                              placeholder="Место работы и должность"
-                              v-model="currentFPKPRKData.father_place_of_work"
+                                id="id_father_place_of_work"
+                                type="text"
+                                class="form-control form-control-sm"
+                                placeholder="Место работы и должность"
+                                v-model="currentFPKPRKData.father_place_of_work"
                             />
                             <label for="id_father_place_of_work"
-                              >Место работы и должность</label
+                            >Место работы и должность</label
                             >
                           </div>
                         </div>
                         <div class="col-3">
                           <div class="form-floating mb-3">
                             <input
-                              id="id_father_phone_number"
-                              type="text"
-                              class="form-control form-control-sm"
-                              placeholder="Номер телефона"
-                              v-model="currentFPKPRKData.father_phone_number"
+                                id="id_father_phone_number"
+                                type="text"
+                                class="form-control form-control-sm"
+                                placeholder="Номер телефона"
+                                v-model="currentFPKPRKData.father_phone_number"
                             />
                             <label for="id_father_phone_number"
-                              >Номер телефона</label
+                            >Номер телефона</label
                             >
                           </div>
                         </div>
@@ -1323,11 +1323,11 @@
                   </div>
                 </div>
                 <div
-                  class="tab-pane fade"
-                  id="nav-questionary"
-                  role="tabpanel"
-                  aria-labelledby="nav-questionary-tab"
-                  tabindex="0"
+                    class="tab-pane fade"
+                    id="nav-questionary"
+                    role="tabpanel"
+                    aria-labelledby="nav-questionary-tab"
+                    tabindex="0"
                 >
                   <div>
                     <div class="my-3">
@@ -1335,31 +1335,31 @@
                         <div class="col-xl-6">
                           <div class="form-floating mb-3">
                             <select
-                              id="id_vpk"
-                              class="form-select"
-                              v-model="currentFPKPRKData.vpk"
+                                id="id_vpk"
+                                class="form-select"
+                                v-model="currentFPKPRKData.vpk"
                             >
                               <option :value="null">---------</option>
                               <option
-                                :value="vpk.id"
-                                v-for="vpk in orderedVpkCategories"
+                                  :value="vpk.id"
+                                  v-for="vpk in orderedVpkCategories"
                               >
                                 {{ vpk.category }}
                               </option>
                             </select>
                             <label for="id_vpk"
-                              >Военно-патриотический клуб</label
+                            >Военно-патриотический клуб</label
                             >
                           </div>
                         </div>
                         <div class="col-xl-6">
                           <div class="form-floating mb-3">
                             <input
-                              id="id_vpk_data"
-                              type="text"
-                              class="form-control form-control-sm"
-                              placeholder="Данные по ВПК"
-                              v-model="currentFPKPRKData.vpk_data"
+                                id="id_vpk_data"
+                                type="text"
+                                class="form-control form-control-sm"
+                                placeholder="Данные по ВПК"
+                                v-model="currentFPKPRKData.vpk_data"
                             />
                             <label for="id_vpk_data">Данные по ВПК</label>
                           </div>
@@ -1370,16 +1370,16 @@
                         <div class="col-xl-3">
                           <div class="form-check mb-3">
                             <input
-                              id="id_aims_to_graduate_with_honors"
-                              class="form-check-input"
-                              type="checkbox"
-                              v-model="
+                                id="id_aims_to_graduate_with_honors"
+                                class="form-check-input"
+                                type="checkbox"
+                                v-model="
                                 currentFPKPRKData.aims_to_graduate_with_honors
                               "
                             />
                             <label
-                              class="form-check-label"
-                              for="id_aims_to_graduate_with_honors"
+                                class="form-check-label"
+                                for="id_aims_to_graduate_with_honors"
                             >
                               Претендует на аттестат с отличием
                             </label>
@@ -1388,14 +1388,14 @@
                         <div class="col-xl-3">
                           <div class="form-check mb-3">
                             <input
-                              id="id_is_olympiad_winner"
-                              class="form-check-input"
-                              type="checkbox"
-                              v-model="currentFPKPRKData.is_olympiad_winner"
+                                id="id_is_olympiad_winner"
+                                class="form-check-input"
+                                type="checkbox"
+                                v-model="currentFPKPRKData.is_olympiad_winner"
                             />
                             <label
-                              class="form-check-label"
-                              for="id_is_olympiad_winner"
+                                class="form-check-label"
+                                for="id_is_olympiad_winner"
                             >
                               Победитель ресбуликанских или региональных
                               олимпиад
@@ -1406,16 +1406,16 @@
                         <div class="col-xl-3">
                           <div class="form-check mb-3">
                             <input
-                              id="id_has_achievements_in_sports"
-                              class="form-check-input"
-                              type="checkbox"
-                              v-model="
+                                id="id_has_achievements_in_sports"
+                                class="form-check-input"
+                                type="checkbox"
+                                v-model="
                                 currentFPKPRKData.has_achievements_in_sports
                               "
                             />
                             <label
-                              class="form-check-label"
-                              for="id_has_achievements_in_sports"
+                                class="form-check-label"
+                                for="id_has_achievements_in_sports"
                             >
                               Достижения в спорте
                             </label>
@@ -1427,14 +1427,14 @@
                         <div class="col-xl-3">
                           <div class="form-check mb-3">
                             <input
-                              id="id_is_class_vpn"
-                              class="form-check-input"
-                              type="checkbox"
-                              v-model="currentFPKPRKData.is_class_vpn"
+                                id="id_is_class_vpn"
+                                class="form-check-input"
+                                type="checkbox"
+                                v-model="currentFPKPRKData.is_class_vpn"
                             />
                             <label
-                              class="form-check-label"
-                              for="id_is_class_vpn"
+                                class="form-check-label"
+                                for="id_is_class_vpn"
                             >
                               Класс военно-патриотической направленности
                             </label>
@@ -1443,14 +1443,14 @@
                         <div class="col-xl-3">
                           <div class="form-check mb-3">
                             <input
-                              id="id_is_class_pn"
-                              class="form-check-input"
-                              type="checkbox"
-                              v-model="currentFPKPRKData.is_class_pn"
+                                id="id_is_class_pn"
+                                class="form-check-input"
+                                type="checkbox"
+                                v-model="currentFPKPRKData.is_class_pn"
                             />
                             <label
-                              class="form-check-label"
-                              for="id_is_class_pn"
+                                class="form-check-label"
+                                for="id_is_class_pn"
                             >
                               Класс правовой направленности
                             </label>
@@ -1459,29 +1459,29 @@
                         <div class="col-xl-3">
                           <div class="form-check mb-3">
                             <input
-                              id="id_is_class_other"
-                              class="form-check-input"
-                              type="checkbox"
-                              v-model="currentFPKPRKData.is_class_other"
+                                id="id_is_class_other"
+                                class="form-check-input"
+                                type="checkbox"
+                                v-model="currentFPKPRKData.is_class_other"
                             />
                             <label
-                              class="form-check-label"
-                              for="id_is_class_other"
+                                class="form-check-label"
+                                for="id_is_class_other"
                             >
                               Профильный класс иной направленности
                             </label>
                           </div>
                           <div class="form-floating mb-3">
                             <input
-                              id="id_class_other_extra_data"
-                              type="text"
-                              class="form-control form-control-sm"
-                              placeholder="Доп. данные к классу иной
+                                id="id_class_other_extra_data"
+                                type="text"
+                                class="form-control form-control-sm"
+                                placeholder="Доп. данные к классу иной
                               направленности"
-                              v-model="currentFPKPRKData.class_other_extra_data"
+                                v-model="currentFPKPRKData.class_other_extra_data"
                             />
                             <label for="id_class_other_extra_data"
-                              >Доп. данные к классу иной направленности</label
+                            >Доп. данные к классу иной направленности</label
                             >
                           </div>
                         </div>
@@ -1491,11 +1491,11 @@
                   </div>
                 </div>
                 <div
-                  class="tab-pane fade"
-                  id="nav-med"
-                  role="tabpanel"
-                  aria-labelledby="nav-med-tab"
-                  tabindex="0"
+                    class="tab-pane fade"
+                    id="nav-med"
+                    role="tabpanel"
+                    aria-labelledby="nav-med-tab"
+                    tabindex="0"
                 >
                   <div>
                     <div class="my-3">
@@ -1503,10 +1503,10 @@
                         <div class="col-xl-4">
                           <div class="form-floating mb-3">
                             <select
-                              id="id_health_group"
-                              class="form-select"
-                              aria-label="Floating label select example"
-                              v-model="currentFPKPRKData.health_group"
+                                id="id_health_group"
+                                class="form-select"
+                                aria-label="Floating label select example"
+                                v-model="currentFPKPRKData.health_group"
                             >
                               <option :value="null">---------</option>
                               <option value="1">1</option>
@@ -1516,37 +1516,37 @@
                               <option value="5">5</option>
                             </select>
                             <label for="id_health_group"
-                              >Группа предназначения</label
+                            >Группа предназначения</label
                             >
                           </div>
                         </div>
                         <div class="col-xl-4">
                           <div class="form-floating mb-3">
                             <select
-                              id="id_ppfl_test"
-                              class="form-select"
-                              v-model="currentFPKPRKData.ppfl_test"
+                                id="id_ppfl_test"
+                                class="form-select"
+                                v-model="currentFPKPRKData.ppfl_test"
                             >
                               <option :value="null">---------</option>
                               <option
-                                :value="ppfl.id"
-                                v-for="ppfl in orderedPpflCategories"
+                                  :value="ppfl.id"
+                                  v-for="ppfl in orderedPpflCategories"
                               >
                                 {{ ppfl.category }}
                               </option>
                             </select>
                             <label for="id_ppfl_test"
-                              >Категория профессионального соответствия</label
+                            >Категория профессионального соответствия</label
                             >
                           </div>
                         </div>
                         <div class="col-xl-4">
                           <div class="form-floating mb-3">
                             <select
-                              id="id_medical_age_group"
-                              class="form-select"
-                              aria-label="Floating label select example"
-                              v-model="currentFPKPRKData.medical_age_group"
+                                id="id_medical_age_group"
+                                class="form-select"
+                                aria-label="Floating label select example"
+                                v-model="currentFPKPRKData.medical_age_group"
                             >
                               <option :value="null">---------</option>
                               <option value="1">1</option>
@@ -1556,7 +1556,7 @@
                               <option value="5">5</option>
                             </select>
                             <label for="id_medical_age_group"
-                              >Медико-возрастная группа</label
+                            >Медико-возрастная группа</label
                             >
                           </div>
                         </div>
@@ -1565,16 +1565,16 @@
                         <div class="col-xl-2">
                           <div class="form-check">
                             <input
-                              id="id_passed_medical_examination"
-                              class="form-check-input"
-                              type="checkbox"
-                              v-model="
+                                id="id_passed_medical_examination"
+                                class="form-check-input"
+                                type="checkbox"
+                                v-model="
                                 currentFPKPRKData.passed_medical_examination
                               "
                             />
                             <label
-                              class="form-check-label"
-                              for="id_passed_medical_examination"
+                                class="form-check-label"
+                                for="id_passed_medical_examination"
                             >
                               Окончательное мед. освидетельствование
                             </label>
@@ -1583,18 +1583,18 @@
                         <div class="col-xl-2">
                           <div class="form-floating mb-3">
                             <input
-                              id="id_passed_medical_examination_date"
-                              class="form-control"
-                              placeholder="Дата прохождения"
-                              type="date"
-                              v-model="
+                                id="id_passed_medical_examination_date"
+                                class="form-control"
+                                placeholder="Дата прохождения"
+                                type="date"
+                                v-model="
                                 currentFPKPRKData.passed_medical_examination_date
                               "
                             />
                             <label
-                              class="form-check-label"
-                              for="id_passed_medical_examination_date"
-                              >Дата прохождения
+                                class="form-check-label"
+                                for="id_passed_medical_examination_date"
+                            >Дата прохождения
                             </label>
                           </div>
                         </div>
@@ -1602,17 +1602,17 @@
                         <div class="col-xl-8">
                           <div class="form-floating mb-3">
                             <textarea
-                              id="id_passed_medical_examination_extra_data"
-                              class="form-control"
-                              placeholder="Примечание по медицинской комиссии"
-                              rows="2"
-                              v-model="
+                                id="id_passed_medical_examination_extra_data"
+                                class="form-control"
+                                placeholder="Примечание по медицинской комиссии"
+                                rows="2"
+                                v-model="
                                 currentFPKPRKData.passed_medical_examination_extra_data
                               "
                             ></textarea>
                             <label
-                              for="id_passed_medical_examination_extra_data"
-                              >Примечание по медицинской комиссии</label
+                                for="id_passed_medical_examination_extra_data"
+                            >Примечание по медицинской комиссии</label
                             >
                           </div>
                         </div>
@@ -1622,11 +1622,11 @@
                 </div>
 
                 <div
-                  class="tab-pane fade"
-                  id="nav-services"
-                  role="tabpanel"
-                  aria-labelledby="nav-med-tab"
-                  tabindex="0"
+                    class="tab-pane fade"
+                    id="nav-services"
+                    role="tabpanel"
+                    aria-labelledby="nav-med-tab"
+                    tabindex="0"
                 >
                   <div>
                     <div class="my-3">
@@ -1635,28 +1635,28 @@
                         <div class="col-xl-2">
                           <div class="form-floating mb-3">
                             <input
-                              id="id_military_service_start"
-                              type="date"
-                              class="form-control form-control-sm"
-                              placeholder="Начало"
-                              v-model="currentFPKPRKData.military_service_start"
+                                id="id_military_service_start"
+                                type="date"
+                                class="form-control form-control-sm"
+                                placeholder="Начало"
+                                v-model="currentFPKPRKData.military_service_start"
                             />
                             <label for="id_military_service_start"
-                              >Начало</label
+                            >Начало</label
                             >
                           </div>
                         </div>
                         <div class="col-xl-2">
                           <div class="form-floating mb-3">
                             <input
-                              id="id_military_service_end"
-                              type="date"
-                              class="form-control form-control-sm"
-                              placeholder="Окончание"
-                              v-model="currentFPKPRKData.military_service_end"
+                                id="id_military_service_end"
+                                type="date"
+                                class="form-control form-control-sm"
+                                placeholder="Окончание"
+                                v-model="currentFPKPRKData.military_service_end"
                             />
                             <label for="id_military_service_end"
-                              >Окончание</label
+                            >Окончание</label
                             >
                           </div>
                         </div>
@@ -1664,25 +1664,25 @@
                         <div class="col-xl-4">
                           <div class="form-floating mb-3">
                             <textarea
-                              id="id_military_organization"
-                              class="form-control"
-                              placeholder="Место прохождения службы"
-                              rows="2"
-                              v-model="currentFPKPRKData.military_organization"
+                                id="id_military_organization"
+                                class="form-control"
+                                placeholder="Место прохождения службы"
+                                rows="2"
+                                v-model="currentFPKPRKData.military_organization"
                             ></textarea>
                             <label for="id_military_organization"
-                              >Место прохождения службы</label
+                            >Место прохождения службы</label
                             >
                           </div>
                         </div>
                         <div class="col-xl-4">
                           <div class="form-floating mb-3">
                             <textarea
-                              id="id_military_position"
-                              class="form-control"
-                              placeholder="Должность"
-                              rows="2"
-                              v-model="currentFPKPRKData.military_position"
+                                id="id_military_position"
+                                class="form-control"
+                                placeholder="Должность"
+                                rows="2"
+                                v-model="currentFPKPRKData.military_position"
                             ></textarea>
                             <label for="id_military_position">Должность</label>
                           </div>
@@ -1693,11 +1693,11 @@
                         <div class="col-xl-2">
                           <div class="form-floating mb-3">
                             <input
-                              id="id_mvd_service_start"
-                              type="date"
-                              class="form-control form-control-sm"
-                              placeholder="Начало"
-                              v-model="currentFPKPRKData.mvd_service_start"
+                                id="id_mvd_service_start"
+                                type="date"
+                                class="form-control form-control-sm"
+                                placeholder="Начало"
+                                v-model="currentFPKPRKData.mvd_service_start"
                             />
                             <label for="id_mvd_service_start">Начало</label>
                           </div>
@@ -1705,11 +1705,11 @@
                         <div class="col-xl-2">
                           <div class="form-floating mb-3">
                             <input
-                              id="id_mvd_service_end"
-                              type="date"
-                              class="form-control form-control-sm"
-                              placeholder="Окончание"
-                              v-model="currentFPKPRKData.mvd_service_end"
+                                id="id_mvd_service_end"
+                                type="date"
+                                class="form-control form-control-sm"
+                                placeholder="Окончание"
+                                v-model="currentFPKPRKData.mvd_service_end"
                             />
                             <label for="id_mvd_service_end">Окончание</label>
                           </div>
@@ -1718,25 +1718,25 @@
                         <div class="col-xl-4">
                           <div class="form-floating mb-3">
                             <textarea
-                              id="id_mvd_organization"
-                              class="form-control"
-                              placeholder="Место прохождения службы"
-                              rows="2"
-                              v-model="currentFPKPRKData.mvd_organization"
+                                id="id_mvd_organization"
+                                class="form-control"
+                                placeholder="Место прохождения службы"
+                                rows="2"
+                                v-model="currentFPKPRKData.mvd_organization"
                             ></textarea>
                             <label for="id_mvd_organization"
-                              >Место прохождения службы</label
+                            >Место прохождения службы</label
                             >
                           </div>
                         </div>
                         <div class="col-xl-4">
                           <div class="form-floating mb-3">
                             <textarea
-                              id="id_mvd_position"
-                              class="form-control"
-                              placeholder="Должность"
-                              rows="2"
-                              v-model="currentFPKPRKData.mvd_position"
+                                id="id_mvd_position"
+                                class="form-control"
+                                placeholder="Должность"
+                                rows="2"
+                                v-model="currentFPKPRKData.mvd_position"
                             ></textarea>
                             <label for="id_mvd_position">Должность</label>
                           </div>
@@ -1747,30 +1747,30 @@
                 </div>
 
                 <div
-                  class="tab-pane fade"
-                  id="nav-attached_documents"
-                  role="tabpanel"
-                  aria-labelledby="nav-attached_documents-tab"
-                  tabindex="0"
+                    class="tab-pane fade"
+                    id="nav-attached_documents"
+                    role="tabpanel"
+                    aria-labelledby="nav-attached_documents-tab"
+                    tabindex="0"
                 >
                   <div class="m-3">
                     <div v-if="currentFPKPRKData.attached_documents">
                       <div class="d-flex flex-row my-2">
                         <div class="mx-3">
                           <input
-                            class="form-control"
-                            ref="uploadedDocument"
-                            type="file"
-                            accept=".pdf"
-                            v-on:change="uploadDocument"
-                            style="width: 600px"
+                              class="form-control"
+                              ref="uploadedDocument"
+                              type="file"
+                              accept=".pdf"
+                              v-on:change="uploadDocument"
+                              style="width: 600px"
                           />
                         </div>
                         <div class="d-flex align-items-end">
                           <button
-                            type="button"
-                            class="btn btn-link"
-                            @click="deleteDocument"
+                              type="button"
+                              class="btn btn-link"
+                              @click="deleteDocument"
                           >
                             Удалить скан документа
                           </button>
@@ -1778,17 +1778,17 @@
                       </div>
 
                       <object
-                        :data="currentFPKPRKData.attached_documents"
-                        type="application/pdf"
-                        ref="objectWithDocument"
-                        width="100%"
-                        height="700"
+                          :data="currentFPKPRKData.attached_documents"
+                          type="application/pdf"
+                          ref="objectWithDocument"
+                          width="100%"
+                          height="700"
                       >
                         <p>
                           <b>Ошибка загрузки pdf документа.</b> Попробуйте
                           скачать его
                           <a :href="currentFPKPRKData.attached_documents"
-                            >отсюда</a
+                          >отсюда</a
                           >.
                         </p>
                       </object>
@@ -1797,14 +1797,14 @@
                     <div v-else>
                       <div class="mb-3">
                         <label for="formFile" class="form-label"
-                          >Выберите pdf файл для загрузки</label
+                        >Выберите pdf файл для загрузки</label
                         >
                         <input
-                          class="form-control"
-                          ref="uploadedDocument"
-                          type="file"
-                          accept=".pdf"
-                          v-on:change="uploadDocument"
+                            class="form-control"
+                            ref="uploadedDocument"
+                            type="file"
+                            accept=".pdf"
+                            v-on:change="uploadDocument"
                         />
                       </div>
                     </div>
@@ -1819,25 +1819,25 @@
               <div class="card-body">
                 <div class="mb-3">
                   <label class="form-label" for="id_extra_data"
-                    >Примечание для отдела кадров</label
+                  >Примечание для отдела кадров</label
                   >
                   <textarea
-                    id="id_extra_data"
-                    class="form-control"
-                    rows="2"
-                    v-model="currentFPKPRKData.extra_data"
+                      id="id_extra_data"
+                      class="form-control"
+                      rows="2"
+                      v-model="currentFPKPRKData.extra_data"
                   ></textarea>
                 </div>
                 <!--                <div class="border-bottom border-4 my-3"></div>-->
                 <div class="mb-3">
                   <label class="form-label" for="id_comments_on_personal_file"
-                    >Замечания по личному делу</label
+                  >Замечания по личному делу</label
                   >
                   <textarea
-                    id="id_comments_on_personal_file"
-                    class="form-control"
-                    rows="3"
-                    v-model="currentFPKPRKData.comments_on_personal_file"
+                      id="id_comments_on_personal_file"
+                      class="form-control"
+                      rows="3"
+                      v-model="currentFPKPRKData.comments_on_personal_file"
                   ></textarea>
                 </div>
               </div>
@@ -1857,14 +1857,14 @@
                   <div class="col-6">
                     <div class="form-floating mb-3">
                       <select
-                        id="id_s1"
-                        class="form-select"
-                        v-model="currentFPKPRKData.speciality_1"
+                          id="id_s1"
+                          class="form-select"
+                          v-model="currentFPKPRKData.speciality_1"
                       >
                         <option :value="null">---------</option>
                         <option
-                          :value="quota.id"
-                          v-for="quota in orderedAdmissionQuotes_select_1"
+                            :value="quota.id"
+                            v-for="quota in orderedAdmissionQuotes_select_1"
                         >
                           {{ quota.quota_verbose_name }}
                         </option>
@@ -1894,14 +1894,14 @@
                   <div class="col-6">
                     <div class="form-floating mb-3">
                       <select
-                        id="id_privilege"
-                        class="form-select"
-                        v-model="currentFPKPRKData.privilege_1"
+                          id="id_privilege"
+                          class="form-select"
+                          v-model="currentFPKPRKData.privilege_1"
                       >
                         <option :value="null">---------</option>
                         <option
-                          :value="privilege.id"
-                          v-for="privilege in orderedPrivileges"
+                            :value="privilege.id"
+                            v-for="privilege in orderedPrivileges"
                         >
                           {{ privilege.privilege }}
                         </option>
@@ -1921,248 +1921,248 @@
                   <h3>Сумма баллов - {{ get_score_sum }}</h3>
                   <table class="table">
                     <thead>
-                      <tr>
-                        <th class="text-center table-primary">Русский</th>
-                        <th class="text-center table-primary">Белорусский</th>
-                        <th class="text-center table-warning">
-                          Обществоведение
-                        </th>
-                        <th class="text-center table-success">
-                          Иностранный язык
-                        </th>
-                      </tr>
+                    <tr>
+                      <th class="text-center table-primary">Русский</th>
+                      <th class="text-center table-primary">Белорусский</th>
+                      <th class="text-center table-warning">
+                        Обществоведение
+                      </th>
+                      <th class="text-center table-success">
+                        Иностранный язык
+                      </th>
+                    </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td colspan="2" class="text-center table-primary">
-                          <label for="id_rus_bel_cert_number"
-                            >№ сертификата</label
-                          >
-                          <input
+                    <tr>
+                      <td colspan="2" class="text-center table-primary">
+                        <label for="id_rus_bel_cert_number"
+                        >№ сертификата</label
+                        >
+                        <input
                             id="id_rus_bel_cert_number"
                             type="text"
                             class="form-control text-center"
                             v-model="currentFPKPRKData.rus_bel_ct_number"
-                          />
-                        </td>
-                        <td class="text-center table-warning">
-                          <label for="id_social_science_cert_number"
-                            >№ сертификата</label
-                          >
-                          <input
+                        />
+                      </td>
+                      <td class="text-center table-warning">
+                        <label for="id_social_science_cert_number"
+                        >№ сертификата</label
+                        >
+                        <input
                             id="id_social_science_cert_number"
                             type="text"
                             class="form-control text-center"
                             v-model="currentFPKPRKData.social_science_ct_number"
-                          />
-                        </td>
-                        <td class="text-center table-success">
-                          <label for="id_foreign_lang_cert_number"
-                            >№ сертификата</label
-                          >
-                          <input
+                        />
+                      </td>
+                      <td class="text-center table-success">
+                        <label for="id_foreign_lang_cert_number"
+                        >№ сертификата</label
+                        >
+                        <input
                             id="id_foreign_lang_cert_number"
                             type="text"
                             class="form-control text-center"
                             v-model="currentFPKPRKData.foreign_lang_ct_number"
-                          />
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="text-center table-primary">
-                          <label for="id_rus_score_ct"
-                            >Количество баллов по сертификату</label
-                          >
-                          <input
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="text-center table-primary">
+                        <label for="id_rus_score_ct"
+                        >Количество баллов по сертификату</label
+                        >
+                        <input
                             id="id_rus_score_ct"
                             name="rus_score_ct"
                             type="number"
                             class="form-control text-center"
                             v-model="currentFPKPRKData.rus_score_ct"
                             @input="makeInputDefaultNullValueIfEmpty"
-                          />
-                        </td>
-                        <td class="text-center table-primary">
-                          <label for="id_bel_score_ct"
-                            >Количество баллов по сертификату</label
-                          >
-                          <input
+                        />
+                      </td>
+                      <td class="text-center table-primary">
+                        <label for="id_bel_score_ct"
+                        >Количество баллов по сертификату</label
+                        >
+                        <input
                             id="id_bel_score_ct"
                             name="bel_score_ct"
                             type="number"
                             class="form-control text-center"
                             v-model="currentFPKPRKData.bel_score_ct"
                             @input="makeInputDefaultNullValueIfEmpty"
-                          />
-                        </td>
-                        <td class="text-center table-warning">
-                          <label for="id_social_science_ct"
-                            >Количество баллов по сертификату</label
-                          >
-                          <input
+                        />
+                      </td>
+                      <td class="text-center table-warning">
+                        <label for="id_social_science_ct"
+                        >Количество баллов по сертификату</label
+                        >
+                        <input
                             id="id_social_science_ct"
                             name="social_science_score_ct"
                             type="number"
                             class="form-control text-center"
                             v-model="currentFPKPRKData.social_science_score_ct"
                             @input="makeInputDefaultNullValueIfEmpty"
-                          />
-                        </td>
-                        <td class="text-center table-success">
-                          <label for="id_foreign_lang_ct"
-                            >Количество баллов по сертификату</label
-                          >
-                          <input
+                        />
+                      </td>
+                      <td class="text-center table-success">
+                        <label for="id_foreign_lang_ct"
+                        >Количество баллов по сертификату</label
+                        >
+                        <input
                             id="id_foreign_lang_ct"
                             name="foreign_lang_score_ct"
                             type="number"
                             class="form-control text-center"
                             v-model="currentFPKPRKData.foreign_lang_score_ct"
                             @input="makeInputDefaultNullValueIfEmpty"
-                          />
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="text-center table-primary">
-                          <select
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="text-center table-primary">
+                        <select
                             class="form-select"
                             v-model="currentFPKPRKData.rus_ct_choice"
-                          >
-                            <option selected class="text-center" value="">
-                              ----------
-                            </option>
-                            <option value="2024 ЦЭ" class="text-center">
-                              2024 ЦЭ
-                            </option>
-                            <option value="2024 ЦТ" class="text-center">
-                              2024 ЦТ
-                            </option>
-                            <option value="2025 ЦЭ" class="text-center">
-                              2025 ЦЭ
-                            </option>
-                            <option value="2025 ЦТ" class="text-center">
-                              2025 ЦТ
-                            </option>
-                          </select>
-                        </td>
-                        <td class="text-center table-primary">
-                          <select
+                        >
+                          <option selected class="text-center" value="">
+                            ----------
+                          </option>
+                          <option value="2024 ЦЭ" class="text-center">
+                            2024 ЦЭ
+                          </option>
+                          <option value="2024 ЦТ" class="text-center">
+                            2024 ЦТ
+                          </option>
+                          <option value="2025 ЦЭ" class="text-center">
+                            2025 ЦЭ
+                          </option>
+                          <option value="2025 ЦТ" class="text-center">
+                            2025 ЦТ
+                          </option>
+                        </select>
+                      </td>
+                      <td class="text-center table-primary">
+                        <select
                             class="form-select"
                             v-model="currentFPKPRKData.bel_ct_choice"
-                          >
-                            <option selected class="text-center" value="">
-                              ----------
-                            </option>
-                            <option value="2024 ЦЭ" class="text-center">
-                              2024 ЦЭ
-                            </option>
-                            <option value="2024 ЦТ" class="text-center">
-                              2024 ЦТ
-                            </option>
-                            <option value="2025 ЦЭ" class="text-center">
-                              2025 ЦЭ
-                            </option>
-                            <option value="2025 ЦТ" class="text-center">
-                              2025 ЦТ
-                            </option>
-                          </select>
-                        </td>
-                        <td class="text-center table-warning">
-                          <select
+                        >
+                          <option selected class="text-center" value="">
+                            ----------
+                          </option>
+                          <option value="2024 ЦЭ" class="text-center">
+                            2024 ЦЭ
+                          </option>
+                          <option value="2024 ЦТ" class="text-center">
+                            2024 ЦТ
+                          </option>
+                          <option value="2025 ЦЭ" class="text-center">
+                            2025 ЦЭ
+                          </option>
+                          <option value="2025 ЦТ" class="text-center">
+                            2025 ЦТ
+                          </option>
+                        </select>
+                      </td>
+                      <td class="text-center table-warning">
+                        <select
                             class="form-select"
                             v-model="currentFPKPRKData.social_science_ct_choice"
-                          >
-                            <option selected class="text-center" value="">
-                              ----------
-                            </option>
-                            <option value="2024 ЦЭ" class="text-center">
-                              2024 ЦЭ
-                            </option>
-                            <option value="2024 ЦТ" class="text-center">
-                              2024 ЦТ
-                            </option>
-                            <option value="2025 ЦЭ" class="text-center">
-                              2025 ЦЭ
-                            </option>
-                            <option value="2025 ЦТ" class="text-center">
-                              2025 ЦТ
-                            </option>
-                          </select>
-                        </td>
-                        <td class="text-center table-success">
-                          <select
+                        >
+                          <option selected class="text-center" value="">
+                            ----------
+                          </option>
+                          <option value="2024 ЦЭ" class="text-center">
+                            2024 ЦЭ
+                          </option>
+                          <option value="2024 ЦТ" class="text-center">
+                            2024 ЦТ
+                          </option>
+                          <option value="2025 ЦЭ" class="text-center">
+                            2025 ЦЭ
+                          </option>
+                          <option value="2025 ЦТ" class="text-center">
+                            2025 ЦТ
+                          </option>
+                        </select>
+                      </td>
+                      <td class="text-center table-success">
+                        <select
                             class="form-select"
                             v-model="currentFPKPRKData.foreign_lang_ct_choice"
-                          >
-                            <option selected class="text-center" value="">
-                              ----------
-                            </option>
-                            <option value="2024 ЦЭ" class="text-center">
-                              2024 ЦЭ
-                            </option>
-                            <option value="2024 ЦТ" class="text-center">
-                              2024 ЦТ
-                            </option>
-                            <option value="2025 ЦЭ" class="text-center">
-                              2025 ЦЭ
-                            </option>
-                            <option value="2025 ЦТ" class="text-center">
-                              2025 ЦТ
-                            </option>
-                          </select>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="text-center table-primary">Минимум 10</td>
-                        <td class="text-center table-primary">Минимум 10</td>
-                        <td class="text-center table-warning">Минимум 25</td>
-                        <td class="text-center table-success">Минимум 15</td>
-                      </tr>
+                        >
+                          <option selected class="text-center" value="">
+                            ----------
+                          </option>
+                          <option value="2024 ЦЭ" class="text-center">
+                            2024 ЦЭ
+                          </option>
+                          <option value="2024 ЦТ" class="text-center">
+                            2024 ЦТ
+                          </option>
+                          <option value="2025 ЦЭ" class="text-center">
+                            2025 ЦЭ
+                          </option>
+                          <option value="2025 ЦТ" class="text-center">
+                            2025 ЦТ
+                          </option>
+                        </select>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="text-center table-primary">Минимум 10</td>
+                      <td class="text-center table-primary">Минимум 10</td>
+                      <td class="text-center table-warning">Минимум 25</td>
+                      <td class="text-center table-success">Минимум 15</td>
+                    </tr>
                     </tbody>
                   </table>
                   <div class="border-bottom border-4 my-3"></div>
 
                   <div
-                    class="d-flex flex-row justify-content-between align-items-end"
+                      class="d-flex flex-row justify-content-between align-items-end"
                   >
                     <p class="fw-bold">Аттестат, 10 / 10 /100</p>
                   </div>
 
                   <table class="table">
                     <thead>
-                      <tr>
-                        <th class="text-center table-primary">Русский</th>
-                        <th class="text-center table-primary">Белорусский</th>
-                        <th class="text-center table-warning">
-                          Обществоведение
-                        </th>
-                        <th class="text-center table-success">
-                          Иностранный язык
-                        </th>
-                      </tr>
+                    <tr>
+                      <th class="text-center table-primary">Русский</th>
+                      <th class="text-center table-primary">Белорусский</th>
+                      <th class="text-center table-warning">
+                        Обществоведение
+                      </th>
+                      <th class="text-center table-success">
+                        Иностранный язык
+                      </th>
+                    </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td class="text-center table-primary">
-                          <input
+                    <tr>
+                      <td class="text-center table-primary">
+                        <input
                             name="rus_score_cert"
                             type="number"
                             class="form-control text-center"
                             v-model="currentFPKPRKData.rus_score_cert"
                             @input="makeInputDefaultNullValueIfEmpty"
-                          />
-                        </td>
-                        <td class="text-center table-primary">
-                          <input
+                        />
+                      </td>
+                      <td class="text-center table-primary">
+                        <input
                             name="bel_score_cert"
                             type="number"
                             class="form-control text-center"
                             v-model="currentFPKPRKData.bel_score_cert"
                             @input="makeInputDefaultNullValueIfEmpty"
-                          />
-                        </td>
-                        <td class="text-center table-warning">
-                          <input
+                        />
+                      </td>
+                      <td class="text-center table-warning">
+                        <input
                             name="social_science_score_cert"
                             type="number"
                             class="form-control text-center"
@@ -2170,61 +2170,61 @@
                               currentFPKPRKData.social_science_score_cert
                             "
                             @input="makeInputDefaultNullValueIfEmpty"
-                          />
-                        </td>
-                        <td class="text-center table-success">
-                          <input
+                        />
+                      </td>
+                      <td class="text-center table-success">
+                        <input
                             name="foreign_lang_score_cert"
                             type="number"
                             class="form-control text-center"
                             v-model="currentFPKPRKData.foreign_lang_score_cert"
                             @input="makeInputDefaultNullValueIfEmpty"
-                          />
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
                           colspan="2"
                           class="text-center table-primary fw-bold"
-                        >
-                          Средний балл (аттестата)
-                        </td>
-                        <td
+                      >
+                        Средний балл (аттестата)
+                      </td>
+                      <td
                           colspan="2"
                           class="text-center table-primary fw-bold"
-                        >
-                          Сумма (рус. + бел.)
-                        </td>
-                      </tr>
-                      <tr>
-                        <td colspan="2" class="text-center table-primary">
-                          <div class="d-flex flex-row">
-                            <button
+                      >
+                        Сумма (рус. + бел.)
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2" class="text-center table-primary">
+                        <div class="d-flex flex-row">
+                          <button
                               class="btn btn-warning me-2 text-nowrap"
                               @click="showAverageScoreCalculatingModal"
-                            >
-                              <font-awesome-icon
+                          >
+                            <font-awesome-icon
                                 :icon="['fas', 'calculator']"
-                              />&nbsp;Рассчитать
-                            </button>
-                            <input
+                            />&nbsp;Рассчитать
+                          </button>
+                          <input
                               type="number"
                               class="form-control text-center"
                               v-model="
                                 currentFPKPRKData.education_average_score
                               "
-                            />
-                          </div>
-                        </td>
-                        <td colspan="2" class="text-center table-primary">
-                          <input
+                          />
+                        </div>
+                      </td>
+                      <td colspan="2" class="text-center table-primary">
+                        <input
                             type="number"
                             class="form-control text-center"
                             :value="getARussianAndBelorussianSumScore"
                             disabled
-                          />
-                        </td>
-                      </tr>
+                        />
+                      </td>
+                    </tr>
                     </tbody>
                   </table>
 
@@ -2238,19 +2238,19 @@
 
           <div class="mb-3">
             <button class="btn btn-primary" @click="printApplication">
-              <font-awesome-icon :icon="['fas', 'print']" />&nbsp;&nbsp;
+              <font-awesome-icon :icon="['fas', 'print']"/>&nbsp;&nbsp;
               Отпечатать заявление
             </button>
             <div class="form-check my-3">
               <input
-                id="id_application_has_been_printed"
-                class="form-check-input"
-                type="checkbox"
-                v-model="currentFPKPRKData.application_has_been_printed"
+                  id="id_application_has_been_printed"
+                  class="form-check-input"
+                  type="checkbox"
+                  v-model="currentFPKPRKData.application_has_been_printed"
               />
               <label
-                class="form-check-label"
-                for="id_application_has_been_printed"
+                  class="form-check-label"
+                  for="id_application_has_been_printed"
               >
                 Заявление отпечатано
               </label>
@@ -2264,9 +2264,9 @@
 
 <script>
 import NavigationLayout from "@/components/layouts/NavigationLayout.vue"
-import { globalFPKPRKStudentAPIForEntranceInstance } from "@/api/fpkprk/fpk_prk_studentAPI.js"
+import {globalFPKPRKStudentAPIForEntranceInstance} from "@/api/fpkprk/fpk_prk_studentAPI.js"
 import getActionHistoryAPIInstance from "@/api/cadet/actionHistoryAPI.js"
-import { mapGetters } from "vuex"
+import {mapGetters} from "vuex"
 import useVuelidate from "@vuelidate/core"
 import {
   required,
@@ -2275,11 +2275,11 @@ import {
   maxValue,
   requiredIf,
 } from "@vuelidate/validators"
-import { isEqual } from "lodash"
+import {isEqual} from "lodash"
 
 export default {
   name: "FPKPRKInputForm",
-  components: { NavigationLayout },
+  components: {NavigationLayout},
   data() {
     return {
       currentTime: new Date(),
@@ -2386,16 +2386,16 @@ export default {
       BACKEND_PROTOCOL: import.meta.env.VITE_APP_BACKEND_PROTOCOL,
       BACKEND_HOST: import.meta.env.VITE_APP_BACKEND_HOST,
       BACKEND_PORT: import.meta.env.VITE_APP_BACKEND_PORT,
-      fpk_prkHistoryList: { count: 0, results: [], previous: null, next: null },
+      fpk_prkHistoryList: {count: 0, results: [], previous: null, next: null},
       average_score_calculation: {
         choice: "",
-        certificate: [{ selectIndex: 0, selectValue: 0 }],
-        diploma: [{ selectIndex: 0, selectValue: 0 }],
+        certificate: [{selectIndex: 0, selectValue: 0}],
+        diploma: [{selectIndex: 0, selectValue: 0}],
       },
     }
   },
   setup() {
-    return { v$: useVuelidate() }
+    return {v$: useVuelidate()}
   },
   validations() {
     const education_graduating_end_year_minValueValue = minValue(2000)
@@ -2404,19 +2404,19 @@ export default {
       currentFPKPRKData: {
         last_name_rus: {
           required: helpers.withMessage(
-            "Поле 'Фамилия (рус)' не может быть пустым",
-            required,
+              "Поле 'Фамилия (рус)' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         education_graduating_end_year: {
           education_graduating_end_year_maxValueValue: helpers.withMessage(
-            "Некорректное значение поля 'Год окончания школы'",
-            education_graduating_end_year_maxValueValue,
+              "Некорректное значение поля 'Год окончания школы'",
+              education_graduating_end_year_maxValueValue,
           ),
           education_graduating_end_year_minValueValue: helpers.withMessage(
-            "Некорректное значение поля 'Год окончания школы'",
-            education_graduating_end_year_minValueValue,
+              "Некорректное значение поля 'Год окончания школы'",
+              education_graduating_end_year_minValueValue,
           ),
           $autoDirty: true,
         },
@@ -2424,163 +2424,163 @@ export default {
       applicationPrintData: {
         last_name_rus: {
           required: helpers.withMessage(
-            "Поле 'Фамилия' не может быть пустым",
-            required,
+              "Поле 'Фамилия' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         first_name_rus: {
           required: helpers.withMessage(
-            "Поле 'Имя' не может быть пустым",
-            required,
+              "Поле 'Имя' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         patronymic_rus: {
           required: helpers.withMessage(
-            "Поле 'Отчество' не может быть пустым",
-            required,
+              "Поле 'Отчество' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         address_residence: {
           required: helpers.withMessage(
-            "Поле 'Проживает по адресу' не может быть пустым",
-            required,
+              "Поле 'Проживает по адресу' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         education_graduating_end_year: {
           required: helpers.withMessage(
-            "Поле 'Год окончания учреждения образования' не может быть пустым",
-            required,
+              "Поле 'Год окончания учреждения образования' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         education_graduated: {
           required: helpers.withMessage(
-            "Поле 'Учреждение образования' не может быть пустым",
-            required,
+              "Поле 'Учреждение образования' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         component_organ: {
           required: helpers.withMessage(
-            "Поле 'Комплектующий орган' не может быть пустым",
-            required,
+              "Поле 'Комплектующий орган' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         foreign_language: {
           required: helpers.withMessage(
-            "Поле 'Иностранный язык' не может быть пустым",
-            required,
+              "Поле 'Иностранный язык' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         date_of_birth: {
           required: helpers.withMessage(
-            "Поле 'Дата рождения' не может быть пустым",
-            required,
+              "Поле 'Дата рождения' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         phone_number: {
           required: helpers.withMessage(
-            "Поле 'Номер телефона' не может быть пустым",
-            required,
+              "Поле 'Номер телефона' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         passport_document_type: {
           required: helpers.withMessage(
-            "Поле 'Вид документа удостоверяющего личность' не может быть пустым",
-            required,
+              "Поле 'Вид документа удостоверяющего личность' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         passport_issue_date: {
           required: helpers.withMessage(
-            "Поле 'Дата выдачи пасспорта' не может быть пустым",
-            required,
+              "Поле 'Дата выдачи пасспорта' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         passport_issue_authority_text: {
           required: helpers.withMessage(
-            "Поле 'Орган выдачи пасспорта' не может быть пустым",
-            required,
+              "Поле 'Орган выдачи пасспорта' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         identification_number: {
           required: helpers.withMessage(
-            "Поле 'Идентификационный номер' не может быть пустым",
-            required,
+              "Поле 'Идентификационный номер' не может быть пустым",
+              required,
           ),
           $autoDirty: true,
         },
         rus_score_ct: {
           required: helpers.withMessage(
-            "Поле 'Русский язык - количество баллов по сертификату' не может быть пустым",
-            requiredIf(
-              () =>
-                !this.applicationPrintData.bel_score_ct &&
-                this.currentFPKPRKData.fpk_mag_choice === 1,
-            ),
+              "Поле 'Русский язык - количество баллов по сертификату' не может быть пустым",
+              requiredIf(
+                  () =>
+                      !this.applicationPrintData.bel_score_ct &&
+                      this.currentFPKPRKData.fpk_mag_choice === 1,
+              ),
           ),
           $autoDirty: true,
         },
         bel_score_ct: {
           required: helpers.withMessage(
-            "Поле 'Белорусский язык - количество баллов по сертификату' не может быть пустым",
-            requiredIf(
-              () =>
-                !this.applicationPrintData.rus_score_ct &&
-                this.currentFPKPRKData.fpk_mag_choice === 1,
-            ),
+              "Поле 'Белорусский язык - количество баллов по сертификату' не может быть пустым",
+              requiredIf(
+                  () =>
+                      !this.applicationPrintData.rus_score_ct &&
+                      this.currentFPKPRKData.fpk_mag_choice === 1,
+              ),
           ),
           $autoDirty: true,
         },
         social_science_score_ct: {
           required: helpers.withMessage(
-            "Поле 'Обществоведение - количество баллов по сертификату' не может быть пустым",
-            requiredIf(() => this.currentFPKPRKData.fpk_mag_choice === 1),
+              "Поле 'Обществоведение - количество баллов по сертификату' не может быть пустым",
+              requiredIf(() => this.currentFPKPRKData.fpk_mag_choice === 1),
           ),
           $autoDirty: true,
         },
         foreign_lang_score_ct: {
           required: helpers.withMessage(
-            "Поле 'Иностранный язык - количество баллов по сертификату' не может быть пустым",
-            requiredIf(() => this.currentFPKPRKData.fpk_mag_choice === 1),
+              "Поле 'Иностранный язык - количество баллов по сертификату' не может быть пустым",
+              requiredIf(() => this.currentFPKPRKData.fpk_mag_choice === 1),
           ),
           $autoDirty: true,
         },
         rus_score_cert: {
           required: helpers.withMessage(
-            "Поле 'Русский язык - количество баллов в аттестате' не может быть пустым",
-            requiredIf(() => this.currentFPKPRKData.fpk_mag_choice === 1),
+              "Поле 'Русский язык - количество баллов в аттестате' не может быть пустым",
+              requiredIf(() => this.currentFPKPRKData.fpk_mag_choice === 1),
           ),
           $autoDirty: true,
         },
         bel_score_cert: {
           required: helpers.withMessage(
-            "Поле 'Белорусский язык - количество баллов в аттестате' не может быть пустым",
-            requiredIf(() => this.currentFPKPRKData.fpk_mag_choice === 1),
+              "Поле 'Белорусский язык - количество баллов в аттестате' не может быть пустым",
+              requiredIf(() => this.currentFPKPRKData.fpk_mag_choice === 1),
           ),
           $autoDirty: true,
         },
         social_science_score_cert: {
           required: helpers.withMessage(
-            "Поле 'Обществоведение - количество баллов в аттестате' не может быть пустым",
-            requiredIf(() => this.currentFPKPRKData.fpk_mag_choice === 1),
+              "Поле 'Обществоведение - количество баллов в аттестате' не может быть пустым",
+              requiredIf(() => this.currentFPKPRKData.fpk_mag_choice === 1),
           ),
           $autoDirty: true,
         },
         foreign_lang_score_cert: {
           required: helpers.withMessage(
-            "Поле 'Иностранный язык - количество баллов в аттестате' не может быть пустым",
-            requiredIf(() => this.currentFPKPRKData.fpk_mag_choice === 1),
+              "Поле 'Иностранный язык - количество баллов в аттестате' не может быть пустым",
+              requiredIf(() => this.currentFPKPRKData.fpk_mag_choice === 1),
           ),
           $autoDirty: true,
         },
@@ -2596,8 +2596,8 @@ export default {
         const response = await this.fpk_prkAPIInstance.getItemData(applicantId)
         this.currentFPKPRKData = response.data
         this.currentFPKPRKDataFromServer = Object.assign(
-          {},
-          this.currentFPKPRKData,
+            {},
+            this.currentFPKPRKData,
         )
       } catch (error) {
       } finally {
@@ -2607,13 +2607,13 @@ export default {
     async uploadDocument() {
       let formData = new FormData()
       formData.append(
-        "attached_documents",
-        this.$refs.uploadedDocument.files[0],
+          "attached_documents",
+          this.$refs.uploadedDocument.files[0],
       )
 
       const response = await this.fpk_prkAPIInstance.updatePhotoOrAnyFile(
-        this.currentFPKPRKData.id,
-        formData,
+          this.currentFPKPRKData.id,
+          formData,
       )
 
       this.currentFPKPRKData = {
@@ -2623,8 +2623,8 @@ export default {
     },
     async deleteDocument() {
       const response = await this.fpk_prkAPIInstance.updatePhotoOrAnyFile(
-        this.currentFPKPRKData.id,
-        { attached_documents: null },
+          this.currentFPKPRKData.id,
+          {attached_documents: null},
       )
 
       this.currentFPKPRKData = {
@@ -2642,16 +2642,16 @@ export default {
       } else {
         this.isDataSaving = true
         try {
-          const { photo, attached_documents, sign_image, ...rest } =
-            this.currentFPKPRKData
+          const {photo, attached_documents, sign_image, ...rest} =
+              this.currentFPKPRKData
           const updatedData = await this.fpk_prkAPIInstance.updateItem({
             ...rest,
             score_sum: this.get_score_sum,
           })
           this.currentFPKPRKData = updatedData.data
           this.currentFPKPRKDataFromServer = Object.assign(
-            {},
-            this.currentFPKPRKData,
+              {},
+              this.currentFPKPRKData,
           )
         } catch (e) {
         } finally {
@@ -2664,7 +2664,7 @@ export default {
         this.actionHistoryAPIInstance.searchObj.app_label = "kis_inheritance"
         this.actionHistoryAPIInstance.searchObj.model_name = "FPKPRKMAGStudent"
         this.actionHistoryAPIInstance.searchObj.record_id =
-          this.currentFPKPRKData.id
+            this.currentFPKPRKData.id
         const response = await this.actionHistoryAPIInstance.getItemsList()
         this.fpk_prkHistoryList = response.data
         let historyModal = this.$refs.cadetHistoryModal
@@ -2682,7 +2682,7 @@ export default {
       }
     },
     removeFileFieldsFromObj(obj) {
-      const { photo, attached_documents, sign_image, ...rest } = obj
+      const {photo, attached_documents, sign_image, ...rest} = obj
       return rest
     },
     async printApplication() {
@@ -2696,7 +2696,7 @@ export default {
       }
       if (this.v$.applicationPrintData.$invalid) {
         let applicationValidationErrorsModal =
-          this.$refs.application_validationErrorsModal
+            this.$refs.application_validationErrorsModal
         let myModal = new bootstrap.Modal(applicationValidationErrorsModal, {
           keyboard: false,
         })
@@ -2720,32 +2720,32 @@ export default {
         }
       }
       const resp = await this.fpk_prkAPIInstance.updateItemPartly(dataObj)
-      this.currentFPKPRKData = { ...this.currentFPKPRKData, ...resp.data }
+      this.currentFPKPRKData = {...this.currentFPKPRKData, ...resp.data}
       this.currentFPKPRKDataFromServer = Object.assign(
-        {},
-        this.currentFPKPRKData,
+          {},
+          this.currentFPKPRKData,
       )
 
       this.fpk_prkAPIInstance
-        .entrance_application_print(this.currentFPKPRKData.id)
-        .then((response) => {
-          const url = window.URL.createObjectURL(new Blob([response.data]))
-          const link = document.createElement("a")
-          link.href = url
-          link.setAttribute(
-            "download",
-            `${this.currentFPKPRKData.last_name_rus}.docx`,
-          )
-          document.body.appendChild(link)
-          link.click()
-        })
+          .entrance_application_print(this.currentFPKPRKData.id)
+          .then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]))
+            const link = document.createElement("a")
+            link.href = url
+            link.setAttribute(
+                "download",
+                `${this.currentFPKPRKData.last_name_rus}.docx`,
+            )
+            document.body.appendChild(link)
+            link.click()
+          })
       this.$refs.applicationValidationErrorsModalCloseButton.click()
     },
     averageScoreCertificateSelectChange(e) {
       const lastIndex =
-        this.average_score_calculation.certificate[
+          this.average_score_calculation.certificate[
           this.average_score_calculation.certificate.length - 1
-        ].selectIndex
+              ].selectIndex
       if (parseInt(e.target.name) === lastIndex) {
         this.average_score_calculation.certificate.push({
           selectIndex: lastIndex + 1,
@@ -2756,9 +2756,9 @@ export default {
 
     averageScoreDiplomaSelectChange(e) {
       const lastIndex =
-        this.average_score_calculation.diploma[
+          this.average_score_calculation.diploma[
           this.average_score_calculation.diploma.length - 1
-        ].selectIndex
+              ].selectIndex
       if (parseInt(e.target.name) === lastIndex) {
         this.average_score_calculation.diploma.push({
           selectIndex: lastIndex + 1,
@@ -2769,21 +2769,21 @@ export default {
 
     getAverageScoreCount() {
       return (
-        this.average_score_calculation.certificate.filter(
-          (item) => item.selectValue !== 0 && item.selectValue !== "",
-        ).length +
-        this.average_score_calculation.diploma.filter(
-          (item) => item.selectValue !== 0 && item.selectValue !== "",
-        ).length
+          this.average_score_calculation.certificate.filter(
+              (item) => item.selectValue !== 0 && item.selectValue !== "",
+          ).length +
+          this.average_score_calculation.diploma.filter(
+              (item) => item.selectValue !== 0 && item.selectValue !== "",
+          ).length
       )
     },
 
     average_score_calculation_select_change() {
       this.average_score_calculation.certificate = [
-        { selectIndex: 0, selectValue: 0 },
+        {selectIndex: 0, selectValue: 0},
       ]
       this.average_score_calculation.diploma = [
-        { selectIndex: 0, selectValue: 0 },
+        {selectIndex: 0, selectValue: 0},
       ]
     },
 
@@ -2797,7 +2797,7 @@ export default {
 
     saveAverageScore() {
       this.currentFPKPRKData.education_average_score_calculation =
-        JSON.stringify(this.average_score_calculation)
+          JSON.stringify(this.average_score_calculation)
       if (this.getAverageScore === 0) {
         this.currentFPKPRKData.education_average_score = null
       } else
@@ -2821,7 +2821,7 @@ export default {
     },
     orderedSubdivisions() {
       return this.subdivisions.results.filter(
-        (subdivision) => subdivision.subdivision_category == "1",
+          (subdivision) => subdivision.subdivision_category == "1",
       )
     },
     orderedComponentOrgans() {
@@ -2925,65 +2925,65 @@ export default {
 
     orderedAdmissionQuotes() {
       return this.admissionQuota.results
-        .filter((quota) => quota.ownership_category === "4")
-        .sort((a, b) => {
-          const admission_codeA = a.admission_code
-          const admission_codeB = b.admission_code
-          if (admission_codeA < admission_codeB) {
-            return -1
-          }
-          if (admission_codeA > admission_codeB) {
-            return 1
-          }
-          return 0
-        })
+          .filter((quota) => quota.ownership_category === "4")
+          .sort((a, b) => {
+            const admission_codeA = a.admission_code
+            const admission_codeB = b.admission_code
+            if (admission_codeA < admission_codeB) {
+              return -1
+            }
+            if (admission_codeA > admission_codeB) {
+              return 1
+            }
+            return 0
+          })
     },
 
     isDataFromServerEqualChangedData() {
       return isEqual(
-        this.removeFileFieldsFromObj(this.currentFPKPRKData),
-        this.removeFileFieldsFromObj(this.currentFPKPRKDataFromServer),
+          this.removeFileFieldsFromObj(this.currentFPKPRKData),
+          this.removeFileFieldsFromObj(this.currentFPKPRKDataFromServer),
       )
     },
     getARussianAndBelorussianSumScore() {
       let scoreSum = ""
       if (
-        isFinite(this.currentFPKPRKData.rus_score_cert) &&
-        this.currentFPKPRKData.rus_score_cert !== null &&
-        isFinite(this.currentFPKPRKData.bel_score_cert)
+          isFinite(this.currentFPKPRKData.rus_score_cert) &&
+          this.currentFPKPRKData.rus_score_cert !== null &&
+          isFinite(this.currentFPKPRKData.bel_score_cert)
       ) {
         scoreSum =
-          this.currentFPKPRKData.rus_score_cert +
-          this.currentFPKPRKData.bel_score_cert
+            this.currentFPKPRKData.rus_score_cert +
+            this.currentFPKPRKData.bel_score_cert
         return scoreSum
       }
       return scoreSum
     },
     get_score_sum() {
       let education_average_score = this.currentFPKPRKData
-        .education_average_score
-        ? parseInt(this.currentFPKPRKData.education_average_score)
-        : 0
+          .education_average_score
+          ? parseInt(this.currentFPKPRKData.education_average_score)
+          : 0
       let rus_score_ct = this.currentFPKPRKData.rus_score_ct
-        ? this.currentFPKPRKData.rus_score_ct
-        : 0
+          ? this.currentFPKPRKData.rus_score_ct
+          : 0
       let bel_score_ct = this.currentFPKPRKData.bel_score_ct
-        ? this.currentFPKPRKData.bel_score_ct
-        : 0
+          ? this.currentFPKPRKData.bel_score_ct
+          : 0
       let social_science_score_ct = this.currentFPKPRKData
-        .social_science_score_ct
-        ? this.currentFPKPRKData.social_science_score_ct
-        : 0
+          .social_science_score_ct
+          ? this.currentFPKPRKData.social_science_score_ct
+          : 0
       let foreign_lang_score_ct = this.currentFPKPRKData.foreign_lang_score_ct
-        ? this.currentFPKPRKData.foreign_lang_score_ct
-        : 0
+          ? this.currentFPKPRKData.foreign_lang_score_ct
+          : 0
 
       return (
-        education_average_score +
-        rus_score_ct +
-        bel_score_ct +
-        social_science_score_ct +
-        foreign_lang_score_ct
+          education_average_score +
+          rus_score_ct +
+          bel_score_ct +
+          social_science_score_ct +
+          foreign_lang_score_ct
       )
     },
     getAverageScore() {

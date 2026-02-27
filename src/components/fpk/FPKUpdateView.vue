@@ -100,7 +100,7 @@
                         <div class="col-lg-4">
                           <div class="mb-3">
                             <label class="form-label" for="id_id"
-                              >Номер в базе</label
+                            >Номер в базе</label
                             >
                             <input
                               type="text"
@@ -115,7 +115,7 @@
                         <div class="col-lg-4">
                           <div class="mb-3">
                             <label class="form-label" for="id_entrance_year"
-                              >Год набора</label
+                            >Год набора</label
                             >
                             <input
                               type="text"
@@ -133,7 +133,7 @@
                         <div class="col-lg-4">
                           <div class="mb-3">
                             <label class="form-label" for="id_last_name_rus"
-                              >Фамилия (рус):</label
+                            >Фамилия (рус):</label
                             >
                             <input
                               type="text"
@@ -149,7 +149,7 @@
                         <div class="col-lg-4">
                           <div class="mb-3">
                             <label class="form-label" for="id_first_name_rus"
-                              >Имя (рус):</label
+                            >Имя (рус):</label
                             >
                             <input
                               type="text"
@@ -165,7 +165,7 @@
                         <div class="col-lg-4">
                           <div class="mb-3">
                             <label class="form-label" for="id_patronymic_rus"
-                              >Отчество (рус):</label
+                            >Отчество (рус):</label
                             >
                             <input
                               type="text"
@@ -182,7 +182,7 @@
                         <div class="col-lg-4">
                           <div class="mb-3">
                             <label class="form-label" for="id_last_name_bel"
-                              >Фамилия (бел):</label
+                            >Фамилия (бел):</label
                             >
                             <input
                               type="text"
@@ -198,7 +198,7 @@
                         <div class="col-lg-4">
                           <div class="mb-3">
                             <label class="form-label" for="id_first_name_bel"
-                              >Имя (бел):</label
+                            >Имя (бел):</label
                             >
                             <input
                               type="text"
@@ -214,7 +214,7 @@
                         <div class="col-lg-4">
                           <div class="mb-3">
                             <label class="form-label" for="id_patronymic_bel"
-                              >Отчество (бел):</label
+                            >Отчество (бел):</label
                             >
                             <input
                               type="text"
@@ -231,7 +231,7 @@
                         <div class="col-lg-4">
                           <div class="mb-3">
                             <label class="form-label" for="id_date_of_birth"
-                              >Дата рождения:</label
+                            >Дата рождения:</label
                             >
                             <input
                               type="date"
@@ -247,7 +247,7 @@
                             <label
                               class="form-label"
                               for="id_personal_number_mvd"
-                              >Личный номер (жетон)</label
+                            >Личный номер (жетон)</label
                             >
                             <input
                               type="text"
@@ -261,7 +261,7 @@
                         <div class="col-lg-4">
                           <div class="mb-3">
                             <label for="id_rank" class="form-label"
-                              >Звание</label
+                            >Звание</label
                             >
                             <select
                               id="id_rank"
@@ -285,7 +285,7 @@
                         <div class="col-lg-4">
                           <div class="mb-3">
                             <label class="form-label" for="id_phone_number"
-                              >Номер телефона:</label
+                            >Номер телефона:</label
                             >
                             <input
                               type="text"
@@ -300,7 +300,7 @@
                         <div class="col-lg-8">
                           <div class="mb-3">
                             <label class="form-label" for="id_address_residence"
-                              >Адрес места жительства</label
+                            >Адрес места жительства</label
                             >
                             <input
                               type="text"
@@ -318,7 +318,7 @@
                             <label
                               class="form-label"
                               for="id_address_registration"
-                              >Адрес регистрации</label
+                            >Адрес регистрации</label
                             >
                             <input
                               type="text"
@@ -376,7 +376,7 @@
                           </option>
                         </select>
                         <label for="id_education_level"
-                          >Уровень образования</label
+                        >Уровень образования</label
                         >
                       </div>
                     </div>
@@ -392,7 +392,7 @@
                           @input="makeInputDefaultNullValueIfEmpty"
                         />
                         <label for="id_education_graduating_end_year"
-                          >Год окончания</label
+                        >Год окончания</label
                         >
                       </div>
                     </div>
@@ -427,7 +427,7 @@
                           placeholder="Наименование УО"
                         ></textarea>
                         <label for="id_education_graduated"
-                          >Наименование УО</label
+                        >Наименование УО</label
                         >
                       </div>
                     </div>
@@ -447,7 +447,7 @@
                           </option>
                         </select>
                         <label for="id_education_location_kind"
-                          >Город/село</label
+                        >Город/село</label
                         >
                       </div>
                     </div>
@@ -483,7 +483,7 @@
                     <div class="col-lg-4">
                       <div class="mb-3">
                         <label class="form-label" for="id_category"
-                          >Группа</label
+                        >Группа</label
                         >
                         <select
                           class="form-select"
@@ -504,17 +504,11 @@
                     </div>
                     <div class="col-lg-4">
                       <div class="mb-3">
-                        <label
-                          class="form-label"
-                          for="id_student_record_book_number"
-                          >Номер зачетной книжки</label
-                        >
-                        <input
-                          type="text"
-                          id="id_student_record_book_number"
-                          class="form-control"
-                          v-model="currentFPKData.student_record_book_number"
-                        />
+                        <label class="form-label" for="id_student_record_book_number"
+                        >Номер зачетной книжки</label>
+
+                        <input type="text" id="id_student_record_book_number" class="form-control"
+                               v-model="currentFPKData.student_record_book_number">
                       </div>
                     </div>
                   </div>
@@ -538,7 +532,7 @@
                     <a
                       class="list-group-item list-group-item-action rounded-1"
                       href="#simple-list-personal-data"
-                      >Личные данные</a
+                    >Личные данные</a
                     >
                     <!--                    <a-->
                     <!--                      class="list-group-item list-group-item-action rounded-1"-->
@@ -548,12 +542,12 @@
                     <a
                       class="list-group-item list-group-item-action rounded-1"
                       href="#simple-list-academy-data"
-                      >Обучение в Академии МВД</a
+                    >Обучение в Академии МВД</a
                     >
                     <a
                       class="list-group-item list-group-item-action rounded-1"
                       href="#simple-list-education"
-                      >Образование</a
+                    >Образование</a
                     >
                     <!--                    <a-->
                     <!--                      class="list-group-item list-group-item-action rounded-1"-->
@@ -645,12 +639,12 @@ export default {
         social_status: "",
         military_office: "",
         extra_data: "",
-        student_record_book_number: "",
+        student_record_book_number: ""
       },
       fpkAPIInstance: getFPKPRKStudentAPIInstance(),
       BACKEND_PROTOCOL: import.meta.env.VITE_APP_BACKEND_PROTOCOL,
       BACKEND_HOST: import.meta.env.VITE_APP_BACKEND_HOST,
-      BACKEND_PORT: import.meta.env.VITE_APP_BACKEND_PORT,
+      BACKEND_PORT: import.meta.env.VITE_APP_BACKEND_PORT
     }
   },
   async created() {
@@ -666,7 +660,7 @@ export default {
         this.isLoading = false
       }
     },
-    debouncedUpdate: debounce(async function () {
+    debouncedUpdate: debounce(async function() {
       try {
         const { photo, attached_documents, sign_image, ...rest } =
           this.currentFPKData
@@ -681,19 +675,19 @@ export default {
 
       const response = await this.fpkAPIInstance.updatePhotoOrAnyFile(
         this.currentFPKData.id,
-        formData,
+        formData
       )
 
       this.currentFPKData = {
         ...this.currentFPKData,
-        photo: response.data.photo,
+        photo: response.data.photo
       }
     },
     makeInputDefaultNullValueIfEmpty(event) {
       if (event.target.value.trim().length === 0) {
         this.currentFPKPRKData[event.target.name] = null
       }
-    },
+    }
   },
   computed: {
     orderedGroups() {
@@ -729,8 +723,8 @@ export default {
       medals: "medals/getList",
       token: "auth/getToken",
       educationLocalityKinds: "educationLocalityKind/getList",
-      isCommonLoading: "common/getIsCommonLoading",
-    }),
+      isCommonLoading: "common/getIsCommonLoading"
+    })
   },
   watch: {
     currentFPKData: {
@@ -739,8 +733,8 @@ export default {
           this.debouncedUpdate()
         }
       },
-      deep: true,
-    },
-  },
+      deep: true
+    }
+  }
 }
 </script>

@@ -331,8 +331,7 @@ export default {
               this.setSerialNumbers()
             } catch (error) {
               this.isError = true
-            } finally {
-            }
+            } finally {}
           }
         }
       }
