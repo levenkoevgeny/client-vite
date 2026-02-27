@@ -114,10 +114,10 @@ export default {
           itemTitle: "Взыскания",
           itemUrl: "dictionaries-punishments",
         },
-        {
-          itemTitle: "Подразделения",
-          itemUrl: "dictionaries-subdivisions",
-        },
+        // {
+        //   itemTitle: "Подразделения",
+        //   itemUrl: "dictionaries-subdivisions",
+        // },
         {
           itemTitle: "Должности",
           itemUrl: "dictionaries-positions",
