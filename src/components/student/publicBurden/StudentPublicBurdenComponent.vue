@@ -193,6 +193,7 @@
                 <th>Начало деятельности</th>
                 <th>Окончание деятельности</th>
                 <th>Вид деятельности</th>
+<!--                <th></th>-->
               </tr>
             </thead>
             <tbody>
@@ -226,18 +227,18 @@
                 </th>
                 <th v-else></th>
                 <th>{{ pub_burden.burden_kind_data || "Нет данных" }}</th>
-                <!--                <th>-->
-                <!--                  <div class="d-flex align-items-end justify-content-end">-->
-                <!--                    <button-->
-                <!--                      type="button"-->
-                <!--                      class="btn btn-outline-danger"-->
-                <!--                      @click="trashButtonClick(pub_burden.id)"-->
-                <!--                      style="padding: 0.25rem 0.5rem"-->
-                <!--                    >-->
-                <!--                      <font-awesome-icon :icon="['fas', 'trash']" />-->
-                <!--                    </button>-->
-                <!--                  </div>-->
-                <!--                </th>-->
+<!--                <th>-->
+<!--                  <div class="d-flex align-items-end justify-content-end">-->
+<!--                    <button-->
+<!--                      type="button"-->
+<!--                      class="btn btn-outline-danger"-->
+<!--                      @click="trashButtonClick(pub_burden.id)"-->
+<!--                      style="padding: 0.25rem 0.5rem"-->
+<!--                    >-->
+<!--                      <font-awesome-icon :icon="['fas', 'trash']" />-->
+<!--                    </button>-->
+<!--                  </div>-->
+<!--                </th>-->
               </tr>
             </tbody>
           </table>

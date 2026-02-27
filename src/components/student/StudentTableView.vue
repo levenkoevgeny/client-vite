@@ -2254,8 +2254,10 @@
 import { globalStudentAPIInstance } from "@/api/student/studentAPI.js"
 import { debounce } from "lodash/function"
 import { mapGetters } from "vuex"
+import getUsersAPIInstance from "@/api/auth/usersAPI.js"
 import getGroupAPIInstance from "@/api/cadet/groupAPI.js"
 import { getQueryStringFromSearchForm } from "../../.././utils.js"
+
 export default {
   name: "StudentTableView",
   data() {
@@ -2552,6 +2554,7 @@ export default {
       searchForm: Object.assign({}, globalStudentAPIInstance.searchObj),
       studentList: { count: 0, results: [], previous: null, next: null },
       studentAPIInstance: globalStudentAPIInstance,
+      usersAPIInstance: getUsersAPIInstance(),
       groupAPIInstance: getGroupAPIInstance(),
       library_cards_error_array: [],
     }
@@ -2564,6 +2567,7 @@ export default {
       this.isLoading = true
       const response = await this.studentAPIInstance.getItemsList()
       this.studentList = await response.data
+
       this.isLoading = false
       this.setSerialNumbers()
     },
@@ -2623,7 +2627,6 @@ export default {
       } finally {
       }
     }, 500),
-
     showExportDataModal() {
       let addModal = this.$refs.exportDataModal
       let myModal = new bootstrap.Modal(addModal, {
@@ -2683,7 +2686,6 @@ export default {
       } finally {
       }
     },
-
     checkAllHandler(e) {
       if (e.target.checked) {
         this.studentList.results = this.studentList.results.map((item) => ({
@@ -2805,11 +2807,13 @@ export default {
       this.educationKinds.results.map((item) => (normObj[item.id] = item))
       return normObj
     },
+
     normalizedPpflCategories() {
       let normObj = {}
       this.ppflCategories.results.map((item) => (normObj[item.id] = item))
       return normObj
     },
+
     normalizedHealthGroups() {
       let normObj = {}
       this.healthGroups.results.map((item) => (normObj[item.id] = item))

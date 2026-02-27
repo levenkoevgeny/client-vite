@@ -144,7 +144,7 @@ const searchObj = {
   group__in: "",
   year: "",
   year_litera: "",
-  contract_number__icontains: "",
+  contract_number: "",
   academy_start_date__gte: "",
   academy_start_date__lte: "",
   academy_end_date__gte: "",
@@ -288,10 +288,10 @@ export default function getStudentAPIInstance() {
   })
 }
 export const globalStudentAPIInstance = getStudentAPIInstance()
-export const globalStudentAPIInstanceForPassOffice = new StudentAPI(
-  "student",
-  searchObj,
-)
+export const globalStudentAPIInstanceForPassOffice = new StudentAPI("student", {
+  ...searchObj,
+  is_active: true,
+})
 export const globalStudentAPIForEntranceInstance = new StudentAPI("student", {
   ...searchObj,
   category: 3,
