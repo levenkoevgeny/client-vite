@@ -5,17 +5,19 @@ class FPKPRKStudentAPI extends BaseAPI {
   getQueryStringFromSearchObj() {
     let queryString = "?"
     for (let key in this.searchObj) {
-      if (key.includes("__in")) {
-        if (typeof this.searchObj[key] === "object") {
-          const valArray = this.searchObj[key]
-          let keyVal = ""
-          valArray.forEach((val) => {
-            keyVal = keyVal + `${key}=${val}&`
-          })
-          queryString = queryString + keyVal
+      if (this.searchObj[key]) {
+        if (key.includes("__in")) {
+          if (typeof this.searchObj[key] === "object") {
+            const valArray = this.searchObj[key]
+            let keyVal = ""
+            valArray.forEach((val) => {
+              keyVal = keyVal + `${key}=${val}&`
+            })
+            queryString = queryString + keyVal
+          }
+        } else {
+          queryString = queryString + `${key}=${this.searchObj[key]}&`
         }
-      } else {
-        queryString = queryString + `${key}=${this.searchObj[key]}&`
       }
     }
     return queryString
