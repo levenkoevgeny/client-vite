@@ -2592,7 +2592,7 @@ export default {
         },
         {
           fieldName: "Сирота",
-          fieldValue: "is_orphan",
+          fieldValue: "get_is_orphan",
         },
         {
           fieldName: "Сертификат 100 идей для Беларуси",

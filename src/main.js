@@ -70,6 +70,7 @@ import { faBookmark } from "@fortawesome/free-solid-svg-icons"
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons"
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons"
+import { faCopy } from "@fortawesome/free-solid-svg-icons"
 import axios from "axios"
 import "../public/vue-select.css"
 import "../public/favorite-icon.css"
@@ -143,6 +144,7 @@ library.add(faBookmark)
 library.add(faExclamationCircle)
 library.add(faChevronLeft)
 library.add(faChevronRight)
+library.add(faCopy)
 
 axiosInstance.interceptors.request.use(
   (config) => {
@@ -162,7 +164,7 @@ axiosInstance.interceptors.response.use(
     return response
   },
   async function (error) {
-    console.log("axios interceptor", error)
+    // console.log("axios interceptor", error)
     if (error.code === "ERR_NETWORK") {
       window.location.href = "/network-error"
       return Promise.reject(error)

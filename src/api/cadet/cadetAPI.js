@@ -93,6 +93,11 @@ class CadetAPI extends BaseAPI {
       { responseType: "blob" },
     )
   }
+  async make_cadet_copy(itemId) {
+    return axios.post(
+      `${import.meta.env.VITE_APP_BACKEND_PROTOCOL}://${import.meta.env.VITE_APP_BACKEND_HOST}:${import.meta.env.VITE_APP_BACKEND_PORT}/api/${this.baseURL}/${itemId}/make_obj_copy/`,
+    )
+  }
 }
 
 const searchObj = {
@@ -275,5 +280,5 @@ export const globalCadetAPIForEntranceInstance = new CadetAPI("cadet", {
   ...searchObj,
   category: 3,
   is_active: "true",
-  educational_institution__in: [1, 2],
+  // educational_institution__in: [1, 2],
 })

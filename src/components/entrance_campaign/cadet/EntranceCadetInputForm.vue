@@ -545,10 +545,26 @@
             />
           </button>
 
-          <button class="my-3 btn btn-success" @click="showApplicationsJournal">
+          <button
+            class="my-3 me-3 btn btn-success"
+            @click="showApplicationsJournal"
+          >
             Журнал регистрации заявлений&nbsp;&nbsp;<font-awesome-icon
               :icon="['fas', 'book']"
             />
+          </button>
+
+          <button
+            class="my-3 btn btn-secondary"
+            @click="makeCadetCopy"
+            :disabled="isCopyMaking"
+          >
+            <template v-if="isCopyMaking"> Создание копии ... </template>
+            <template v-else>
+              Сделать копию записи&nbsp;&nbsp;<font-awesome-icon
+                :icon="['fas', 'copy']"
+              />
+            </template>
           </button>
 
           <h3 v-if="currentCadetData.journal_number">
@@ -579,22 +595,22 @@
             </h3>
           </div>
           <div>
-            <h1
-              v-if="currentCadetData.enrolled_speciality"
-              class="bg-success p-2 rounded-3 text-white"
-            >
-              Предварительно зачислен -
-              {{ currentCadetData.get_enrolled_speciality }}
-            </h1>
-            <h1
-              v-else-if="currentCadetData.is_reserve"
-              class="bg-warning p-2 rounded-3 text-white"
-            >
-              Резерв
-            </h1>
-            <h1 v-else class="bg-danger p-2 rounded-3 text-white">
-              Не поступил
-            </h1>
+            <!--            <h1-->
+            <!--              v-if="currentCadetData.enrolled_speciality"-->
+            <!--              class="bg-success p-2 rounded-3 text-white"-->
+            <!--            >-->
+            <!--              Предварительно зачислен - -->
+            <!--              {{ currentCadetData.get_enrolled_speciality }}-->
+            <!--            </h1>-->
+            <!--            <h1-->
+            <!--              v-else-if="currentCadetData.is_reserve"-->
+            <!--              class="bg-warning p-2 rounded-3 text-white"-->
+            <!--            >-->
+            <!--              Резерв-->
+            <!--            </h1>-->
+            <!--            <h1 v-else class="bg-danger p-2 rounded-3 text-white">-->
+            <!--              Не поступил-->
+            <!--            </h1>-->
           </div>
         </div>
         <div class="d-flex flex-row justify-content-end align-items-center">
@@ -622,7 +638,7 @@
           </div>
         </div>
       </div>
-      <div style="max-height: calc(100vh - 500px); overflow-y: auto">
+      <div style="max-height: calc(100vh - 300px); overflow-y: auto">
         <div style="max-width: 99%">
           <div class="form-check form-switch mb-3" style="font-size: 20px">
             <input
@@ -2523,7 +2539,6 @@
                       id="id_s1"
                       class="form-select"
                       v-model="currentCadetData.speciality_1"
-                      disabled
                     >
                       <option :value="null">---------</option>
                       <option
@@ -3647,6 +3662,7 @@ export default {
         is_enrolled_1: "",
         is_enrolled_2: "",
       },
+      isCopyMaking: false,
       applicationPrintData: {},
       currentCadetDataFromServer: {},
       cadetAPIInstance: globalCadetAPIForEntranceInstance,
@@ -4169,6 +4185,24 @@ export default {
       })
       myModal.show()
     },
+
+    async makeCadetCopy() {
+      this.isCopyMaking = true
+      try {
+        const response = await this.cadetAPIInstance.make_cadet_copy(
+          this.currentCadetData.id,
+        )
+        await this.$router.push({
+          name: "entrance-cadet-input-form",
+          params: { id: response.data.id },
+        })
+        this.currentCadetData = response.data
+      } catch (e) {
+      } finally {
+        this.isCopyMaking = false
+      }
+    },
+
     makeInputDefaultNullValueIfEmpty(event) {
       if (event.target.value.trim().length === 0) {
         this.currentCadetData[event.target.name] = null
