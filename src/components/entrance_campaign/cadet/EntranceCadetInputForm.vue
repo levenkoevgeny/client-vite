@@ -1493,21 +1493,45 @@
                   aria-labelledby="nav-representatives-tab"
                   tabindex="0"
                 >
-                  <div class="my-3">
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_parents_is_in_divorce"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentCadetData.parents_is_in_divorce"
-                      />
-                      <label
-                        class="form-check-label"
-                        for="id_parents_is_in_divorce"
-                        >Родители в разводе
-                      </label>
+                  <div class="row">
+                    <div class="col-md-2">
+                      <div class="my-3">
+                        <div class="form-check mb-3">
+                          <input
+                            id="id_parents_is_in_divorce"
+                            class="form-check-input"
+                            type="checkbox"
+                            v-model="currentCadetData.parents_is_in_divorce"
+                          />
+                          <label
+                            class="form-check-label"
+                            for="id_parents_is_in_divorce"
+                            >Родители в разводе
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="my-3">
+                        <div class="form-check mb-3">
+                          <input
+                            id="id_father_data_is_recorded_from_words"
+                            class="form-check-input"
+                            type="checkbox"
+                            v-model="
+                              currentCadetData.father_data_is_recorded_from_words
+                            "
+                          />
+                          <label
+                            class="form-check-label"
+                            for="id_father_data_is_recorded_from_words"
+                            >Отец записан со слов
+                          </label>
+                        </div>
+                      </div>
                     </div>
                   </div>
+
                   <div>
                     <div class="my-3">
                       <p class="fs-6 fw-bold my-2">Мать</p>
@@ -1992,7 +2016,117 @@
                           </div>
                         </div>
                       </div>
+
                       <div class="row">
+                        <div class="col-xl-2">
+                          <div class="form-floating mb-3">
+                            <input
+                              id="id_passed_medical_examination_date"
+                              class="form-control"
+                              name="passed_medical_examination_date"
+                              placeholder="Дата прохождения ВВК"
+                              type="date"
+                              v-model="
+                                currentCadetData.passed_medical_examination_date
+                              "
+                              @input="makeInputDefaultNullValueIfEmpty"
+                            />
+                            <label
+                              class="form-check-label"
+                              for="id_passed_medical_examination_date"
+                              >Дата прохождения ВВК
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-xl-2">
+                          <div class="form-floating mb-3">
+                            <input
+                              id="id_passed_medical_examination_date_for_psychologist"
+                              class="form-control"
+                              name="passed_medical_examination_date_for_psychologist"
+                              placeholder="Дата прохождения ВВК"
+                              type="date"
+                              v-model="
+                                currentCadetData.passed_medical_examination_date_for_psychologist
+                              "
+                              @input="makeInputDefaultNullValueIfEmpty"
+                            />
+                            <label
+                              class="form-check-label"
+                              for="id_passed_medical_examination_date_for_psychologist"
+                              >Дата прохождения ВВК (психологи)
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-xl-2">
+                          <div class="form-floating mb-3">
+                            <input
+                              id="id_passed_medical_examination_date_finally"
+                              class="form-control"
+                              name="passed_medical_examination_date_finally"
+                              placeholder="Дата прохождения ВВК"
+                              type="date"
+                              v-model="
+                                currentCadetData.passed_medical_examination_date_finally
+                              "
+                              @input="makeInputDefaultNullValueIfEmpty"
+                            />
+                            <label
+                              class="form-check-label"
+                              for="id_passed_medical_examination_date_finally"
+                              >Дата оконч. мед. осв-я
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-xl-6">
+                          <div class="form-floating mb-3">
+                            <textarea
+                              id="id_passed_medical_examination_extra_data"
+                              class="form-control"
+                              placeholder="Примечание по медицинской комиссии"
+                              rows="2"
+                              v-model="
+                                currentCadetData.passed_medical_examination_extra_data
+                              "
+                            ></textarea>
+                            <label
+                              for="id_passed_medical_examination_extra_data"
+                              >Примечание по медицинской комиссии</label
+                            >
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-xl-2">
+                          <div class="form-check">
+                            <input
+                              id="id_has_tatoo"
+                              class="form-check-input"
+                              type="checkbox"
+                              v-model="currentCadetData.has_tatoo"
+                            />
+                            <label class="form-check-label" for="id_has_tatoo">
+                              Имеет татуировки
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-xl-2">
+                          <div class="form-check">
+                            <input
+                              id="id_has_visual_impairments"
+                              class="form-check-input"
+                              type="checkbox"
+                              v-model="currentCadetData.has_visual_impairments"
+                            />
+                            <label
+                              class="form-check-label"
+                              for="id_has_visual_impairments"
+                            >
+                              Имеет ограничения по зрению
+                            </label>
+                          </div>
+                        </div>
                         <div class="col-xl-2">
                           <div class="form-check">
                             <input
@@ -2025,43 +2159,6 @@
                             >
                               Годен к службе
                             </label>
-                          </div>
-                        </div>
-                        <div class="col-xl-2">
-                          <div class="form-floating mb-3">
-                            <input
-                              id="id_passed_medical_examination_date"
-                              class="form-control"
-                              name="passed_medical_examination_date"
-                              placeholder="Дата прохождения"
-                              type="date"
-                              v-model="
-                                currentCadetData.passed_medical_examination_date
-                              "
-                              @input="makeInputDefaultNullValueIfEmpty"
-                            />
-                            <label
-                              class="form-check-label"
-                              for="id_passed_medical_examination_date"
-                              >Дата прохождения
-                            </label>
-                          </div>
-                        </div>
-                        <div class="col-xl-6">
-                          <div class="form-floating mb-3">
-                            <textarea
-                              id="id_passed_medical_examination_extra_data"
-                              class="form-control"
-                              placeholder="Примечание по медицинской комиссии"
-                              rows="2"
-                              v-model="
-                                currentCadetData.passed_medical_examination_extra_data
-                              "
-                            ></textarea>
-                            <label
-                              for="id_passed_medical_examination_extra_data"
-                              >Примечание по медицинской комиссии</label
-                            >
                           </div>
                         </div>
                       </div>
@@ -2275,6 +2372,18 @@
               <div class="card-body">
                 <div class="mb-3">
                   <label class="form-label" for="id_extra_data"
+                    >Результаты спец проверки</label
+                  >
+                  <textarea
+                    id="id_extra_data"
+                    class="form-control"
+                    rows="2"
+                    v-model="currentCadetData.results_of_special_audit"
+                  ></textarea>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label" for="id_extra_data"
                     >Примечание для отдела кадров</label
                   >
                   <textarea
@@ -2284,6 +2393,7 @@
                     v-model="currentCadetData.extra_data"
                   ></textarea>
                 </div>
+
                 <div class="mb-3">
                   <label class="form-label" for="id_comments_on_personal_file"
                     >Замечания по личному делу</label

@@ -509,10 +509,10 @@ export default {
           fieldName: "Наименование учебного заведения",
           fieldValue: "education_graduated",
         },
-        {
-          fieldName: "Год поступления в учебное заведение",
-          fieldValue: "education_graduating_start_year",
-        },
+        // {
+        //   fieldName: "Год поступления в учебное заведение",
+        //   fieldValue: "education_graduating_start_year",
+        // },
         {
           fieldName: "Год окончания учебного заведения",
           fieldValue: "education_graduating_end_year",
@@ -611,12 +611,37 @@ export default {
         },
         {
           fieldName: "Окончательное медицинское освидетельствование",
-          fieldValue: "passed_medical_examination",
+          fieldValue: "get_passed_medical_examination",
         },
         {
-          fieldName: "Дата прохождения медицинской комиссии",
+          fieldName: "Дата прохождения ВВК",
           fieldValue: "get_passed_medical_examination_date",
         },
+        {
+          fieldName: "Дата окончательного медицинского освидетельствования",
+          fieldValue: "get_passed_medical_examination_date_finally",
+        },
+        {
+          fieldName: "Дата прохождения ВВК (психологи)",
+          fieldValue: "get_passed_medical_examination_date_for_psychologist",
+        },
+        {
+          fieldName: "Имеет татуировки",
+          fieldValue: "get_has_tatoo",
+        },
+        {
+          fieldName: "Имеет ограничения по зрению",
+          fieldValue: "get_has_visual_impairments",
+        },
+        {
+          fieldName: "Отец записан со слов",
+          fieldValue: "get_father_data_is_recorded_from_words",
+        },
+        {
+          fieldName: "Результаты специальной проверки",
+          fieldValue: "results_of_special_audit",
+        },
+
         {
           fieldName: "Медицинская комиссия (доп. данные)",
           fieldValue: "passed_medical_examination_extra_data",
