@@ -26,15 +26,15 @@
         <div class="modal-body">
           <div>
             <div style="font-size: 1.7rem">
-              <button
-                class="btn btn-link text-primary"
-                style="font-size: inherit"
-                title="Экспорт в Word"
-                @click="exportData('docx')"
-                :disabled="isExporting"
-              >
-                <font-awesome-icon :icon="['far', 'file-word']" />
-              </button>
+              <!--              <button-->
+              <!--                class="btn btn-link text-primary"-->
+              <!--                style="font-size: inherit"-->
+              <!--                title="Экспорт в Word"-->
+              <!--                @click="exportData('docx')"-->
+              <!--                :disabled="isExporting"-->
+              <!--              >-->
+              <!--                <font-awesome-icon :icon="['far', 'file-word']" />-->
+              <!--              </button>-->
               <button
                 class="btn btn-link text-success"
                 style="font-size: inherit; color: inherit"
