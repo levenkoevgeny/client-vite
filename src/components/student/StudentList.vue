@@ -631,7 +631,7 @@ export default {
       positionAPIInstance: getPositionAPIInstance(),
       searchForm: Object.assign({}, globalStudentAPIInstance.searchObj),
       studentNewForm: {
-        category: 5,
+        category: 4,
         subdivision: 8,
         last_name_rus: "",
         first_name_rus: "",
@@ -724,7 +724,7 @@ export default {
         this.studentList.count = this.studentList.count + 1
         this.$refs.cadetAddModalCloseButton.click()
         this.studentNewForm = {
-          category: 5,
+          category: 4,
           last_name_rus: "",
           first_name_rus: "",
           patronymic_rus: "",

@@ -331,7 +331,8 @@ export default {
               this.setSerialNumbers()
             } catch (error) {
               this.isError = true
-            } finally {}
+            } finally {
+            }
           }
         }
       }
@@ -351,7 +352,7 @@ export default {
       )
       const newItem = response.data
       this.fpk_prk_mag_List.results.unshift(newItem)
-      this.fpk_prk_mag_List.count = this.fpk_prk_mag_List.count + 1
+      this.fpk_prk_mag_List.count++
       this.$refs.fpkAddModalCloseButton.click()
       this.fpkNewForm = {
         category: 3,

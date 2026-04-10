@@ -1657,10 +1657,10 @@ export default {
     },
     ctChoiceOptions() {
       return [
-        { choice: "2024 ЦЭ", choiceValue: "2024 ЦЭ" },
-        { choice: "2024 ЦТ", choiceValue: "2024 ЦТ" },
         { choice: "2025 ЦЭ", choiceValue: "2025 ЦЭ" },
         { choice: "2025 ЦТ", choiceValue: "2025 ЦТ" },
+        { choice: "2026 ЦЭ", choiceValue: "2026 ЦЭ" },
+        { choice: "2026 ЦТ", choiceValue: "2026 ЦТ" },
       ]
     },
 

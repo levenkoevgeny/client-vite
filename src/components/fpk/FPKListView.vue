@@ -339,6 +339,7 @@ export default {
         )
         const newItem = await response.data
         this.fpk_mag_List.results.unshift(newItem)
+        this.fpk_mag_List.count++
         this.$refs.cadetAddModalCloseButton.click()
         this.cadetNewForm = {
           last_name_rus: "",

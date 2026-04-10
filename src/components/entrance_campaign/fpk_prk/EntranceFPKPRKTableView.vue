@@ -471,24 +471,24 @@
                 <span class="text-nowrap">Наименование УО</span>
                 <div class="dropdown">
                   <button
-                      class="btn dropdown-toggle"
-                      type="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
+                    class="btn dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
                   ></button>
                   <ul class="dropdown-menu">
                     <li>
                       <button
-                          class="dropdown-item"
-                          @click="setOrdering('education_graduated')"
+                        class="dropdown-item"
+                        @click="setOrdering('education_graduated')"
                       >
                         А -> Я
                       </button>
                     </li>
                     <li>
                       <button
-                          class="dropdown-item"
-                          @click="setOrdering('-education_graduated')"
+                        class="dropdown-item"
+                        @click="setOrdering('-education_graduated')"
                       >
                         Я -> А
                       </button>
@@ -497,7 +497,6 @@
                 </div>
               </div>
             </th>
-
 
             <th scope="col">
               <div class="d-flex flex-row align-items-center">
@@ -1329,10 +1328,10 @@
 
             <th>
               <input
-                  type="text"
-                  class="form-control"
-                  v-model="searchForm.education_graduated__icontains"
-                  style="width: 350px"
+                type="text"
+                class="form-control"
+                v-model="searchForm.education_graduated__icontains"
+                style="width: 350px"
               />
             </th>
 
@@ -1525,10 +1524,34 @@
             <th>
               <select class="form-select" v-model="searchForm.rus_ct_choice">
                 <option selected value="">-------</option>
-                <option value="2024 ЦЭ" key="2024 ЦЭ">2024 ЦЭ</option>
-                <option value="2024 ЦТ" key="2024 ЦТ">2024 ЦТ</option>
-                <option value="2025 ЦЭ" key="2025 ЦЭ">2025 ЦЭ</option>
-                <option value="2025 ЦТ" key="2025 ЦТ">2025 ЦТ</option>
+                <option
+                  :value="`${new Date().getFullYear() - 1} ЦЭ`"
+                  :key="`${new Date().getFullYear() - 1} ЦЭ`"
+                  class="text-center"
+                >
+                  {{ `${new Date().getFullYear() - 1} ЦЭ` }}
+                </option>
+                <option
+                  :value="`${new Date().getFullYear() - 1} ЦТ`"
+                  :key="`${new Date().getFullYear() - 1} ЦТ`"
+                  class="text-center"
+                >
+                  {{ `${new Date().getFullYear() - 1} ЦТ` }}
+                </option>
+                <option
+                  :value="`${new Date().getFullYear()} ЦЭ`"
+                  :key="`${new Date().getFullYear()} ЦЭ`"
+                  class="text-center"
+                >
+                  {{ `${new Date().getFullYear()} ЦЭ` }}
+                </option>
+                <option
+                  :value="`${new Date().getFullYear()} ЦТ`"
+                  :key="`${new Date().getFullYear()} ЦТ`"
+                  class="text-center"
+                >
+                  {{ `${new Date().getFullYear()} ЦТ` }}
+                </option>
               </select>
             </th>
             <th>
@@ -1548,10 +1571,34 @@
             <th>
               <select class="form-select" v-model="searchForm.bel_ct_choice">
                 <option selected value="">-------</option>
-                <option value="2024 ЦЭ" key="2024 ЦЭ">2024 ЦЭ</option>
-                <option value="2024 ЦТ" key="2024 ЦТ">2024 ЦТ</option>
-                <option value="2025 ЦЭ" key="2025 ЦЭ">2025 ЦЭ</option>
-                <option value="2025 ЦТ" key="2025 ЦТ">2025 ЦТ</option>
+                <option
+                  :value="`${new Date().getFullYear() - 1} ЦЭ`"
+                  :key="`${new Date().getFullYear() - 1} ЦЭ`"
+                  class="text-center"
+                >
+                  {{ `${new Date().getFullYear() - 1} ЦЭ` }}
+                </option>
+                <option
+                  :value="`${new Date().getFullYear() - 1} ЦТ`"
+                  :key="`${new Date().getFullYear() - 1} ЦТ`"
+                  class="text-center"
+                >
+                  {{ `${new Date().getFullYear() - 1} ЦТ` }}
+                </option>
+                <option
+                  :value="`${new Date().getFullYear()} ЦЭ`"
+                  :key="`${new Date().getFullYear()} ЦЭ`"
+                  class="text-center"
+                >
+                  {{ `${new Date().getFullYear()} ЦЭ` }}
+                </option>
+                <option
+                  :value="`${new Date().getFullYear()} ЦТ`"
+                  :key="`${new Date().getFullYear()} ЦТ`"
+                  class="text-center"
+                >
+                  {{ `${new Date().getFullYear()} ЦТ` }}
+                </option>
               </select>
             </th>
             <th>
@@ -1581,10 +1628,34 @@
                 v-model="searchForm.social_science_ct_choice"
               >
                 <option selected value="">-------</option>
-                <option value="2024 ЦЭ" key="2024 ЦЭ">2024 ЦЭ</option>
-                <option value="2024 ЦТ" key="2024 ЦТ">2024 ЦТ</option>
-                <option value="2025 ЦЭ" key="2025 ЦЭ">2025 ЦЭ</option>
-                <option value="2025 ЦТ" key="2025 ЦТ">2025 ЦТ</option>
+                <option
+                  :value="`${new Date().getFullYear() - 1} ЦЭ`"
+                  :key="`${new Date().getFullYear() - 1} ЦЭ`"
+                  class="text-center"
+                >
+                  {{ `${new Date().getFullYear() - 1} ЦЭ` }}
+                </option>
+                <option
+                  :value="`${new Date().getFullYear() - 1} ЦТ`"
+                  :key="`${new Date().getFullYear() - 1} ЦТ`"
+                  class="text-center"
+                >
+                  {{ `${new Date().getFullYear() - 1} ЦТ` }}
+                </option>
+                <option
+                  :value="`${new Date().getFullYear()} ЦЭ`"
+                  :key="`${new Date().getFullYear()} ЦЭ`"
+                  class="text-center"
+                >
+                  {{ `${new Date().getFullYear()} ЦЭ` }}
+                </option>
+                <option
+                  :value="`${new Date().getFullYear()} ЦТ`"
+                  :key="`${new Date().getFullYear()} ЦТ`"
+                  class="text-center"
+                >
+                  {{ `${new Date().getFullYear()} ЦТ` }}
+                </option>
               </select>
             </th>
             <th>
@@ -1614,10 +1685,34 @@
                 v-model="searchForm.foreign_lang_ct_choice"
               >
                 <option selected value="">-------</option>
-                <option value="2024 ЦЭ" key="2024 ЦЭ">2024 ЦЭ</option>
-                <option value="2024 ЦТ" key="2024 ЦТ">2024 ЦТ</option>
-                <option value="2025 ЦЭ" key="2025 ЦЭ">2025 ЦЭ</option>
-                <option value="2025 ЦТ" key="2025 ЦТ">2025 ЦТ</option>
+                <option
+                  :value="`${new Date().getFullYear() - 1} ЦЭ`"
+                  :key="`${new Date().getFullYear() - 1} ЦЭ`"
+                  class="text-center"
+                >
+                  {{ `${new Date().getFullYear() - 1} ЦЭ` }}
+                </option>
+                <option
+                  :value="`${new Date().getFullYear() - 1} ЦТ`"
+                  :key="`${new Date().getFullYear() - 1} ЦТ`"
+                  class="text-center"
+                >
+                  {{ `${new Date().getFullYear() - 1} ЦТ` }}
+                </option>
+                <option
+                  :value="`${new Date().getFullYear()} ЦЭ`"
+                  :key="`${new Date().getFullYear()} ЦЭ`"
+                  class="text-center"
+                >
+                  {{ `${new Date().getFullYear()} ЦЭ` }}
+                </option>
+                <option
+                  :value="`${new Date().getFullYear()} ЦТ`"
+                  :key="`${new Date().getFullYear()} ЦТ`"
+                  class="text-center"
+                >
+                  {{ `${new Date().getFullYear()} ЦТ` }}
+                </option>
               </select>
             </th>
             <th>

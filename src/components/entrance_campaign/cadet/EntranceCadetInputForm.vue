@@ -3110,17 +3110,33 @@
                           <option selected class="text-center" value="">
                             ----------
                           </option>
-                          <option value="2024 ЦЭ" class="text-center">
-                            2024 ЦЭ
+                          <option
+                            :value="`${new Date().getFullYear() - 1} ЦЭ`"
+                            :key="`${new Date().getFullYear() - 1} ЦЭ`"
+                            class="text-center"
+                          >
+                            {{ `${new Date().getFullYear() - 1} ЦЭ` }}
                           </option>
-                          <option value="2024 ЦТ" class="text-center">
-                            2024 ЦТ
+                          <option
+                            :value="`${new Date().getFullYear() - 1} ЦТ`"
+                            :key="`${new Date().getFullYear() - 1} ЦТ`"
+                            class="text-center"
+                          >
+                            {{ `${new Date().getFullYear() - 1} ЦТ` }}
                           </option>
-                          <option value="2025 ЦЭ" class="text-center">
-                            2025 ЦЭ
+                          <option
+                            :value="`${new Date().getFullYear()} ЦЭ`"
+                            :key="`${new Date().getFullYear()} ЦЭ`"
+                            class="text-center"
+                          >
+                            {{ `${new Date().getFullYear()} ЦЭ` }}
                           </option>
-                          <option value="2025 ЦТ" class="text-center">
-                            2025 ЦТ
+                          <option
+                            :value="`${new Date().getFullYear()} ЦТ`"
+                            :key="`${new Date().getFullYear()} ЦТ`"
+                            class="text-center"
+                          >
+                            {{ `${new Date().getFullYear()} ЦТ` }}
                           </option>
                         </select>
                       </td>
@@ -3132,17 +3148,29 @@
                           <option selected class="text-center" value="">
                             ----------
                           </option>
-                          <option value="2024 ЦЭ" class="text-center">
-                            2024 ЦЭ
+                          <option
+                            :value="`${new Date().getFullYear() - 1} ЦЭ`"
+                            class="text-center"
+                          >
+                            {{ `${new Date().getFullYear() - 1} ЦЭ` }}
                           </option>
-                          <option value="2024 ЦТ" class="text-center">
-                            2024 ЦТ
+                          <option
+                            :value="`${new Date().getFullYear() - 1} ЦТ`"
+                            class="text-center"
+                          >
+                            {{ `${new Date().getFullYear() - 1} ЦТ` }}
                           </option>
-                          <option value="2025 ЦЭ" class="text-center">
-                            2025 ЦЭ
+                          <option
+                            :value="`${new Date().getFullYear()} ЦЭ`"
+                            class="text-center"
+                          >
+                            {{ `${new Date().getFullYear()} ЦЭ` }}
                           </option>
-                          <option value="2025 ЦТ" class="text-center">
-                            2025 ЦТ
+                          <option
+                            :value="`${new Date().getFullYear()} ЦТ`"
+                            class="text-center"
+                          >
+                            {{ `${new Date().getFullYear()} ЦТ` }}
                           </option>
                         </select>
                       </td>
@@ -3154,17 +3182,29 @@
                           <option selected class="text-center" value="">
                             ----------
                           </option>
-                          <option value="2024 ЦЭ" class="text-center">
-                            2024 ЦЭ
+                          <option
+                            :value="`${new Date().getFullYear() - 1} ЦЭ`"
+                            class="text-center"
+                          >
+                            {{ `${new Date().getFullYear() - 1} ЦЭ` }}
                           </option>
-                          <option value="2024 ЦТ" class="text-center">
-                            2024 ЦТ
+                          <option
+                            :value="`${new Date().getFullYear() - 1} ЦТ`"
+                            class="text-center"
+                          >
+                            {{ `${new Date().getFullYear() - 1} ЦТ` }}
                           </option>
-                          <option value="2025 ЦЭ" class="text-center">
-                            2025 ЦЭ
+                          <option
+                            :value="`${new Date().getFullYear()} ЦЭ`"
+                            class="text-center"
+                          >
+                            {{ `${new Date().getFullYear()} ЦЭ` }}
                           </option>
-                          <option value="2025 ЦТ" class="text-center">
-                            2025 ЦТ
+                          <option
+                            :value="`${new Date().getFullYear()} ЦТ`"
+                            class="text-center"
+                          >
+                            {{ `${new Date().getFullYear()} ЦТ` }}
                           </option>
                         </select>
                       </td>
@@ -3176,17 +3216,29 @@
                           <option selected class="text-center" value="">
                             ----------
                           </option>
-                          <option value="2024 ЦЭ" class="text-center">
-                            2024 ЦЭ
+                          <option
+                            :value="`${new Date().getFullYear() - 1} ЦЭ`"
+                            class="text-center"
+                          >
+                            {{ `${new Date().getFullYear() - 1} ЦЭ` }}
                           </option>
-                          <option value="2024 ЦТ" class="text-center">
-                            2024 ЦТ
+                          <option
+                            :value="`${new Date().getFullYear() - 1} ЦТ`"
+                            class="text-center"
+                          >
+                            {{ `${new Date().getFullYear() - 1} ЦТ` }}
                           </option>
-                          <option value="2025 ЦЭ" class="text-center">
-                            2025 ЦЭ
+                          <option
+                            :value="`${new Date().getFullYear()} ЦЭ`"
+                            class="text-center"
+                          >
+                            {{ `${new Date().getFullYear()} ЦЭ` }}
                           </option>
-                          <option value="2025 ЦТ" class="text-center">
-                            2025 ЦТ
+                          <option
+                            :value="`${new Date().getFullYear()} ЦТ`"
+                            class="text-center"
+                          >
+                            {{ `${new Date().getFullYear()} ЦТ` }}
                           </option>
                         </select>
                       </td>
@@ -3683,7 +3735,9 @@ export default {
   },
   validations() {
     const education_graduating_end_year_minValueValue = minValue(1940)
-    const education_graduating_end_year_maxValueValue = maxValue(2025)
+    const education_graduating_end_year_maxValueValue = maxValue(
+      new Date().getFullYear(),
+    )
     const ct_maxValueValue = maxValue(100)
     const ct_minValueValue_10 = minValue(10)
     const ct_minValueValue_15 = minValue(15)
@@ -3708,7 +3762,7 @@ export default {
         },
         education_graduating_end_year: {
           education_graduating_end_year_maxValueValue: helpers.withMessage(
-            "Некорректное значение поля 'Год окончания школы' - не может превышать 2025",
+            `Некорректное значение поля 'Год окончания школы' - не может превышать ${new Date().getFullYear()},`,
             education_graduating_end_year_maxValueValue,
           ),
           education_graduating_end_year_minValueValue: helpers.withMessage(

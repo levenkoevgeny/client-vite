@@ -680,7 +680,7 @@ export default {
       const response = await this.cadetAPIInstance.addItem(this.cadetNewForm)
       const newItem = response.data
       this.cadetList.results.unshift(newItem)
-      this.cadetList.count = this.cadetList.count + 1
+      this.cadetList.count++
       this.$refs.cadetAddModalCloseButton.click()
       this.cadetNewForm = {
         category: 3,

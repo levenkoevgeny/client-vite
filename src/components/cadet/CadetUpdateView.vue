@@ -2024,17 +2024,33 @@
                                   <option selected class="text-center" value="">
                                     ----------
                                   </option>
-                                  <option value="2024 ЦЭ" class="text-center">
-                                    2024 ЦЭ
+                                  <option
+                                    :value="`${new Date().getFullYear() - 1} ЦЭ`"
+                                    :key="`${new Date().getFullYear() - 1} ЦЭ`"
+                                    class="text-center"
+                                  >
+                                    {{ `${new Date().getFullYear() - 1} ЦЭ` }}
                                   </option>
-                                  <option value="2024 ЦТ" class="text-center">
-                                    2024 ЦТ
+                                  <option
+                                    :value="`${new Date().getFullYear() - 1} ЦТ`"
+                                    :key="`${new Date().getFullYear() - 1} ЦТ`"
+                                    class="text-center"
+                                  >
+                                    {{ `${new Date().getFullYear() - 1} ЦТ` }}
                                   </option>
-                                  <option value="2025 ЦЭ" class="text-center">
-                                    2025 ЦЭ
+                                  <option
+                                    :value="`${new Date().getFullYear()} ЦЭ`"
+                                    :key="`${new Date().getFullYear()} ЦЭ`"
+                                    class="text-center"
+                                  >
+                                    {{ `${new Date().getFullYear()} ЦЭ` }}
                                   </option>
-                                  <option value="2025 ЦТ" class="text-center">
-                                    2025 ЦТ
+                                  <option
+                                    :value="`${new Date().getFullYear()} ЦТ`"
+                                    :key="`${new Date().getFullYear()} ЦТ`"
+                                    class="text-center"
+                                  >
+                                    {{ `${new Date().getFullYear()} ЦТ` }}
                                   </option>
                                 </select>
                               </td>
@@ -2047,17 +2063,33 @@
                                   <option selected class="text-center" value="">
                                     ----------
                                   </option>
-                                  <option value="2024 ЦЭ" class="text-center">
-                                    2024 ЦЭ
+                                  <option
+                                    :value="`${new Date().getFullYear() - 1} ЦЭ`"
+                                    :key="`${new Date().getFullYear() - 1} ЦЭ`"
+                                    class="text-center"
+                                  >
+                                    {{ `${new Date().getFullYear() - 1} ЦЭ` }}
                                   </option>
-                                  <option value="2024 ЦТ" class="text-center">
-                                    2024 ЦТ
+                                  <option
+                                    :value="`${new Date().getFullYear() - 1} ЦТ`"
+                                    :key="`${new Date().getFullYear() - 1} ЦТ`"
+                                    class="text-center"
+                                  >
+                                    {{ `${new Date().getFullYear() - 1} ЦТ` }}
                                   </option>
-                                  <option value="2025 ЦЭ" class="text-center">
-                                    2025 ЦЭ
+                                  <option
+                                    :value="`${new Date().getFullYear()} ЦЭ`"
+                                    :key="`${new Date().getFullYear()} ЦЭ`"
+                                    class="text-center"
+                                  >
+                                    {{ `${new Date().getFullYear()} ЦЭ` }}
                                   </option>
-                                  <option value="2025 ЦТ" class="text-center">
-                                    2025 ЦТ
+                                  <option
+                                    :value="`${new Date().getFullYear()} ЦТ`"
+                                    :key="`${new Date().getFullYear()} ЦТ`"
+                                    class="text-center"
+                                  >
+                                    {{ `${new Date().getFullYear()} ЦТ` }}
                                   </option>
                                 </select>
                               </td>
@@ -2072,17 +2104,33 @@
                                   <option selected class="text-center" value="">
                                     ----------
                                   </option>
-                                  <option value="2024 ЦЭ" class="text-center">
-                                    2024 ЦЭ
+                                  <option
+                                    :value="`${new Date().getFullYear() - 1} ЦЭ`"
+                                    :key="`${new Date().getFullYear() - 1} ЦЭ`"
+                                    class="text-center"
+                                  >
+                                    {{ `${new Date().getFullYear() - 1} ЦЭ` }}
                                   </option>
-                                  <option value="2024 ЦТ" class="text-center">
-                                    2024 ЦТ
+                                  <option
+                                    :value="`${new Date().getFullYear() - 1} ЦТ`"
+                                    :key="`${new Date().getFullYear() - 1} ЦТ`"
+                                    class="text-center"
+                                  >
+                                    {{ `${new Date().getFullYear() - 1} ЦТ` }}
                                   </option>
-                                  <option value="2025 ЦЭ" class="text-center">
-                                    2025 ЦЭ
+                                  <option
+                                    :value="`${new Date().getFullYear()} ЦЭ`"
+                                    :key="`${new Date().getFullYear()} ЦЭ`"
+                                    class="text-center"
+                                  >
+                                    {{ `${new Date().getFullYear()} ЦЭ` }}
                                   </option>
-                                  <option value="2025 ЦТ" class="text-center">
-                                    2025 ЦТ
+                                  <option
+                                    :value="`${new Date().getFullYear()} ЦТ`"
+                                    :key="`${new Date().getFullYear()} ЦТ`"
+                                    class="text-center"
+                                  >
+                                    {{ `${new Date().getFullYear()} ЦТ` }}
                                   </option>
                                 </select>
                               </td>
@@ -2097,17 +2145,33 @@
                                   <option selected class="text-center" value="">
                                     ----------
                                   </option>
-                                  <option value="2024 ЦЭ" class="text-center">
-                                    2024 ЦЭ
+                                  <option
+                                    :value="`${new Date().getFullYear() - 1} ЦЭ`"
+                                    :key="`${new Date().getFullYear() - 1} ЦЭ`"
+                                    class="text-center"
+                                  >
+                                    {{ `${new Date().getFullYear() - 1} ЦЭ` }}
                                   </option>
-                                  <option value="2024 ЦТ" class="text-center">
-                                    2024 ЦТ
+                                  <option
+                                    :value="`${new Date().getFullYear() - 1} ЦТ`"
+                                    :key="`${new Date().getFullYear() - 1} ЦТ`"
+                                    class="text-center"
+                                  >
+                                    {{ `${new Date().getFullYear() - 1} ЦТ` }}
                                   </option>
-                                  <option value="2025 ЦЭ" class="text-center">
-                                    2025 ЦЭ
+                                  <option
+                                    :value="`${new Date().getFullYear()} ЦЭ`"
+                                    :key="`${new Date().getFullYear()} ЦЭ`"
+                                    class="text-center"
+                                  >
+                                    {{ `${new Date().getFullYear()} ЦЭ` }}
                                   </option>
-                                  <option value="2025 ЦТ" class="text-center">
-                                    2025 ЦТ
+                                  <option
+                                    :value="`${new Date().getFullYear()} ЦТ`"
+                                    :key="`${new Date().getFullYear()} ЦТ`"
+                                    class="text-center"
+                                  >
+                                    {{ `${new Date().getFullYear()} ЦТ` }}
                                   </option>
                                 </select>
                               </td>

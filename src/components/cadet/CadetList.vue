@@ -400,6 +400,7 @@ export default {
       cadetNewForm: {
         last_name_rus: "",
         first_name_rus: "",
+        category: 4,
         date_of_birth: null,
       },
     }
@@ -455,10 +456,12 @@ export default {
         const response = await this.cadetAPIInstance.addItem(this.cadetNewForm)
         const newItem = await response.data
         this.cadetList.results.unshift(newItem)
+        this.cadetList.count++
         this.$refs.cadetAddModalCloseButton.click()
         this.cadetNewForm = {
           last_name_rus: "",
           first_name_rus: "",
+          category: 4,
           date_of_birth: null,
         }
       } catch (e) {

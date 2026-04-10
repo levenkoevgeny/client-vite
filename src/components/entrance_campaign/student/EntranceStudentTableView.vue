@@ -1706,10 +1706,34 @@
                     v-model="searchForm.rus_ct_choice"
                   >
                     <option selected value="">-------</option>
-                    <option value="2024 ЦЭ" key="2024 ЦЭ">2024 ЦЭ</option>
-                    <option value="2024 ЦТ" key="2024 ЦТ">2024 ЦТ</option>
-                    <option value="2025 ЦЭ" key="2025 ЦЭ">2025 ЦЭ</option>
-                    <option value="2025 ЦТ" key="2025 ЦТ">2025 ЦТ</option>
+                    <option
+                      :value="`${new Date().getFullYear() - 1} ЦЭ`"
+                      :key="`${new Date().getFullYear() - 1} ЦЭ`"
+                      class="text-center"
+                    >
+                      {{ `${new Date().getFullYear() - 1} ЦЭ` }}
+                    </option>
+                    <option
+                      :value="`${new Date().getFullYear() - 1} ЦТ`"
+                      :key="`${new Date().getFullYear() - 1} ЦТ`"
+                      class="text-center"
+                    >
+                      {{ `${new Date().getFullYear() - 1} ЦТ` }}
+                    </option>
+                    <option
+                      :value="`${new Date().getFullYear()} ЦЭ`"
+                      :key="`${new Date().getFullYear()} ЦЭ`"
+                      class="text-center"
+                    >
+                      {{ `${new Date().getFullYear()} ЦЭ` }}
+                    </option>
+                    <option
+                      :value="`${new Date().getFullYear()} ЦТ`"
+                      :key="`${new Date().getFullYear()} ЦТ`"
+                      class="text-center"
+                    >
+                      {{ `${new Date().getFullYear()} ЦТ` }}
+                    </option>
                   </select>
                 </th>
                 <th>
@@ -1732,10 +1756,34 @@
                     v-model="searchForm.bel_ct_choice"
                   >
                     <option selected value="">-------</option>
-                    <option value="2024 ЦЭ" key="2024 ЦЭ">2024 ЦЭ</option>
-                    <option value="2024 ЦТ" key="2024 ЦТ">2024 ЦТ</option>
-                    <option value="2025 ЦЭ" key="2025 ЦЭ">2025 ЦЭ</option>
-                    <option value="2025 ЦТ" key="2025 ЦТ">2025 ЦТ</option>
+                    <option
+                      :value="`${new Date().getFullYear() - 1} ЦЭ`"
+                      :key="`${new Date().getFullYear() - 1} ЦЭ`"
+                      class="text-center"
+                    >
+                      {{ `${new Date().getFullYear() - 1} ЦЭ` }}
+                    </option>
+                    <option
+                      :value="`${new Date().getFullYear() - 1} ЦТ`"
+                      :key="`${new Date().getFullYear() - 1} ЦТ`"
+                      class="text-center"
+                    >
+                      {{ `${new Date().getFullYear() - 1} ЦТ` }}
+                    </option>
+                    <option
+                      :value="`${new Date().getFullYear()} ЦЭ`"
+                      :key="`${new Date().getFullYear()} ЦЭ`"
+                      class="text-center"
+                    >
+                      {{ `${new Date().getFullYear()} ЦЭ` }}
+                    </option>
+                    <option
+                      :value="`${new Date().getFullYear()} ЦТ`"
+                      :key="`${new Date().getFullYear()} ЦТ`"
+                      class="text-center"
+                    >
+                      {{ `${new Date().getFullYear()} ЦТ` }}
+                    </option>
                   </select>
                 </th>
 
@@ -1759,10 +1807,34 @@
                     v-model="searchForm.social_science_ct_choice"
                   >
                     <option selected value="">-------</option>
-                    <option value="2024 ЦЭ" key="2024 ЦЭ">2024 ЦЭ</option>
-                    <option value="2024 ЦТ" key="2024 ЦТ">2024 ЦТ</option>
-                    <option value="2025 ЦЭ" key="2025 ЦЭ">2025 ЦЭ</option>
-                    <option value="2025 ЦТ" key="2025 ЦТ">2025 ЦТ</option>
+                    <option
+                      :value="`${new Date().getFullYear() - 1} ЦЭ`"
+                      :key="`${new Date().getFullYear() - 1} ЦЭ`"
+                      class="text-center"
+                    >
+                      {{ `${new Date().getFullYear() - 1} ЦЭ` }}
+                    </option>
+                    <option
+                      :value="`${new Date().getFullYear() - 1} ЦТ`"
+                      :key="`${new Date().getFullYear() - 1} ЦТ`"
+                      class="text-center"
+                    >
+                      {{ `${new Date().getFullYear() - 1} ЦТ` }}
+                    </option>
+                    <option
+                      :value="`${new Date().getFullYear()} ЦЭ`"
+                      :key="`${new Date().getFullYear()} ЦЭ`"
+                      class="text-center"
+                    >
+                      {{ `${new Date().getFullYear()} ЦЭ` }}
+                    </option>
+                    <option
+                      :value="`${new Date().getFullYear()} ЦТ`"
+                      :key="`${new Date().getFullYear()} ЦТ`"
+                      class="text-center"
+                    >
+                      {{ `${new Date().getFullYear()} ЦТ` }}
+                    </option>
                   </select>
                 </th>
                 <th>
@@ -1785,10 +1857,34 @@
                     v-model="searchForm.foreign_lang_ct_choice"
                   >
                     <option selected value="">-------</option>
-                    <option value="2024 ЦЭ" key="2024 ЦЭ">2024 ЦЭ</option>
-                    <option value="2024 ЦТ" key="2024 ЦТ">2024 ЦТ</option>
-                    <option value="2025 ЦЭ" key="2025 ЦЭ">2025 ЦЭ</option>
-                    <option value="2025 ЦТ" key="2025 ЦТ">2025 ЦТ</option>
+                    <option
+                      :value="`${new Date().getFullYear() - 1} ЦЭ`"
+                      :key="`${new Date().getFullYear() - 1} ЦЭ`"
+                      class="text-center"
+                    >
+                      {{ `${new Date().getFullYear() - 1} ЦЭ` }}
+                    </option>
+                    <option
+                      :value="`${new Date().getFullYear() - 1} ЦТ`"
+                      :key="`${new Date().getFullYear() - 1} ЦТ`"
+                      class="text-center"
+                    >
+                      {{ `${new Date().getFullYear() - 1} ЦТ` }}
+                    </option>
+                    <option
+                      :value="`${new Date().getFullYear()} ЦЭ`"
+                      :key="`${new Date().getFullYear()} ЦЭ`"
+                      class="text-center"
+                    >
+                      {{ `${new Date().getFullYear()} ЦЭ` }}
+                    </option>
+                    <option
+                      :value="`${new Date().getFullYear()} ЦТ`"
+                      :key="`${new Date().getFullYear()} ЦТ`"
+                      class="text-center"
+                    >
+                      {{ `${new Date().getFullYear()} ЦТ` }}
+                    </option>
                   </select>
                 </th>
                 <th>

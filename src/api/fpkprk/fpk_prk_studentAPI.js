@@ -180,6 +180,7 @@ const searchObj = {
   application_has_been_printed: "",
   entrance_year__gte: "",
   entrance_year__lte: "",
+  rus_ct_choice: "",
   ordering: null,
 }
 
