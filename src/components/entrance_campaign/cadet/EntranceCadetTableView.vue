@@ -4265,7 +4265,7 @@
 import { globalCadetAPIForEntranceInstance } from "@/api/cadet/cadetAPI.js"
 import { debounce } from "lodash/function"
 import { mapGetters } from "vuex"
-import getUsersAPIInstance from "@/api/auth/usersAPI.js"
+import { getUsersReadOnlyAPIInstance } from "@/api/auth/usersAPI.js"
 import { getQueryStringFromSearchForm } from "../../../../utils.js"
 
 export default {
@@ -4649,7 +4649,7 @@ export default {
       ),
       cadetList: { count: 0, results: [], previous: null, next: null },
       cadetAPIInstance: globalCadetAPIForEntranceInstance,
-      usersAPIInstance: getUsersAPIInstance(),
+      usersAPIInstance: getUsersReadOnlyAPIInstance(),
       usersList: { count: 0, results: [], previous: null, next: null },
     }
   },

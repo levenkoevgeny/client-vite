@@ -160,22 +160,27 @@
         <td>{{ cadet.get_speciality }}</td>
         <td>{{ cadet.get_component_organ }}</td>
         <td>
-          {{
-            new Date(cadet.academy_start_date).toLocaleString("ru-RU", {
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            }) || "Нет данных"
-          }}
+          <template v-if="cadet.academy_start_date">
+            {{
+              new Date(cadet.academy_start_date).toLocaleString("ru-RU", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              }) || "Нет данных"
+            }}
+          </template>
+          <template v-else>Нет данных </template>
           - <br />
-
-          {{
-            new Date(cadet.academy_end_date).toLocaleString("ru-RU", {
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            }) || "Нет данных"
-          }}
+          <template v-if="cadet.academy_end_date">
+            {{
+              new Date(cadet.academy_end_date).toLocaleString("ru-RU", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              }) || "Нет данных"
+            }}
+          </template>
+          <template v-else>Нет данных</template>
         </td>
       </tr>
     </template>

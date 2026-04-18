@@ -193,7 +193,7 @@
                 <th>Начало деятельности</th>
                 <th>Окончание деятельности</th>
                 <th>Вид деятельности</th>
-<!--                <th></th>-->
+                <!--                <th></th>-->
               </tr>
             </thead>
             <tbody>
@@ -201,7 +201,7 @@
                 v-for="pub_burden in orderedMainList"
                 @dblclick.stop="showUpdateMainItemModal(pub_burden.id)"
               >
-                <th>
+                <td>
                   {{
                     new Date(pub_burden.burden_start_date).toLocaleString(
                       "ru-RU",
@@ -212,8 +212,8 @@
                       },
                     )
                   }}
-                </th>
-                <th v-if="pub_burden.burden_end_date">
+                </td>
+                <td v-if="pub_burden.burden_end_date">
                   {{
                     new Date(pub_burden.burden_end_date).toLocaleString(
                       "ru-RU",
@@ -224,21 +224,21 @@
                       },
                     )
                   }}
-                </th>
-                <th v-else></th>
-                <th>{{ pub_burden.burden_kind_data || "Нет данных" }}</th>
-<!--                <th>-->
-<!--                  <div class="d-flex align-items-end justify-content-end">-->
-<!--                    <button-->
-<!--                      type="button"-->
-<!--                      class="btn btn-outline-danger"-->
-<!--                      @click="trashButtonClick(pub_burden.id)"-->
-<!--                      style="padding: 0.25rem 0.5rem"-->
-<!--                    >-->
-<!--                      <font-awesome-icon :icon="['fas', 'trash']" />-->
-<!--                    </button>-->
-<!--                  </div>-->
-<!--                </th>-->
+                </td>
+                <td v-else></td>
+                <td>{{ pub_burden.burden_kind_data || "Нет данных" }}</td>
+                <!--                <th>-->
+                <!--                  <div class="d-flex align-items-end justify-content-end">-->
+                <!--                    <button-->
+                <!--                      type="button"-->
+                <!--                      class="btn btn-outline-danger"-->
+                <!--                      @click="trashButtonClick(pub_burden.id)"-->
+                <!--                      style="padding: 0.25rem 0.5rem"-->
+                <!--                    >-->
+                <!--                      <font-awesome-icon :icon="['fas', 'trash']" />-->
+                <!--                    </button>-->
+                <!--                  </div>-->
+                <!--                </th>-->
               </tr>
             </tbody>
           </table>

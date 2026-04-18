@@ -629,28 +629,28 @@
                     <label for="id_education_form">Форма обучения</label>
                   </div>
                 </div>
-                <div class="col-xl-3">
-                  <div class="form-floating mb-3">
-                    <select
-                      id="id_health_group"
-                      class="form-select"
-                      aria-label="Floating label select example"
-                      v-model="currentStudentData.health_group"
-                    >
-                      <option :value="null">---------</option>
-                      <option :value="8" :key="8">1</option>
-                      <option :value="1" :key="1">2</option>
-                      <option :value="3" :key="3">3</option>
-                      <!--                      <option-->
-                      <!--                          :value="health_group.id"-->
-                      <!--                          v-for="health_group in orderedHealthGroups"-->
-                      <!--                      >-->
-                      <!--                        {{ health_group.health_group }}-->
-                      <!--                      </option>-->
-                    </select>
-                    <label for="id_health_group">Группа здоровья</label>
-                  </div>
-                </div>
+                <!--                <div class="col-xl-3">-->
+                <!--                  <div class="form-floating mb-3">-->
+                <!--                    <select-->
+                <!--                      id="id_health_group"-->
+                <!--                      class="form-select"-->
+                <!--                      aria-label="Floating label select example"-->
+                <!--                      v-model="currentStudentData.health_group"-->
+                <!--                    >-->
+                <!--                      <option :value="null">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
+                <!--                      <option :value="8" :key="8">1</option>-->
+                <!--                      <option :value="1" :key="1">2</option>-->
+                <!--                      <option :value="3" :key="3">3</option>-->
+                <!--                      &lt;!&ndash;                      <option&ndash;&gt;-->
+                <!--                      &lt;!&ndash;                          :value="health_group.id"&ndash;&gt;-->
+                <!--                      &lt;!&ndash;                          v-for="health_group in orderedHealthGroups"&ndash;&gt;-->
+                <!--                      &lt;!&ndash;                      >&ndash;&gt;-->
+                <!--                      &lt;!&ndash;                        {{ health_group.health_group }}&ndash;&gt;-->
+                <!--                      &lt;!&ndash;                      </option>&ndash;&gt;-->
+                <!--                    </select>-->
+                <!--                    <label for="id_health_group">Группа здоровья</label>-->
+                <!--                  </div>-->
+                <!--                </div>-->
                 <div class="col-xl-3">
                   <div class="form-floating mb-3">
                     <select
@@ -715,18 +715,18 @@
                   >
                     Представители
                   </button>
-                  <button
-                    class="nav-link"
-                    id="nav-questionary-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#nav-questionary"
-                    type="button"
-                    role="tab"
-                    aria-controls="nav-questionary"
-                    aria-selected="false"
-                  >
-                    Анкета
-                  </button>
+                  <!--                  <button-->
+                  <!--                    class="nav-link"-->
+                  <!--                    id="nav-questionary-tab"-->
+                  <!--                    data-bs-toggle="tab"-->
+                  <!--                    data-bs-target="#nav-questionary"-->
+                  <!--                    type="button"-->
+                  <!--                    role="tab"-->
+                  <!--                    aria-controls="nav-questionary"-->
+                  <!--                    aria-selected="false"-->
+                  <!--                  >-->
+                  <!--                    Анкета-->
+                  <!--                  </button>-->
 
                   <!--                  <button-->
                   <!--                    class="nav-link"-->
@@ -1580,779 +1580,744 @@
                     </div>
                   </div>
                 </div>
-                <div
-                  class="tab-pane fade"
-                  id="nav-questionary"
-                  role="tabpanel"
-                  aria-labelledby="nav-questionary-tab"
-                  tabindex="0"
-                >
-                  <div>
-                    <div class="my-3">
-                      <div class="row">
-                        <div class="col-xl-3">
-                          <div class="form-floating mb-3">
-                            <select
-                              id="id_vpk"
-                              class="form-select"
-                              v-model="currentStudentData.vpk"
-                            >
-                              <option :value="null">---------</option>
-                              <option
-                                :value="vpk.id"
-                                v-for="vpk in orderedVpkCategories"
-                              >
-                                {{ vpk.category }}
-                              </option>
-                            </select>
-                            <label for="id_vpk"
-                              >Военно-патриотический клуб</label
-                            >
-                          </div>
-                        </div>
-                        <div class="col-xl-3">
-                          <div class="form-floating mb-3">
-                            <input
-                              id="id_vpk_data"
-                              type="text"
-                              class="form-control form-control-sm"
-                              placeholder="Данные по ВПК"
-                              v-model="currentStudentData.vpk_data"
-                            />
-                            <label for="id_vpk_data">Данные по ВПК</label>
-                          </div>
-                        </div>
-                      </div>
+                <!--                <div-->
+                <!--                  class="tab-pane fade"-->
+                <!--                  id="nav-questionary"-->
+                <!--                  role="tabpanel"-->
+                <!--                  aria-labelledby="nav-questionary-tab"-->
+                <!--                  tabindex="0"-->
+                <!--                >-->
+                <!--                  <div>-->
+                <!--                    <div class="my-3">-->
+                <!--                      <div class="row">-->
+                <!--                        <div class="col-xl-6">-->
+                <!--                          <div class="row d-flex flex-row align-items-center">-->
+                <!--                            <div class="col-xl-3">-->
+                <!--                              <div class="form-check mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_is_brsm_member"-->
+                <!--                                  class="form-check-input"-->
+                <!--                                  type="checkbox"-->
+                <!--                                  v-model="currentStudentData.is_brsm_member"-->
+                <!--                                />-->
+                <!--                                <label-->
+                <!--                                  class="form-check-label"-->
+                <!--                                  for="id_is_brsm_member"-->
+                <!--                                >-->
+                <!--                                  Является членом БРСМ-->
+                <!--                                </label>-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                            <div class="col-xl-9">-->
+                <!--                              <div class="form-floating mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_is_brsm_member_extra_data"-->
+                <!--                                  type="text"-->
+                <!--                                  class="form-control"-->
+                <!--                                  placeholder="Является членом БРСМ (доп.)"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.is_brsm_member_extra_data-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label for="id_is_brsm_member_extra_data"-->
+                <!--                                  >Является членом БРСМ (доп.)</label-->
+                <!--                                >-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                          </div>-->
+                <!--                          <div class="row d-flex flex-row align-items-center">-->
+                <!--                            <div class="col-xl-3">-->
+                <!--                              <div class="form-check mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_is_member_of_other_public_organizations"-->
+                <!--                                  class="form-check-input"-->
+                <!--                                  type="checkbox"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.is_member_of_other_public_organizations-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label-->
+                <!--                                  class="form-check-label"-->
+                <!--                                  for="id_is_member_of_other_public_organizations"-->
+                <!--                                >-->
+                <!--                                  Является членом иных общественных организаций-->
+                <!--                                </label>-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                            <div class="col-xl-9">-->
+                <!--                              <div class="form-floating mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_is_member_of_other_public_organizations_extra_data"-->
+                <!--                                  type="text"-->
+                <!--                                  class="form-control"-->
+                <!--                                  placeholder="Является членом БРСМ (доп.)"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.is_member_of_other_public_organizations_extra_data-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label-->
+                <!--                                  for="id_is_member_of_other_public_organizations_extra_data"-->
+                <!--                                  >Является членом иных общественных организаций-->
+                <!--                                  (доп.)</label-->
+                <!--                                >-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                          </div>-->
+                <!--                          <div class="row d-flex flex-row align-items-center">-->
+                <!--                            <div class="col-xl-3">-->
+                <!--                              <div class="form-check mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_victims_of_the_Chernobyl_disaster"-->
+                <!--                                  class="form-check-input"-->
+                <!--                                  type="checkbox"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.victims_of_the_Chernobyl_disaster-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label-->
+                <!--                                  class="form-check-label"-->
+                <!--                                  for="id_victims_of_the_Chernobyl_disaster"-->
+                <!--                                >-->
+                <!--                                  Пострадавшие от катастрофы на ЧАЭС-->
+                <!--                                </label>-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                            <div class="col-xl-9">-->
+                <!--                              <div class="form-floating mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_victims_of_the_Chernobyl_disaster_extra_data"-->
+                <!--                                  type="text"-->
+                <!--                                  class="form-control form-control-sm"-->
+                <!--                                  placeholder="Пострадавшие от катастрофы на ЧАЭС (доп.)"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.victims_of_the_Chernobyl_disaster_extra_data-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label-->
+                <!--                                  for="id_victims_of_the_Chernobyl_disaster_extra_data"-->
+                <!--                                  >Пострадавшие от катастрофы на ЧАЭС-->
+                <!--                                  (доп.)</label-->
+                <!--                                >-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                          </div>-->
+                <!--                          <div class="row d-flex flex-row align-items-center">-->
+                <!--                            <div class="col-xl-3">-->
+                <!--                              <div class="form-check mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_is_from_large_family"-->
+                <!--                                  class="form-check-input"-->
+                <!--                                  type="checkbox"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.is_from_large_family-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label-->
+                <!--                                  class="form-check-label"-->
+                <!--                                  for="id_is_from_large_family"-->
+                <!--                                >-->
+                <!--                                  Из многодетной семьи-->
+                <!--                                </label>-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                            <div class="col-xl-9">-->
+                <!--                              <div class="form-floating mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_from_large_family_extra_data"-->
+                <!--                                  type="text"-->
+                <!--                                  class="form-control form-control-sm"-->
+                <!--                                  placeholder="Из многодетной семьи (доп.)"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.from_large_family_extra_data-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label for="id_from_large_family_extra_data"-->
+                <!--                                  >Из многодетной семьи (доп.)</label-->
+                <!--                                >-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                          </div>-->
+                <!--                          <div class="row d-flex flex-row align-items-center">-->
+                <!--                            <div class="col-xl-3">-->
+                <!--                              <div class="form-check mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_is_from_low_income_families"-->
+                <!--                                  class="form-check-input"-->
+                <!--                                  type="checkbox"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.is_from_low_income_families-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label-->
+                <!--                                  class="form-check-label"-->
+                <!--                                  for="id_is_from_low_income_families"-->
+                <!--                                >-->
+                <!--                                  Из малообеспеченной семьи-->
+                <!--                                </label>-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                            <div class="col-xl-9">-->
+                <!--                              <div class="form-floating mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_from_low_income_families_extra_data"-->
+                <!--                                  type="text"-->
+                <!--                                  class="form-control form-control-sm"-->
+                <!--                                  placeholder="Из малообеспеченной семьи (доп.)"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.from_low_income_families_extra_data-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label-->
+                <!--                                  for="id_from_low_income_families_extra_data"-->
+                <!--                                  >Из малообеспеченной семьи (доп.)</label-->
+                <!--                                >-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                          </div>-->
+                <!--                          <div class="row d-flex flex-row align-items-center">-->
+                <!--                            <div class="col-xl-3">-->
+                <!--                              <div class="form-check mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_from_single_parent_family"-->
+                <!--                                  class="form-check-input"-->
+                <!--                                  type="checkbox"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.from_single_parent_family-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label-->
+                <!--                                  class="form-check-label"-->
+                <!--                                  for="id_from_single_parent_family"-->
+                <!--                                >-->
+                <!--                                  Из неполной семьи-->
+                <!--                                </label>-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                            <div class="col-xl-9">-->
+                <!--                              <div class="form-floating mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_from_single_parent_family_extra_data"-->
+                <!--                                  type="text"-->
+                <!--                                  class="form-control"-->
+                <!--                                  placeholder="Из неполной семьи (доп.)"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.from_single_parent_family_extra_data-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label-->
+                <!--                                  for="id_from_single_parent_family_extra_data"-->
+                <!--                                  >Из неполной семьи (доп.)</label-->
+                <!--                                >-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                          </div>-->
+                <!--                          <div class="row d-flex flex-row align-items-center">-->
+                <!--                            <div class="col-xl-3">-->
+                <!--                              <div class="form-check mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_is_orphan"-->
+                <!--                                  class="form-check-input"-->
+                <!--                                  type="checkbox"-->
+                <!--                                  v-model="currentStudentData.is_orphan"-->
+                <!--                                />-->
+                <!--                                <label-->
+                <!--                                  class="form-check-label"-->
+                <!--                                  for="id_is_orphan"-->
+                <!--                                >-->
+                <!--                                  Из числа детей-сирот-->
+                <!--                                </label>-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                            <div class="col-xl-9">-->
+                <!--                              <div class="form-floating mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_is_orphan_extra_data"-->
+                <!--                                  type="text"-->
+                <!--                                  class="form-control"-->
+                <!--                                  placeholder="Из числа детей-сирот (доп.)"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.is_orphan_extra_data-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label for="id_is_orphan_extra_data"-->
+                <!--                                  >Из числа детей-сирот (доп.)</label-->
+                <!--                                >-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                          </div>-->
+                <!--                          <div class="row d-flex flex-row align-items-center">-->
+                <!--                            <div class="col-xl-3">-->
+                <!--                              <div class="form-check mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_is_children_left_without_parental_care"-->
+                <!--                                  class="form-check-input"-->
+                <!--                                  type="checkbox"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.is_children_left_without_parental_care-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label-->
+                <!--                                  class="form-check-label"-->
+                <!--                                  for="id_is_children_left_without_parental_care"-->
+                <!--                                >-->
+                <!--                                  Из числа детей, оставшихся без попечения-->
+                <!--                                  родителей-->
+                <!--                                </label>-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                            <div class="col-xl-9">-->
+                <!--                              <div class="form-floating mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_is_children_left_without_parental_care_extra_data"-->
+                <!--                                  type="text"-->
+                <!--                                  class="form-control"-->
+                <!--                                  placeholder="Из числа детей, оставшихся без попечения-->
+                <!--                                  родителей (доп.)"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.is_children_left_without_parental_care_extra_data-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label-->
+                <!--                                  for="id_is_children_left_without_parental_care_extra_data"-->
+                <!--                                  >Из числа детей, оставшихся без попечения-->
+                <!--                                  родителей (доп.)</label-->
+                <!--                                >-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                          </div>-->
+                <!--                          <div class="row d-flex flex-row align-items-center">-->
+                <!--                            <div class="col-xl-3">-->
+                <!--                              <div class="form-check mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_has_own_family"-->
+                <!--                                  class="form-check-input"-->
+                <!--                                  type="checkbox"-->
+                <!--                                  v-model="currentStudentData.has_own_family"-->
+                <!--                                />-->
+                <!--                                <label-->
+                <!--                                  class="form-check-label"-->
+                <!--                                  for="id_has_own_family"-->
+                <!--                                >-->
+                <!--                                  Из числа имеющих семьи-->
+                <!--                                </label>-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                            <div class="col-xl-9">-->
+                <!--                              <div class="form-floating mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_has_own_family_extra_data"-->
+                <!--                                  type="text"-->
+                <!--                                  class="form-control"-->
+                <!--                                  placeholder="Из числа имеющих семьи (доп.)"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.has_own_family_extra_data-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label for="id_has_own_family_extra_data"-->
+                <!--                                  >Из числа имеющих семьи (доп.)</label-->
+                <!--                                >-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                          </div>-->
+                <!--                          <div class="row d-flex flex-row align-items-center">-->
+                <!--                            <div class="col-xl-3">-->
+                <!--                              <div class="form-check mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_have_dependent_children_parents"-->
+                <!--                                  class="form-check-input"-->
+                <!--                                  type="checkbox"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.have_dependent_children_parents-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label-->
+                <!--                                  class="form-check-label"-->
+                <!--                                  for="id_have_dependent_children_parents"-->
+                <!--                                >-->
+                <!--                                  Имеют на иждивении детей и / или родителей-->
+                <!--                                </label>-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                            <div class="col-xl-9">-->
+                <!--                              <div class="form-floating mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_have_dependent_children_parents_extra_data"-->
+                <!--                                  type="text"-->
+                <!--                                  class="form-control form-control-sm"-->
+                <!--                                  placeholder="Имеют на иждевении детей и / или родителей (доп.)"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.have_dependent_children_parents_extra_data-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label-->
+                <!--                                  for="id_have_dependent_children_parents_extra_data"-->
+                <!--                                  >Имеют на иждевении детей и / или родителей-->
+                <!--                                  (доп.)</label-->
+                <!--                                >-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                          </div>-->
+                <!--                        </div>-->
 
-                      <div class="row">
-                        <div class="col-xl-6">
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_is_brsm_member"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="currentStudentData.is_brsm_member"
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_is_brsm_member"
-                                >
-                                  Является членом БРСМ
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_is_brsm_member_extra_data"
-                                  type="text"
-                                  class="form-control"
-                                  placeholder="Является членом БРСМ (доп.)"
-                                  v-model="
-                                    currentStudentData.is_brsm_member_extra_data
-                                  "
-                                />
-                                <label for="id_is_brsm_member_extra_data"
-                                  >Является членом БРСМ (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_is_member_of_other_public_organizations"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="
-                                    currentStudentData.is_member_of_other_public_organizations
-                                  "
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_is_member_of_other_public_organizations"
-                                >
-                                  Является членом иных общественных организаций
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_is_member_of_other_public_organizations_extra_data"
-                                  type="text"
-                                  class="form-control"
-                                  placeholder="Является членом БРСМ (доп.)"
-                                  v-model="
-                                    currentStudentData.is_member_of_other_public_organizations_extra_data
-                                  "
-                                />
-                                <label
-                                  for="id_is_member_of_other_public_organizations_extra_data"
-                                  >Является членом иных общественных организаций
-                                  (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_victims_of_the_Chernobyl_disaster"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="
-                                    currentStudentData.victims_of_the_Chernobyl_disaster
-                                  "
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_victims_of_the_Chernobyl_disaster"
-                                >
-                                  Пострадавшие от катастрофы на ЧАЭС
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_victims_of_the_Chernobyl_disaster_extra_data"
-                                  type="text"
-                                  class="form-control form-control-sm"
-                                  placeholder="Пострадавшие от катастрофы на ЧАЭС (доп.)"
-                                  v-model="
-                                    currentStudentData.victims_of_the_Chernobyl_disaster_extra_data
-                                  "
-                                />
-                                <label
-                                  for="id_victims_of_the_Chernobyl_disaster_extra_data"
-                                  >Пострадавшие от катастрофы на ЧАЭС
-                                  (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_is_from_large_family"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="
-                                    currentStudentData.is_from_large_family
-                                  "
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_is_from_large_family"
-                                >
-                                  Из многодетной семьи
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_from_large_family_extra_data"
-                                  type="text"
-                                  class="form-control form-control-sm"
-                                  placeholder="Из многодетной семьи (доп.)"
-                                  v-model="
-                                    currentStudentData.from_large_family_extra_data
-                                  "
-                                />
-                                <label for="id_from_large_family_extra_data"
-                                  >Из многодетной семьи (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_is_from_low_income_families"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="
-                                    currentStudentData.is_from_low_income_families
-                                  "
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_is_from_low_income_families"
-                                >
-                                  Из малообеспеченной семьи
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_from_low_income_families_extra_data"
-                                  type="text"
-                                  class="form-control form-control-sm"
-                                  placeholder="Из малообеспеченной семьи (доп.)"
-                                  v-model="
-                                    currentStudentData.from_low_income_families_extra_data
-                                  "
-                                />
-                                <label
-                                  for="id_from_low_income_families_extra_data"
-                                  >Из малообеспеченной семьи (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_from_single_parent_family"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="
-                                    currentStudentData.from_single_parent_family
-                                  "
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_from_single_parent_family"
-                                >
-                                  Из неполной семьи
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_from_single_parent_family_extra_data"
-                                  type="text"
-                                  class="form-control"
-                                  placeholder="Из неполной семьи (доп.)"
-                                  v-model="
-                                    currentStudentData.from_single_parent_family_extra_data
-                                  "
-                                />
-                                <label
-                                  for="id_from_single_parent_family_extra_data"
-                                  >Из неполной семьи (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_is_orphan"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="currentStudentData.is_orphan"
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_is_orphan"
-                                >
-                                  Из числа детей-сирот
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_is_orphan_extra_data"
-                                  type="text"
-                                  class="form-control"
-                                  placeholder="Из числа детей-сирот (доп.)"
-                                  v-model="
-                                    currentStudentData.is_orphan_extra_data
-                                  "
-                                />
-                                <label for="id_is_orphan_extra_data"
-                                  >Из числа детей-сирот (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_is_children_left_without_parental_care"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="
-                                    currentStudentData.is_children_left_without_parental_care
-                                  "
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_is_children_left_without_parental_care"
-                                >
-                                  Из числа детей, оставшихся без попечения
-                                  родителей
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_is_children_left_without_parental_care_extra_data"
-                                  type="text"
-                                  class="form-control"
-                                  placeholder="Из числа детей, оставшихся без попечения
-                                  родителей (доп.)"
-                                  v-model="
-                                    currentStudentData.is_children_left_without_parental_care_extra_data
-                                  "
-                                />
-                                <label
-                                  for="id_is_children_left_without_parental_care_extra_data"
-                                  >Из числа детей, оставшихся без попечения
-                                  родителей (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_has_own_family"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="currentStudentData.has_own_family"
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_has_own_family"
-                                >
-                                  Из числа имеющих семьи
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_has_own_family_extra_data"
-                                  type="text"
-                                  class="form-control"
-                                  placeholder="Из числа имеющих семьи (доп.)"
-                                  v-model="
-                                    currentStudentData.has_own_family_extra_data
-                                  "
-                                />
-                                <label for="id_has_own_family_extra_data"
-                                  >Из числа имеющих семьи (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_have_dependent_children_parents"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="
-                                    currentStudentData.have_dependent_children_parents
-                                  "
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_have_dependent_children_parents"
-                                >
-                                  Имеют на иждивении детей и / или родителей
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_have_dependent_children_parents_extra_data"
-                                  type="text"
-                                  class="form-control form-control-sm"
-                                  placeholder="Имеют на иждевении детей и / или родителей (доп.)"
-                                  v-model="
-                                    currentStudentData.have_dependent_children_parents_extra_data
-                                  "
-                                />
-                                <label
-                                  for="id_have_dependent_children_parents_extra_data"
-                                  >Имеют на иждевении детей и / или родителей
-                                  (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-xl-6">
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_is_olympiad_winner"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="
-                                    currentStudentData.is_olympiad_winner
-                                  "
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_is_olympiad_winner"
-                                >
-                                  Победитель республиканских или региональных
-                                  олимпиад
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_olympiad_winner_extra_data"
-                                  type="text"
-                                  class="form-control"
-                                  placeholder="Претендует на аттестат с отличием (доп.)"
-                                  v-model="
-                                    currentStudentData.olympiad_winner_extra_data
-                                  "
-                                />
-                                <label for="id_olympiad_winner_extra_data"
-                                  >Победитель республиканских или региональных
-                                  олимпиад (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_has_intellectual_and_scientific_research_events"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="
-                                    currentStudentData.has_intellectual_and_scientific_research_events
-                                  "
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_has_intellectual_and_scientific_research_events"
-                                >
-                                  Мероприятия интелектуального и
-                                  научно-исследовательского характера
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_has_intellectual_and_scientific_research_events_extra_data"
-                                  type="text"
-                                  class="form-control form-control-sm"
-                                  placeholder="Мероприятия интелектуального и
-                                  научю-исслед. хар-ра (доп.)"
-                                  v-model="
-                                    currentStudentData.has_intellectual_and_scientific_research_events_extra_data
-                                  "
-                                />
-                                <label
-                                  for="id_has_intellectual_and_scientific_research_events_extra_data"
-                                  >Мероприятия интелектуального и науч.-исслед.
-                                  хар-ра (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_has_achievements_in_sports"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="
-                                    currentStudentData.has_achievements_in_sports
-                                  "
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_has_achievements_in_sports"
-                                >
-                                  Достижения в спорте
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_has_achievements_in_sports_extra_data"
-                                  type="text"
-                                  class="form-control"
-                                  placeholder="Претендует на аттестат с отличием (доп.)"
-                                  v-model="
-                                    currentStudentData.has_achievements_in_sports_extra_data
-                                  "
-                                />
-                                <label
-                                  for="id_has_achievements_in_sports_extra_data"
-                                  >Достижения в спорте (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_has_passion_for_vocals"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="
-                                    currentStudentData.has_passion_for_vocals
-                                  "
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_has_passion_for_vocals"
-                                >
-                                  Имеет увлечение вокалом
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_has_passion_for_vocals_extra_data"
-                                  type="text"
-                                  class="form-control"
-                                  placeholder="Имеет увлечение вокалом (доп.)"
-                                  v-model="
-                                    currentStudentData.has_passion_for_vocals_extra_data
-                                  "
-                                />
-                                <label
-                                  for="id_has_passion_for_vocals_extra_data"
-                                  >Имеет увлечение вокалом (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_has_passion_for_choreography"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="
-                                    currentStudentData.has_passion_for_choreography
-                                  "
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_has_passion_for_choreography"
-                                >
-                                  Имеет увлечение хореографией
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_has_passion_for_choreography_extra_data"
-                                  type="text"
-                                  class="form-control"
-                                  placeholder="Имеет увлечение хореографией (доп.)"
-                                  v-model="
-                                    currentStudentData.has_passion_for_choreography_extra_data
-                                  "
-                                />
-                                <label
-                                  for="id_has_passion_for_choreography_extra_data"
-                                  >Имеет увлечение хореографией (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_has_passion_for_kvn"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="
-                                    currentStudentData.has_passion_for_kvn
-                                  "
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_has_passion_for_kvn"
-                                >
-                                  Имеет увлечение КВН
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_has_passion_for_kvn_extra_data"
-                                  type="text"
-                                  class="form-control"
-                                  placeholder="Имеет увлечение КВН (доп.)"
-                                  v-model="
-                                    currentStudentData.has_passion_for_kvn_extra_data
-                                  "
-                                />
-                                <label for="id_has_passion_for_kvn_extra_data"
-                                  >Имеет увлечение КВН (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_has_other_cultural_and_mass_hobbies"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="
-                                    currentStudentData.has_other_cultural_and_mass_hobbies
-                                  "
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_has_other_cultural_and_mass_hobbies"
-                                >
-                                  Имеет иные культурно-массовые увлечения
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_has_other_cultural_and_mass_hobbies_extra_data"
-                                  type="text"
-                                  class="form-control"
-                                  placeholder="Имеет иные культурно-массовые увлечения (доп.)"
-                                  v-model="
-                                    currentStudentData.has_other_cultural_and_mass_hobbies_extra_data
-                                  "
-                                />
-                                <label
-                                  for="id_has_other_cultural_and_mass_hobbies_extra_data"
-                                  >Имеет иные культурно-массовые увлечения
-                                  (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_has_drivers_licence"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="
-                                    currentStudentData.has_drivers_licence
-                                  "
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_has_drivers_licence"
-                                >
-                                  Имеет водительское удостоверение
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_has_drivers_licence_extra_data"
-                                  type="text"
-                                  class="form-control"
-                                  placeholder="Имеет водительское удостоверение (доп.)"
-                                  v-model="
-                                    currentStudentData.has_drivers_licence_extra_data
-                                  "
-                                />
-                                <label for="id_has_drivers_licence_extra_data"
-                                  >Имеет водительское удостоверение
-                                  (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row d-flex flex-row align-items-center">
-                            <div class="col-xl-3">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_drives_vehicle"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="currentStudentData.drives_vehicle"
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_drives_vehicle"
-                                >
-                                  Управляет транспортным средством
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-xl-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_drives_vehicle_extra_data"
-                                  type="text"
-                                  class="form-control"
-                                  placeholder="Управляет транспортным средством (доп.)"
-                                  v-model="
-                                    currentStudentData.drives_vehicle_extra_data
-                                  "
-                                />
-                                <label for="id_drives_vehicle_extra_data"
-                                  >Управляет транспортным средством
-                                  (доп.)</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-xl-12">
-                          <div class="form-floating mb-3">
-                            <textarea
-                              id="id_questionary_tab_extra_data"
-                              class="form-control"
-                              placeholder="Примечание по анкете"
-                              rows="2"
-                              v-model="
-                                currentStudentData.questionary_tab_extra_data
-                              "
-                            ></textarea>
-                            <label for="id_questionary_tab_extra_data"
-                              >Примечание по анкете
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <!--                        <div class="col-xl-6">-->
+                <!--                          <div class="row d-flex flex-row align-items-center">-->
+                <!--                            <div class="col-xl-3">-->
+                <!--                              <div class="form-check mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_is_olympiad_winner"-->
+                <!--                                  class="form-check-input"-->
+                <!--                                  type="checkbox"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.is_olympiad_winner-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label-->
+                <!--                                  class="form-check-label"-->
+                <!--                                  for="id_is_olympiad_winner"-->
+                <!--                                >-->
+                <!--                                  Победитель республиканских или региональных-->
+                <!--                                  олимпиад-->
+                <!--                                </label>-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                            <div class="col-xl-9">-->
+                <!--                              <div class="form-floating mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_olympiad_winner_extra_data"-->
+                <!--                                  type="text"-->
+                <!--                                  class="form-control"-->
+                <!--                                  placeholder="Претендует на аттестат с отличием (доп.)"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.olympiad_winner_extra_data-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label for="id_olympiad_winner_extra_data"-->
+                <!--                                  >Победитель республиканских или региональных-->
+                <!--                                  олимпиад (доп.)</label-->
+                <!--                                >-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                          </div>-->
+                <!--                          <div class="row d-flex flex-row align-items-center">-->
+                <!--                            <div class="col-xl-3">-->
+                <!--                              <div class="form-check mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_has_intellectual_and_scientific_research_events"-->
+                <!--                                  class="form-check-input"-->
+                <!--                                  type="checkbox"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.has_intellectual_and_scientific_research_events-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label-->
+                <!--                                  class="form-check-label"-->
+                <!--                                  for="id_has_intellectual_and_scientific_research_events"-->
+                <!--                                >-->
+                <!--                                  Мероприятия интелектуального и-->
+                <!--                                  научно-исследовательского характера-->
+                <!--                                </label>-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                            <div class="col-xl-9">-->
+                <!--                              <div class="form-floating mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_has_intellectual_and_scientific_research_events_extra_data"-->
+                <!--                                  type="text"-->
+                <!--                                  class="form-control form-control-sm"-->
+                <!--                                  placeholder="Мероприятия интелектуального и-->
+                <!--                                  научю-исслед. хар-ра (доп.)"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.has_intellectual_and_scientific_research_events_extra_data-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label-->
+                <!--                                  for="id_has_intellectual_and_scientific_research_events_extra_data"-->
+                <!--                                  >Мероприятия интелектуального и науч.-исслед.-->
+                <!--                                  хар-ра (доп.)</label-->
+                <!--                                >-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                          </div>-->
+                <!--                          <div class="row d-flex flex-row align-items-center">-->
+                <!--                            <div class="col-xl-3">-->
+                <!--                              <div class="form-check mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_has_achievements_in_sports"-->
+                <!--                                  class="form-check-input"-->
+                <!--                                  type="checkbox"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.has_achievements_in_sports-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label-->
+                <!--                                  class="form-check-label"-->
+                <!--                                  for="id_has_achievements_in_sports"-->
+                <!--                                >-->
+                <!--                                  Достижения в спорте-->
+                <!--                                </label>-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                            <div class="col-xl-9">-->
+                <!--                              <div class="form-floating mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_has_achievements_in_sports_extra_data"-->
+                <!--                                  type="text"-->
+                <!--                                  class="form-control"-->
+                <!--                                  placeholder="Претендует на аттестат с отличием (доп.)"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.has_achievements_in_sports_extra_data-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label-->
+                <!--                                  for="id_has_achievements_in_sports_extra_data"-->
+                <!--                                  >Достижения в спорте (доп.)</label-->
+                <!--                                >-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                          </div>-->
+                <!--                          <div class="row d-flex flex-row align-items-center">-->
+                <!--                            <div class="col-xl-3">-->
+                <!--                              <div class="form-check mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_has_passion_for_vocals"-->
+                <!--                                  class="form-check-input"-->
+                <!--                                  type="checkbox"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.has_passion_for_vocals-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label-->
+                <!--                                  class="form-check-label"-->
+                <!--                                  for="id_has_passion_for_vocals"-->
+                <!--                                >-->
+                <!--                                  Имеет увлечение вокалом-->
+                <!--                                </label>-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                            <div class="col-xl-9">-->
+                <!--                              <div class="form-floating mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_has_passion_for_vocals_extra_data"-->
+                <!--                                  type="text"-->
+                <!--                                  class="form-control"-->
+                <!--                                  placeholder="Имеет увлечение вокалом (доп.)"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.has_passion_for_vocals_extra_data-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label-->
+                <!--                                  for="id_has_passion_for_vocals_extra_data"-->
+                <!--                                  >Имеет увлечение вокалом (доп.)</label-->
+                <!--                                >-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                          </div>-->
+                <!--                          <div class="row d-flex flex-row align-items-center">-->
+                <!--                            <div class="col-xl-3">-->
+                <!--                              <div class="form-check mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_has_passion_for_choreography"-->
+                <!--                                  class="form-check-input"-->
+                <!--                                  type="checkbox"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.has_passion_for_choreography-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label-->
+                <!--                                  class="form-check-label"-->
+                <!--                                  for="id_has_passion_for_choreography"-->
+                <!--                                >-->
+                <!--                                  Имеет увлечение хореографией-->
+                <!--                                </label>-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                            <div class="col-xl-9">-->
+                <!--                              <div class="form-floating mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_has_passion_for_choreography_extra_data"-->
+                <!--                                  type="text"-->
+                <!--                                  class="form-control"-->
+                <!--                                  placeholder="Имеет увлечение хореографией (доп.)"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.has_passion_for_choreography_extra_data-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label-->
+                <!--                                  for="id_has_passion_for_choreography_extra_data"-->
+                <!--                                  >Имеет увлечение хореографией (доп.)</label-->
+                <!--                                >-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                          </div>-->
+                <!--                          <div class="row d-flex flex-row align-items-center">-->
+                <!--                            <div class="col-xl-3">-->
+                <!--                              <div class="form-check mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_has_passion_for_kvn"-->
+                <!--                                  class="form-check-input"-->
+                <!--                                  type="checkbox"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.has_passion_for_kvn-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label-->
+                <!--                                  class="form-check-label"-->
+                <!--                                  for="id_has_passion_for_kvn"-->
+                <!--                                >-->
+                <!--                                  Имеет увлечение КВН-->
+                <!--                                </label>-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                            <div class="col-xl-9">-->
+                <!--                              <div class="form-floating mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_has_passion_for_kvn_extra_data"-->
+                <!--                                  type="text"-->
+                <!--                                  class="form-control"-->
+                <!--                                  placeholder="Имеет увлечение КВН (доп.)"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.has_passion_for_kvn_extra_data-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label for="id_has_passion_for_kvn_extra_data"-->
+                <!--                                  >Имеет увлечение КВН (доп.)</label-->
+                <!--                                >-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                          </div>-->
+                <!--                          <div class="row d-flex flex-row align-items-center">-->
+                <!--                            <div class="col-xl-3">-->
+                <!--                              <div class="form-check mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_has_other_cultural_and_mass_hobbies"-->
+                <!--                                  class="form-check-input"-->
+                <!--                                  type="checkbox"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.has_other_cultural_and_mass_hobbies-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label-->
+                <!--                                  class="form-check-label"-->
+                <!--                                  for="id_has_other_cultural_and_mass_hobbies"-->
+                <!--                                >-->
+                <!--                                  Имеет иные культурно-массовые увлечения-->
+                <!--                                </label>-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                            <div class="col-xl-9">-->
+                <!--                              <div class="form-floating mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_has_other_cultural_and_mass_hobbies_extra_data"-->
+                <!--                                  type="text"-->
+                <!--                                  class="form-control"-->
+                <!--                                  placeholder="Имеет иные культурно-массовые увлечения (доп.)"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.has_other_cultural_and_mass_hobbies_extra_data-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label-->
+                <!--                                  for="id_has_other_cultural_and_mass_hobbies_extra_data"-->
+                <!--                                  >Имеет иные культурно-массовые увлечения-->
+                <!--                                  (доп.)</label-->
+                <!--                                >-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                          </div>-->
+                <!--                          <div class="row d-flex flex-row align-items-center">-->
+                <!--                            <div class="col-xl-3">-->
+                <!--                              <div class="form-check mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_has_drivers_licence"-->
+                <!--                                  class="form-check-input"-->
+                <!--                                  type="checkbox"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.has_drivers_licence-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label-->
+                <!--                                  class="form-check-label"-->
+                <!--                                  for="id_has_drivers_licence"-->
+                <!--                                >-->
+                <!--                                  Имеет водительское удостоверение-->
+                <!--                                </label>-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                            <div class="col-xl-9">-->
+                <!--                              <div class="form-floating mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_has_drivers_licence_extra_data"-->
+                <!--                                  type="text"-->
+                <!--                                  class="form-control"-->
+                <!--                                  placeholder="Имеет водительское удостоверение (доп.)"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.has_drivers_licence_extra_data-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label for="id_has_drivers_licence_extra_data"-->
+                <!--                                  >Имеет водительское удостоверение-->
+                <!--                                  (доп.)</label-->
+                <!--                                >-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                          </div>-->
+                <!--                          <div class="row d-flex flex-row align-items-center">-->
+                <!--                            <div class="col-xl-3">-->
+                <!--                              <div class="form-check mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_drives_vehicle"-->
+                <!--                                  class="form-check-input"-->
+                <!--                                  type="checkbox"-->
+                <!--                                  v-model="currentStudentData.drives_vehicle"-->
+                <!--                                />-->
+                <!--                                <label-->
+                <!--                                  class="form-check-label"-->
+                <!--                                  for="id_drives_vehicle"-->
+                <!--                                >-->
+                <!--                                  Управляет транспортным средством-->
+                <!--                                </label>-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                            <div class="col-xl-9">-->
+                <!--                              <div class="form-floating mb-3">-->
+                <!--                                <input-->
+                <!--                                  id="id_drives_vehicle_extra_data"-->
+                <!--                                  type="text"-->
+                <!--                                  class="form-control"-->
+                <!--                                  placeholder="Управляет транспортным средством (доп.)"-->
+                <!--                                  v-model="-->
+                <!--                                    currentStudentData.drives_vehicle_extra_data-->
+                <!--                                  "-->
+                <!--                                />-->
+                <!--                                <label for="id_drives_vehicle_extra_data"-->
+                <!--                                  >Управляет транспортным средством-->
+                <!--                                  (доп.)</label-->
+                <!--                                >-->
+                <!--                              </div>-->
+                <!--                            </div>-->
+                <!--                          </div>-->
+                <!--                        </div>-->
+                <!--                      </div>-->
+                <!--                      <div class="row">-->
+                <!--                        <div class="col-xl-12">-->
+                <!--                          <div class="form-floating mb-3">-->
+                <!--                            <textarea-->
+                <!--                              id="id_questionary_tab_extra_data"-->
+                <!--                              class="form-control"-->
+                <!--                              placeholder="Примечание по анкете"-->
+                <!--                              rows="2"-->
+                <!--                              v-model="-->
+                <!--                                currentStudentData.questionary_tab_extra_data-->
+                <!--                              "-->
+                <!--                            ></textarea>-->
+                <!--                            <label for="id_questionary_tab_extra_data"-->
+                <!--                              >Примечание по анкете-->
+                <!--                            </label>-->
+                <!--                          </div>-->
+                <!--                        </div>-->
+                <!--                      </div>-->
+                <!--                    </div>-->
+                <!--                  </div>-->
+                <!--                </div>-->
                 <div
                   class="tab-pane fade"
                   id="nav-attached_documents"
@@ -3143,7 +3108,41 @@
               </div>
             </div>
 
-            <div class="col-xxl-6"></div>
+            <div class="col-xxl-6">
+              <h5 class="fw-bold">ВПК</h5>
+              <div class="row">
+                <div class="col-xl-3">
+                  <div class="form-floating mb-3">
+                    <select
+                      id="id_vpk"
+                      class="form-select"
+                      v-model="currentStudentData.vpk"
+                    >
+                      <option :value="null">---------</option>
+                      <option
+                        :value="vpk.id"
+                        v-for="vpk in orderedVpkCategories"
+                      >
+                        {{ vpk.category }}
+                      </option>
+                    </select>
+                    <label for="id_vpk">Военно-патриотический клуб</label>
+                  </div>
+                </div>
+                <div class="col-xl-9">
+                  <div class="form-floating mb-3">
+                    <input
+                      id="id_vpk_data"
+                      type="text"
+                      class="form-control form-control-sm"
+                      placeholder="Данные по ВПК"
+                      v-model="currentStudentData.vpk_data"
+                    />
+                    <label for="id_vpk_data">Данные по ВПК</label>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="border-bottom border-4 my-3"></div>

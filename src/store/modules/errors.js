@@ -8,7 +8,13 @@ const getters = {
 
 const mutations = {
   setErrorList(state, payload) {
-    state.errorsList = [...state.errorsList, payload]
+    if (
+      !state.errorsList.some(
+        (error) => error.errorMessage === payload.errorMessage,
+      )
+    ) {
+      state.errorsList = [...state.errorsList, payload]
+    }
   },
   clearErrorsList(state) {
     state.errorsList = []

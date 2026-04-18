@@ -2350,7 +2350,6 @@
 import { globalStudentAPIInstance } from "@/api/student/studentAPI.js"
 import { debounce } from "lodash/function"
 import { mapGetters } from "vuex"
-import getUsersAPIInstance from "@/api/auth/usersAPI.js"
 import getGroupAPIInstance from "@/api/cadet/groupAPI.js"
 import { getQueryStringFromSearchForm } from "../../.././utils.js"
 
@@ -2479,6 +2478,10 @@ export default {
         {
           fieldName: "Форма обучения",
           fieldValue: "get_education_form",
+        },
+        {
+          fieldName: "Уч. группа",
+          fieldValue: "get_group",
         },
         {
           fieldName: "Группа здоровья",
@@ -2650,7 +2653,6 @@ export default {
       searchForm: Object.assign({}, globalStudentAPIInstance.searchObj),
       studentList: { count: 0, results: [], previous: null, next: null },
       studentAPIInstance: globalStudentAPIInstance,
-      usersAPIInstance: getUsersAPIInstance(),
       groupAPIInstance: getGroupAPIInstance(),
       library_cards_error_array: [],
     }

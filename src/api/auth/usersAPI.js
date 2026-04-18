@@ -16,6 +16,14 @@ class usersAPI extends BaseAPI {
   }
 }
 
+class usersReadOnlyAPI {
+  constructor(baseURL, searchObj) {
+    this.baseURL = baseURL
+    this.searchObj = searchObj
+    this.searchObjDefault = Object.assign({}, searchObj)
+  }
+}
+
 export default function getUsersAPIInstance() {
   return new usersAPI(
     "users",
@@ -28,4 +36,8 @@ export default function getUsersAPIInstance() {
     },
     { username: "", password: "", repeat_password: "" },
   )
+}
+
+export function getUsersReadOnlyAPIInstance() {
+  return new usersAPI("readonly-users", {})
 }

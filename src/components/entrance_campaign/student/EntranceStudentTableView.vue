@@ -2206,7 +2206,7 @@
 import { globalStudentAPIForEntranceInstance } from "@/api/student/studentAPI.js"
 import { debounce } from "lodash/function"
 import { mapGetters } from "vuex"
-import getUsersAPIInstance from "@/api/auth/usersAPI.js"
+import { getUsersReadOnlyAPIInstance } from "@/api/auth/usersAPI.js"
 import { getQueryStringFromSearchForm } from "../../../../utils.js"
 
 export default {
@@ -2479,8 +2479,6 @@ export default {
       ),
       studentList: { count: 0, results: [], previous: null, next: null },
       studentAPIInstance: globalStudentAPIForEntranceInstance,
-      usersAPIInstance: getUsersAPIInstance(),
-      usersList: { count: 0, results: [], previous: null, next: null },
     }
   },
   async created() {
@@ -2491,8 +2489,6 @@ export default {
       this.isLoading = true
       const response = await this.studentAPIInstance.getItemsList()
       this.studentList = await response.data
-      const responseUser = await this.usersAPIInstance.getItemsList()
-      this.usersList = await responseUser.data
 
       this.isLoading = false
       this.setSerialNumbers()
