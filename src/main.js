@@ -189,9 +189,9 @@ axiosInstance.interceptors.response.use(
       case 403:
         store.commit("errors/setErrorList", {
           errorStatus: error.status,
-          errorMessage: "У Вас нет прав для просмотра этого ресурса",
+          errorMessage: "У Вас нет прав на выполнение даного действия",
         })
-        // await store.dispatch("auth/actionRemoveLogIn")
+        await store.dispatch("auth/actionRemoveLogIn")
         await router.replace({ name: "login" })
         break
       case 404:

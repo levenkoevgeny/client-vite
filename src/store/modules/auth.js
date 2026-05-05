@@ -1,9 +1,11 @@
 import { authApi } from "@/api/auth/authAPI"
 import { getLocalToken, saveLocalToken, removeLocalToken } from "@/utils"
+import { jwtDecode } from "jwt-decode"
 
 const state = () => ({
   token: null,
   refreshToken: null,
+  permissions: [],
   isLoggedIn: false,
   isLogInError: null,
   user: { is_preloaded_data: true, is_staff: false },
@@ -26,6 +28,9 @@ const getters = {
   getUser(state) {
     return state.user
   },
+  getPermissions(state) {
+    return state.permissions
+  },
 }
 
 // actions
@@ -40,10 +45,12 @@ const actions = {
       const data = await response.data
       const token = data.access
       const refreshToken = data.refresh
+      // const decoded = jwtDecode(token)
       if (token) {
         saveLocalToken(token)
         commit("setToken", token)
         commit("setRefreshToken", refreshToken)
+        // commit("setPermissions", decoded.permissions)
         commit("setLoggedIn", true)
         commit("setIsLogInError", false)
 
@@ -103,6 +110,9 @@ const mutations = {
   },
   setIsLogInError(state, payload) {
     state.isLogInError = payload
+  },
+  setPermissions(state, payload) {
+    state.permissions = payload
   },
 }
 
