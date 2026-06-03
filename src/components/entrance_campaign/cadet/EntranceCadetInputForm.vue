@@ -322,7 +322,11 @@
               </p>
             </div>
             <div>
-              <button class="btn btn-primary my-3" @click="makePrinting">
+              <button
+                class="btn btn-primary my-3"
+                @click="makePrinting"
+                :disabled="isPrintingApplication"
+              >
                 <font-awesome-icon :icon="['fas', 'print']" />&nbsp;&nbsp; Все
                 равно напечатать заявление
               </button>
@@ -3474,6 +3478,7 @@
               v-else
               class="btn btn-primary my-3"
               @click="printApplication"
+              :disabled="isPrintingApplication"
             >
               <font-awesome-icon :icon="['fas', 'print']" />&nbsp;&nbsp;
               <template v-if="isPrintingApplication"
@@ -4394,12 +4399,11 @@ export default {
         myModal.show()
         return
       } else {
-        this.isPrintingApplication = true
         await this.makePrinting()
-        this.isPrintingApplication = false
       }
     },
     async makePrinting() {
+      this.isPrintingApplication = true
       let dataObj = {
         id: this.currentCadetData.id,
         application_has_been_printed: true,
@@ -4410,12 +4414,6 @@ export default {
           application_has_been_printed_date: new Date().toISOString(),
         }
       }
-      // if (!this.currentCadetData.has_visited_date_time) {
-      //   dataObj = {
-      //     ...dataObj,
-      //     has_visited_date_time: new Date().toISOString(),
-      //   }
-      // }
 
       const journalResponse = await this.cadetAPIInstance.get_journal_number(
         this.currentCadetData.id,
@@ -4442,6 +4440,7 @@ export default {
           document.body.appendChild(link)
           link.click()
         })
+      this.isPrintingApplication = false
       this.$refs.applicationValidationErrorsModalCloseButton.click()
     },
 
