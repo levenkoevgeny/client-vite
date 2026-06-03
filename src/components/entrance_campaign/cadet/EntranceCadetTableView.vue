@@ -4631,7 +4631,7 @@ export default {
         },
         {
           fieldName: "Сирота",
-          fieldValue: "is_orphan",
+          fieldValue: "get_is_orphan",
         },
         {
           fieldName: "ВПК (Военно-патриотический клуб)",

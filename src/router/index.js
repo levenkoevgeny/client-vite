@@ -17,6 +17,12 @@ import {
   EntranceStudentTableView,
   EntranceFPKPRKTableView,
 } from "@/components/entrance_campaign"
+// import {
+//   JournalMainViewView,
+//   JournalNavigationView,
+//   CadetJournalMainView,
+//   Journal,
+// } from "@/components/journal/index.js"
 import { CadetUpdateView, CadetListOkView } from "@/components/cadet"
 import {
   FPKMainView,
@@ -158,7 +164,6 @@ const routes = [
           },
         ],
       },
-
       {
         path: "cadet",
         name: "cadet-main",
@@ -725,6 +730,31 @@ const routes = [
           },
         ],
       },
+      // {
+      //   path: "journal",
+      //   component: JournalMainViewView,
+      //   meta: { requiresAuth: true, title: "Электронный журнал" },
+      //   name: "journal-main",
+      //   children: [
+      //     {
+      //       path: "",
+      //       component: JournalNavigationView,
+      //       name: "journal-navigation",
+      //     },
+      //     {
+      //       path: "cadet",
+      //       component: CadetJournalMainView,
+      //       name: "journal-cadet-main",
+      //       children: [
+      //         {
+      //           path: "journal",
+      //           component: Journal,
+      //           name: "journal",
+      //         },
+      //       ],
+      //     },
+      //   ],
+      // },
     ],
   },
   {

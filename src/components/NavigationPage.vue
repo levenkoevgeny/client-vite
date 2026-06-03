@@ -67,7 +67,7 @@
             <p class="card-text">
               Комплексная информационная система "Идеология"
             </p>
-            <router-link class="btn btn-primary" :to="{ name: 'navigation' }">
+            <router-link class="btn btn-secondary" :to="{ name: 'navigation' }">
               Перейти
             </router-link>
           </div>
@@ -78,7 +78,7 @@
             <p class="card-text">
               Комплексная информационная система "Научная деятельность"
             </p>
-            <router-link class="btn btn-primary" :to="{ name: 'navigation' }">
+            <router-link class="btn btn-secondary" :to="{ name: 'navigation' }">
               Перейти
             </router-link>
           </div>
@@ -138,6 +138,19 @@
             >
               Перейти
             </router-link>
+          </div>
+        </div>
+
+        <div class="card me-4 mb-4 border-0" style="width: 24rem">
+          <div class="card-body">
+            <h5 class="card-title">Электронный журнал</h5>
+            <p class="card-text">Учет оценок и посещаемости</p>
+            <a
+              class="btn btn-primary"
+              href="https://kis-journal.amvd.by"
+              target="_blank"
+              >Перейти</a
+            >
           </div>
         </div>
       </div>

@@ -417,7 +417,6 @@ export default {
           fieldValue: "get_foreign_language_will_be",
         },
         { fieldName: "Группа", fieldValue: "get_group" },
-        { fieldName: "Примечания для отдела кадров", fieldValue: "extra_data" },
         { fieldName: "Дата поступления", fieldValue: "get_academy_start_date" },
         { fieldName: "Дата окончания", fieldValue: "get_academy_end_date" },
         {
@@ -467,6 +466,10 @@ export default {
           fieldValue: "military_office_extra_data",
         },
         {
+          fieldName: "Примечание для отдела кадров",
+          fieldValue: "extra_data",
+        },
+        {
           fieldName: "Замечания по личному делу",
           fieldValue: "comments_on_personal_file",
         },
@@ -509,15 +512,17 @@ export default {
           fieldName: "Наименование учебного заведения",
           fieldValue: "education_graduated",
         },
-        // {
-        //   fieldName: "Год поступления в учебное заведение",
-        //   fieldValue: "education_graduating_start_year",
-        // },
+        {
+          fieldName: "Год поступления в учебное заведение",
+          fieldValue: "education_graduating_start_year",
+        },
         {
           fieldName: "Год окончания учебного заведения",
           fieldValue: "education_graduating_end_year",
         },
-        { fieldName: "Средний бал", fieldValue: "education_average_score" },
+        { fieldName: "Средний балл", fieldValue: "education_average_score" },
+
+        { fieldName: "Сумма баллов", fieldValue: "score_sum" },
         {
           fieldName: "Вид населенного пункта",
           fieldValue: "get_education_location_kind",
@@ -600,6 +605,14 @@ export default {
         { fieldName: "Льгота 7", fieldValue: "get_privilege_7" },
         { fieldName: "Льгота 8", fieldValue: "get_privilege_8" },
         { fieldName: "Льгота 9", fieldValue: "get_privilege_9" },
+        {
+          fieldName: "Льгота, которой воспользовался (предварительно)",
+          fieldValue: "get_enrolled_privilege",
+        },
+        {
+          fieldName: "Льгота, которой воспользовался (окончательно)",
+          fieldValue: "get_enrolled_privilege_2",
+        },
         { fieldName: "Группа здоровья", fieldValue: "get_health_group" },
         {
           fieldName: "Категория профессионального соответствия",
@@ -614,39 +627,44 @@ export default {
           fieldValue: "get_passed_medical_examination",
         },
         {
-          fieldName: "Дата прохождения ВВК",
+          fieldName: "Годен к службе",
+          fieldValue: "get_fit_for_service",
+        },
+        {
+          fieldName: "Дата прохождения медицинской комиссии",
           fieldValue: "get_passed_medical_examination_date",
         },
-        {
-          fieldName: "Дата окончательного медицинского освидетельствования",
-          fieldValue: "get_passed_medical_examination_date_finally",
-        },
-        {
-          fieldName: "Дата прохождения ВВК (психологи)",
-          fieldValue: "get_passed_medical_examination_date_for_psychologist",
-        },
-        {
-          fieldName: "Имеет татуировки",
-          fieldValue: "get_has_tatoo",
-        },
-        {
-          fieldName: "Имеет ограничения по зрению",
-          fieldValue: "get_has_visual_impairments",
-        },
-        {
-          fieldName: "Отец записан со слов",
-          fieldValue: "get_father_data_is_recorded_from_words",
-        },
-        {
-          fieldName: "Результаты специальной проверки",
-          fieldValue: "results_of_special_audit",
-        },
-
         {
           fieldName: "Медицинская комиссия (доп. данные)",
           fieldValue: "passed_medical_examination_extra_data",
         },
         { fieldName: "Возраст", fieldValue: "get_age" },
+        { fieldName: "Предварительно зачислен", fieldValue: "is_enrolled_1" },
+        { fieldName: "Окончательно зачислен", fieldValue: "is_enrolled_2" },
+        {
+          fieldName: "Предвательно зачислен на специальность",
+          fieldValue: "get_enrolled_speciality",
+        },
+        {
+          fieldName: "Окончательно зачислен на специальность",
+          fieldValue: "get_enrolled_speciality_2",
+        },
+        {
+          fieldName: "Резерв",
+          fieldValue: "is_reserve",
+        },
+        {
+          fieldName: "Сирота",
+          fieldValue: "get_is_orphan",
+        },
+        {
+          fieldName: "ВПК (Военно-патриотический клуб)",
+          fieldValue: "get_vpk",
+        },
+        {
+          fieldName: "Данные о ВПК",
+          fieldValue: "vpk_data",
+        },
       ],
       selectedFieldsForDataExport: [
         "last_name_rus",

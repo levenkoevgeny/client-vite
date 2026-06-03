@@ -6,7 +6,8 @@
     --vs-dropdown-option--active-bg: #ffc107;
     --vs-border-color: var(--bs-border-color);
     --vs-selected-color: #212529;
-    --vs-controls-color: #212529;
+    /*--vs-controls-color: #212529;*/
+    /*--vs-controls-color: red;*/
     --vs-search-input-color: var(--bs-body-color);
     --vs-dropdown-option--active-color: #212529;
 }
@@ -18,4 +19,7 @@
 
 .vs__dropdown-menu {
     border-top: var(--vs-border-width) var(--vs-border-style) var(--vs-border-color);;
+}
+.vs--single .vs__selected {
+    background-color: var(--vs-selected-bg);
 }
