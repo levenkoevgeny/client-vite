@@ -928,6 +928,78 @@
                         </div>
                       </div>
                     </div>
+
+                    <div class="row">
+                      <h5>В настоящее время является студентом (кой)</h5>
+                      <div class="col-xl-2">
+                        <div class="form-floating mb-3">
+                          <input
+                            name="is_student_now_year"
+                            id="id_is_student_now_year"
+                            class="form-control"
+                            type="number"
+                            placeholder="Курса"
+                            min="1"
+                            max="7"
+                            v-model="currentStudentData.is_student_now_year"
+                            @input="makeInputDefaultNullValueIfEmpty"
+                          />
+                          <label for="id_is_student_now_year">Курса</label>
+                        </div>
+                      </div>
+                      <div class="col-xl-5">
+                        <div class="form-floating mb-3">
+                          <textarea
+                            id="id_is_student_now_university"
+                            class="form-control"
+                            placeholder="Учреждения образования"
+                            rows="2"
+                            v-model="
+                              currentStudentData.is_student_now_university
+                            "
+                          ></textarea>
+                          <label for="id_is_student_now_university"
+                            >Учреждения образования</label
+                          >
+                        </div>
+                      </div>
+
+                      <div class="col-xl-5">
+                        <div class="form-floating mb-3">
+                          <textarea
+                            id="id_is_student_now_specialty"
+                            class="form-control"
+                            placeholder="По специальности"
+                            rows="2"
+                            v-model="
+                              currentStudentData.is_student_now_specialty
+                            "
+                          ></textarea>
+                          <label for="id_is_student_now_specialty"
+                            >По специальности</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-xl-12">
+                        <div class="form-floating mb-3">
+                          <textarea
+                            id="id_is_student_now_extra_data"
+                            class="form-control"
+                            placeholder="Дополнительные сведения"
+                            rows="2"
+                            v-model="
+                              currentStudentData.is_student_now_extra_data
+                            "
+                          ></textarea>
+                          <label for="id_is_student_now_extra_data"
+                            >Дополнительные сведения</label
+                          >
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div
