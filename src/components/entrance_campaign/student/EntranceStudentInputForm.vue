@@ -414,9 +414,9 @@
     </div>
     <div v-else>
       <div class="d-flex flex-row justify-content-between align-items-end pb-3">
-        <div>
-          <div class="d-flex flex-row align-items-end">
-            <h1
+        <div style="width: 100%">
+          <div class="d-flex flex-row align-items-end justify-content-between">
+            <h3
               class="fw-lighter"
               :class="{
                 'bg-success-subtle':
@@ -429,13 +429,15 @@
                   currentStudentData.first_name_rus
                 }}&nbsp;{{ currentStudentData.patronymic_rus }}</span
               >
-            </h1>
+            </h3>
             &nbsp;&nbsp;
-            <h1 class="fw-lighter">
+            <h3 class="fw-lighter">
               (возраст - {{ currentStudentData.get_age }} лет)
-            </h1>
+            </h3>
+            &nbsp;&nbsp;
+            <h3>Сумма баллов - {{ get_score_sum }}</h3>
           </div>
-          <div>
+          <div class="d-flex flex-row justify-content-between align-items-end">
             <div class="form-check form-switch my-3">
               <input
                 class="form-check-input"
@@ -448,12 +450,36 @@
                 >Зачислен</label
               >
             </div>
+            <div>
+              <button class="mx-2 btn btn-warning" @click="showHistory">
+                История изменений&nbsp;&nbsp;<font-awesome-icon
+                  :icon="['fas', 'database']"
+                />
+              </button>
+            </div>
+            <div
+              class="me-4 text-success fs-5"
+              v-if="isDataFromServerEqualChangedData"
+            >
+              &#8226; &nbsp;Данные сохранены
+            </div>
+            <div class="me-4 text-secondary fs-5" v-else-if="isDataSaving">
+              &#8226; &nbsp;Сохранение ...
+            </div>
+            <div class="me-4 text-warning fs-5" v-else>
+              &#8226; &nbsp;Несохраненные данные
+            </div>
+            <div>
+              <button
+                class="btn btn-primary"
+                @click="saveEntranceForm"
+                :disabled="isDataFromServerEqualChangedData || isDataSaving"
+              >
+                Сохранить изменения
+              </button>
+            </div>
           </div>
-          <button class="mx-2 btn btn-warning" @click="showHistory">
-            История изменений&nbsp;&nbsp;<font-awesome-icon
-              :icon="['fas', 'database']"
-            />
-          </button>
+
           <div
             v-if="currentStudentData.application_has_been_printed"
             class="my-3"
@@ -477,29 +503,6 @@
                 }}</span
               >
             </h3>
-          </div>
-        </div>
-        <div class="d-flex flex-row justify-content-end align-items-center">
-          <div
-            class="me-4 text-success fs-5"
-            v-if="isDataFromServerEqualChangedData"
-          >
-            &#8226; &nbsp;Данные сохранены
-          </div>
-          <div class="me-4 text-secondary fs-5" v-else-if="isDataSaving">
-            &#8226; &nbsp;Сохранение ...
-          </div>
-          <div class="me-4 text-warning fs-5" v-else>
-            &#8226; &nbsp;Несохраненные данные
-          </div>
-          <div>
-            <button
-              class="btn btn-primary"
-              @click="saveEntranceForm"
-              :disabled="isDataFromServerEqualChangedData || isDataSaving"
-            >
-              Сохранить изменения
-            </button>
           </div>
         </div>
       </div>
@@ -668,6 +671,35 @@
                     </select>
                     <label for="id_ppfl_test"
                       >Группа по физической культуре</label
+                    >
+                  </div>
+                </div>
+
+                <div class="col-xl-2">
+                  <div class="form-check mb-3">
+                    <input
+                      id="id_is_disabled"
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="currentStudentData.is_disabled"
+                    />
+                    <label class="form-check-label" for="id_is_disabled">
+                      Имеет инвалидность
+                    </label>
+                  </div>
+                </div>
+
+                <div class="col-xl-4">
+                  <div class="form-floating mb-3">
+                    <input
+                      id="id_is_disabled_extra_data"
+                      type="text"
+                      class="form-control"
+                      placeholder="Из числа детей-сирот (доп.)"
+                      v-model="currentStudentData.is_disabled_extra_data"
+                    />
+                    <label for="id_is_disabled_extra_data"
+                      >Имеет инвалидность (доп.)</label
                     >
                   </div>
                 </div>
@@ -891,9 +923,8 @@
                           >
                         </div>
                       </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-12">
+
+                      <div class="col-xl-3">
                         <div class="form-check mb-3">
                           <input
                             id="id_is_located_in_Minsk"
@@ -910,27 +941,28 @@
                         </div>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-xl-12">
-                        <div class="form-floating mb-3">
-                          <textarea
-                            id="id_education_tab_extra_data"
-                            class="form-control"
-                            placeholder="Примечание по образованию"
-                            rows="2"
-                            v-model="
-                              currentStudentData.education_tab_extra_data
-                            "
-                          ></textarea>
-                          <label for="id_education_tab_extra_data"
-                            >Примечание по образованию</label
-                          >
-                        </div>
-                      </div>
-                    </div>
+
+                    <!--                    <div class="row">-->
+                    <!--                      <div class="col-xl-12">-->
+                    <!--                        <div class="form-floating mb-3">-->
+                    <!--                          <textarea-->
+                    <!--                            id="id_education_tab_extra_data"-->
+                    <!--                            class="form-control"-->
+                    <!--                            placeholder="Примечание по образованию"-->
+                    <!--                            rows="2"-->
+                    <!--                            v-model="-->
+                    <!--                              currentStudentData.education_tab_extra_data-->
+                    <!--                            "-->
+                    <!--                          ></textarea>-->
+                    <!--                          <label for="id_education_tab_extra_data"-->
+                    <!--                            >Примечание по образованию</label-->
+                    <!--                          >-->
+                    <!--                        </div>-->
+                    <!--                      </div>-->
+                    <!--                    </div>-->
 
                     <div class="row">
-                      <h5>В настоящее время является студентом (кой)</h5>
+                      <h5>В настоящее время является студентом</h5>
                       <div class="col-xl-2">
                         <div class="form-floating mb-3">
                           <input
@@ -938,13 +970,13 @@
                             id="id_is_student_now_year"
                             class="form-control"
                             type="number"
-                            placeholder="Курса"
+                            placeholder="курс"
                             min="1"
                             max="7"
                             v-model="currentStudentData.is_student_now_year"
                             @input="makeInputDefaultNullValueIfEmpty"
                           />
-                          <label for="id_is_student_now_year">Курса</label>
+                          <label for="id_is_student_now_year">курс</label>
                         </div>
                       </div>
                       <div class="col-xl-5">
@@ -952,14 +984,14 @@
                           <textarea
                             id="id_is_student_now_university"
                             class="form-control"
-                            placeholder="Учреждения образования"
+                            placeholder="наименование УО"
                             rows="2"
                             v-model="
                               currentStudentData.is_student_now_university
                             "
                           ></textarea>
                           <label for="id_is_student_now_university"
-                            >Учреждения образования</label
+                            >наименование УО</label
                           >
                         </div>
                       </div>
@@ -969,14 +1001,14 @@
                           <textarea
                             id="id_is_student_now_specialty"
                             class="form-control"
-                            placeholder="По специальности"
+                            placeholder="по специальности"
                             rows="2"
                             v-model="
                               currentStudentData.is_student_now_specialty
                             "
                           ></textarea>
                           <label for="id_is_student_now_specialty"
-                            >По специальности</label
+                            >по специальности</label
                           >
                         </div>
                       </div>
@@ -1238,20 +1270,6 @@
                         <div class="col-xxl-3">
                           <div class="form-floating mb-3">
                             <textarea
-                              id="id_department"
-                              class="form-control"
-                              placeholder="Наименование ведомства (для сотрудников)"
-                              rows="2"
-                              v-model="currentStudentData.department"
-                            ></textarea>
-                            <label for="id_department"
-                              >Наименование ведомства (для сотрудников)</label
-                            >
-                          </div>
-                        </div>
-                        <div class="col-xxl-3">
-                          <div class="form-floating mb-3">
-                            <textarea
                               id="id_place_of_work"
                               class="form-control"
                               placeholder="Место работы и должность"
@@ -1263,73 +1281,95 @@
                             >
                           </div>
                         </div>
+
+                        <div class="col-xxl-3">
+                          <div class="form-floating mb-3">
+                            <textarea
+                              id="id_department"
+                              class="form-control"
+                              placeholder="Наименование ведомства (для сотрудников)"
+                              rows="2"
+                              v-model="currentStudentData.department"
+                            ></textarea>
+                            <label for="id_department"
+                              >Наименование ведомства (для сотрудников)</label
+                            >
+                          </div>
+                        </div>
+
                         <div class="col-xxl-3">
                           <div class="form-floating mb-3">
                             <textarea
                               id="id_rank"
                               class="form-control"
-                              placeholder="Место работы"
+                              placeholder="Звание (для сотрудников)"
                               rows="2"
                               v-model="currentStudentData.rank"
                             ></textarea>
-                            <label for="id_rank">Звание</label>
+                            <label for="id_rank"
+                              >Звание (для сотрудников)</label
+                            >
                           </div>
                         </div>
                       </div>
 
                       <div class="row">
-                        <div class="col-xl-12">
+                        <div class="col-xl-3">
                           <div class="form-floating mb-3">
-                            <textarea
-                              id="id_personal_information_tab_extra_data"
+                            <input
+                              name="work_experience_year"
+                              id="work_experience_year"
                               class="form-control"
-                              placeholder="Примечание по личной информации"
-                              rows="2"
-                              v-model="
-                                currentStudentData.personal_information_tab_extra_data
-                              "
-                            ></textarea>
-                            <label for="id_personal_information_tab_extra_data"
-                              >Примечание по личной информации</label
+                              type="number"
+                              placeholder="лет"
+                              min="1"
+                              max="7"
+                              v-model="currentStudentData.work_experience_year"
+                              @input="makeInputDefaultNullValueIfEmpty"
+                            />
+                            <label for="work_experience_year"
+                              >Трудовой стаж (лет)</label
+                            >
+                          </div>
+                        </div>
+                        <div class="col-xl-3">
+                          <div class="form-floating mb-3">
+                            <input
+                              name="work_experience_month"
+                              id="work_experience_month"
+                              class="form-control"
+                              type="number"
+                              placeholder="лет"
+                              min="1"
+                              max="7"
+                              v-model="currentStudentData.work_experience_month"
+                              @input="makeInputDefaultNullValueIfEmpty"
+                            />
+                            <label for="work_experience_month"
+                              >Трудовой стаж (месяцев)</label
                             >
                           </div>
                         </div>
                       </div>
 
-                      <div class="row d-flex flex-row align-items-center">
-                        <div class="col-xl-3">
-                          <div class="form-check mb-3">
-                            <input
-                              id="id_is_disabled"
-                              class="form-check-input"
-                              type="checkbox"
-                              v-model="currentStudentData.is_disabled"
-                            />
-                            <label
-                              class="form-check-label"
-                              for="id_is_disabled"
-                            >
-                              Имеет инвалидность
-                            </label>
-                          </div>
-                        </div>
-                        <div class="col-xl-9">
-                          <div class="form-floating mb-3">
-                            <input
-                              id="id_is_disabled_extra_data"
-                              type="text"
-                              class="form-control"
-                              placeholder="Из числа детей-сирот (доп.)"
-                              v-model="
-                                currentStudentData.is_disabled_extra_data
-                              "
-                            />
-                            <label for="id_is_disabled_extra_data"
-                              >Имеет инвалидность (доп.)</label
-                            >
-                          </div>
-                        </div>
-                      </div>
+                      <!--                      <div class="row">-->
+                      <!--                        <div class="col-xl-12">-->
+                      <!--                          <div class="form-floating mb-3">-->
+                      <!--                            <textarea-->
+                      <!--                              id="id_personal_information_tab_extra_data"-->
+                      <!--                              class="form-control"-->
+                      <!--                              placeholder="Примечание по личной информации"-->
+                      <!--                              rows="2"-->
+                      <!--                              v-model="-->
+                      <!--                                currentStudentData.personal_information_tab_extra_data-->
+                      <!--                              "-->
+                      <!--                            ></textarea>-->
+                      <!--                            <label for="id_personal_information_tab_extra_data"-->
+                      <!--                              >Примечание по личной информации</label-->
+                      <!--                            >-->
+                      <!--                          </div>-->
+                      <!--                        </div>-->
+                      <!--                      </div>-->
                     </div>
                   </div>
                 </div>
@@ -1418,62 +1458,6 @@
                         <div class="col-6">
                           <div class="form-floating mb-3">
                             <input
-                              id="id_mother_address_residence"
-                              type="text"
-                              class="form-control form-control-sm"
-                              placeholder="Место фактичесго жительства"
-                              v-model="
-                                currentStudentData.mother_address_residence
-                              "
-                            />
-                            <label for="id_mother_address_residence"
-                              >Место фактичесго жительства</label
-                            >
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-6">
-                          <div class="row">
-                            <div class="col-3 d-flex align-items-end">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_mother_is_employee"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="
-                                    currentStudentData.mother_is_employee
-                                  "
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_mother_is_employee"
-                                >
-                                  Является сотрудником
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_mother_place_of_work"
-                                  type="text"
-                                  class="form-control form-control-sm"
-                                  placeholder="Место работы и должность"
-                                  v-model="
-                                    currentStudentData.mother_place_of_work
-                                  "
-                                />
-                                <label for="id_mother_place_of_work"
-                                  >Место работы и должность</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-6">
-                          <div class="form-floating mb-3">
-                            <input
                               id="id_mother_phone_number"
                               type="text"
                               class="form-control form-control-sm"
@@ -1484,6 +1468,63 @@
                               >Номер телефона</label
                             >
                           </div>
+                        </div>
+
+                        <!--                        <div class="col-6">-->
+                        <!--                          <div class="form-floating mb-3">-->
+                        <!--                            <input-->
+                        <!--                              id="id_mother_address_residence"-->
+                        <!--                              type="text"-->
+                        <!--                              class="form-control form-control-sm"-->
+                        <!--                              placeholder="Место фактичесго жительства"-->
+                        <!--                              v-model="-->
+                        <!--                                currentStudentData.mother_address_residence-->
+                        <!--                              "-->
+                        <!--                            />-->
+                        <!--                            <label for="id_mother_address_residence"-->
+                        <!--                              >Место фактичесго жительства</label-->
+                        <!--                            >-->
+                        <!--                          </div>-->
+                        <!--                        </div>-->
+                      </div>
+                      <div class="row">
+                        <div class="col-6">
+                          <!--                          <div class="row">-->
+                          <!--                            <div class="col-3 d-flex align-items-end">-->
+                          <!--                              <div class="form-check mb-3">-->
+                          <!--                                <input-->
+                          <!--                                  id="id_mother_is_employee"-->
+                          <!--                                  class="form-check-input"-->
+                          <!--                                  type="checkbox"-->
+                          <!--                                  v-model="-->
+                          <!--                                    currentStudentData.mother_is_employee-->
+                          <!--                                  "-->
+                          <!--                                />-->
+                          <!--                                <label-->
+                          <!--                                  class="form-check-label"-->
+                          <!--                                  for="id_mother_is_employee"-->
+                          <!--                                >-->
+                          <!--                                  Является сотрудником-->
+                          <!--                                </label>-->
+                          <!--                              </div>-->
+                          <!--                            </div>-->
+                          <!--                            <div class="col-9">-->
+                          <!--                              <div class="form-floating mb-3">-->
+                          <!--                                <input-->
+                          <!--                                  id="id_mother_place_of_work"-->
+                          <!--                                  type="text"-->
+                          <!--                                  class="form-control form-control-sm"-->
+                          <!--                                  placeholder="Место работы и должность"-->
+                          <!--                                  v-model="-->
+                          <!--                                    currentStudentData.mother_place_of_work-->
+                          <!--                                  "-->
+                          <!--                                />-->
+                          <!--                                <label for="id_mother_place_of_work"-->
+                          <!--                                  >Место работы и должность</label-->
+                          <!--                                >-->
+                          <!--                              </div>-->
+                          <!--                            </div>-->
+                          <!--                          </div>-->
                         </div>
                       </div>
 
@@ -1559,63 +1600,7 @@
                             >
                           </div>
                         </div>
-                        <div class="col-6">
-                          <div class="form-floating mb-3">
-                            <input
-                              id="id_father_address_residence"
-                              type="text"
-                              class="form-control form-control-sm"
-                              placeholder="Место фактического жительства"
-                              v-model="
-                                currentStudentData.father_address_residence
-                              "
-                            />
-                            <label for="id_father_address_residence"
-                              >Место фактического жительства</label
-                            >
-                          </div>
-                        </div>
-                      </div>
 
-                      <div class="row">
-                        <div class="col-6">
-                          <div class="row">
-                            <div class="col-3 d-flex align-items-end">
-                              <div class="form-check mb-3">
-                                <input
-                                  id="id_father_is_employee"
-                                  class="form-check-input"
-                                  type="checkbox"
-                                  v-model="
-                                    currentStudentData.father_is_employee
-                                  "
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="id_father_is_employee"
-                                >
-                                  Является сотрудником
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-9">
-                              <div class="form-floating mb-3">
-                                <input
-                                  id="id_father_place_of_work"
-                                  type="text"
-                                  class="form-control form-control-sm"
-                                  placeholder="Место работы и должность"
-                                  v-model="
-                                    currentStudentData.father_place_of_work
-                                  "
-                                />
-                                <label for="id_father_place_of_work"
-                                  >Место работы и должность</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                        </div>
                         <div class="col-6">
                           <div class="form-floating mb-3">
                             <input
@@ -1630,24 +1615,82 @@
                             >
                           </div>
                         </div>
-                        <div class="row">
-                          <div class="col-xl-12">
-                            <div class="form-floating mb-3">
-                              <textarea
-                                id="id_parents_tab_extra_data"
-                                class="form-control"
-                                placeholder="Примечание по представителям"
-                                rows="2"
-                                v-model="
-                                  currentStudentData.parents_tab_extra_data
-                                "
-                              ></textarea>
-                              <label for="id_parents_tab_extra_data"
-                                >Примечание по представителям
-                              </label>
-                            </div>
-                          </div>
+                        <!--                        <div class="col-6">-->
+                        <!--                          <div class="form-floating mb-3">-->
+                        <!--                            <input-->
+                        <!--                              id="id_father_address_residence"-->
+                        <!--                              type="text"-->
+                        <!--                              class="form-control form-control-sm"-->
+                        <!--                              placeholder="Место фактического жительства"-->
+                        <!--                              v-model="-->
+                        <!--                                currentStudentData.father_address_residence-->
+                        <!--                              "-->
+                        <!--                            />-->
+                        <!--                            <label for="id_father_address_residence"-->
+                        <!--                              >Место фактического жительства</label-->
+                        <!--                            >-->
+                        <!--                          </div>-->
+                        <!--                        </div>-->
+                      </div>
+
+                      <div class="row">
+                        <div class="col-6">
+                          <!--                          <div class="row">-->
+                          <!--                            <div class="col-3 d-flex align-items-end">-->
+                          <!--                              <div class="form-check mb-3">-->
+                          <!--                                <input-->
+                          <!--                                  id="id_father_is_employee"-->
+                          <!--                                  class="form-check-input"-->
+                          <!--                                  type="checkbox"-->
+                          <!--                                  v-model="-->
+                          <!--                                    currentStudentData.father_is_employee-->
+                          <!--                                  "-->
+                          <!--                                />-->
+                          <!--                                <label-->
+                          <!--                                  class="form-check-label"-->
+                          <!--                                  for="id_father_is_employee"-->
+                          <!--                                >-->
+                          <!--                                  Является сотрудником-->
+                          <!--                                </label>-->
+                          <!--                              </div>-->
+                          <!--                            </div>-->
+                          <!--                            <div class="col-9">-->
+                          <!--                              <div class="form-floating mb-3">-->
+                          <!--                                <input-->
+                          <!--                                  id="id_father_place_of_work"-->
+                          <!--                                  type="text"-->
+                          <!--                                  class="form-control form-control-sm"-->
+                          <!--                                  placeholder="Место работы и должность"-->
+                          <!--                                  v-model="-->
+                          <!--                                    currentStudentData.father_place_of_work-->
+                          <!--                                  "-->
+                          <!--                                />-->
+                          <!--                                <label for="id_father_place_of_work"-->
+                          <!--                                  >Место работы и должность</label-->
+                          <!--                                >-->
+                          <!--                              </div>-->
+                          <!--                            </div>-->
+                          <!--                          </div>-->
                         </div>
+
+                        <!--                        <div class="row">-->
+                        <!--                          <div class="col-xl-12">-->
+                        <!--                            <div class="form-floating mb-3">-->
+                        <!--                              <textarea-->
+                        <!--                                id="id_parents_tab_extra_data"-->
+                        <!--                                class="form-control"-->
+                        <!--                                placeholder="Примечание по представителям"-->
+                        <!--                                rows="2"-->
+                        <!--                                v-model="-->
+                        <!--                                  currentStudentData.parents_tab_extra_data-->
+                        <!--                                "-->
+                        <!--                              ></textarea>-->
+                        <!--                              <label for="id_parents_tab_extra_data"-->
+                        <!--                                >Примечание по представителям-->
+                        <!--                              </label>-->
+                        <!--                            </div>-->
+                        <!--                          </div>-->
+                        <!--                        </div>-->
                       </div>
                     </div>
                   </div>
@@ -2747,443 +2790,13 @@
                 </div>
               </div>
               <h5>Набранные баллы</h5>
-              <div>
-                <p class="fw-bold">
-                  Сертификаты централизованного тестирования
-                </p>
-                <h3>Сумма баллов - {{ get_score_sum }}</h3>
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th class="text-center table-primary">Русский</th>
-                      <th class="text-center table-primary">Белорусский</th>
-                      <th class="text-center table-warning">Обществоведение</th>
-                      <th class="text-center table-success">
-                        Иностранный язык
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td colspan="2" class="text-center table-primary">
-                        <label for="id_rus_bel_cert_number"
-                          >№ сертификата</label
-                        >
-                        <input
-                          id="id_rus_bel_cert_number"
-                          type="text"
-                          class="form-control text-center"
-                          v-model="currentStudentData.rus_bel_ct_number"
-                        />
-                      </td>
-                      <td class="text-center table-warning">
-                        <label for="id_social_science_cert_number"
-                          >№ сертификата</label
-                        >
-                        <input
-                          id="id_social_science_cert_number"
-                          type="text"
-                          class="form-control text-center"
-                          v-model="currentStudentData.social_science_ct_number"
-                        />
-                      </td>
-                      <td class="text-center table-success">
-                        <label for="id_foreign_lang_cert_number"
-                          >№ сертификата</label
-                        >
-                        <input
-                          id="id_foreign_lang_cert_number"
-                          type="text"
-                          class="form-control text-center"
-                          v-model="currentStudentData.foreign_lang_ct_number"
-                        />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="text-center table-primary">
-                        <label for="id_rus_score_ct"
-                          >Количество баллов по сертификату</label
-                        >
-                        <input
-                          id="id_rus_score_ct"
-                          name="rus_score_ct"
-                          type="number"
-                          class="form-control text-center"
-                          v-model="currentStudentData.rus_score_ct"
-                          @input="makeInputDefaultNullValueIfEmpty"
-                        />
-                      </td>
-                      <td class="text-center table-primary">
-                        <label for="id_bel_score_ct"
-                          >Количество баллов по сертификату</label
-                        >
-                        <input
-                          id="id_bel_score_ct"
-                          name="bel_score_ct"
-                          type="number"
-                          class="form-control text-center"
-                          v-model="currentStudentData.bel_score_ct"
-                          @input="makeInputDefaultNullValueIfEmpty"
-                        />
-                      </td>
-                      <td class="text-center table-warning">
-                        <label for="id_social_science_ct"
-                          >Количество баллов по сертификату</label
-                        >
-                        <input
-                          id="id_social_science_ct"
-                          name="social_science_score_ct"
-                          type="number"
-                          class="form-control text-center"
-                          v-model="currentStudentData.social_science_score_ct"
-                          @input="makeInputDefaultNullValueIfEmpty"
-                        />
-                      </td>
-                      <td class="text-center table-success">
-                        <label for="id_foreign_lang_ct"
-                          >Количество баллов по сертификату</label
-                        >
-                        <input
-                          id="id_foreign_lang_ct"
-                          name="foreign_lang_score_ct"
-                          type="number"
-                          class="form-control text-center"
-                          v-model="currentStudentData.foreign_lang_score_ct"
-                          @input="makeInputDefaultNullValueIfEmpty"
-                        />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="text-center table-primary">
-                        <select
-                          class="form-select"
-                          v-model="currentStudentData.rus_ct_choice"
-                        >
-                          <option selected class="text-center" value="">
-                            ----------
-                          </option>
-                          <option
-                            :value="`${new Date().getFullYear() - 1} ЦЭ`"
-                            :key="`${new Date().getFullYear() - 1} ЦЭ`"
-                            class="text-center"
-                          >
-                            {{ `${new Date().getFullYear() - 1} ЦЭ` }}
-                          </option>
-                          <option
-                            :value="`${new Date().getFullYear() - 1} ЦТ`"
-                            :key="`${new Date().getFullYear() - 1} ЦТ`"
-                            class="text-center"
-                          >
-                            {{ `${new Date().getFullYear() - 1} ЦТ` }}
-                          </option>
-                          <option
-                            :value="`${new Date().getFullYear()} ЦЭ`"
-                            :key="`${new Date().getFullYear()} ЦЭ`"
-                            class="text-center"
-                          >
-                            {{ `${new Date().getFullYear()} ЦЭ` }}
-                          </option>
-                          <option
-                            :value="`${new Date().getFullYear()} ЦТ`"
-                            :key="`${new Date().getFullYear()} ЦТ`"
-                            class="text-center"
-                          >
-                            {{ `${new Date().getFullYear()} ЦТ` }}
-                          </option>
-                        </select>
-                      </td>
-                      <td class="text-center table-primary">
-                        <select
-                          class="form-select"
-                          v-model="currentStudentData.bel_ct_choice"
-                        >
-                          <option selected class="text-center" value="">
-                            ----------
-                          </option>
-                          <option
-                            :value="`${new Date().getFullYear() - 1} ЦЭ`"
-                            class="text-center"
-                          >
-                            {{ `${new Date().getFullYear() - 1} ЦЭ` }}
-                          </option>
-                          <option
-                            :value="`${new Date().getFullYear() - 1} ЦТ`"
-                            class="text-center"
-                          >
-                            {{ `${new Date().getFullYear() - 1} ЦТ` }}
-                          </option>
-                          <option
-                            :value="`${new Date().getFullYear()} ЦЭ`"
-                            class="text-center"
-                          >
-                            {{ `${new Date().getFullYear()} ЦЭ` }}
-                          </option>
-                          <option
-                            :value="`${new Date().getFullYear()} ЦТ`"
-                            class="text-center"
-                          >
-                            {{ `${new Date().getFullYear()} ЦТ` }}
-                          </option>
-                        </select>
-                      </td>
-                      <td class="text-center table-warning">
-                        <select
-                          class="form-select"
-                          v-model="currentStudentData.social_science_ct_choice"
-                        >
-                          <option selected class="text-center" value="">
-                            ----------
-                          </option>
-                          <option
-                            :value="`${new Date().getFullYear() - 1} ЦЭ`"
-                            class="text-center"
-                          >
-                            {{ `${new Date().getFullYear() - 1} ЦЭ` }}
-                          </option>
-                          <option
-                            :value="`${new Date().getFullYear() - 1} ЦТ`"
-                            class="text-center"
-                          >
-                            {{ `${new Date().getFullYear() - 1} ЦТ` }}
-                          </option>
-                          <option
-                            :value="`${new Date().getFullYear()} ЦЭ`"
-                            class="text-center"
-                          >
-                            {{ `${new Date().getFullYear()} ЦЭ` }}
-                          </option>
-                          <option
-                            :value="`${new Date().getFullYear()} ЦТ`"
-                            class="text-center"
-                          >
-                            {{ `${new Date().getFullYear()} ЦТ` }}
-                          </option>
-                        </select>
-                      </td>
-                      <td class="text-center table-success">
-                        <select
-                          class="form-select"
-                          v-model="currentStudentData.foreign_lang_ct_choice"
-                        >
-                          <option selected class="text-center" value="">
-                            ----------
-                          </option>
-                          <option
-                            :value="`${new Date().getFullYear() - 1} ЦЭ`"
-                            class="text-center"
-                          >
-                            {{ `${new Date().getFullYear() - 1} ЦЭ` }}
-                          </option>
-                          <option
-                            :value="`${new Date().getFullYear() - 1} ЦТ`"
-                            class="text-center"
-                          >
-                            {{ `${new Date().getFullYear() - 1} ЦТ` }}
-                          </option>
-                          <option
-                            :value="`${new Date().getFullYear()} ЦЭ`"
-                            class="text-center"
-                          >
-                            {{ `${new Date().getFullYear()} ЦЭ` }}
-                          </option>
-                          <option
-                            :value="`${new Date().getFullYear()} ЦТ`"
-                            class="text-center"
-                          >
-                            {{ `${new Date().getFullYear()} ЦТ` }}
-                          </option>
-                        </select>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="text-center table-primary">Минимум 10</td>
-                      <td class="text-center table-primary">Минимум 10</td>
-                      <td class="text-center table-warning">Минимум 25</td>
-                      <td class="text-center table-success">Минимум 15</td>
-                    </tr>
-                  </tbody>
-                </table>
-
-                <div class="row">
-                  <div class="col-xl-3">
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_has_3_ct"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentStudentData.has_3_ct"
-                      />
-                      <label class="form-check-label" for="id_has_3_ct">
-                        3 ЦТ
-                      </label>
-                    </div>
-                  </div>
-                  <div class="col-xl-3">
-                    <div class="form-check mb-3">
-                      <input
-                        id="id_has_3_ct"
-                        class="form-check-input"
-                        type="checkbox"
-                        v-model="currentStudentData.has_2_ce"
-                      />
-                      <label class="form-check-label" for="id_has_3_ct">
-                        2 ЦЭ
-                      </label>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="border-bottom border-4 my-3"></div>
-
-                <div
-                  class="d-flex flex-row justify-content-between align-items-end"
-                >
-                  <p class="fw-bold">Аттестат, 10 / 10 /100</p>
-                </div>
-
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th class="text-center table-primary">Русский</th>
-                      <th class="text-center table-primary">Белорусский</th>
-                      <th class="text-center table-warning">Обществоведение</th>
-                      <th class="text-center table-success">
-                        Иностранный язык
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td class="text-center table-primary">
-                        <input
-                          name="rus_score_cert"
-                          type="number"
-                          class="form-control text-center"
-                          v-model="currentStudentData.rus_score_cert"
-                          @input="makeInputDefaultNullValueIfEmpty"
-                        />
-                      </td>
-                      <td class="text-center table-primary">
-                        <input
-                          name="bel_score_cert"
-                          type="number"
-                          class="form-control text-center"
-                          v-model="currentStudentData.bel_score_cert"
-                          @input="makeInputDefaultNullValueIfEmpty"
-                        />
-                      </td>
-                      <td class="text-center table-warning">
-                        <input
-                          name="social_science_score_cert"
-                          type="number"
-                          class="form-control text-center"
-                          v-model="currentStudentData.social_science_score_cert"
-                          @input="makeInputDefaultNullValueIfEmpty"
-                        />
-                      </td>
-                      <td class="text-center table-success">
-                        <input
-                          name="foreign_lang_score_cert"
-                          type="number"
-                          class="form-control text-center"
-                          v-model="currentStudentData.foreign_lang_score_cert"
-                          @input="makeInputDefaultNullValueIfEmpty"
-                        />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td colspan="2" class="text-center table-primary fw-bold">
-                        Средний балл (аттестата)
-                      </td>
-                      <td colspan="2" class="text-center table-primary fw-bold">
-                        Сумма (рус. + бел.)
-                      </td>
-                    </tr>
-                    <tr>
-                      <td colspan="2" class="text-center table-primary">
-                        <div class="d-flex flex-row">
-                          <button
-                            class="btn btn-warning me-2 text-nowrap"
-                            @click="showAverageScoreCalculatingModal"
-                          >
-                            <font-awesome-icon
-                              :icon="['fas', 'calculator']"
-                            />&nbsp;Рассчитать
-                          </button>
-                          <input
-                            type="number"
-                            name="education_average_score"
-                            class="form-control text-center"
-                            v-model="currentStudentData.education_average_score"
-                            @input="makeInputDefaultNullValueIfEmpty"
-                          />
-                        </div>
-                      </td>
-                      <td colspan="2" class="text-center table-primary">
-                        <input
-                          type="number"
-                          class="form-control text-center"
-                          :value="getARussianAndBelorussianSumScore"
-                          disabled
-                        />
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-
-                <div class="my-3"></div>
-
-                <div class="card shadow mb-2 rounded border-0">
-                  <div class="card-body">
-                    <div class="row mt-3">
-                      <div class="col-xl-6">
-                        <div class="form-floating mb-3">
-                          <select
-                            id="id_foreign_language_was"
-                            class="form-select"
-                            v-model="currentStudentData.foreign_language_was"
-                          >
-                            <option :value="null">---------</option>
-                            <option
-                              :value="foreign_language.id"
-                              v-for="foreign_language in orderedForeignLanguages"
-                            >
-                              {{ foreign_language.foreign_language }}
-                            </option>
-                          </select>
-                          <label for="id_foreign_language_was"
-                            >Иностранный язык (был)</label
-                          >
-                        </div>
-                      </div>
-                      <div class="col-xl-6">
-                        <div class="form-floating mb-3">
-                          <select
-                            id="id_foreign_language_will_be"
-                            class="form-select"
-                            v-model="
-                              currentStudentData.foreign_language_will_be
-                            "
-                          >
-                            <option :value="null">---------</option>
-                            <option :value="1" :key="1">Английский</option>
-                            <option :value="2" :key="2">Немецкий</option>
-                          </select>
-                          <label for="id_foreign_language_will_be"
-                            >Иностранный язык (будет)</label
-                          >
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <h3>Сумма баллов - {{ get_score_sum }}</h3>
             </div>
 
             <div class="col-xxl-6">
               <h5 class="fw-bold">ВПК</h5>
               <div class="row">
-                <div class="col-xl-3">
+                <div class="col-xl-4">
                   <div class="form-floating mb-3">
                     <select
                       id="id_vpk"
@@ -3201,7 +2814,7 @@
                     <label for="id_vpk">Военно-патриотический клуб</label>
                   </div>
                 </div>
-                <div class="col-xl-9">
+                <div class="col-xl-8">
                   <div class="form-floating mb-3">
                     <input
                       id="id_vpk_data"
@@ -3214,6 +2827,426 @@
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xxl-6">
+              <p class="fw-bold">Сертификаты централизованного тестирования</p>
+
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th class="text-center table-primary">Русский</th>
+                    <th class="text-center table-primary">Белорусский</th>
+                    <th class="text-center table-warning">Обществоведение</th>
+                    <th class="text-center table-success">Иностранный язык</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td colspan="2" class="text-center table-primary">
+                      <label for="id_rus_bel_cert_number">№ сертификата</label>
+                      <input
+                        id="id_rus_bel_cert_number"
+                        type="text"
+                        class="form-control text-center"
+                        v-model="currentStudentData.rus_bel_ct_number"
+                      />
+                    </td>
+                    <td class="text-center table-warning">
+                      <label for="id_social_science_cert_number"
+                        >№ сертификата</label
+                      >
+                      <input
+                        id="id_social_science_cert_number"
+                        type="text"
+                        class="form-control text-center"
+                        v-model="currentStudentData.social_science_ct_number"
+                      />
+                    </td>
+                    <td class="text-center table-success">
+                      <label for="id_foreign_lang_cert_number"
+                        >№ сертификата</label
+                      >
+                      <input
+                        id="id_foreign_lang_cert_number"
+                        type="text"
+                        class="form-control text-center"
+                        v-model="currentStudentData.foreign_lang_ct_number"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-center table-primary">
+                      <label for="id_rus_score_ct"
+                        >Количество баллов по сертификату</label
+                      >
+                      <input
+                        id="id_rus_score_ct"
+                        name="rus_score_ct"
+                        type="number"
+                        class="form-control text-center"
+                        v-model="currentStudentData.rus_score_ct"
+                        @input="makeInputDefaultNullValueIfEmpty"
+                      />
+                    </td>
+                    <td class="text-center table-primary">
+                      <label for="id_bel_score_ct"
+                        >Количество баллов по сертификату</label
+                      >
+                      <input
+                        id="id_bel_score_ct"
+                        name="bel_score_ct"
+                        type="number"
+                        class="form-control text-center"
+                        v-model="currentStudentData.bel_score_ct"
+                        @input="makeInputDefaultNullValueIfEmpty"
+                      />
+                    </td>
+                    <td class="text-center table-warning">
+                      <label for="id_social_science_ct"
+                        >Количество баллов по сертификату</label
+                      >
+                      <input
+                        id="id_social_science_ct"
+                        name="social_science_score_ct"
+                        type="number"
+                        class="form-control text-center"
+                        v-model="currentStudentData.social_science_score_ct"
+                        @input="makeInputDefaultNullValueIfEmpty"
+                      />
+                    </td>
+                    <td class="text-center table-success">
+                      <label for="id_foreign_lang_ct"
+                        >Количество баллов по сертификату</label
+                      >
+                      <input
+                        id="id_foreign_lang_ct"
+                        name="foreign_lang_score_ct"
+                        type="number"
+                        class="form-control text-center"
+                        v-model="currentStudentData.foreign_lang_score_ct"
+                        @input="makeInputDefaultNullValueIfEmpty"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-center table-primary">
+                      <select
+                        class="form-select"
+                        v-model="currentStudentData.rus_ct_choice"
+                      >
+                        <option selected class="text-center" value="">
+                          ----------
+                        </option>
+                        <option
+                          :value="`${new Date().getFullYear() - 1} ЦЭ`"
+                          :key="`${new Date().getFullYear() - 1} ЦЭ`"
+                          class="text-center"
+                        >
+                          {{ `${new Date().getFullYear() - 1} ЦЭ` }}
+                        </option>
+                        <option
+                          :value="`${new Date().getFullYear() - 1} ЦТ`"
+                          :key="`${new Date().getFullYear() - 1} ЦТ`"
+                          class="text-center"
+                        >
+                          {{ `${new Date().getFullYear() - 1} ЦТ` }}
+                        </option>
+                        <option
+                          :value="`${new Date().getFullYear()} ЦЭ`"
+                          :key="`${new Date().getFullYear()} ЦЭ`"
+                          class="text-center"
+                        >
+                          {{ `${new Date().getFullYear()} ЦЭ` }}
+                        </option>
+                        <option
+                          :value="`${new Date().getFullYear()} ЦТ`"
+                          :key="`${new Date().getFullYear()} ЦТ`"
+                          class="text-center"
+                        >
+                          {{ `${new Date().getFullYear()} ЦТ` }}
+                        </option>
+                      </select>
+                    </td>
+                    <td class="text-center table-primary">
+                      <select
+                        class="form-select"
+                        v-model="currentStudentData.bel_ct_choice"
+                      >
+                        <option selected class="text-center" value="">
+                          ----------
+                        </option>
+                        <option
+                          :value="`${new Date().getFullYear() - 1} ЦЭ`"
+                          class="text-center"
+                        >
+                          {{ `${new Date().getFullYear() - 1} ЦЭ` }}
+                        </option>
+                        <option
+                          :value="`${new Date().getFullYear() - 1} ЦТ`"
+                          class="text-center"
+                        >
+                          {{ `${new Date().getFullYear() - 1} ЦТ` }}
+                        </option>
+                        <option
+                          :value="`${new Date().getFullYear()} ЦЭ`"
+                          class="text-center"
+                        >
+                          {{ `${new Date().getFullYear()} ЦЭ` }}
+                        </option>
+                        <option
+                          :value="`${new Date().getFullYear()} ЦТ`"
+                          class="text-center"
+                        >
+                          {{ `${new Date().getFullYear()} ЦТ` }}
+                        </option>
+                      </select>
+                    </td>
+                    <td class="text-center table-warning">
+                      <select
+                        class="form-select"
+                        v-model="currentStudentData.social_science_ct_choice"
+                      >
+                        <option selected class="text-center" value="">
+                          ----------
+                        </option>
+                        <option
+                          :value="`${new Date().getFullYear() - 1} ЦЭ`"
+                          class="text-center"
+                        >
+                          {{ `${new Date().getFullYear() - 1} ЦЭ` }}
+                        </option>
+                        <option
+                          :value="`${new Date().getFullYear() - 1} ЦТ`"
+                          class="text-center"
+                        >
+                          {{ `${new Date().getFullYear() - 1} ЦТ` }}
+                        </option>
+                        <option
+                          :value="`${new Date().getFullYear()} ЦЭ`"
+                          class="text-center"
+                        >
+                          {{ `${new Date().getFullYear()} ЦЭ` }}
+                        </option>
+                        <option
+                          :value="`${new Date().getFullYear()} ЦТ`"
+                          class="text-center"
+                        >
+                          {{ `${new Date().getFullYear()} ЦТ` }}
+                        </option>
+                      </select>
+                    </td>
+                    <td class="text-center table-success">
+                      <select
+                        class="form-select"
+                        v-model="currentStudentData.foreign_lang_ct_choice"
+                      >
+                        <option selected class="text-center" value="">
+                          ----------
+                        </option>
+                        <option
+                          :value="`${new Date().getFullYear() - 1} ЦЭ`"
+                          class="text-center"
+                        >
+                          {{ `${new Date().getFullYear() - 1} ЦЭ` }}
+                        </option>
+                        <option
+                          :value="`${new Date().getFullYear() - 1} ЦТ`"
+                          class="text-center"
+                        >
+                          {{ `${new Date().getFullYear() - 1} ЦТ` }}
+                        </option>
+                        <option
+                          :value="`${new Date().getFullYear()} ЦЭ`"
+                          class="text-center"
+                        >
+                          {{ `${new Date().getFullYear()} ЦЭ` }}
+                        </option>
+                        <option
+                          :value="`${new Date().getFullYear()} ЦТ`"
+                          class="text-center"
+                        >
+                          {{ `${new Date().getFullYear()} ЦТ` }}
+                        </option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-center table-primary">Минимум 10</td>
+                    <td class="text-center table-primary">Минимум 10</td>
+                    <td class="text-center table-warning">Минимум 25</td>
+                    <td class="text-center table-success">Минимум 15</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div class="row">
+                <div class="col-xl-3">
+                  <div class="form-check mb-3">
+                    <input
+                      id="id_has_3_ct"
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="currentStudentData.has_3_ct"
+                    />
+                    <label class="form-check-label" for="id_has_3_ct">
+                      3 ЦТ
+                    </label>
+                  </div>
+                </div>
+                <div class="col-xl-3">
+                  <div class="form-check mb-3">
+                    <input
+                      id="id_has_3_ct"
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="currentStudentData.has_2_ce"
+                    />
+                    <label class="form-check-label" for="id_has_3_ct">
+                      2 ЦЭ
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="card shadow mb-2 rounded border-0">
+                <div class="card-body">
+                  <div class="row mt-3">
+                    <div class="col-xl-6">
+                      <div class="form-floating mb-3">
+                        <select
+                          id="id_foreign_language_was"
+                          class="form-select"
+                          v-model="currentStudentData.foreign_language_was"
+                        >
+                          <option :value="null">---------</option>
+                          <option
+                            :value="foreign_language.id"
+                            v-for="foreign_language in orderedForeignLanguages"
+                          >
+                            {{ foreign_language.foreign_language }}
+                          </option>
+                        </select>
+                        <label for="id_foreign_language_was"
+                          >Иностранный язык (был)</label
+                        >
+                      </div>
+                    </div>
+                    <div class="col-xl-6">
+                      <div class="form-floating mb-3">
+                        <select
+                          id="id_foreign_language_will_be"
+                          class="form-select"
+                          v-model="currentStudentData.foreign_language_will_be"
+                        >
+                          <option :value="null">---------</option>
+                          <option :value="1" :key="1">Английский</option>
+                          <option :value="2" :key="2">Немецкий</option>
+                        </select>
+                        <label for="id_foreign_language_will_be"
+                          >Иностранный язык (будет)</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xxl-6">
+              <div
+                class="d-flex flex-row justify-content-between align-items-end"
+              >
+                <p class="fw-bold">Аттестат, 10 / 10 /100</p>
+              </div>
+
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th class="text-center table-primary">Русский</th>
+                    <th class="text-center table-primary">Белорусский</th>
+                    <th class="text-center table-warning">Обществоведение</th>
+                    <th class="text-center table-success">Иностранный язык</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="text-center table-primary">
+                      <input
+                        name="rus_score_cert"
+                        type="number"
+                        class="form-control text-center"
+                        v-model="currentStudentData.rus_score_cert"
+                        @input="makeInputDefaultNullValueIfEmpty"
+                      />
+                    </td>
+                    <td class="text-center table-primary">
+                      <input
+                        name="bel_score_cert"
+                        type="number"
+                        class="form-control text-center"
+                        v-model="currentStudentData.bel_score_cert"
+                        @input="makeInputDefaultNullValueIfEmpty"
+                      />
+                    </td>
+                    <td class="text-center table-warning">
+                      <input
+                        name="social_science_score_cert"
+                        type="number"
+                        class="form-control text-center"
+                        v-model="currentStudentData.social_science_score_cert"
+                        @input="makeInputDefaultNullValueIfEmpty"
+                      />
+                    </td>
+                    <td class="text-center table-success">
+                      <input
+                        name="foreign_lang_score_cert"
+                        type="number"
+                        class="form-control text-center"
+                        v-model="currentStudentData.foreign_lang_score_cert"
+                        @input="makeInputDefaultNullValueIfEmpty"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="text-center table-primary fw-bold">
+                      Средний балл (аттестата)
+                    </td>
+                    <td colspan="2" class="text-center table-primary fw-bold">
+                      Сумма (рус. + бел.)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="text-center table-primary">
+                      <div class="d-flex flex-row">
+                        <button
+                          class="btn btn-warning me-2 text-nowrap"
+                          @click="showAverageScoreCalculatingModal"
+                        >
+                          <font-awesome-icon
+                            :icon="['fas', 'calculator']"
+                          />&nbsp;Рассчитать
+                        </button>
+                        <input
+                          type="number"
+                          name="education_average_score"
+                          class="form-control text-center"
+                          v-model="currentStudentData.education_average_score"
+                          @input="makeInputDefaultNullValueIfEmpty"
+                        />
+                      </div>
+                    </td>
+                    <td colspan="2" class="text-center table-primary">
+                      <input
+                        type="number"
+                        class="form-control text-center"
+                        :value="getARussianAndBelorussianSumScore"
+                        disabled
+                      />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
 
